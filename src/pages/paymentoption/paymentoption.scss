@@ -1,0 +1,49 @@
+page-paymentoption {
+
+
+    .img1 {
+        border-radius: 50%;
+    }
+
+    .row-center img {
+        position:absolute;
+        left: 0;
+        right: 0;
+        margin:0 auto;
+        top:70px;
+        transform:translateY(-50%);
+    }
+   
+    .logo{
+        background-position: center;
+    background-repeat: no-repeat;
+        align-content: center;
+        text-align:center;
+    }
+
+    .custom-icon {
+        font-size: 128px;
+        color : #2f9c0e;
+      }
+
+
+   
+
+    .ion-title{
+        align-content: center;
+        text-align: center;
+    }
+
+
+      .button.customBtn{
+        width:120px;
+        height:100px;
+    }
+
+    .menu-text{
+        align-content: center;
+        text-align: center;
+        font-size: 13px;
+        font-weight: bold;
+    }
+}

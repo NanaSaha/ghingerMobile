@@ -1,0 +1,882 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Book Subscription</ion-title>
+    <ion-buttons end class="margin" tappable (tap)="home()">
+      <button ion-button icon-only>
+        <ion-icon name="home"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content overflow-scroll="true" class="background">
+  <p>
+    <b style="color: black; text-align: center" text-wrap
+      >Subscription for {{visit_type}}</b
+    >
+  </p>
+
+  <form [formGroup]="subscriptionForm">
+    <ion-list>
+      <ion-item
+        class="height"
+        [hidden]="!value"
+        *ngIf="visit_type =='ElderlyPersonsHomeVisit' "
+      >
+        <ion-input
+          type="text"
+          class="movemove3"
+          formControlName="sub_name"
+          name="sub_name"
+          value="ElderlyPersonsHomeVisit"
+          [class.invalid]="!subscriptionForm.controls.sub_name.valid && (subscriptionForm.controls.sub_name.dirty || submitAttempt)"
+          readonly="true"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item
+        class="height"
+        [hidden]="!value"
+        *ngIf="visit_type =='ElderlyCoupleVisitOneAddress' "
+      >
+        <ion-input
+          class="movemove3"
+          placeholder="sub_name"
+          lineHeight="22"
+          formControlName="sub_name"
+          name="sub_name"
+          value="ElderlyCoupleVisitOneAddress"
+          [class.invalid]="!subscriptionForm.controls.sub_name.valid && (subscriptionForm.controls.sub_name.dirty || submitAttempt)"
+          readonly="true"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item
+        class="height"
+        [hidden]="!value"
+        *ngIf="visit_type =='ElderlyCoupleVisitDiffAddress' "
+      >
+        <ion-input
+          class="movemove3"
+          placeholder="sub_name"
+          lineHeight="22"
+          formControlName="sub_name"
+          name="sub_name"
+          value="ElderlyCoupleVisitDiffAddress"
+          [class.invalid]="!subscriptionForm.controls.sub_name.valid && (subscriptionForm.controls.sub_name.dirty || submitAttempt)"
+          readonly="true"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item
+        class="height"
+        [hidden]="!value"
+        *ngIf="visit_type =='ChronicSingle' "
+      >
+        <ion-input
+          class="movemove3"
+          placeholder="sub_name"
+          lineHeight="22"
+          formControlName="sub_name"
+          name="sub_name"
+          value="ChronicSingle"
+          [class.invalid]="!subscriptionForm.controls.sub_name.valid && (subscriptionForm.controls.sub_name.dirty || submitAttempt)"
+          readonly="true"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item
+        class="height"
+        [hidden]="!value"
+        *ngIf="visit_type =='ChronicCouple' "
+      >
+        <ion-input
+          class="movemove3"
+          placeholder="sub_name"
+          lineHeight="22"
+          formControlName="sub_name"
+          name="sub_name"
+          value="ChronicCouple"
+          [class.invalid]="!subscriptionForm.controls.sub_name.valid && (subscriptionForm.controls.sub_name.dirty || submitAttempt)"
+          readonly="true"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item
+        class="height"
+        [hidden]="!value"
+        *ngIf="visit_type =='ScreenAdult' "
+      >
+        <ion-input
+          class="movemove3"
+          placeholder="sub_name"
+          lineHeight="22"
+          formControlName="sub_name"
+          name="sub_name"
+          value="ScreenAdult"
+          [class.invalid]="!subscriptionForm.controls.sub_name.valid && (subscriptionForm.controls.sub_name.dirty || submitAttempt)"
+          readonly="true"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item
+        class="height"
+        [hidden]="!value"
+        *ngIf="visit_type =='ScreenAdultCouple' "
+      >
+        <ion-input
+          class="movemove3"
+          placeholder="sub_name"
+          lineHeight="22"
+          formControlName="sub_name"
+          name="sub_name"
+          value="ScreenAdultCouple"
+          [class.invalid]="!subscriptionForm.controls.sub_name.valid && (subscriptionForm.controls.sub_name.dirty || submitAttempt)"
+          readonly="true"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item no-lines text-wrap>
+        <p class="center">
+          COMPLETE THE FORM WITH DETAILS OF THE ONE YOU ARE BOOKING FOR
+        </p>
+      </ion-item>
+
+      <!-- BENEFICIARY FOR SINGLE SUBSCRIPTIONS -->
+      <ion-item
+        *ngIf="subscriptionForm.controls.sub_name.value =='ElderlyPersonsHomeVisit'  || subscriptionForm.controls.sub_name.value =='ScreenAdult' || subscriptionForm.controls.sub_name.value =='ChronicSingle'  "
+      >
+        <ion-label floating text-wrap>Who is the subscription for?*</ion-label>
+        <ion-select
+          formControlName="beneficiary"
+          name="beneficiary"
+          [class.invalid]="!subscriptionForm.controls.beneficiary.valid && (subscriptionForm.controls.beneficiary.dirty || submitAttempt)"
+        >
+          <ion-option
+            formControlName="beneficiary"
+            name="beneficiary"
+            value="Self"
+            ngDefaultControl
+            >Self</ion-option
+          >
+          <ion-option
+            formControlName="beneficiary"
+            name="beneficiary"
+            value="Beneficiary"
+            ngDefaultControl
+            >Beneficiary</ion-option
+          >
+        </ion-select>
+      </ion-item>
+
+      <!-- ENDS --BENEFICIARY FOR SINGLE SUBSCRIPTIONS--ENDS -->
+
+      <!--BENEFICIARY NAMES ONLY -->
+      <ion-item
+        class="height"
+        *ngIf="subscriptionForm.controls.beneficiary.value =='Beneficiary' "
+      >
+        <ion-label floating> Enter First Name*</ion-label>
+        <ion-input
+          formControlName="f_name"
+          name="f_name"
+          [class.invalid]="!subscriptionForm.controls.f_name.valid && (subscriptionForm.controls.f_name.dirty || submitAttempt)"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item
+        class="height"
+        *ngIf="subscriptionForm.controls.beneficiary.value =='Beneficiary' "
+      >
+        <ion-label floating> Enter Last Name*</ion-label>
+        <ion-textarea
+          lineHeight="22"
+          formControlName="last_name"
+          name="last_name"
+          [class.invalid]="!subscriptionForm.controls.last_name.valid && (subscriptionForm.controls.last_name.dirty || submitAttempt)"
+        ></ion-textarea>
+      </ion-item>
+
+      <ion-item
+        class="height"
+        *ngIf="subscriptionForm.controls.beneficiary.value =='Beneficiary' "
+      >
+        <ion-label floating> Phone Number*</ion-label>
+        <ion-input
+          type="number"
+          lineHeight="22"
+          formControlName="phone_number"
+          name="phone_number"
+          [class.invalid]="!subscriptionForm.controls.phone_number.valid && (subscriptionForm.controls.phone_number.dirty || submitAttempt)"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item
+        class="height"
+        *ngIf="subscriptionForm.controls.beneficiary.value =='Beneficiary' "
+      >
+        <ion-label floating> Email</ion-label>
+        <ion-textarea
+          lineHeight="22"
+          formControlName="email"
+          name="email"
+          [class.invalid]="!subscriptionForm.controls.email.valid && (subscriptionForm.controls.email.dirty || submitAttempt)"
+        ></ion-textarea>
+      </ion-item>
+
+      <!--END ---BENEFICIARY NAMES ONLY --END-->
+
+      <!--SELF NAMES ONLY -->
+      <ion-item
+        class="height"
+        *ngIf="subscriptionForm.controls.beneficiary.value =='Self' "
+      >
+        <ion-label floating> First Name*</ion-label>
+        <ion-input
+          formControlName="f_name"
+          name="f_name"
+          value="{{user_first_name}}"
+          readonly="true"
+          [class.invalid]="!subscriptionForm.controls.f_name.valid && (subscriptionForm.controls.f_name.dirty || submitAttempt)"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item
+        class="height"
+        *ngIf="subscriptionForm.controls.beneficiary.value =='Self' "
+      >
+        <ion-label floating> Last Name*</ion-label>
+        <ion-textarea
+          lineHeight="22"
+          formControlName="last_name"
+          name="last_name"
+          value="{{user_last_name}}"
+          readonly="true"
+          [class.invalid]="!subscriptionForm.controls.last_name.valid && (subscriptionForm.controls.last_name.dirty || submitAttempt)"
+        ></ion-textarea>
+      </ion-item>
+
+      <ion-item
+        class="height"
+        *ngIf="subscriptionForm.controls.beneficiary.value =='Self' "
+      >
+        <ion-label floating> Phone Number*</ion-label>
+        <ion-input
+          lineHeight="22"
+          formControlName="phone_number"
+          name="phone_number"
+          value="{{user_phone}}"
+          readonly="true"
+          [class.invalid]="!subscriptionForm.controls.phone_number.valid && (subscriptionForm.controls.phone_number.dirty || submitAttempt)"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item
+        class="height"
+        *ngIf="subscriptionForm.controls.beneficiary.value =='Self' "
+      >
+        <ion-label floating> Email</ion-label>
+        <ion-textarea
+          lineHeight="22"
+          formControlName="email"
+          name="email"
+          value="{{user_email}}"
+          readonly="true"
+          [class.invalid]="!subscriptionForm.controls.email.valid && (subscriptionForm.controls.email.dirty || submitAttempt)"
+        ></ion-textarea>
+      </ion-item>
+
+      <!--END SELF NAMES ONLY AND FOR SINGLE APPOINTMENTS-->
+
+      <!--START AND FOR COUPLE APPOINTMENTS-->
+      <div
+        *ngIf="subscriptionForm.controls.sub_name.value =='ElderlyCoupleVisitOneAddress'  || subscriptionForm.controls.sub_name.value =='ElderlyCoupleVisitDiffAddress' || subscriptionForm.controls.sub_name.value =='ChronicCouple' || subscriptionForm.controls.sub_name.value =='ScreenAdultCouple'   "
+      >
+        <ion-item no-lines>
+          <p class="center1">DETAILS OF FIRST COUPLE</p>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating> Enter First Name(Couple 1)*</ion-label>
+          <ion-input
+            formControlName="f_name"
+            name="f_name"
+            [class.invalid]="!subscriptionForm.controls.f_name.valid && (subscriptionForm.controls.f_name.dirty || submitAttempt)"
+          ></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating> Enter Last Name(Couple 1)*</ion-label>
+          <ion-textarea
+            lineHeight="22"
+            formControlName="last_name"
+            name="last_name"
+            [class.invalid]="!subscriptionForm.controls.last_name.valid && (subscriptionForm.controls.last_name.dirty || submitAttempt)"
+          ></ion-textarea>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating> Phone Number (Couple 1)*</ion-label>
+          <ion-input
+            type="number"
+            lineHeight="22"
+            formControlName="phone_number"
+            name="phone_number"
+            [class.invalid]="!subscriptionForm.controls.phone_number.valid && (subscriptionForm.controls.phone_number.dirty || submitAttempt)"
+          ></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating>Date Of Birth or Age</ion-label>
+          <ion-textarea
+            lineHeight="22"
+            formControlName="dob"
+            name="dob"
+            [class.invalid]="!subscriptionForm.controls.dob.valid && (subscriptionForm.controls.dob.dirty || submitAttempt)"
+          ></ion-textarea>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating> Gender*</ion-label>
+          <ion-select
+            formControlName="gender"
+            name="gender"
+            [class.invalid]="!subscriptionForm.controls.gender.valid && (subscriptionForm.controls.gender.dirty || submitAttempt)"
+          >
+            <ion-option
+              formControlName="gender"
+              name="gender"
+              value="Male"
+              ngDefaultControl
+              >Male</ion-option
+            >
+            <ion-option
+              formControlName="gender"
+              name="gender"
+              value="Female"
+              ngDefaultControl
+              >Female</ion-option
+            >
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating> Marital Status</ion-label>
+          <ion-select
+            formControlName="marital_status"
+            name="marital_status"
+            [class.invalid]="!subscriptionForm.controls.marital_status.valid && (subscriptionForm.controls.marital_status.dirty || submitAttempt)"
+          >
+            <ion-option
+              formControlName="marital_status"
+              name="marital_status"
+              value="Single"
+              ngDefaultControl
+              >Single</ion-option
+            >
+            <ion-option
+              formControlName="marital_status"
+              name="marital_status"
+              value="Married"
+              ngDefaultControl
+              >Married</ion-option
+            >
+
+            <ion-option
+              formControlName="marital_status"
+              name="marital_status"
+              value="Divorced"
+              ngDefaultControl
+              >Divorced</ion-option
+            >
+
+            <ion-option
+              formControlName="marital_status"
+              name="marital_status"
+              value="Widowed"
+              ngDefaultControl
+              >Widowed</ion-option
+            >
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating> Religion</ion-label>
+          <ion-select
+            formControlName="religion"
+            name="religion"
+            [class.invalid]="!subscriptionForm.controls.religion.valid && (subscriptionForm.controls.religion.dirty || submitAttempt)"
+          >
+            <ion-option
+              formControlName="religion"
+              name="religion"
+              value="Christian"
+              ngDefaultControl
+              >Christian</ion-option
+            >
+            <ion-option
+              formControlName="religion"
+              name="religion"
+              value="Islam"
+              ngDefaultControl
+              >Islam</ion-option
+            >
+
+            <ion-option
+              formControlName="religion"
+              name="religion"
+              value="Non- Religious"
+              ngDefaultControl
+              >Non- Religious</ion-option
+            >
+
+            <ion-option
+              formControlName="religion"
+              name="religion"
+              value="Others"
+              ngDefaultControl
+              >Others</ion-option
+            >
+          </ion-select>
+        </ion-item>
+
+        <ion-item class="height">
+          <ion-label floating> Residential address or location*</ion-label>
+          <ion-textarea
+            lineHeight="22"
+            formControlName="address"
+            name="address"
+            [class.invalid]="!subscriptionForm.controls.address.valid && (subscriptionForm.controls.address.dirty || submitAttempt)"
+          ></ion-textarea>
+        </ion-item>
+
+        <ion-item no-lines>
+          <p class="center1">DETAILS OF SECOND COUPLE</p>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating> Enter First Name(Couple 2)*</ion-label>
+          <ion-input
+            formControlName="f_name_second"
+            name="f_name_second"
+            [class.invalid]="!subscriptionForm.controls.f_name_second.valid && (subscriptionForm.controls.f_name_second.dirty || submitAttempt)"
+          ></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating> Enter Last Name(Couple 2)*</ion-label>
+          <ion-textarea
+            lineHeight="22"
+            formControlName="l_name_second"
+            name="l_name_second"
+            [class.invalid]="!subscriptionForm.controls.l_name_second.valid && (subscriptionForm.controls.l_name_second.dirty || submitAttempt)"
+          ></ion-textarea>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating> Phone Number (Couple 2)*</ion-label>
+          <ion-input
+            type="number"
+            lineHeight="22"
+            formControlName="phone_number_second"
+            name="phone_number_second"
+            [class.invalid]="!subscriptionForm.controls.phone_number_second.valid && (subscriptionForm.controls.phone_number_second.dirty || submitAttempt)"
+          ></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating>Date Of Birth or Age</ion-label>
+          <ion-textarea
+            lineHeight="22"
+            formControlName="dob_second"
+            name="dob_second"
+            [class.invalid]="!subscriptionForm.controls.dob_second.valid && (subscriptionForm.controls.dob_second.dirty || submitAttempt)"
+          ></ion-textarea>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating> Gender*</ion-label>
+          <ion-select
+            formControlName="gender_second"
+            name="gender_second"
+            [class.invalid]="!subscriptionForm.controls.gender_second.valid && (subscriptionForm.controls.gender_second.dirty || submitAttempt)"
+          >
+            <ion-option
+              formControlName="gender_second"
+              name="gender_second"
+              value="Male"
+              ngDefaultControl
+              >Male</ion-option
+            >
+            <ion-option
+              formControlName="gender_second"
+              name="gender_second"
+              value="Female"
+              ngDefaultControl
+              >Female</ion-option
+            >
+          </ion-select>
+        </ion-item>
+
+        <ion-item class="height">
+          <ion-label floating> Residential address or location*</ion-label>
+          <ion-textarea
+            lineHeight="22"
+            formControlName="address_second"
+            name="address_second"
+            [class.invalid]="!subscriptionForm.controls.address_second.valid && (subscriptionForm.controls.address_second.dirty || submitAttempt)"
+          ></ion-textarea>
+        </ion-item>
+      </div>
+
+      <div
+        *ngIf="subscriptionForm.controls.sub_name.value =='ElderlyPersonsHomeVisit'  || subscriptionForm.controls.sub_name.value =='ScreenAdult' || subscriptionForm.controls.sub_name.value =='ChronicSingle'  "
+      >
+        <ion-item>
+          <ion-label floating>Date Of Birth or Age</ion-label>
+          <ion-textarea
+            lineHeight="22"
+            formControlName="dob"
+            name="dob"
+            [class.invalid]="!subscriptionForm.controls.dob.valid && (subscriptionForm.controls.dob.dirty || submitAttempt)"
+          ></ion-textarea>
+        </ion-item>
+        <br />
+
+        <ion-item>
+          <ion-label floating> Gender*</ion-label>
+          <ion-select
+            formControlName="gender"
+            name="gender"
+            [class.invalid]="!subscriptionForm.controls.gender.valid && (subscriptionForm.controls.gender.dirty || submitAttempt)"
+          >
+            <ion-option
+              formControlName="gender"
+              name="gender"
+              value="Male"
+              ngDefaultControl
+              >Male</ion-option
+            >
+            <ion-option
+              formControlName="gender"
+              name="gender"
+              value="Female"
+              ngDefaultControl
+              >Female</ion-option
+            >
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating> Marital Status</ion-label>
+          <ion-select
+            formControlName="marital_status"
+            name="marital_status"
+            [class.invalid]="!subscriptionForm.controls.marital_status.valid && (subscriptionForm.controls.marital_status.dirty || submitAttempt)"
+          >
+            <ion-option
+              formControlName="marital_status"
+              name="marital_status"
+              value="Single"
+              ngDefaultControl
+              >Single</ion-option
+            >
+            <ion-option
+              formControlName="marital_status"
+              name="marital_status"
+              value="Married"
+              ngDefaultControl
+              >Married</ion-option
+            >
+
+            <ion-option
+              formControlName="marital_status"
+              name="marital_status"
+              value="Divorced"
+              ngDefaultControl
+              >Divorced</ion-option
+            >
+
+            <ion-option
+              formControlName="marital_status"
+              name="marital_status"
+              value="Widowed"
+              ngDefaultControl
+              >Widowed</ion-option
+            >
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating> Religion</ion-label>
+          <ion-select
+            formControlName="religion"
+            name="religion"
+            [class.invalid]="!subscriptionForm.controls.religion.valid && (subscriptionForm.controls.religion.dirty || submitAttempt)"
+          >
+            <ion-option
+              formControlName="religion"
+              name="religion"
+              value="Christian"
+              ngDefaultControl
+              >Christian</ion-option
+            >
+            <ion-option
+              formControlName="religion"
+              name="religion"
+              value="Islam"
+              ngDefaultControl
+              >Islam</ion-option
+            >
+
+            <ion-option
+              formControlName="religion"
+              name="religion"
+              value="Non- Religious"
+              ngDefaultControl
+              >Non- Religious</ion-option
+            >
+
+            <ion-option
+              formControlName="religion"
+              name="religion"
+              value="Others"
+              ngDefaultControl
+              >Others</ion-option
+            >
+          </ion-select>
+        </ion-item>
+
+        <ion-item class="height">
+          <ion-label floating> Residential address or location*</ion-label>
+          <ion-textarea
+            lineHeight="22"
+            formControlName="address"
+            name="address"
+            [class.invalid]="!subscriptionForm.controls.address.valid && (subscriptionForm.controls.address.dirty || submitAttempt)"
+          ></ion-textarea>
+        </ion-item>
+      </div>
+
+      <ion-item no-lines>
+        <p class="center1">EMERGENCY DETAILS (NEXT OF KIN)</p>
+      </ion-item>
+
+      <ion-item class="height">
+        <ion-label floating>Emergency Name</ion-label>
+        <ion-textarea
+          lineHeight="22"
+          formControlName="emergency_name"
+          name="emergency_name"
+          [class.invalid]="!subscriptionForm.controls.emergency_name.valid && (subscriptionForm.controls.emergency_name.dirty || submitAttempt)"
+        ></ion-textarea>
+      </ion-item>
+
+      <ion-item class="height">
+        <ion-label floating>Emergency Phone</ion-label>
+        <ion-input
+          type="number"
+          lineHeight="22"
+          formControlName="emergency_phone"
+          name="emergency_phone"
+          [class.invalid]="!subscriptionForm.controls.emergency_phone.valid && (subscriptionForm.controls.emergency_phone.dirty || submitAttempt)"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item class="height">
+        <ion-label floating>Emergency Email</ion-label>
+        <ion-textarea
+          lineHeight="22"
+          formControlName="emergency_email"
+          name="emergency_email"
+          [class.invalid]="!subscriptionForm.controls.emergency_email.valid && (subscriptionForm.controls.emergency_email.dirty || submitAttempt)"
+        ></ion-textarea>
+      </ion-item>
+
+      <ion-item class="height">
+        <ion-label floating>Emergency Address</ion-label>
+        <ion-textarea
+          lineHeight="22"
+          formControlName="emergency_address"
+          name="emergency_address"
+          [class.invalid]="!subscriptionForm.controls.emergency_address.valid && (subscriptionForm.controls.emergency_address.dirty || submitAttempt)"
+        ></ion-textarea>
+      </ion-item>
+
+      <ion-item *ngIf="visit_type =='ElderlyPersonsHomeVisit' ">
+        <ion-label floating>Subsciption Amount*</ion-label>
+        <ion-select
+          formControlName="amount"
+          name="amount"
+          [class.invalid]="!subscriptionForm.controls.amount.valid && (subscriptionForm.controls.amount.dirty || submitAttempt)"
+        >
+          <ion-option
+            formControlName="amount"
+            name="amount"
+            value="350"
+            ngDefaultControl
+            >350 per Monthly visit</ion-option
+          >
+
+          <ion-option
+            formControlName="amount"
+            name="amount"
+            value="350"
+            ngDefaultControl
+            >350 per Quarterly Visit</ion-option
+          >
+        </ion-select>
+      </ion-item>
+
+      <ion-item *ngIf="visit_type =='ElderlyCoupleVisitOneAddress' ">
+        <ion-label floating>Subsciption Amount*</ion-label>
+        <ion-select
+          formControlName="amount"
+          name="amount"
+          [class.invalid]="!subscriptionForm.controls.amount.valid && (subscriptionForm.controls.amount.dirty || submitAttempt)"
+        >
+          <ion-option
+            formControlName="amount"
+            name="amount"
+            value="500"
+            ngDefaultControl
+            >500 per Monthly visit</ion-option
+          >
+
+          <ion-option
+            formControlName="amount"
+            name="amount"
+            value="640"
+            ngDefaultControl
+            >640 per Quarterly Visit</ion-option
+          >
+        </ion-select>
+      </ion-item>
+
+      <ion-item *ngIf="visit_type =='ElderlyCoupleVisitDiffAddress' ">
+        <ion-label floating>Subsciption Amount*</ion-label>
+        <ion-select
+          formControlName="amount"
+          name="amount"
+          [class.invalid]="!subscriptionForm.controls.amount.valid && (subscriptionForm.controls.amount.dirty || submitAttempt)"
+        >
+          <ion-option
+            formControlName="amount"
+            name="amount"
+            value="540"
+            ngDefaultControl
+            >540 per Monthly visit</ion-option
+          >
+
+          <ion-option
+            formControlName="amount"
+            name="amount"
+            value="670"
+            ngDefaultControl
+            >670 per Quarterly Visit</ion-option
+          >
+        </ion-select>
+      </ion-item>
+
+      <ion-item *ngIf="visit_type =='ChronicSingle' ">
+        <ion-label floating>Subsciption Amount*</ion-label>
+        <ion-select
+          formControlName="amount"
+          name="amount"
+          [class.invalid]="!subscriptionForm.controls.amount.valid && (subscriptionForm.controls.amount.dirty || submitAttempt)"
+        >
+          <ion-option
+            formControlName="amount"
+            name="amount"
+            value="350"
+            ngDefaultControl
+            >350 per Monthly visit</ion-option
+          >
+          <ion-option
+            formControlName="amount"
+            name="amount"
+            value="350"
+            ngDefaultControl
+            >350 per Quarterly visit</ion-option
+          >
+        </ion-select>
+      </ion-item>
+
+      <ion-item *ngIf="visit_type =='ChronicCouple' ">
+        <ion-label floating>Subsciption Amount*</ion-label>
+        <ion-select
+          formControlName="amount"
+          name="amount"
+          [class.invalid]="!subscriptionForm.controls.amount.valid && (subscriptionForm.controls.amount.dirty || submitAttempt)"
+        >
+          <ion-option
+            formControlName="amount"
+            name="amount"
+            value="500"
+            ngDefaultControl
+            >500 per Monthly visit</ion-option
+          >
+          <ion-option
+            formControlName="amount"
+            name="amount"
+            value="640"
+            ngDefaultControl
+            >640 per Quarterly visit</ion-option
+          >
+        </ion-select>
+      </ion-item>
+
+      <ion-item *ngIf="visit_type =='ScreenAdult' ">
+        <ion-label floating>Subsciption Amount*</ion-label>
+        <ion-select
+          formControlName="amount"
+          name="amount"
+          [class.invalid]="!subscriptionForm.controls.amount.valid && (subscriptionForm.controls.amount.dirty || submitAttempt)"
+        >
+          <ion-option
+            formControlName="amount"
+            name="amount"
+            value="500"
+            ngDefaultControl
+            >500 pay Once</ion-option
+          >
+        </ion-select>
+      </ion-item>
+
+      <ion-item *ngIf="visit_type =='ScreenAdultCouple' ">
+        <ion-label floating>Subsciption Amount*</ion-label>
+        <ion-select
+          formControlName="amount"
+          name="amount"
+          [class.invalid]="!subscriptionForm.controls.amount.valid && (subscriptionForm.controls.amount.dirty || submitAttempt)"
+        >
+          <ion-option
+            formControlName="amount"
+            name="amount"
+            value="950"
+            ngDefaultControl
+            >950 pay Once</ion-option
+          >
+        </ion-select>
+      </ion-item>
+
+      <p class="pad" style="text-align: center">
+        <button
+          ion-button
+          color="green1"
+          class="submitbtn"
+          [disabled]="!this.subscriptionForm.valid"
+          (tap)="book_subscription()"
+          style="
+            text-align: center;
+            border-radius: 60px;
+            height: 40px;
+            width: 90%;
+          "
+        >
+          Submit
+        </button>
+      </p>
+    </ion-list>
+  </form>
+</ion-content>

@@ -1,0 +1,491 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Place Order for Client</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content overflow-scroll="true" class="background">
+  <!-- <p>
+    <b style=" color: black;">Book An Appointment</b>
+  </p> -->
+
+  <!--<ion-card-header class="pad">
+  </ion-card-header>-->
+  <form [formGroup]="appointForm" class="padd">
+    <!--<ion-card>-->
+    <ion-list>
+      <ion-item>
+        <ion-label>
+          <ion-icon class="green" ios="ios-person-add" md="md-person-add"
+            >&nbsp;</ion-icon
+          >&nbsp;Appointment Type?
+        </ion-label>
+        <ion-select
+          formControlName="appointment_type_id"
+          name="appointment_type_id"
+          [class.invalid]="!appointForm.controls.appointment_type_id.valid && (appointForm.controls.appointment_type_id.dirty || submitAttempt)"
+        >
+          <ion-option
+            *ngFor="let data of appointment_types"
+            [value]="data.ref_id"
+            ngDefaultControl
+            >{{data.title}}</ion-option
+          >
+        </ion-select>
+      </ion-item>
+
+      <ion-item *ngIf="appointForm.controls.appointment_type_id.value =='PDDP'">
+        <ion-item>
+          <ion-textarea
+            placeholder="Enter Prescription Name"
+            formControlName="prescription_name"
+            name="prescription_name"
+            [class.invalid]="!appointForm.controls.prescription_name.valid && (appointForm.controls.prescription_name.dirty || submitAttempt)"
+          ></ion-textarea>
+        </ion-item>
+      </ion-item>
+
+      <ion-item *ngIf="appointForm.controls.appointment_type_id.value =='PDDP'">
+        <ion-item>
+          <!-- <ion-input type="password" formControlName="password" name="password" [class.invalid]="!resetPasswordForm.controls.password.valid && (resetPasswordForm.controls.password.dirty || submitAttempt)"></ion-input> -->
+          <ion-textarea
+            placeholder="Enter Quantity"
+            formControlName="drugs_quantity"
+            name="drugs_quantity"
+            [class.invalid]="!appointForm.controls.drugs_quantity.valid && (appointForm.controls.drugs_quantity.dirty || submitAttempt)"
+          ></ion-textarea>
+        </ion-item>
+      </ion-item>
+
+      <ion-item *ngIf="appointForm.controls.appointment_type_id.value =='PDDP'">
+        <ion-item>
+          <ion-input
+            type="text"
+            placeholder="Enter Dosage"
+            formControlName="drugs_dosage"
+            name="drugs_dosage"
+            [class.invalid]="!appointForm.controls.drugs_dosage.valid && (appointForm.controls.drugs_dosage.dirty || submitAttempt)"
+          ></ion-input>
+          <!-- <ion-textarea placeholder="Enter Dosage" formControlName="drugs_dosage" name="drugs_dosage" [class.invalid]="!appointForm.controls.drugs_dosage.valid && (appointForm.controls.drugs_dosage.dirty || submitAttempt)"></ion-textarea> -->
+        </ion-item>
+      </ion-item>
+
+      <ion-item *ngIf="appointForm.controls.appointment_type_id.value =='PDDP'">
+        <ion-item>
+          <ion-textarea
+            placeholder="Enter Frequency"
+            formControlName="drugs_frequency"
+            name="drugs_frequency"
+            [class.invalid]="!appointForm.controls.drugs_frequency.valid && (appointForm.controls.drugs_frequency.dirty || submitAttempt)"
+          ></ion-textarea>
+        </ion-item>
+      </ion-item>
+
+      <ion-item *ngIf="appointForm.controls.appointment_type_id.value =='PDDP'">
+        <ion-item>
+          <ion-textarea
+            placeholder="Enter Number of days"
+            formControlName="number_of_days"
+            name="number_of_days"
+            [class.invalid]="!appointForm.controls.number_of_days.valid && (appointForm.controls.number_of_days.dirty || submitAttempt)"
+          ></ion-textarea>
+        </ion-item>
+      </ion-item>
+
+      <!-- <ion-item>
+        <ion-label>
+          <ion-icon class="green" ios="ios-person-add" md="md-person-add">&nbsp;</ion-icon>&nbsp;Service Provider</ion-label>
+        <ion-select formControlName="service_provider" name="service_provider" [class.invalid]="!appointForm.controls.service_provider.valid && (appointForm.controls.service_provider.dirty || submitAttempt)">
+          <ion-option *ngFor="let data of service_providers" [value]="data.id" ngDefaultControl>{{data.provider_name}}</ion-option>
+        </ion-select>
+      </ion-item> -->
+
+      <ion-item *ngIf="appointForm.controls.appointment_type_id.value !='PDDP'">
+        <ion-label>
+          <ion-icon class="green" ios="ios-time" md="md-time">&nbsp;</ion-icon
+          >&nbsp; Request Urgency
+        </ion-label>
+        <ion-select
+          formControlName="req_urgency"
+          name="req_urgency"
+          [class.invalid]="!appointForm.controls.req_urgency.valid && (appointForm.controls.req_urgency.dirty || submitAttempt)"
+        >
+          <ion-option
+            formControlName="req_urgency"
+            name="req_urgency"
+            value="S"
+            ngDefaultControl
+            >Standard</ion-option
+          >
+          <ion-option
+            formControlName="req_urgency"
+            name="req_urgency"
+            value="E"
+            ngDefaultControl
+            >Express</ion-option
+          >
+        </ion-select>
+      </ion-item>
+
+      <ion-item *ngIf="appointForm.controls.appointment_type_id.value !='PDDP'">
+        <ion-label>
+          <ion-icon class="green" ios="ios-person-add" md="md-person-add"
+            >&nbsp;</ion-icon
+          >&nbsp;Request Type?
+        </ion-label>
+        <ion-select
+          formControlName="requester_cat"
+          name="requester_cat"
+          [class.invalid]="!appointForm.controls.requester_cat.valid && (appointForm.controls.requester_cat.dirty || submitAttempt)"
+        >
+          <ion-option
+            formControlName="requester_cat"
+            name="requester_cat"
+            value="S"
+            ngDefaultControl
+            >Self</ion-option
+          >
+          <ion-option
+            formControlName="requester_cat"
+            name="requester_cat"
+            value="T"
+            ngDefaultControl
+            >Beneficiary</ion-option
+          >
+        </ion-select>
+      </ion-item>
+
+      <ion-item
+        *ngIf="appointForm.controls.appointment_type_id.value !='PDDP' && appointForm.controls.requester_cat.value =='T'"
+      >
+        <ion-item>
+          <ion-textarea
+            placeholder="Enter Beneficiary Name"
+            formControlName="beneficiary_name"
+            name="beneficiary_name"
+            [class.invalid]="!appointForm.controls.beneficiary_name.valid && (appointForm.controls.beneficiary_name.dirty || submitAttempt)"
+          ></ion-textarea>
+        </ion-item>
+      </ion-item>
+
+      <ion-item
+        *ngIf="appointForm.controls.requester_cat.value =='T' && appointForm.controls.appointment_type_id.value !='PDDP'"
+      >
+        <ion-label>
+          <ion-icon class="green" ios="ios-person-add" md="md-person-add"
+            >&nbsp;</ion-icon
+          >&nbsp;Beneficiary's Sex
+        </ion-label>
+        <ion-select
+          formControlName="beneficiary_gender"
+          name="beneficiary_gender"
+          [class.invalid]="!appointForm.controls.beneficiary_gender.valid && (appointForm.controls.beneficiary_gender.dirty || submitAttempt)"
+        >
+          <ion-option
+            formControlName="beneficiary_gender"
+            name="beneficiary_gender"
+            value="M"
+            ngDefaultControl
+            >Male</ion-option
+          >
+          <ion-option
+            formControlName="beneficiary_gender"
+            name="beneficiary_gender"
+            value="F"
+            ngDefaultControl
+            >Female</ion-option
+          >
+        </ion-select>
+      </ion-item>
+
+      <ion-item
+        *ngIf="appointForm.controls.requester_cat.value =='T' && appointForm.controls.appointment_type_id.value !='PDDP' "
+      >
+        <ion-item>
+          <ion-input
+            type="number"
+            placeholder="Enter Beneficiary's Age"
+            formControlName="beneficiary_age"
+            name="beneficiary_age"
+            [class.invalid]="!appointForm.controls.beneficiary_age.valid && (appointForm.controls.beneficiary_age.dirty || submitAttempt)"
+          ></ion-input>
+        </ion-item>
+      </ion-item>
+
+      <ion-item
+        *ngIf="appointForm.controls.requester_cat.value =='T' && appointForm.controls.appointment_type_id.value !='PDDP'"
+      >
+        <ion-item>
+          <ion-input
+            type="number"
+            placeholder="Enter Beneficiary Phone Number"
+            formControlName="beneficiary_phone_number"
+            name="beneficiary_phone_number"
+            [class.invalid]="!appointForm.controls?.beneficiary_phone_number.valid && (appointForm.controls?.beneficiary_phone_number.dirty || submitAttempt)"
+          ></ion-input>
+        </ion-item>
+      </ion-item>
+
+      <ion-item
+        class="height"
+        *ngIf="appointForm.controls.appointment_type_id.value =='LA'"
+      >
+        <ion-textarea
+          placeholder="List Lab tests you want to undertake..."
+          lineHeight="22"
+          formControlName="test_list"
+          name="test_list"
+          [class.invalid]="!appointForm.controls.test_list.valid && (appointForm.controls.test_list.dirty || submitAttempt)"
+        ></ion-textarea>
+        <ion-label>
+          <ion-icon class="green" ios="ios-create" md="md-create"></ion-icon>
+        </ion-label>
+      </ion-item>
+      <p
+        class="center"
+        style="text-align: center;"
+        *ngIf="appointForm.controls.appointment_type_id.value =='LA'"
+      >
+        <b style="color: #789527;"> OR </b>
+      </p>
+      <p
+        class="center"
+        style="text-align: center; color: black;"
+        [hidden]="lastImage !== null"
+        *ngIf="appointForm.controls.appointment_type_id.value =='LA'"
+      >
+        Please upload your lab test sheet!
+      </p>
+      <ion-buttons
+        style="text-align: center;"
+        *ngIf="appointForm.controls.appointment_type_id.value =='LA'"
+      >
+        <button
+          style="text-align: center;"
+          ion-button
+          icon-left
+          color="green1"
+          (click)="presentActionSheet()"
+        >
+          <ion-icon name="camera"></ion-icon>Select Image
+        </button>
+        <button
+          ion-button
+          icon-left
+          (click)="uploadImage()"
+          [disabled]="lastImage === null"
+        >
+          <ion-icon name="cloud-upload"></ion-icon>Upload
+        </button>
+      </ion-buttons>
+      <br />
+      <img
+        src="{{pathForImage(lastImage)}}"
+        style="width: 50%;"
+        [hidden]="lastImage === null"
+      />
+      <br />
+
+      <ion-item
+        class="height"
+        style="text-align: center;"
+        *ngIf="appointForm.controls.appointment_type_id.value !='PDDP'"
+      >
+        <ion-textarea
+          style="text-align: center;"
+          placeholder="Please describe your current medical problem..."
+          lineHeight="22"
+          formControlName="complaint_desc"
+          name="complaint_desc"
+          [class.invalid]="!appointForm.controls.complaint_desc.valid && (appointForm.controls.complaint_desc.dirty || submitAttempt)"
+        ></ion-textarea>
+        <ion-label>
+          <ion-icon class="green" ios="ios-create" md="md-create"></ion-icon>
+        </ion-label>
+      </ion-item>
+
+      <p
+        class="center"
+        style="text-align: center;"
+        *ngIf="appointForm.controls.appointment_type_id.value =='MD'"
+      >
+        <b style="color: #789527;"> OR </b>
+      </p>
+      <p
+        class="center"
+        style="text-align: center; color: black;"
+        [hidden]="lastImage !== null"
+        *ngIf="appointForm.controls.appointment_type_id.value =='MD'"
+      >
+        Please upload your Prescription!
+      </p>
+      <ion-buttons
+        style="text-align: center;"
+        *ngIf="appointForm.controls.appointment_type_id.value =='MD'"
+      >
+        <button
+          style="text-align: center;"
+          ion-button
+          icon-left
+          color="green1"
+          (click)="presentActionSheet()"
+        >
+          <ion-icon name="camera"></ion-icon>Select Image
+        </button>
+        <button
+          ion-button
+          icon-left
+          (click)="uploadImage()"
+          [disabled]="lastImage === null"
+        >
+          <ion-icon name="cloud-upload"></ion-icon>Upload
+        </button>
+      </ion-buttons>
+      <br />
+      <img
+        src="{{pathForImage(lastImage)}}"
+        style="width: 50%;"
+        [hidden]="lastImage === null"
+      />
+      <br />
+
+      <!--<br/>-->
+      <ion-item
+        class="height"
+        *ngIf="appointForm.controls.appointment_type_id.value !='PDDP'"
+      >
+        <ion-textarea
+          placeholder="List your previous medical problems..."
+          lineHeight="22"
+          formControlName="prev_medical_history"
+          name="prev_medical_history"
+          [class.invalid]="!appointForm.controls.prev_medical_history.valid && (appointForm.controls.prev_medical_history.dirty || submitAttempt)"
+        ></ion-textarea>
+        <ion-label>
+          <ion-icon class="green" ios="ios-paper" md="md-paper"></ion-icon>
+        </ion-label>
+      </ion-item>
+
+      <ion-item
+        class="height"
+        *ngIf="appointForm.controls.appointment_type_id.value !='PDDP'"
+      >
+        <ion-textarea
+          placeholder="Please list your allergies..."
+          lineHeight="22"
+          formControlName="allergies"
+          name="allergies"
+          [class.invalid]="!appointForm.controls.allergies.valid && (appointForm.controls.allergies.dirty || submitAttempt)"
+        ></ion-textarea>
+        <ion-label>
+          <ion-icon class="green" ios="ios-create" md="md-create"></ion-icon>
+        </ion-label>
+      </ion-item>
+
+      <!--<br/>
+
+        <br/>-->
+      <ion-item
+        class="height"
+        *ngIf="appointForm.controls.appointment_type_id.value !='PDDP'"
+      >
+        <ion-textarea
+          placeholder="Give a Remark or Comment"
+          lineHeight="22"
+          formControlName="remark"
+          name="remark"
+          [class.invalid]="!appointForm.controls.remark.valid && (appointForm.controls.remark.dirty || submitAttempt)"
+        ></ion-textarea>
+        <ion-label>
+          <ion-icon class="green" ios="ios-create" md="md-create"></ion-icon>
+        </ion-label>
+      </ion-item>
+      <!--<br/>-->
+
+      <ion-item *ngIf="appointForm.controls.appointment_type_id.value !='PDDP'">
+        <ion-textarea
+          placeholder="Appointment Date"
+          lineHeight="22"
+          formControlName="proposed_date"
+          name="proposed_date"
+          [class.invalid]="!appointForm.controls.proposed_date.valid && (appointForm.controls.proposed_date.dirty || submitAttempt)"
+        ></ion-textarea>
+        <ion-datetime
+          class="datetimeColor"
+          displayFormat="MMM DD YYYY "
+          [min]="minSelectabledate"
+          formControlName="proposed_date"
+        ></ion-datetime>
+        <ion-label>
+          <ion-icon
+            class="green"
+            ios="ios-calendar"
+            md="md-calendar"
+          ></ion-icon>
+        </ion-label>
+      </ion-item>
+
+      <ion-item *ngIf="appointForm.controls.appointment_type_id.value !='PDDP'">
+        <ion-textarea
+          placeholder="Appointment Time"
+          lineHeight="22"
+          formControlName="proposed_time"
+          name="proposed_time"
+          [class.invalid]="!appointForm.controls.proposed_time.valid && (appointForm.controls.proposed_time.dirty || submitAttempt)"
+        ></ion-textarea>
+        <ion-datetime
+          displayFormat="h:mm A"
+          pickerFormat="h mm A"
+          formControlName="proposed_time"
+        ></ion-datetime>
+        <ion-label>
+          <ion-icon class="green" ios="ios-time" md="md-time"></ion-icon>
+        </ion-label>
+      </ion-item>
+
+      <!--<ion-item [disabled]="!this.appointForm.valid">-->
+
+      <p
+        class="pad"
+        style="text-align: center;"
+        *ngIf="appointForm.controls.appointment_type_id.value !='PDDP'"
+      >
+        <button
+          ion-button
+          round
+          color="green1"
+          [disabled]="!this.appointForm.valid"
+          (tap)="book_appoint()"
+        >
+          Submit
+        </button>
+      </p>
+      <p
+        class="pad"
+        style="text-align: center;"
+        *ngIf="appointForm.controls.appointment_type_id.value =='PDDP'"
+      >
+        <button
+          ion-button
+          round
+          color="green1"
+          (click)="createPdf()"
+          [disabled]="!this.appointForm.valid"
+        >
+          Create PDF
+        </button>
+        <button
+          ion-button
+          round
+          color="green1"
+          (click)="emailPdf()"
+          [disabled]="!this.appointForm.valid"
+        >
+          Send Via
+        </button>
+
+        <!-- <button ion-button full (click)="downloadPdf()" color="secondary" [disabled]="!this.appointForm.valid">Download PDF</button> -->
+      </p>
+    </ion-list>
+  </form>
+</ion-content>

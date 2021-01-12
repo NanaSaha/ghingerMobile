@@ -1,0 +1,58 @@
+<!-- <ion-header>
+
+  <ion-navbar>
+    <ion-title>New Record - {{ full_name}}</ion-title>
+  </ion-navbar>
+
+</ion-header>-->
+
+<ion-header> 
+
+    <ion-navbar>
+      <ion-title>New Record - {{ full_name}}</ion-title>
+      <ion-buttons end>
+        <button ion-button icon-only (tap)="closeModal()">
+          <ion-icon name="close"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-navbar>
+  
+  </ion-header>
+
+
+<ion-content>
+  <form [formGroup]="record">
+    <br>
+    <ion-item>
+      <ion-textarea placeholder="Summary of clinical complaints..." lineHeight="30" formControlName="clinical_complaints" name="clinical_complaints" [class.invalid]="!record.controls.clinical_complaints.valid && (record.controls.clinical_complaints.dirty || submitAttempt)" ></ion-textarea>
+    </ion-item>
+    <br>
+    <ion-item>
+      <ion-textarea placeholder="Clinical Examination findings..." lineHeight="22"  formControlName="clinical_examinations" name="clinical_examinations" [class.invalid]="!record.controls.clinical_examinations.valid && (record.controls.clinical_examinations.dirty || submitAttempt)"></ion-textarea>
+    </ion-item>
+    <br>
+    <ion-item>
+      <ion-textarea placeholder="Working Diagnosis..." lineHeight="22"  formControlName="working_diagnosis" name="working_diagnosis" [class.invalid]="!record.controls.working_diagnosis.valid && (record.controls.working_diagnosis.dirty || submitAttempt)"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-textarea placeholder="Investigation Required..." lineHeight="22"  formControlName="investigation_rquired" name="investigation_rquired" [class.invalid]="!record.controls.investigation_rquired.valid && (record.controls.investigation_rquired.dirty || submitAttempt)"></ion-textarea>
+    </ion-item>
+    <br>
+    <ion-item>
+      <ion-textarea placeholder="Treatments..." lineHeight="30" name="treatments" formControlName="treatments" name="treatments" [class.invalid]="!record.controls.treatments.valid && (record.controls.treatments.dirty || submitAttempt)"></ion-textarea>
+    </ion-item>
+    <br>
+    <ion-item>
+      <ion-textarea placeholder="Follow-up Plans..." lineHeight="30"  formControlName="follow_up_plan" name="follow_up_plan" [class.invalid]="!record.controls.follow_up_plan.valid && (record.controls.follow_up_plan.dirty || submitAttempt)"></ion-textarea>
+    </ion-item>
+    <p class="position" style=" color: black;"><b style=" color: red;"> Note:</b> Please order your investigation/ treatment after saving this document  </p>
+    <br>
+    <br>
+   
+  </form>
+  
+</ion-content>
+
+<ion-footer>
+  <p> <button ion-button color="green1" class="button button-dark customBtn"  [disabled]="!this.record.valid" (tap)="Investigate()">Save Clinical Record</button></p>
+</ion-footer>

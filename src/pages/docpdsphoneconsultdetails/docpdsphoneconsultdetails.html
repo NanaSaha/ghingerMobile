@@ -1,0 +1,92 @@
+<ion-content class="main-view">
+
+  <div class="overlay" (click)="closeModal()"></div>
+  <ion-scroll class="modal_content" scrollY="true">
+    <!--<div class="modal_content">-->
+    <ion-buttons end>
+      <button ion-button icon-only (tap)="closeModal()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+    <br/>
+    <br/>
+    <br/>
+
+    <ion-card-content>
+      <ion-card>
+        <ion-item>
+          <p class="position" style=" color: black;">PDS Phone Consult Details </p>
+
+        </ion-item>
+
+        <!-- <form [formGroup]="referpatientForm"> -->
+
+        <ion-list *ngIf="doc_pds_phoneconsults?.length > 0; else general_medicationfalse">
+          <ion-item *ngFor="let doc_pds_phoneconsults of doc_pds_phoneconsults">
+            <br>
+            <table>
+              <tbody>
+                <!-- <tr><th scope="row">No.</th><td>1</td></tr> -->
+                <tr>
+                  <th scope="row">Patient Name</th>
+                  <td>{{doc_pds_phoneconsults.surname}} {{doc_pds_phoneconsults.other_names}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Patient Contact</th>
+                  <td>{{doc_pds_phoneconsults.contact}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Appt Type</th>
+                  <td>{{doc_pds_phoneconsults.appointment_type}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Date/Time</th>
+                  <td>{{doc_pds_phoneconsults.confirmed_date | date: 'yyyy-MM-dd h:mm a' }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Accept Status</th>
+                  <td *ngIf="doc_pds_phoneconsults.accepted_status == true;">Accepted</td>
+                  <td *ngIf="doc_pds_phoneconsults.accepted_status == false;">Not Accepted</td>
+                </tr>
+
+                <tr>
+                  <th scope="row">Attend Status</th>
+                  <td *ngIf="doc_pds_phoneconsults.attended_to == true;">Attended to</td>
+                  <td *ngIf="doc_pds_phoneconsults.attended_to == false;">Unattended to</td>
+                </tr>
+                <!-- <tr>
+                  <button ion-button class="small_button" color="green1" round type="submit" (tap)="closeModal()">Close</button>
+                </tr> -->
+
+              </tbody>
+            </table>
+            <br>
+            <br>
+
+            <div *ngIf="doc_pds_phoneconsults.attended_to == false;" padding style="text-align: center;">
+              <button ion-button class="small_button" color="secondary" round type="submit" (tap)="attend(doc_pds_phoneconsults)">Attend to Patient</button>
+            </div>
+
+            <div padding style="text-align: center;" >
+              <button ion-button class="small_button" color="primary" round type="submit" (tap)="closeModal()">Back</button>
+            </div>
+
+          </ion-item>
+        </ion-list>
+
+        <ng-template #general_medicationfalse>
+          <ion-list>
+            <ion-item>
+              <p style="text-align: center;">Sorry you do not have any appointment</p>
+            </ion-item>
+          </ion-list>
+
+        </ng-template>
+
+        <!-- </form> -->
+
+      </ion-card>
+
+    </ion-card-content>
+  </ion-scroll>
+</ion-content>

@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-navbar text-wrap="true">
+    <ion-title text-wrap="true"
+      >Unattended Appointment(s) for {{full_name}}</ion-title
+    >
+    <ion-buttons end>
+      <button ion-button icon-only (tap)="closeModal()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list *ngIf="appointments?.length > 0; else gen_appointmentsfalse">
+    <ion-item *ngFor="let appointments of appointments">
+      <ion-grid>
+        <ion-row text-wrap>
+          <ion-col col-8>
+            <strong>
+              <p>{{appointments.appointment_type }}</p>
+              <p>{{appointments.confirmed_date | date: 'medium' }}</p>
+              <p>{{appointments.contact}}</p>
+            </strong>
+          </ion-col>
+          <ion-col col-2>
+            <button
+              ion-button
+              class="small_button"
+              color="green1"
+              round
+              type="submit"
+              (click)="doc_unattended_appointment_details(appointments)"
+            >
+              Attend
+            </button>
+            <!-- <button ion-button class="small_button" color="green1" round type="submit" (click)="attend(appointments.id,appointments.patient_id,appointments.surname,appointments.other_names)">Attend To</button> -->
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+
+  <ng-template #gen_appointmentsfalse>
+    <ion-list>
+      <ion-item>
+        <br />
+        <ion-grid>
+          <ion-row *ngIf="nodata_msg?.length > 0;" style="text-align: center;">
+            <p text-wrap="true">{{nodata_msg}}</p>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-list>
+  </ng-template>
+</ion-content>
+
+<!--Appt Type	Date and Time	Patient Contact-->

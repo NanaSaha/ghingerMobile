@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title style="text-align: center;">Confirm Payment Details</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (tap)="closeModal()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding="true" class="background">
+  <form (submit)="confirmmomopayment()">
+    <ion-list>
+      <h1 text-center text-wrap>Mobile Money Confirmation Details</h1>
+
+      <table text-wrap>
+        <tbody>
+          <tr *ngIf="patient_name">
+            <th scope="row">Name</th>
+            <td>{{patient_name}}</td>
+          </tr>
+          <!-- <tr *ngIf="bill_appointment_title">
+            <th scope="row">Appointment Type</th>
+            <td>{{bill_appointment_title}}</td>
+          </tr> -->
+
+          <tr *ngIf="customer_number">
+            <th scope="row">Mobile Money Number</th>
+            <td>{{customer_number}}</td>
+          </tr>
+          <tr *ngIf="nw">
+            <th scope="row">Payment Network</th>
+            <td>{{nw}}</td>
+          </tr>
+
+          <tr *ngIf="voucher_code">
+            <th scope="row">Voucher Code</th>
+            <td>{{voucher_code}}</td>
+          </tr>
+          <tr *ngIf="amount">
+            <th scope="row">Amount</th>
+            <td>{{amount}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <br /><br /><br />
+    </ion-list>
+  </form>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <button
+      ion-button
+      class="button-bottom"
+      color="green1"
+      block
+      (tap)="confirmmomopayment()"
+    >
+      MAKE PAYMENT
+    </button>
+  </ion-toolbar>
+</ion-footer>

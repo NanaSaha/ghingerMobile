@@ -1,0 +1,85 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Client Details!</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (tap)="closeModal()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <h2 style="text-align: center;">
+    {{currentpdspatientdetaildata.surname| removehtmltags}}
+    {{currentpdspatientdetaildata.other_names | removehtmltags}}
+  </h2>
+  <form>
+    <ion-item text-wrap class="text-left">
+      <ion-label col-5><b>DOB</b></ion-label>
+      <ion-label col-7>{{currentpdspatientdetaildata.dob}}</ion-label>
+    </ion-item>
+    <ion-item text-wrap class="text-left">
+      <ion-label col-5><b>Age</b></ion-label>
+      <ion-label col-7>{{currentpdspatientdetaildata.age}}</ion-label>
+    </ion-item>
+    <ion-item text-wrap class="text-left">
+      <ion-label col-5><b>Location</b></ion-label>
+      <ion-label col-7
+        >{{currentpdspatientdetaildata.suburb_name | removehtmltags}}</ion-label
+      >
+    </ion-item>
+    <ion-item text-wrap class="text-left">
+      <ion-label col-5><b>Allergies</b></ion-label>
+      <ion-label col-7
+        >{{currentpdspatientdetaildata.allergies | removehtmltags}}</ion-label
+      >
+    </ion-item>
+    <ion-item text-wrap class="text-left">
+      <ion-label col-5><b>PMH</b></ion-label>
+      <ion-label col-7
+        >{{currentpdspatientdetaildata.pmh | removehtmltags}}</ion-label
+      >
+    </ion-item>
+    <ion-item text-wrap class="text-left">
+      <ion-label col-5><b>Current Meds</b></ion-label>
+      <ion-label col-7
+        >{{currentpdspatientdetaildata.medications | removehtmltags}}</ion-label
+      >
+    </ion-item>
+
+    <ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-6>
+            <button
+              ion-button
+              class="small_button"
+              item-end
+              color="green1"
+              round
+              (tap)="new_record(currentpdspatientdetaildata.patient_id,doctor_id)"
+            >
+              New Record
+            </button>
+          </ion-col>
+          <ion-col col-6>
+            <button
+              ion-button
+              class="small_button"
+              item-end
+              color="green1"
+              round
+              (tap)="place_order(currentpdspatientdetaildata.patient_id,doctor_id)"
+            >
+              Place an Order
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+
+    <!-- List of Previous Encounters -->
+
+    <!--<button ion-button type="submit" block>Add User</button>-->
+  </form>
+</ion-content>

@@ -1,0 +1,52 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>PDS Video Consults!</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (tap)="closeModal()"><ion-icon name="close"></ion-icon></button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <h3 style="text-align: center;">PDS Video Consults</h3>
+  <ion-list *ngIf="doc_pds_videoconsults?.length > 0; else med_appointmentsfalse">
+    <ion-item *ngFor="let doc_pds_videoconsults of doc_pds_videoconsults">
+      <ion-grid>
+        <ion-row>
+         
+          <ion-col col-8 text-wrap>
+              <h2 text-wrap>{{doc_pds_videoconsults.surname}} {{doc_pds_videoconsults.other_names}}</h2>
+              <strong><p text-wrap>{{doc_pds_videoconsults.appointment_type}}</p></strong>
+              <strong><p  *ngIf="doc_pds_videoconsults.attended_to == false;" text-wrap>Potential Earnings: GH¢ {{doc_pds_videoconsults.appt_amnt}}</p></strong>
+              <strong><p  *ngIf="doc_pds_videoconsults.attended_to == true;" text-wrap>Actual Earnings: GH¢ {{doc_pds_videoconsults.appt_amnt}}</p></strong>
+      
+          </ion-col>
+          <ion-col col-2>
+            <button ion-button  class="small_button" color="green1" round type="submit" (click)="get_pds_videoconsult_details(doc_pds_videoconsults)">Details</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+
+  <ng-template #med_appointmentsfalse>
+    <ion-list>
+      <ion-item>
+        <br>
+        <ion-grid>
+          <ion-row>
+            <ion-col col-8>
+                <h2 style="text-align: center;">Sorry you do not have any appointment</h2>             
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+          
+      </ion-item>
+    </ion-list>
+      
+  </ng-template>
+
+</ion-content>

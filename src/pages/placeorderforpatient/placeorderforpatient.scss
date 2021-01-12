@@ -1,0 +1,105 @@
+page-placeorderforpatient {
+
+
+
+  [_nghost-c1] {
+    background-color: color($colors, green1);
+    border-radius: 40px;
+    font-size: 14px;
+    color: #fff;
+}
+[_nghost-c1] .ng2-tag-input-remove[_ngcontent-c1] {
+    color: color($colors, green1);
+    background: #fff;
+    height: 20px;
+    width: 20px;
+    line-height: 20px;
+}
+
+ [_nghost-c1] .ng2-tag-input[_ngcontent-c1] {
+  width: 100%;
+}
+
+  [_nghost-c1] .rl-tag-input[_ngcontent-c1] {
+  width: 100%;
+  height: 100%;
+}
+
+
+
+
+ .pad{
+
+    // padding-right: 1000px;
+    // padding-left: 70px;
+     text-align:center;
+
+}
+
+.center{
+
+    text-align: center;
+    align-content: center;
+}
+
+
+.background{
+
+
+//  background-color: #ece7e7;
+
+height: 100%;
+
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+align-content: center;
+text-align:center;
+
+}
+
+ion-item {
+// -moz-border-radius: 15px;
+//  border-radius: 100px;
+border:solid 2px black;
+padding:5px;
+padding-left: 40px;
+padding-top: 20px;
+width: 300px;
+height: 40px;
+// height: 100px !important;
+// background-color: transparent !important;
+// background: transparent !important;
+
+ 
+}
+
+.height{
+
+ height: 100px !important;
+
+
+}
+
+ion-auto-complete {
+width: 1000vw;
+margin-left: 0px;
+
+}
+
+
+
+ion-card.card {
+    box-shadow: none;
+    background:none;
+    border-radius: 5px;
+     padding-left: 10px;
+}
+
+ion-icon.green{
+
+    color: #789527;
+
+}
+
+}

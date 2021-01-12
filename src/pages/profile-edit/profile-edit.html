@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Edit Your Profile</ion-title>
+    <!-- <ion-buttons end class="margin" tappable (tap)="home()">
+      <button ion-button icon-only>
+        <ion-icon name="home"></ion-icon>
+      </button>
+    </ion-buttons> -->
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form [formGroup]="updateProfile">
+    <br />
+
+    <ion-item>
+      <ion-label stacked>Surname</ion-label>
+      <ion-input
+        type="text"
+        placeholder="surname"
+        formControlName="surname"
+        name="surname"
+        [(ngModel)]="profile.surname"
+        [class.invalid]="!updateProfile.controls.surname.valid && (updateProfile.controls.surname.dirty || submitAttempt)"
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Other Names</ion-label>
+      <ion-input
+        type="text"
+        placeholder="other names"
+        formControlName="other_names"
+        name="other_names"
+        [(ngModel)]="profile.other_names"
+        [class.invalid]="!updateProfile.controls.other_names.valid && (updateProfile.controls.surname.dirty || submitAttempt)"
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Mobile Number</ion-label>
+      <ion-input
+        type="text"
+        placeholder="mobile number"
+        formControlName="mobile_number"
+        name="mobile_number"
+        [(ngModel)]="profile.mobile_number"
+        [class.invalid]="!updateProfile.controls.mobile_number.valid && (updateProfile.controls.mobile_number.dirty || submitAttempt)"
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Email</ion-label>
+      <ion-input
+        type="text"
+        placeholder="email"
+        formControlName="email"
+        name="email"
+        [(ngModel)]="profile.email"
+        [class.invalid]="!updateProfile.controls.email.valid && (updateProfile.controls.email.dirty || submitAttempt)"
+      ></ion-input>
+    </ion-item>
+  </form>
+</ion-content>
+
+<ion-footer>
+  <p>
+    <button
+      ion-button
+      color="secondary"
+      class="button button-dark customBtn"
+      [disabled]="!this.updateProfile.valid"
+      (tap)="editProfile()"
+    >
+      Update Profile
+    </button>
+  </p>
+</ion-footer>

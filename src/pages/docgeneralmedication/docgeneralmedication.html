@@ -1,0 +1,129 @@
+<ion-content class="main-view">
+
+  <div class="overlay" (click)="closeModal()"></div>
+  <ion-scroll class="modal_content" scrollY="true">
+    <!--<div class="modal_content">-->
+    <ion-buttons end>
+      <button ion-button icon-only (tap)="closeModal()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+
+    </ion-buttons>
+    <br />
+    <br />
+    <br />
+
+    <ion-card-content>
+      <ion-card>
+        <ion-item>
+          <p class="position" style=" color: black;">Details </p>
+
+        </ion-item>
+
+        <!-- <form [formGroup]="docGenMedicationForm"> -->
+
+        <ion-list *ngIf="general_medications?.length > 0; else general_medicationfalse">
+          <ion-item *ngFor="let general_medication of general_medications">
+            <br>
+            <table text-wrap>
+              <tbody text-wrap>
+                <!-- <tr><th scope="row">No.</th><td>1</td></tr> -->
+                <tr *ngIf="general_medication.surname">
+                  <th scope="row">Patient Name</th>
+                  <td>{{general_medication.surname}} {{general_medication.other_names}}</td>
+                </tr>
+                <tr *ngIf="general_medication.contact">
+                  <th scope="row">Patient Contact</th>
+                  <td>{{general_medication.contact}}</td>
+                </tr>
+                <tr *ngIf="general_medication.category">
+                  <th scope="row">Request Type</th>
+                  <td>{{general_medication.category}}</td>
+                </tr>
+                <tr *ngIf="general_medication.category == 'Beneficiary'">
+                  <th scope="row" *ngIf="general_medication.beneficiary_name">Beneficiary Name</th>
+                  <td *ngIf="general_medication.beneficiary_name">{{general_medication.beneficiary_name}}</td>
+                </tr>
+                <tr *ngIf="general_medication.category == 'Beneficiary'">
+                  <th scope="row" *ngIf="general_medication.beneficiary_age">Beneficiary's Age</th>
+                  <td *ngIf="general_medication.beneficiary_age">{{general_medication.beneficiary_age}}</td>
+                </tr>
+                <tr *ngIf="general_medication.category == 'Beneficiary'">
+                  <th scope="row" *ngIf="general_medication.beneficiary_gender">Beneficiary's Sex</th>
+                  <td *ngIf="general_medication.beneficiary_name">{{general_medication.beneficiary_gender}}</td>
+                </tr>
+                <tr *ngIf="general_medication.category == 'Beneficiary'">
+                  <th scope="row" *ngIf="general_medication.beneficiary_phone_number">Beneficiary's Phone No.</th>
+                  <td *ngIf="general_medication.beneficiary_name">{{general_medication.beneficiary_phone_number}}</td>
+                </tr>
+                <tr *ngIf="general_medication.urgency">
+                  <th scope="row">Request Urgency</th>
+                  <td>{{general_medication.urgency}}</td>
+                </tr>
+
+                <tr *ngIf="general_medication.appointment_type">
+                  <th scope="row">Appt Type</th>
+                  <td>{{general_medication.appointment_type}}</td>
+                </tr>
+                <tr *ngIf="general_medication.medication">
+                  <th scope="row">Medications</th>
+                  <td>{{general_medication.medication | removehtmltags}}</td>
+                </tr>
+
+                <tr *ngIf="general_medication.prev_medical_history">
+                  <th scope="row">Previous Medical History</th>
+                  <td>{{general_medication.prev_medical_history | removehtmltags}}</td>
+                </tr>
+                <tr *ngIf="general_medication.allergies">
+                  <th scope="row">Allergies</th>
+                  <td>{{general_medication.allergies | removehtmltags}}</td>
+                </tr>
+                <tr *ngIf="general_medication.duration">
+                  <th scope="row">Duration</th>
+                  <td>{{general_medication.duration}}</td>
+                </tr>
+                <tr *ngIf="general_medication.confirmed_date">
+                  <th scope="row">Date/Time</th>
+                  <td>{{general_medication.confirmed_date | date: 'medium' }}</td>
+                </tr>
+                <tr *ngIf="general_medication.accepted_status">
+                  <th scope="row">Accept Status</th>
+                  <td *ngIf="general_medication.accepted_status == true;">Accepted</td>
+                  <td *ngIf="general_medication.accepted_status == false;">Not Accepted</td>
+                </tr>
+
+                <tr *ngIf="general_medication.attended_to">
+                  <th scope="row">Attend Status</th>
+                  <td *ngIf="general_medication.attended_to == true;">Attended to</td>
+                  <td *ngIf="general_medication.attended_to == false;">Unattended to</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div padding style="text-align: center;" *ngIf="general_medication.attended_to == false;">
+              <button ion-button class="small_button" color="green1" round type="submit" (click)="attend_to(general_medication.id)">Attend
+                to</button>
+            </div>
+
+            <div padding style="text-align: center;" >
+              <button ion-button color="primary" class="button-bottom1" (tap)="closeModal()">Back</button>
+            </div>
+          </ion-item>
+        </ion-list>
+
+        <ng-template #general_medicationfalse>
+          <ion-list>
+            <ion-item>
+              <p style="text-align: center;">Sorry you do not have any appointment</p>
+            </ion-item>
+          </ion-list>
+
+        </ng-template>
+
+        <!-- </form> -->
+
+      </ion-card>
+
+    </ion-card-content>
+  </ion-scroll>
+</ion-content>

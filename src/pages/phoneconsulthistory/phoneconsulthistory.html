@@ -1,0 +1,52 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Phone Consult!</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (tap)="closeModal()"><ion-icon name="close"></ion-icon></button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+
+  <ion-buttons end>
+    <button ion-button full color="black" (click)="openNewAppointment()" icon-only>
+      New Phone Consult <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-buttons>
+
+  <ion-list *ngIf="phoneconsult_details?.length > 0">
+    <ion-item *ngFor="let phoneconsult_detail of phoneconsult_details">
+      <ion-grid>
+        <ion-row>
+         
+          <ion-col col-8>
+            <h2>{{phoneconsult_detail.created_at | date: 'yyyy-MM-dd h:mm a' }}</h2>
+            <strong>
+              <p *ngIf="phoneconsult_detail.confirm_status == true; else confirmstatusfalse">
+                Confirmed
+              </p></strong>
+            <ng-template #confirmstatusfalse>
+              <strong>Not Confirmed</strong>
+            </ng-template>
+          </ion-col>
+          <ion-col col-2>
+            <button ion-button  class="small_button" color="green1" round type="submit" (click)="phone_consult_history_details(phoneconsult_detail.id,this.appointmentType)">Details</button>
+
+            <br>
+            <!-- <button *ngIf="phoneconsult_detail.billing_info_bill_items_info_id && !phoneconsult_detail.paid && phoneconsult_detail.approval_status == true" ion-button  class="small_button" color="blue" round type="submit" (click)="bill(phoneconsult_detail)">Bill Info</button> -->
+           
+            <button *ngIf="phoneconsult_detail.billing_info_bill_items_info_id && !phoneconsult_detail.paid" ion-button  class="small_button" color="blue" round type="submit" (click)="bill(phoneconsult_detail)">Bill Info</button>
+            <button *ngIf="phoneconsult_detail.billing_info_bill_items_info_id && phoneconsult_detail.approval_status == false" ion-button
+            class="medium_button" color="deepash" round type="submit" (click)="bill(phoneconsult_detail)">Rejected<br>Bill</button>
+            <button *ngIf="phoneconsult_detail.billing_info_bill_items_info_id && phoneconsult_detail.paid== true" ion-button  class="small_button" color="dullyellow" round type="submit" (click)="bill(phoneconsult_detail)">Paid</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

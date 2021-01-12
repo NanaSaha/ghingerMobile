@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Subscription History</ion-title>
+    <ion-buttons end class="margin" tappable (tap)="home()">
+      <button ion-button icon-only>
+        <ion-icon name="home"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="background">
+  <ion-list *ngIf="list?.length == 0">
+    <p class="textstyle">No Subscription History Found</p>
+  </ion-list>
+
+  <ion-list *ngFor="let item of list">
+    <ion-item>
+      <ion-row>
+        <ion-col col-7>
+          <h4 text-wrap><b> Subscription Name:</b> {{ item.sub_name}}</h4>
+          <h4 text-wrap><b> Amount:</b> GHc {{ item.amount}}</h4>
+          <h4 text-wrap *ngIf=" item.paid_status == true">
+            <b> Payment Status:</b> Paid
+          </h4>
+          <h4 text-wrap *ngIf=" item.paid_status == false">
+            <b> Payment Status:</b> Not Paid
+          </h4>
+          <h4 text-wrap>
+            <b> Subscription Date:</b> {{ item.created_at | date: 'medium'}}
+          </h4>
+        </ion-col>
+
+        <ion-col col-5>
+          <button
+            ion-button
+            color="secondary"
+            outline
+            (tap)="history_details(item)"
+          >
+            View Details
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+  </ion-list>
+</ion-content>

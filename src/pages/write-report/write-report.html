@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Notes</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="remarksForm">
+    <br />
+    <ion-list>
+      <ion-item>
+        <ion-label id="push_label" style="color: #5dba47; text-align: center;">
+          Write your notes here
+        </ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-item>
+          <ion-textarea
+            rows="4"
+            placeholder="Write your notes here"
+            formControlName="remark"
+            name="remark"
+            [class.invalid]="!remarksForm.controls.remark.valid && (remarksForm.controls.remark.dirty || submitAttempt)"
+          ></ion-textarea>
+        </ion-item>
+      </ion-item>
+
+      <p class="pad" style="text-align: center;">
+        <button
+          ion-button
+          color="green1"
+          class="submitbtn"
+          [disabled]="!this.remarksForm.valid"
+          (tap)="write_report()"
+          style="
+            text-align: center;
+            border-radius: 60px;
+            height: 40px;
+            width: 90%;
+          "
+        >
+          Submit
+        </button>
+      </p>
+    </ion-list>
+  </form>
+</ion-content>

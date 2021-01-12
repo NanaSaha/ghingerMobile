@@ -1,0 +1,36 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Video Consult Appointments</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+
+<ion-content >  
+   <h4 class="center"><b   style=" color: black;">Video Consultation Appointments Made.. </b> </h4>
+
+<ion-item  *ngIf="check?.length == 0">
+   
+    <p class="center"><b style=" color: black;">No Video Consult Appoiintment </b> </p>
+
+
+  </ion-item>
+
+  <ion-item  *ngIf="check?.length > 0"  > 
+  <ion-list *ngFor="let data of check">
+  <ion-item>
+    <ion-thumbnail item-start>
+      <img src="assets/icon/doc.png">
+    </ion-thumbnail>
+    <h2><b >{{ location.other_names}} {{ location.surname}}</b></h2>
+    <p>{{ location.mobile_number}}</p>
+    <button ion-button clear item-end (tap)="view(data)">View</button>
+  </ion-item>
+   
+</ion-list>
+ </ion-item>
+
+</ion-content>

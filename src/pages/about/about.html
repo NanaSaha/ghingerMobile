@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Profile
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+    <div class="img-circular"></div><br>
+  
+    <ion-list>
+   
+    <!-- <p class="down1">{{other_names}} {{surname}}</p> -->
+   
+    </ion-list>
+
+    <ion-item  >
+        <ion-row class="container">
+          <ion-col col-9>
+            <h2 style=" color: #5dba47; font-weight: bolder;">Profile Details</h2>
+            <ion-item no-lines> <p class="font_style" text-wrap>Username : </p></ion-item>
+            <ion-item no-lines> <p class="font_style" text-wrap>Fullname: </p></ion-item>
+            <ion-item no-lines> <p class="font_style" text-wrap>Mobile Number: </p></ion-item>
+            <ion-item no-lines> <p class="font_style" text-wrap>Email: </p></ion-item> 
+         
+          </ion-col>
+          <ion-col col-3>
+            <button ion-button color="secondary" outline (tap)="edit(item)"> Edit</button>
+          </ion-col>
+        </ion-row>
+        </ion-item>
+
+</ion-content>

@@ -1,0 +1,57 @@
+<ion-menu [content]="content">
+  <!-- <ion-header>
+    <ion-toolbar>
+      <ion-card-header class="pad">
+        <img src="assets/icon/new_ghinger_logo.png" class="logo_size" />
+      </ion-card-header>
+    </ion-toolbar>
+  
+    
+  </ion-header> -->
+  <ion-content id="background2">
+    <div class="padding-icon">
+      <img src="assets/icon/doc.png" width="30%" />
+    </div>
+    <p class="down1">{{other_names}} {{surname}}</p>
+    <button ion-button color="secondary" outline (tap)="editpro()">Edit</button>
+
+    <ion-list>
+      <div *ngIf="user_type =='C' ">
+        <button
+          menuClose
+          ion-item
+          *ngFor="let p of pages"
+          (click)="openPage(p)"
+        >
+          <ion-icon item-left [name]="p.icon"></ion-icon>
+          {{p.title}}
+        </button>
+      </div>
+
+      <div *ngIf="user_type =='N' || user_type =='D' ">
+        <button
+          menuClose
+          ion-item
+          *ngFor="let p of pages2"
+          (click)="openPage(p)"
+        >
+          <ion-icon item-left [name]="p.icon"></ion-icon>
+          {{p.title}}
+        </button>
+      </div>
+
+      <ion-footer>
+        <p class="footer-font">
+          Designed & Developed By
+          <span>
+            <a class="footer-font2" href="https://www.devdexsoftware.com"
+              >Devdex Software
+            </a>
+          </span>
+        </p></ion-footer
+      >
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

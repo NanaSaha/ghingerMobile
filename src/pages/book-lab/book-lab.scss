@@ -1,0 +1,131 @@
+page-book-lab {
+
+    ionic-selectable {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+
+        .pad{
+
+        // padding-right: 1000px;
+        // padding-left: 70px;
+         text-align:center;
+
+    }
+
+   .center{
+
+        text-align: center;
+        align-content: center;
+    }
+
+
+.background{
+
+ /* The image used */
+    // background-image: url("../assets/icon/back.png"); 
+    // background-color: #ece7e7;
+   
+    height: 100%;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    align-content: center;
+    text-align:center;
+
+    }
+
+ ion-item {
+  // -moz-border-radius: 15px;
+//  border-radius: 100px;
+    border:solid 2px black;
+    padding:5px;
+    padding-left: 40px;
+    padding-top: 20px;
+    width: 300px;
+    // height: 40px;
+    // height: 100px !important;
+// background-color: transparent !important;
+// background: transparent !important;
+
+     
+}
+
+.height{
+
+     height: 100px !important;
+
+
+}
+
+ion-auto-complete {
+  width: 1000vw;
+   margin-left: 0px;
+   
+}
+
+
+
+ ion-card.card {
+        box-shadow: none;
+        background:none;
+        border-radius: 5px;
+         padding-left: 10px;
+    }
+
+    ion-icon.green{
+
+        color: #789527;
+
+    }
+
+
+    .text-input-md {
+        margin: 13px 8px;
+        padding: 0;
+        width: calc(100% - 8px - 8px);
+        margin-left: 8px !important;
+    }
+    
+    label-md {
+      margin: 13px -1px 13px 0 !important;
+    }
+    
+    .movemove{
+      margin-left: -2%
+    
+    }
+    
+    .movemove1{
+      margin-left: 2%
+    }
+    
+    .movemove3{
+      margin-left: -2%
+    }
+
+    .ionic-selectable-value-item {
+        text-overflow: unset;
+        overflow: visible;
+        white-space: nowrap;
+        margin-left: -7% !important;
+    }
+
+    .ionic-selectable-value {
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        padding-top: 13px;
+        padding-bottom: 13px;
+        overflow: visible !important;
+    }
+
+
+}

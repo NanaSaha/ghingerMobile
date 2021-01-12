@@ -1,0 +1,40 @@
+<!-- <div id="custom-overlay" [style.display]="splash ? 'flex': 'none'">
+    <div class="flb">
+      <div class="Aligner-item Aligner-item--top"></div>
+      <img src="assets/img/splash_logo.png">
+     
+
+    
+      <div class="Aligner-item Aligner-item--bottom"></div>
+    </div>
+  </div> -->
+
+<ion-content class="background">
+  <img src="assets/icon/new_ghinger_logo.png" class="logo_position" />
+
+  <div class="pad" id="move-down2">
+    <b class="font-style">Talk to a Doctor </b>
+    <p class="font-style">
+      Book an appointment in seconds, speak to a Doctor in minutes anytime,
+      anywhere!
+    </p>
+  </div>
+
+  <div class="move-down">
+    <p class="pad" style="text-align: center">
+      <button ion-button color="green1" (tap)="signup()" class="button_style">
+        Get Started
+      </button>
+    </p>
+
+    <p class="pad">
+      <b class="font-style">
+        <p>
+          Have an account?
+
+          <a tappable (tap)="login()" style="color: #c1c31a">Login </a>
+        </p>
+      </b>
+    </p>
+  </div>
+</ion-content>

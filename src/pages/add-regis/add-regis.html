@@ -1,0 +1,141 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Additional Info</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <p class="center">
+    <b style="color: black;"
+      >Please Provide these additional info to proceed..
+    </b>
+  </p>
+  <br />
+
+  <ion-auto-complete
+    [dataProvider]="completeTestService"
+    [options]="{ placeholder : 'Enter Your Location' }"
+    #input
+    #searchbar
+  >
+    <ion-icon ios="ios-person" md="md-person"></ion-icon>
+  </ion-auto-complete>
+
+  <ion-item>
+    <ion-label>Surburbs</ion-label>
+    <ionic-selectable
+      item-content
+      [(ngModel)]="surburb_id"
+      [items]="suburbs"
+      itemValueField="id"
+      itemTextField="suburb_name"
+      [canSearch]="true"
+      (onChange)="surburbChange($event)"
+      name="suburb_name"
+    >
+    </ionic-selectable>
+  </ion-item>
+  <br />
+
+  <ion-item>
+    <ion-label floating>
+      <ion-icon ios="ios-person" md="md-person">&nbsp;</ion-icon>Which hospital
+      do you work at?
+    </ion-label>
+    <ion-input
+      type="text"
+      [(ngModel)]="hospital_name"
+      name="hospital_name"
+    ></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label floating>Has Specialty?</ion-label>
+    <ion-select name="has_specialty" [(ngModel)]="has_specialty">
+      <ion-option value="t" ngDefaultControl>Yes</ion-option>
+      <ion-option value="f" ngDefaultControl>No</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item *ngIf="has_specialty == 't'">
+    <ion-label floating>Specialty</ion-label>
+    <ion-select name="specialty_name" [(ngModel)]="specialty_name">
+      <ion-option
+        *ngFor="let data of jsonBody1"
+        [value]="data.id"
+        ngDefaultControl
+        >{{data.title}}</ion-option
+      >
+    </ion-select>
+  </ion-item>
+
+  <ion-item *ngIf="has_specialty == 't'">
+    <ion-label floating> Specialty Duration </ion-label>
+    <ion-input
+      type="text"
+      [(ngModel)]="specialty_duration"
+      name="specialty_duration"
+    ></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label floating>
+      <ion-icon ios="ios-person" md="md-person">&nbsp;</ion-icon>Please provide
+      license number (if applicable)</ion-label
+    >
+    <ion-input
+      type="text"
+      [(ngModel)]="license_number"
+      name="license_number"
+    ></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label floating>Medical Regulator</ion-label>
+
+    <ion-select name="medical_regulator" [(ngModel)]="medical_regulator">
+      <ion-option
+        *ngFor="let data of jsonBody2"
+        [value]="data.id"
+        ngDefaultControl
+        >{{data.group_name}}</ion-option
+      >
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label floating>Has any foreign training?</ion-label>
+
+    <ion-select name="has_foriegn_training" [(ngModel)]="has_foriegn_training">
+      <ion-option value="t" ngDefaultControl>Yes</ion-option>
+      <ion-option value="f" ngDefaultControl>No</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item *ngIf="has_foriegn_training == 't'">
+    <ion-label floating> Foriegn Medical Regulator </ion-label>
+    <ion-input
+      type="text"
+      [(ngModel)]="foreign_medical_regulator"
+      name="foreign_medical_regulator"
+    ></ion-input>
+  </ion-item>
+
+  <ion-item *ngIf="has_foriegn_training == 't'">
+    <ion-label floating> Foriegn License Number </ion-label>
+    <ion-input
+      type="text"
+      [(ngModel)]="foreign_license_number"
+      name="foreign_license_number"
+    ></ion-input>
+  </ion-item>
+
+  <p class="pad">
+    <button ion-button color="green1" (tap)="close()">Cancel</button>
+  </p>
+  <p class="pad">
+    <button ion-button color="green1" (tap)="signup()">Submit</button>
+    <br />
+    <br />
+  </p>
+</ion-content>

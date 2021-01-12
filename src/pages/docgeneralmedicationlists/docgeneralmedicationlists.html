@@ -1,0 +1,67 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Medications!</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (tap)="closeModal()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+  </ion-refresher>
+
+  <h3 style="text-align: center;">Medications</h3>
+  <ion-list *ngIf="doc_med_appoint_lists?.length > 0; else med_appointmentsfalse">
+    <ion-item *ngFor="let doc_med_appoint_lists of doc_med_appoint_lists">
+      <ion-grid>
+        <ion-row>
+          <!-- <ion-col col-2>
+           <strong>1</strong>
+          </ion-col> -->
+          <ion-col col-8>
+            <h2>{{doc_med_appoint_lists.surname}} {{doc_med_appoint_lists.other_names}}</h2>
+            <strong>
+              <p>{{doc_med_appoint_lists.appointment_type}}</p>
+            </strong>
+          </ion-col>
+          <ion-col col-2>
+            <button ion-button class="small_button" color="green1" round type="submit" (click)="doc_gen_med_appointment_details(doc_med_appoint_lists)">Details</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+
+  <ng-template #med_appointmentsfalse>
+    <ion-list>
+      <ion-item>
+        <br>
+        <ion-grid>
+          <ion-row>
+            <!-- <ion-col col-2>
+             <strong>1</strong>
+            </ion-col> -->
+            <ion-col col-8>
+              <h2 style="text-align: center;">Sorry you do not have any appointment</h2>
+            </ion-col>
+            <!-- <ion-col col-4>
+              <h2>Home Care</h2>
+              <h2>2018-06-19 16:54</h2>
+
+            </ion-col> -->
+
+          </ion-row>
+        </ion-grid>
+
+      </ion-item>
+    </ion-list>
+
+  </ng-template>
+
+</ion-content>

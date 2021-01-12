@@ -1,0 +1,60 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title style="text-align: center;">Personal Doc Service Appointments</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (tap)="closeModal()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+  </ion-refresher>
+
+  <h3 style="text-align: center;">Personal Doc Service Appointments</h3>
+  <ion-list *ngIf="pds_appoint_details?.length > 0; else pds_appointmentsfalse">
+    <ion-item *ngFor="let pds_appoint_details of pds_appoint_details">
+    
+      <ion-grid>
+        <ion-row>
+          <ion-col col-8 text-wrap="true">
+            <h2 text-wrap="true"> {{pds_appoint_details.surname}} {{pds_appoint_details.other_names}}</h2>
+            <strong text-wrap="true">
+              <p text-wrap="true">{{pds_appoint_details.appointment_type}}</p>
+            </strong>
+            <p text-wrap="true">{{pds_appoint_details.created_at | date: 'medium' }}</p>
+           <p> Potential Earnings: GH¢ {{pds_appoint_details.appt_amnt}} </p>
+          </ion-col>
+          <ion-col col-2 text-wrap="true">
+            <button ion-button class="small_button" color="green1" round type="submit" (click)="pds_appt_details(pds_appoint_details)">Appt Details</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+     
+    </ion-item>
+  </ion-list>
+
+  <ng-template #pds_appointmentsfalse>
+    <ion-list>
+      <ion-item>
+        <br>
+        <ion-grid>
+          <ion-row>
+            <ion-col col-8>
+              <h2 style="text-align: center;">Sorry you do not have any appointment</h2>
+            </ion-col>
+          
+          </ion-row>
+        </ion-grid>
+
+      </ion-item>
+    </ion-list>
+
+  </ng-template>
+
+</ion-content>

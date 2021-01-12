@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Service Providers</ion-title>
+    <ion-buttons end class="margin" tappable (tap)="home()">
+      <button ion-button icon-only>
+        <ion-icon name="home"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content overflow-scroll="true" class="background">
+  <ion-card-header class="pad">
+    <img src="assets/icon/logo.png" height="60px" width="200px" />
+  </ion-card-header>
+
+  <ion-item *ngIf="check?.length == 0">
+    <!--<p class="center"> <h4 style=" color: white;"><b> No appointment History</b></h4> </p>-->
+    <p class="center">
+      <b style="color: white;">No Medical Facilities Available </b>
+    </p>
+  </ion-item>
+
+  <ion-item *ngIf="check?.length > 0">
+    <ion-list *ngFor="let location of check">
+      <ion-card-content>
+        <ion-card>
+          <ion-item>
+            <img src="assets/icon/hospital.jpg" />
+            <br />
+            <h4><b>{{ location.provider_name}}</b></h4>
+            <h4><b>{{ location.suburb_name}}</b></h4>
+            <br />
+            <button ion-button color="green1" (tap)="book(location)">
+              Make Lab Request
+            </button>
+            <!-- <button ion-button color="dark">  Hospital Info </button> -->
+          </ion-item>
+        </ion-card>
+      </ion-card-content>
+    </ion-list>
+  </ion-item>
+
+  <ion-item>
+    <!--<p class="center"> <h4 style=" color: white;"><b> No appointment History</b></h4> </p>-->
+    <p class="center">
+      <b style="color: white;">No Medical Facilities Available </b>
+    </p>
+  </ion-item>
+</ion-content>

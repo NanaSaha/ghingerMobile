@@ -1,0 +1,68 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Personal Doctor Prescription</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content overflow-scroll='true' class="background">
+
+  <form [formGroup]="appointForm" class="padd">
+
+   
+    <ion-list>
+
+    
+
+
+      <ion-item>
+        <ion-item>
+          <ion-textarea placeholder="Enter Prescription Name" formControlName="prescription_name" name="prescription_name"
+            [class.invalid]="!appointForm.controls.prescription_name.valid && (appointForm.controls.prescription_name.dirty || submitAttempt)"></ion-textarea>
+        </ion-item>
+      </ion-item>
+
+      <ion-item>
+        <ion-item>
+          <!-- <ion-input type="password" formControlName="password" name="password" [class.invalid]="!resetPasswordForm.controls.password.valid && (resetPasswordForm.controls.password.dirty || submitAttempt)"></ion-input> -->
+          <ion-textarea placeholder="Enter Quantity" formControlName="drugs_quantity" name="drugs_quantity"
+            [class.invalid]="!appointForm.controls.drugs_quantity.valid && (appointForm.controls.drugs_quantity.dirty || submitAttempt)"></ion-textarea>
+        </ion-item>
+      </ion-item>
+
+      <ion-item>
+        <ion-item>
+          <ion-input type="text" placeholder="Enter Dosage" formControlName="drugs_dosage" name="drugs_dosage"
+            [class.invalid]="!appointForm.controls.drugs_dosage.valid && (appointForm.controls.drugs_dosage.dirty || submitAttempt)"></ion-input>
+          <!-- <ion-textarea placeholder="Enter Dosage" formControlName="drugs_dosage" name="drugs_dosage" [class.invalid]="!appointForm.controls.drugs_dosage.valid && (appointForm.controls.drugs_dosage.dirty || submitAttempt)"></ion-textarea> -->
+        </ion-item>
+      </ion-item>
+
+      <ion-item>
+        <ion-item>
+          <ion-textarea placeholder="Enter Frequency" formControlName="drugs_frequency" name="drugs_frequency"
+            [class.invalid]="!appointForm.controls.drugs_frequency.valid && (appointForm.controls.drugs_frequency.dirty || submitAttempt)"></ion-textarea>
+        </ion-item>
+      </ion-item>
+
+      <ion-item>
+        <ion-item>
+          <ion-textarea placeholder="Enter Number of days" formControlName="number_of_days" name="number_of_days"
+            [class.invalid]="!appointForm.controls.number_of_days.valid && (appointForm.controls.number_of_days.dirty || submitAttempt)"></ion-textarea>
+        </ion-item>
+      </ion-item>
+
+      <p class="pad" style="text-align: center;">
+        <button ion-button round color="green1" (click)="createPdf()" [disabled]="!this.appointForm.valid">Create PDF</button>
+        <button ion-button round color="green1" (click)="emailPdf()" [disabled]="!this.appointForm.valid">Send Via</button>
+
+        <!-- <button ion-button full (click)="downloadPdf()" color="secondary" [disabled]="!this.appointForm.valid">Download PDF</button> -->
+      </p>
+
+
+    </ion-list>
+  </form>
+
+</ion-content>

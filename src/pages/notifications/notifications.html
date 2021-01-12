@@ -1,0 +1,334 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="keypad"></ion-icon>
+    </button>
+    <ion-title>Notifications</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="background">
+  <!-- <ion-slides loop="true" speed="2000">
+      <ion-slide> -->
+  <ion-segment [(ngModel)]="overall_list" overflow-scroll="true">
+    <ion-segment-button class="segment-button" value="Overall">
+      Medication
+    </ion-segment-button>
+    <ion-segment-button value="Medical">
+      Medical Appt
+    </ion-segment-button>
+    <ion-segment-button value="Lab">
+      Lab
+    </ion-segment-button>
+  </ion-segment>
+  <!-- </ion-slide> -->
+
+  <!-- <ion-slide>
+          <ion-segment [(ngModel)]="overall_list" overflow-scroll='true'>
+            <ion-segment-button class="segment-button" value="Golf">
+                Golf
+            </ion-segment-button>
+            <ion-segment-button value="Football">
+                Football
+            </ion-segment-button>
+            <ion-segment-button value="Boxing">
+              Boxing
+            </ion-segment-button>
+          </ion-segment>
+        </ion-slide> -->
+  <!-- </ion-slides> -->
+
+  <div [ngSwitch]="overall_list">
+    <ion-list *ngSwitchCase="'Overall'" overflow-scroll="true">
+      <ion-list *ngIf="person_details?.length == 0">
+        <p class="textstyle">No Medication Appointment History Found</p>
+      </ion-list>
+      <ion-list *ngIf="person_details?.length > 0">
+        <ion-item *ngFor="let patientdetails of person_details">
+          <ion-grid>
+            <ion-row>
+              <ion-col col-8>
+                <h2
+                  *ngIf="patientdetails.confirm_status == true; else confirmstatusfalse1"
+                >
+                  {{patientdetails.created_at | date: 'medium'}}
+                </h2>
+
+                <ng-template #confirmstatusfalse1>
+                  <strong
+                    >{{patientdetails.created_at | date: 'medium' }}</strong
+                  >
+                </ng-template>
+
+                <strong>
+                  <p
+                    *ngIf="patientdetails.confirm_status == true; else confirmstatusfalse"
+                  >
+                    Confirmed
+                  </p></strong
+                >
+                <ng-template #confirmstatusfalse>
+                  <br />
+                  <strong>Not Confirmed</strong>
+                </ng-template>
+              </ion-col>
+              <ion-col col-2>
+                <button
+                  ion-button
+                  class="small_button"
+                  color="green1"
+                  round
+                  type="submit"
+                  (click)="medication_appointment_history_details(patientdetails)"
+                >
+                  Details</button
+                ><br />
+
+                <!-- <button *ngIf="patientdetails.billing_info_bill_items_info_id && !patientdetails.paid && patientdetails.approval_status == true" ion-button  class="small_button" color="blue" round type="submit" (click)="bill(patientdetails)">Bill Info</button> -->
+                <button
+                  *ngIf="patientdetails.billing_info_bill_items_info_id && !patientdetails.paid"
+                  ion-button
+                  class="small_button"
+                  color="blue"
+                  round
+                  type="submit"
+                  (click)="bill(patientdetails)"
+                >
+                  Bill Info
+                </button>
+                <button
+                  *ngIf="patientdetails.billing_info_bill_items_info_id && patientdetails.approval_status == false"
+                  ion-button
+                  class="medium_button"
+                  color="deepash"
+                  round
+                  type="submit"
+                  (click)="bill(patientdetails)"
+                >
+                  Rejected<br />Bill
+                </button>
+                <button
+                  *ngIf="patientdetails.billing_info_bill_items_info_id && patientdetails.paid== true"
+                  ion-button
+                  class="small_button"
+                  color="dullyellow"
+                  round
+                  type="submit"
+                  (click)="bill(patientdetails)"
+                >
+                  Paid
+                </button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+      </ion-list>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'Medical'" overflow-scroll="true">
+      <ion-list *ngIf="person_details2?.length == 0">
+        <p class="textstyle">No Medical Appointment History Found</p>
+      </ion-list>
+
+      <ion-list *ngIf="person_details2?.length > 0">
+        <ion-item *ngFor="let patientdetails of person_details2">
+          <ion-grid>
+            <ion-row>
+              <ion-col col-8>
+                <h2
+                  *ngIf="patientdetails.confirm_status == true; else confirmstatusfalse1"
+                >
+                  {{patientdetails.confirmed_date | date: 'medium' }}
+                </h2>
+
+                <ng-template #confirmstatusfalse1>
+                  <strong
+                    >{{patientdetails.created_at | date: 'medium' }}</strong
+                  >
+                </ng-template>
+
+                <strong>
+                  <p
+                    *ngIf="patientdetails.confirm_status == true; else confirmstatusfalse"
+                  >
+                    Confirmed
+                  </p>
+                </strong>
+                <ng-template #confirmstatusfalse>
+                  <br /><strong>Not Confirmed</strong>
+                </ng-template>
+              </ion-col>
+              <ion-col col-2>
+                <button
+                  ion-button
+                  class="small_button"
+                  color="green1"
+                  round
+                  type="submit"
+                  (click)="medical_appointment_history_details(patientdetails)"
+                >
+                  Details
+                </button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+      </ion-list>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'Lab'" overflow-scroll="true">
+      <ion-list *ngIf="person_details3?.length == 0">
+        <p class="textstyle">No Lab Appointment History Found</p>
+      </ion-list>
+
+      <ion-list *ngIf="person_details3?.length > 0">
+        <ion-item *ngFor="let patientdetails of person_details3">
+          <ion-grid>
+            <ion-row>
+              <ion-col col-8>
+                <h2
+                  *ngIf="patientdetails.confirm_status == true; else confirmstatusfalse1"
+                >
+                  {{patientdetails.confirmed_date | date: 'medium' }}
+                </h2>
+
+                <ng-template #confirmstatusfalse1>
+                  <strong
+                    >{{patientdetails.created_at | date: 'medium' }}</strong
+                  >
+                </ng-template>
+
+                <strong>
+                  <p
+                    *ngIf="patientdetails.confirm_status == true; else confirmstatusfalse"
+                  >
+                    Confirmed
+                  </p>
+                </strong>
+                <ng-template #confirmstatusfalse>
+                  <br />
+                  <strong>Not Confirmed</strong>
+                </ng-template>
+              </ion-col>
+              <ion-col col-2>
+                <button
+                  ion-button
+                  class="small_button"
+                  color="green1"
+                  round
+                  type="submit"
+                  (click)="lab_appointment_history_details(patientdetails)"
+                >
+                  Details
+                </button>
+
+                <br />
+                <!-- <button *ngIf="patientdetails.billing_info_bill_items_info_id && !patientdetails.paid && patientdetails.approval_status == true" ion-button class="small_button"
+                        color="blue" round type="submit" (click)="bill(patientdetails)">Bill Info</button> -->
+                <button
+                  *ngIf="patientdetails.billing_info_bill_items_info_id && !patientdetails.paid"
+                  ion-button
+                  class="small_button"
+                  color="blue"
+                  round
+                  type="submit"
+                  (click)="bill(patientdetails)"
+                >
+                  Bill Info
+                </button>
+                <button
+                  *ngIf="patientdetails.billing_info_bill_items_info_id && patientdetails.approval_status == false"
+                  ion-button
+                  class="medium_button deepash1"
+                  color="deepash"
+                  round
+                  type="submit"
+                  (click)="bill(patientdetails)"
+                >
+                  Rejected<br />Bill
+                </button>
+
+                <button
+                  *ngIf="patientdetails.billing_info_bill_items_info_id && patientdetails.paid== true"
+                  ion-button
+                  class="small_button"
+                  color="dullyellow"
+                  round
+                  type="submit"
+                  (click)="bill(patientdetails)"
+                >
+                  Paid
+                </button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+      </ion-list>
+    </ion-list>
+
+    <!-- <ion-list *ngSwitchCase="'Golf'" overflow-scroll='true'>
+  
+  
+        <ion-card>
+          <ion-item>
+  
+            <h2>
+              <b>Golf Point Leaders</b>
+            </h2>
+  
+          </ion-item>
+        </ion-card>
+  
+        <ion-item class="background">
+          <div class="center1">
+              <img src="./assets/icon/golf.png" class="iconsize">
+            <p style="color: #757575; text-align: center">No Data available now </p>
+          </div>
+        </ion-item>
+      </ion-list> -->
+
+    <!-- <ion-list *ngSwitchCase="'Football'" overflow-scroll='true'>
+  
+  
+          <ion-card>
+            <ion-item>
+    
+              <h2>
+                <b>Football Point Leaders</b>
+              </h2>
+    
+            </ion-item>
+          </ion-card>
+    
+          <ion-item class="background">
+            <div class="center1">
+    
+                <img src="./assets/icon/football.png" class="iconsize">
+              <p style="color: #757575; text-align: center">No Data available now </p>
+            </div>
+          </ion-item>
+        </ion-list> -->
+
+    <!-- <ion-list *ngSwitchCase="'Boxing'" overflow-scroll='true'>
+  
+  
+            <ion-card>
+              <ion-item>
+      
+                <h2>
+                  <b>Boxing Point Leaders</b>
+                </h2>
+      
+              </ion-item>
+            </ion-card>
+      
+            <ion-item class="background">
+              <div class="center1">
+      
+                  <img src="./assets/icon/weight.png" class="iconsize">
+                <p style="color: #757575; text-align: center">No Data available now </p>
+              </div>
+            </ion-item>
+          </ion-list> -->
+  </div>
+</ion-content>

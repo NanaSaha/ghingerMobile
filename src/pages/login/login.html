@@ -1,0 +1,85 @@
+<ion-content class="background">
+  <img src="assets/icon/new_ghinger_logo.png" class="logo_position" />
+
+  <form [formGroup]="loginForm" class="padd">
+    <ion-item no-lines>
+      <ion-input
+        type="text"
+        placeholder="Email"
+        formControlName="email"
+        name="email"
+        autocomplete="off"
+        [class.invalid]="!loginForm.controls.email.valid && (loginForm.controls.email.dirty || submitAttempt)"
+      ></ion-input>
+    </ion-item>
+    <p
+      *ngIf="!loginForm.controls.email.valid  && (loginForm.controls.email.dirty || submitAttempt)"
+    >
+      <b style="color: white">Please enter a valid email</b>
+    </p>
+    <br />
+
+    <ion-item no-lines>
+      <ion-input
+        type="password"
+        placeholder="Password"
+        formControlName="password"
+        name="password"
+        [class.invalid]="!loginForm.controls.password.valid && (loginForm.controls.password.dirty || submitAttempt)"
+      ></ion-input>
+    </ion-item>
+
+    <ion-row>
+      <ion-col col-2> </ion-col>
+      <br />
+
+      <ion-col col-10 class="pad-right-align">
+        <ion-item no-lines>
+          <ion-checkbox
+            formControlName="rememberme"
+            [(ngModel)]="rememberme"
+            checked="false"
+            (ionChange)="check_rememberme()"
+            color="secondary"
+          ></ion-checkbox>
+          <ion-label style="color: white">Remember Me</ion-label>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <p class="pad">
+      <button ion-button round color="primary" (tap)="login()">Login</button>
+    </p>
+    <br />
+
+    <br />
+    <p class="pad">
+      <b style="color: white">
+        <a tappable (tap)="reset()" style="color: white">Forgot Password?</a>
+      </b>
+    </p>
+
+    <br />
+
+    <p class="pad">
+      <b style="color: white">
+        <p style="color: blawhiteck">
+          Don't have an account ?
+          <a tappable (tap)="signup()" style="color: white">Sign Up </a>
+        </p>
+      </b>
+    </p>
+  </form>
+</ion-content>
+
+<ion-footer>
+  <p class="pad">
+    <b class="font-style">
+      <p>
+        Having an issues? Contact us on
+
+        <span style="color: #c1c31a">0202611222 </span>
+      </p>
+    </b>
+  </p>
+</ion-footer>

@@ -1,0 +1,140 @@
+<ion-content class="main-view">
+
+  <div class="overlay" (click)="closeModal()"></div>
+  <ion-scroll class="modal_content" scrollY="true">
+    <!--<div class="modal_content">-->
+    <ion-buttons end>
+      <button ion-button icon-only (tap)="closeModal()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+    <br />
+    <br />
+    <br />
+
+    <ion-card-content>
+      <ion-card>
+        <ion-item>
+          <p class="position" style=" color: black;">Video Consults </p>
+
+        </ion-item>
+
+        <!-- <form [formGroup]="referpatientForm"> -->
+
+        <ion-list *ngIf="general_vidconsults?.length > 0; else general_medicationfalse">
+          <ion-item *ngFor="let general_vidconsult of general_vidconsults">
+            <br>
+            <table text-wrap>
+              <tbody text-wrap>
+                <!-- <tr><th scope="row">No.</th><td>1</td></tr> -->
+                <tr>
+                  <th scope="row">Patient Name</th>
+                  <td>{{general_vidconsult.surname}} {{general_vidconsult.other_names}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Patient Contact</th>
+                  <td>{{general_vidconsult.contact}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Request Type</th>
+                  <td>{{general_vidconsult.category}}</td>
+                </tr>
+                <tr *ngIf="general_vidconsult.category == 'Beneficiary'">
+                  <th scope="row">Beneficiary Name</th>
+                  <td>{{general_vidconsult.beneficiary_name}}</td>
+                </tr>
+                <tr *ngIf="general_vidconsult.category == 'Beneficiary'">
+                  <th scope="row">Beneficiary's Age</th>
+                  <td>{{general_vidconsult.beneficiary_age}}</td>
+                </tr>
+                <tr *ngIf="general_vidconsult.category == 'Beneficiary'">
+                  <th scope="row">Beneficiary's Sex</th>
+                  <td>{{general_vidconsult.beneficiary_gender}}</td>
+                </tr>
+                <tr *ngIf="general_vidconsult.category == 'Beneficiary'">
+                  <th scope="row">Beneficiary's Phone No.</th>
+                  <td>{{general_vidconsult.beneficiary_phone_number}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Request Urgency</th>
+                  <td>{{general_vidconsult.urgency}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Medications</th>
+                  <td>{{general_vidconsult.medication | removehtmltags}}</td>
+                </tr>
+
+                <tr>
+                  <th scope="row">Previous Medical History</th>
+                  <td>{{general_vidconsult.prev_medical_history | removehtmltags}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Allergies</th>
+                  <td>{{general_vidconsult.allergies | removehtmltags}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Appt Type</th>
+                  <td>{{general_vidconsult.appointment_type}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Date/Time</th>
+                  <td>{{general_vidconsult.confirmed_date | date: 'yyyy-MM-dd h:mm a' }}</td>
+                </tr>
+                <!-- <tr><th scope="row">Accept Status</th><td>{{general_vidconsult.accepted_status}}</td></tr> -->
+                <!-- <tr><th scope="row">Attend Status</th><td>{{general_vidconsult.attended_status}}</td></tr> -->
+
+                <tr>
+                  <th scope="row">Accept Status</th>
+                  <td *ngIf="general_vidconsult.accepted_status == true;">Accepted</td>
+                  <td *ngIf="general_vidconsult.accepted_status == false;">Not Accepted</td>
+                </tr>
+
+                <tr>
+                  <th scope="row">Attend Status</th>
+                  <td *ngIf="general_vidconsult.attended_to == true;">Attended to</td>
+                  <td *ngIf="general_vidconsult.attended_to == false;">Unattended to</td>
+                </tr>
+
+              </tbody>
+            </table>
+
+            <div padding style="text-align: center;">
+                <button *ngIf="general_vidconsult.paid && general_vidconsult.paid == true" ion-button class="small_button" color="green1" round type="submit" (click)="attend_to(general_vidconsult.id)">Attend
+                  to</button><br>
+                  <button *ngIf="!general_vidconsult.paid || general_vidconsult.paid == false" ion-button
+              class="small_button deepash1" color="deepash" round type="submit">Pending Payment</button>
+  
+              </div>
+
+            <div padding style="text-align: center;">
+              <button ion-button color="primary" class="button-bottom1" (tap)="closeModal()">Back</button>
+            </div>
+
+            <!-- <ion-row>
+                    <ion-col col-2>
+                    </ion-col>
+                    <ion-col col-8>
+                        <button ion-button  class="small_button" color="green1" round type="submit" (click)="attend_to(pds_appointments.id)">Attend to</button>
+                    </ion-col>
+                    <ion-col col-2>
+                    </ion-col>
+                  </ion-row> -->
+          </ion-item>
+        </ion-list>
+
+        <ng-template #general_medicationfalse>
+          <ion-list>
+            <ion-item>
+              <p style="text-align: center;">Sorry you do not have any appointment</p>
+            </ion-item>
+          </ion-list>
+
+        </ng-template>
+
+        <!-- </form> -->
+
+      </ion-card>
+
+    </ion-card-content>
+  </ion-scroll>
+</ion-content>

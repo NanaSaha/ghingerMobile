@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Subscription Type</ion-title>
+    <ion-buttons end class="margin" tappable (tap)="home()">
+      <button ion-button icon-only>
+        <ion-icon name="home"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <!-- ELDERLY ONE -->
+  <div>
+    <ion-card>
+      <ion-card-content>
+        <br />
+        <h1 class="billdetails">COVID-19</h1>
+        <br />
+
+        <ul class="pricing-plan__list">
+          <li class="pricing-plan__feature">Single person</li>
+          <li class="pricing-plan__feature">
+            Monthly (or quarterly) doctor visit
+          </li>
+          <li class="pricing-plan__feature">40 min - 1 hour</li>
+          <li class="pricing-plan__feature">Complete health review</li>
+          <li class="pricing-plan__feature">Review of medications</li>
+          <li class="pricing-plan__feature">
+            Arrange labs investigations (if req’d)
+          </li>
+          <li class="pricing-plan__feature">Provide prescriptions</li>
+          <li class="pricing-plan__feature">
+            Provide lifestyle advice (exercise,nutrition etc)
+          </li>
+          <li class="pricing-plan__feature">Medical report sent by email</li>
+        </ul>
+
+        <ion-row>
+          <ion-col col-12>
+            <ion-item class="totallbl" text-wrap
+              >GHC 350 - GHC 500
+              <p>per Monthly visit or per Quarterly Visit</p></ion-item
+            >
+          </ion-col>
+        </ion-row>
+
+        <div>
+          <button
+            ion-button
+            color="secondary"
+            outline
+            (tap)="goto_subscription('ElderlyPersonsHomeVisit')"
+          >
+            Subscribe
+          </button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

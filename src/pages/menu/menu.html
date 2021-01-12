@@ -1,0 +1,208 @@
+<!-- <ion-header class="header_background">
+  <ion-navbar>
+    <button ion-button menuToggle (click)="openMenu()">
+      <ion-icon name="keypad"></ion-icon>
+    </button>
+
+    <img src="assets/icon/new_ghinger_logo.png" class="logo_position" />
+
+    <ion-buttons end class="margin" tappable (tap)="notifications()">
+      <button ion-button icon-only>
+        <img src="assets/icon/notify_icon.png" class="notify_position" />
+        <ion-badge color="danger1" item-end
+          >{{all_appointments_overall_total>0 ? all_appointments_overall_total :
+          null}}</ion-badge
+        >
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header> -->
+
+<ion-header class="header_background">
+  <ion-row id="move_row">
+    <ion-col col-4>
+      <button ion-button menuToggle (click)="openMenu()">
+        <ion-icon name="keypad"></ion-icon>
+      </button>
+    </ion-col>
+    <ion-col col-4>
+      <img src="assets/icon/new_ghinger_logo.png" class="logo_position" />
+    </ion-col>
+
+    <ion-col col-4>
+      <ion-buttons end class="margin" tappable (tap)="notifications()">
+        <button ion-button icon-only>
+          <img src="assets/icon/notify_icon.png" class="notify_position" />
+          <ion-badge color="danger1" item-end
+            >{{all_appointments_overall_total>0 ? all_appointments_overall_total
+            : null}}</ion-badge
+          >
+          <!-- <ion-badge color="danger1" item-end>1</ion-badge> -->
+        </button>
+      </ion-buttons>
+    </ion-col>
+  </ion-row>
+</ion-header>
+
+<ion-content>
+  <div class="content-padd">
+    <h3 class="header_text1">--- Subscription Services ---</h3>
+
+    <div class="direct_service_row">
+      <div class="column3" tappable (tap)="subscription('Elderly')">
+        <div id="round">
+          <img src="assets/icon/elderly.svg" class="round_image" />
+        </div>
+        <div class="border">
+          <figcaption>
+            <b id="txtcolor">Elderly Care Subscription</b>
+          </figcaption>
+        </div>
+      </div>
+
+      <div class="column3" tappable (tap)="subscription('Chronic')">
+        <div id="round">
+          <img
+            src="assets/icon/chronic.svg"
+            class="img_size"
+            class="round_image"
+          />
+        </div>
+        <div class="border">
+          <figcaption>
+            <b id="txtcolor">Chronic Disease Management</b>
+          </figcaption>
+        </div>
+      </div>
+
+      <div class="column3" tappable (tap)="subscription('Screening')">
+        <div id="round">
+          <img
+            src="assets/icon/annual.svg"
+            class="img_size"
+            class="round_image"
+          />
+        </div>
+        <div class="border">
+          <figcaption>
+            <b id="txtcolor">Annual Medical Screening</b>
+          </figcaption>
+        </div>
+      </div>
+    </div>
+
+    <!-- GENERAL SERVICE -->
+    <h3 class="header_text">--- Direct Services ---</h3>
+
+    <div class="direct_service_row">
+      <div class="column3">
+        <div class="border" tappable (tap)="medical()">
+          <ion-badge color="danger1" item-end
+            >{{medical_appointment_count>0 ? medical_appointment_count :
+            null}}</ion-badge
+          >
+          <img src="assets/icon/med_app.png" class="img_size" />
+
+          <figcaption>
+            <b id="txtcolor">Medical Appointment</b>
+          </figcaption>
+        </div>
+      </div>
+
+      <div class="column3">
+        <div class="border" tappable (tap)="medication()">
+          <ion-badge color="danger1" item-end
+            >{{medication_appointment_count>0 ? medication_appointment_count :
+            null}}</ion-badge
+          >
+          <img src="assets/icon/medication.png" class="img_size" />
+          <figcaption>
+            <b id="txtcolor">Medication</b>
+          </figcaption>
+        </div>
+      </div>
+
+      <div class="column3">
+        <div class="border" tappable (tap)="lab_history()">
+          <ion-badge color="danger1" item-end
+            >{{labrequest_appointment_count>0 ? labrequest_appointment_count :
+            null}}</ion-badge
+          >
+          <img src="assets/icon/lab_icon.png" class="img_size" />
+          <figcaption>
+            <b id="txtcolor">Lab Request</b>
+          </figcaption>
+        </div>
+      </div>
+
+      <div class="column3">
+        <div class="border" tappable (tap)="doc_history()">
+          <ion-badge color="danger1" item-end
+            >{{total_patient_pds_appointment_count>0 ?
+            total_patient_pds_appointment_count : null}}</ion-badge
+          >
+          <img src="assets/icon/doc_icon.png" class="img_size" />
+          <figcaption>
+            <b id="txtcolor">Personal Doctor</b>
+          </figcaption>
+        </div>
+      </div>
+
+      <div class="column3">
+        <div class="border" tappable (tap)="video('VC')">
+          <ion-badge color="danger1" item-end
+            >{{videoconsult_appointment_count>0 ? videoconsult_appointment_count
+            : null}}</ion-badge
+          >
+          <img src="assets/icon/video.png" class="img_size" />
+          <figcaption>
+            <b id="txtcolor">Video Consultation</b>
+          </figcaption>
+        </div>
+      </div>
+
+      <div class="column3">
+        <div class="border" tappable (tap)="home('HC')">
+          <ion-badge color="danger1" item-end
+            >{{homecare_appointment_count>0 ? homecare_appointment_count :
+            null}}</ion-badge
+          >
+          <img src="assets/icon/home_care.png" class="img_size" />
+          <figcaption>
+            <b id="txtcolor">Home Care</b>
+          </figcaption>
+        </div>
+      </div>
+    </div>
+
+    <div class="pad">
+      <button
+        ion-button
+        round
+        color="danger1"
+        item-end
+        icon-start
+        (tap)="feedback()"
+      >
+        <ion-icon name="paper-plane"></ion-icon>
+        Send Feedback
+      </button>
+    </div>
+  </div>
+
+  <ion-footer>
+    <ion-fab right bottom>
+      <button
+        ion-button
+        round
+        color="danger1"
+        item-end
+        icon-start
+        (tap)="covid()"
+      >
+        <ion-icon name="paper-plane"></ion-icon>
+        Covid-19 Test
+      </button>
+    </ion-fab>
+  </ion-footer>
+</ion-content>

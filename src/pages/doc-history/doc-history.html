@@ -1,0 +1,61 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Personal Doctor History</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content overflow-scroll='true' class="background" >
+
+ <p><b  style=" color: black;">Your Personal Doctor Appointments Made.. </b> </p>
+
+       <ion-item  *ngIf="data1?.length == 0"  > 
+        
+          <p class="center"><b  style=" color: black;">No Personal Doctor History </b> </p>
+        
+         
+        </ion-item>
+  
+
+<ion-item  *ngIf="data1?.length > 0"  > 
+   <ion-list *ngFor="let location of data1"  >
+     <ion-card >
+   
+    
+       <ion-item  > 
+       
+        <br/>
+          <h4>  <ion-icon class="green" ios="ios-time" md="md-time">&nbsp;</ion-icon><b>Proposed Date:  {{ location.proposed_date}}</b></h4>
+          <h4>  <ion-icon class="green" ios="ios-phone-portrait" md="md-phone-portrait">&nbsp;</ion-icon><b>Source of Appointment: {{ location.src}}</b></h4>
+           <h4>  <ion-icon class="green" ios="ios-book" md="md-book">&nbsp;</ion-icon><b>Complaints: {{ location.complaint_desc}}</b></h4>
+           <h4>  <ion-icon class="green" ios="ios-checkmark-circle" md="md-checkmark-circle">&nbsp;</ion-icon><b>Status: {{ location.active_status}}</b></h4>
+          <br/>
+        
+        </ion-item>
+      
+   </ion-card>
+ </ion-list>
+ </ion-item>
+ 
+ 
+    <ion-fab right bottom  >
+    <button ion-fab color="green1" (tap)=" presentModal()"><ion-icon class="white" name="add"></ion-icon></button>
+   
+  <ion-fab-list side="top">
+ 
+    </ion-fab-list>
+  </ion-fab>
+
+      <!--<ion-fab right bottom *ngIf="data1?.length == 0" >
+    <button ion-fab color="green1" (tap)=" presentModal()"><ion-icon class="white" name="add"></ion-icon></button>
+   
+  <ion-fab-list side="top">
+ 
+    </ion-fab-list>
+  </ion-fab>-->
+
+
+</ion-content>

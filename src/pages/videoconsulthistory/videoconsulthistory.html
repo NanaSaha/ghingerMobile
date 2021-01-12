@@ -1,0 +1,92 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title style="text-align: center;">Video Appointments</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (tap)="closeModal()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-buttons end>
+    <button
+      ion-button
+      full
+      color="primary"
+      (click)="openNewAppointment()"
+      icon-only
+    >
+      New Video Consultation <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-buttons>
+
+  <ion-list *ngIf="video_consult_details?.length > 0">
+    <ion-item *ngFor="let video_consult_detail of video_consult_details">
+      <ion-grid>
+        <ion-row>
+          <ion-col col-8>
+            <h2
+              *ngIf="video_consult_detail.confirm_status == true; else confirmstatusfalse1"
+            >
+              {{video_consult_detail.confirmed_date | date: 'medium' }}
+            </h2>
+            <ng-template #confirmstatusfalse1>
+              <strong
+                >{{video_consult_detail.created_at | date: 'medium' }}</strong
+              >
+            </ng-template>
+
+            <strong>
+              <p
+                *ngIf="video_consult_detail.pre_confirm_status == true; else confirmstatusfalse"
+              >
+                Confirmed
+              </p>
+            </strong>
+            <ng-template #confirmstatusfalse>
+              <br />
+              <strong>Not Confirmed</strong>
+            </ng-template>
+          </ion-col>
+          <ion-col col-2>
+            <button
+              ion-button
+              class="small_button"
+              color="green1"
+              round
+              type="submit"
+              (click)="video_appointment_history_details(video_consult_detail.id,this.appointmentType)"
+            >
+              Details
+            </button>
+            <br />
+            <button
+              *ngIf="video_consult_detail.billing_info_bill_items_info_id && !video_consult_detail.paid"
+              ion-button
+              class="small_button"
+              color="blue"
+              round
+              type="submit"
+              (click)="bill(video_consult_detail)"
+            >
+              Bill Info
+            </button>
+            <button
+              *ngIf="video_consult_detail.billing_info_bill_items_info_id && video_consult_detail.paid== true"
+              ion-button
+              class="small_button"
+              color="dullyellow"
+              round
+              type="submit"
+              (click)="bill(video_consult_detail)"
+            >
+              Paid
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+</ion-content>

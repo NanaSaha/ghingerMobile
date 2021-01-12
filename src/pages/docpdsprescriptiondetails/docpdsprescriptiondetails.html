@@ -1,0 +1,125 @@
+<ion-content class="main-view">
+
+  <div class="overlay" (click)="closeModal()"></div>
+  <ion-scroll class="modal_content" scrollY="true">
+    <!--<div class="modal_content">-->
+    <ion-buttons end>
+      <button ion-button icon-only (tap)="closeModal()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+    <br />
+    <br />
+    <br />
+
+    <ion-card-content>
+      <ion-card>
+        <ion-item>
+          <p class="position" style=" color: black;">PDS Prescription </p>
+
+        </ion-item>
+
+        <!-- <form [formGroup]="referpatientForm"> -->
+
+        <ion-list *ngIf="doc_pds_prescription?.length > 0; else general_medicationfalse">
+          <ion-item *ngFor="let doc_pds_prescription of doc_pds_prescription">
+            <br>
+            <table text-wrap>
+              <tbody text-wrap>
+                <tr>
+                  <th scope="row">Patient Name</th>
+                  <td>{{doc_pds_prescription.surname}} {{doc_pds_prescription.other_names}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Patient Contact</th>
+                  <td>{{doc_pds_prescription.contact}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Request Type</th>
+                  <td>{{doc_pds_prescription.category}}</td>
+                </tr>
+                <tr *ngIf="doc_pds_prescription.category == 'Beneficiary'">
+                  <th scope="row">Beneficiary Name</th>
+                  <td>{{doc_pds_prescription.beneficiary_name}}</td>
+                </tr>
+                <tr *ngIf="doc_pds_prescription.category == 'Beneficiary'">
+                  <th scope="row">Beneficiary's Age</th>
+                  <td>{{doc_pds_prescription.beneficiary_age}}</td>
+                </tr>
+                <tr *ngIf="doc_pds_prescription.category == 'Beneficiary'">
+                  <th scope="row">Beneficiary's Sex</th>
+                  <td>{{doc_pds_prescription.beneficiary_gender}}</td>
+                </tr>
+                <tr *ngIf="doc_pds_prescription.category == 'Beneficiary'">
+                  <th scope="row">Beneficiary's Phone No.</th>
+                  <td>{{doc_pds_prescription.beneficiary_phone_number}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Request Urgency</th>
+                  <td>{{doc_pds_prescription.urgency}}</td>
+                </tr>
+
+                <tr>
+                  <th scope="row">Appt Type</th>
+                  <td>{{doc_pds_prescription.appointment_type}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Medications</th>
+                  <td>{{doc_pds_prescription.medication | removehtmltags}}</td>
+                </tr>
+
+                <tr>
+                  <th scope="row">Previous Medical History</th>
+                  <td>{{doc_pds_prescription.prev_medical_history | removehtmltags}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Allergies</th>
+                  <td>{{doc_pds_prescription.allergies | removehtmltags}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Date/Time</th>
+                  <td>{{doc_pds_prescription.confirmed_date | date: 'yyyy-MM-dd h:mm a' }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Accept Status</th>
+                  <td text-wrap *ngIf="doc_pds_prescription.accepted_status == true;">Accepted</td>
+                  <td  *ngIf="doc_pds_prescription.accepted_status == false;">Not Accepted</td>
+                </tr>
+
+                <tr>
+                  <th  scope="row">Attend Status</th>
+                  <td  *ngIf="doc_pds_prescription.attended_to == true;">Attended to</td>
+                  <td  *ngIf="doc_pds_prescription.attended_to == false;">Unattended to</td>
+                </tr>
+
+              </tbody>
+            </table>
+            <br>
+            <div *ngIf="doc_pds_prescription.attended_to == false;" padding style="text-align: center;">
+              <button ion-button class="small_button" color="secondary" round type="submit" (tap)="attend_to(doc_pds_prescription)">Attend to Patient</button>
+            </div>
+            
+            <div padding style="text-align: center;">
+              <button ion-button class="small_button" color="primary" round type="submit" (tap)="closeModal()">Close</button>
+            </div>
+
+
+          </ion-item>
+        </ion-list>
+
+        <ng-template #general_medicationfalse>
+          <ion-list>
+            <ion-item>
+              <p style="text-align: center;">Sorry you do not have any appointment</p>
+            </ion-item>
+          </ion-list>
+
+        </ng-template>
+
+        <!-- </form> -->
+
+      </ion-card>
+
+    </ion-card-content>
+  </ion-scroll>
+</ion-content>

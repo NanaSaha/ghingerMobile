@@ -1,0 +1,14 @@
+<ion-header>
+    <ion-navbar>
+      
+      <ion-card-header class="pad">
+        <!-- <img src="assets/icon/logo.png" height="60px" width="200px" />  <img src="assets/icon/refresh.png"  class="right" (tap)="refresh()"/> -->
+      </ion-card-header>
+    </ion-navbar>
+  </ion-header>
+
+<ion-tabs>
+  <ion-tab *ngIf="my_person_type == 'D'" [root]="tab1Root" tabTitle="Medication" tabIcon="information-circle" [tabBadge]="md_doc_gen_appointment_count>0 ? md_doc_gen_appointment_count : null" tabBadgeStyle="danger1"></ion-tab>
+  <ion-tab *ngIf="my_person_type == 'D'" [root]="tab2Root" tabTitle="Video Consult" tabIcon="information-circle" [tabBadge]="vc_doc_gen_appointment_count>0 ? vc_doc_gen_appointment_count : null" tabBadgeStyle="danger1"></ion-tab>
+  <ion-tab *ngIf="my_person_type == 'D' || my_person_type == 'N'" [root]="tab3Root"  tabTitle="Home Care" tabIcon="contacts" [tabBadge]="hc_doc_gen_appointment_count>0 ? hc_doc_gen_appointment_count : null" tabBadgeStyle="danger1"></ion-tab>
+</ion-tabs>

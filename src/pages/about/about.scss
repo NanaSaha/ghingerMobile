@@ -1,0 +1,69 @@
+page-about {
+
+
+  .img-circular{
+    width: 100px;
+    height: 100px;
+    background-image: url("../assets/icon/doc.png"); 
+    background-size: cover;
+    display: block;
+    border-radius: 50px;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    background-color: white;
+    margin-top: 2%;
+    right: 35%;
+    // /* position: absolute; */
+    z-index: 10;
+   }
+
+   .down1{
+
+    padding-top: 30%;
+    text-align: center;
+   color: #789527;
+   
+  }
+  .pers{
+      align-content: center; color: black; font-weight: bold;
+  }
+
+  .font_style{
+    font-size: 13px !important
+  }
+
+
+
+
+    .padd1{
+
+   
+    color: #5dba47;
+  }
+  .up{
+
+  
+     margin-top: -7%;
+     right: 40%;
+     position : absolute;
+  
+  }
+
+  .up1{
+
+     margin-top: -7%;
+    right: 25%;
+      text-align:center; 
+       position : absolute;
+  
+  }
+
+
+      .down{
+
+     padding-top: -50%;
+    
+     position : fixed;
+  }
+
+}

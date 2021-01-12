@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Doctor Reports</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div>
+    <ion-card>
+      <ion-card-content>
+        <br />
+
+        <ion-list *ngFor="let item of list">
+          <h1 text-center text-wrap>Doctor Reports</h1>
+          <p>{{item.remark}}</p>
+
+          <!-- <table text-wrap>
+            <tbody>
+              <tr>
+                <td>{{item.remark}}</td>
+              </tr>
+            </tbody>
+          </table> -->
+
+          <br /><br /><br />
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

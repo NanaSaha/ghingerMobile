@@ -1,0 +1,107 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title style="text-align: center;">Home Care Appointments</ion-title>
+
+    <ion-buttons end class="margin" tappable (tap)="home()">
+      <button ion-button icon-only>
+        <ion-icon name="home"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-buttons end>
+    <button
+      ion-button
+      full
+      color="primary"
+      (click)="openNewAppointment()"
+      icon-only
+    >
+      New Appointment <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-buttons>
+
+  <ion-list *ngIf="homecare_details?.length > 0">
+    <ion-item *ngFor="let homecare_detail of homecare_details">
+      <ion-grid>
+        <ion-row>
+          <ion-col col-8>
+            <h2
+              *ngIf="homecare_detail.confirm_status == true; else confirmstatusfalse1"
+            >
+              {{homecare_detail.confirmed_date | date: 'medium' }}
+            </h2>
+            <ng-template #confirmstatusfalse1>
+              <strong>{{homecare_detail.created_at | date: 'medium' }}</strong>
+            </ng-template>
+
+            <strong>
+              <p
+                *ngIf="homecare_detail.confirm_status == true; else confirmstatusfalse"
+              >
+                Confirmed
+              </p>
+            </strong>
+            <ng-template #confirmstatusfalse>
+              <br />
+              <strong>Not Confirmed</strong>
+            </ng-template>
+          </ion-col>
+          <ion-col col-2>
+            <button
+              ion-button
+              class="small_button"
+              color="green1"
+              round
+              type="submit"
+              (click)="homecare_appointment_history_details(homecare_detail.id,this.appointmentType)"
+            >
+              Details
+            </button>
+            <br />
+            <!-- <br><button *ngIf="homecare_detail.billing_info_bill_items_info_id && !homecare_detail.paid && homecare_detail.approval_status == true" ion-button
+              class="small_button" color="blue" round type="submit" (click)="bill(homecare_detail)">Bill Info</button> -->
+            <button
+              *ngIf="homecare_detail.billing_info_bill_items_info_id && !homecare_detail.paid"
+              ion-button
+              class="small_button"
+              color="blue"
+              round
+              type="submit"
+              (click)="bill(homecare_detail)"
+            >
+              Bill Info
+            </button>
+
+            <button
+              *ngIf="homecare_detail.billing_info_bill_items_info_id && homecare_detail.approval_status == false"
+              ion-button
+              class="medium_button"
+              color="deepash"
+              round
+              type="submit"
+              (click)="bill(homecare_detail)"
+              text-wrap
+            >
+              Rejected<br />Bill
+            </button>
+
+            <button
+              *ngIf="homecare_detail.billing_info_bill_items_info_id && homecare_detail.paid== true"
+              ion-button
+              class="small_button"
+              color="dullyellow"
+              round
+              type="submit"
+              (click)="bill(homecare_detail)"
+            >
+              Paid
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+</ion-content>

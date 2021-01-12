@@ -1,0 +1,114 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title style="text-align: center;">Lab</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (tap)="closeModal()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-buttons end>
+    <button
+      ion-button
+      full
+      color="primary"
+      (click)="openNewAppointment()"
+      icon-only
+    >
+      New Lab Request <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-buttons>
+
+  <ion-list *ngIf="person_details?.length == 0">
+    <p class="textstyle">No Lab Appointment History Found</p>
+  </ion-list>
+
+  <ion-list *ngIf="person_details?.length > 0">
+    <ion-item *ngFor="let patientdetails of person_details">
+      <ion-grid>
+        <ion-row>
+          <ion-col col-8>
+            <h2
+              *ngIf="patientdetails.confirm_status == true; else confirmstatusfalse1"
+            >
+              {{patientdetails.confirmed_date | date: 'medium' }}
+            </h2>
+
+            <ng-template #confirmstatusfalse1>
+              <strong>{{patientdetails.created_at | date: 'medium' }}</strong>
+            </ng-template>
+
+            <strong>
+              <p
+                *ngIf="patientdetails.confirm_status == true; else confirmstatusfalse"
+              >
+                Confirmed
+              </p>
+            </strong>
+            <ng-template #confirmstatusfalse>
+              <br />
+              <strong>Not Confirmed</strong>
+            </ng-template>
+          </ion-col>
+          <ion-col col-2>
+            <button
+              ion-button
+              class="small_button"
+              color="green1"
+              round
+              type="submit"
+              (click)="lab_appointment_history_details(patientdetails)"
+            >
+              Details
+            </button>
+
+            <br />
+            <!-- <button *ngIf="patientdetails.billing_info_bill_items_info_id && !patientdetails.paid && patientdetails.approval_status == true" ion-button class="small_button"
+              color="blue" round type="submit" (click)="bill(patientdetails)">Bill Info</button>
+
+               -->
+
+            <button
+              *ngIf="patientdetails.billing_info_bill_items_info_id && !patientdetails.paid"
+              ion-button
+              class="small_button"
+              color="blue"
+              round
+              type="submit"
+              (click)="bill(patientdetails)"
+            >
+              Bill Info
+            </button>
+
+            <button
+              *ngIf="patientdetails.billing_info_bill_items_info_id && patientdetails.approval_status == false"
+              ion-button
+              class="medium_button"
+              color="deepash"
+              round
+              type="submit"
+              (click)="bill(patientdetails)"
+            >
+              Rejected<br />Bill
+            </button>
+
+            <button
+              *ngIf="patientdetails.billing_info_bill_items_info_id && patientdetails.paid== true"
+              ion-button
+              class="small_button"
+              color="dullyellow"
+              round
+              type="submit"
+              (click)="bill(patientdetails)"
+            >
+              Paid
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+</ion-content>

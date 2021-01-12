@@ -1,0 +1,147 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title style="text-align: center">Subscription Details</ion-title>
+    <ion-buttons end>
+      <!-- <button ion-button icon-only (tap)="closeModal()">
+        <ion-icon name="close"></ion-icon>
+      </button> -->
+    </ion-buttons>
+    <ion-buttons end class="margin" tappable (tap)="home()">
+      <button ion-button icon-only>
+        <ion-icon name="home"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding="true" class="background">
+  <ion-list *ngFor="let item of list">
+    <h1 text-center text-wrap>Subscription Details</h1>
+
+    <table text-wrap>
+      <tbody>
+        <tr>
+          <th scope="row">Name of Elderly</th>
+          <td>{{item.f_name}} {{item.last_name}}</td>
+        </tr>
+
+        <tr>
+          <th scope="row">PhoneNumber</th>
+          <td>{{item.phone_number}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Email</th>
+          <td>{{item.email}}</td>
+        </tr>
+
+        <tr>
+          <th scope="row">Gender</th>
+          <td>{{item.gender}}</td>
+        </tr>
+
+        <tr>
+          <th scope="row">Marital Status</th>
+          <td>{{item.marital_status}}</td>
+        </tr>
+
+        <tr>
+          <th scope="row">Religion</th>
+          <td>{{item.religion}}</td>
+        </tr>
+
+        <tr>
+          <th scope="row">Subscription Name</th>
+          <td>{{item.sub_name}}</td>
+        </tr>
+
+        <tr>
+          <th scope="row">Elderly Address</th>
+          <td>{{item.address}}</td>
+        </tr>
+
+        <tr>
+          <th scope="row">Emergency Name</th>
+          <td>{{item.emergency_name}}</td>
+        </tr>
+
+        <tr>
+          <th scope="row">Emergency Phone</th>
+          <td>{{item.emergency_phone}}</td>
+        </tr>
+
+        <tr>
+          <th scope="row">Emergency Email</th>
+          <td>{{item.emergency_email}}</td>
+        </tr>
+
+        <tr>
+          <th scope="row">Emergency Address</th>
+          <td>{{item.emergency_address}}</td>
+        </tr>
+
+        <tr>
+          <th scope="row">Amount</th>
+          <td>{{item.amount}}</td>
+        </tr>
+
+        <tr>
+          <th scope="row">Doctor Remark</th>
+          <td>{{item.remark}}</td>
+        </tr>
+
+        <tr *ngIf=" item.paid_status == true">
+          <th scope="row">Payment Status</th>
+          <td>Paid</td>
+        </tr>
+
+        <tr *ngIf=" item.paid_status == false">
+          <th scope="row">Payment Status</th>
+          <td>Not Paid</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <br /><br /><br />
+    <h1 class="totallbl" *ngIf=" item.paid_status == true">
+      Payment Status: Paid
+    </h1>
+
+    <h1 class="totallbl" *ngIf=" item.paid_status == false">
+      Payment Status: Not Paid
+    </h1>
+
+    <ion-toolbar color="white" *ngIf=" item.paid_status == false">
+      <ion-grid>
+        <ion-row style="text-align: center">
+          <ion-col col-12>
+            <button
+              ion-button
+              color="rejectbillbtn"
+              round
+              (tap)="make_payment()"
+            >
+              Make Payment
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-toolbar>
+
+    <ion-toolbar color="white" *ngIf=" item.paid_status == true ">
+      <ion-grid>
+        <ion-row style="text-align: center">
+          <ion-col col-12>
+            <button
+              ion-button
+              color="rejectbillbtn"
+              round
+              (tap)="subscription_summary()"
+            >
+              Renew Subscription
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-toolbar>
+  </ion-list>
+</ion-content>

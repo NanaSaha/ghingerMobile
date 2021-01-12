@@ -1,0 +1,39 @@
+<ion-content class="main-view">
+
+  <div class="overlay" (click)="closeModal()"></div>
+  <ion-scroll class="modal_content" scrollY="true">
+    <ion-buttons end>
+      <button ion-button icon-only (tap)="closeModal()"><ion-icon name="close"></ion-icon></button>
+    </ion-buttons>
+    <br/><br/><br/>
+
+    <ion-card-content>
+      <ion-card>
+        <h3 style="text-align: center;">Lab Images</h3>
+
+
+        <!-- <ion-list *ngIf="gen_appt_details?.length > 0; else pds_appointmentsfalse"> -->
+          <ion-item *ngIf="image_url" style="align-content: center;">
+            <br>
+            <img [src]="image_url" style="width: 50%" style="text-align: center;">
+
+            <div padding style="text-align: center;">
+              <button ion-button color="primary" class="button-bottom1" (tap)="closeModal()">Back</button>
+            </div>
+          </ion-item>
+        <!-- </ion-list> -->
+
+        <ng-template #pds_appointmentsfalse>
+          <ion-list>
+            <ion-item>
+              <p>Sorry no image found.</p>
+            </ion-item>
+          </ion-list>
+
+        </ng-template>
+
+      </ion-card>
+
+    </ion-card-content>
+  </ion-scroll>
+</ion-content>

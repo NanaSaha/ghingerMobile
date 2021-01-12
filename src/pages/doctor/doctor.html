@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <!-- <ion-card-header class="pad">
+      <img src="assets/icon/logo.png" height="60px" width="200px" />  <img src="assets/icon/refresh.png"  class="right" (tap)="refresh()"/>
+    </ion-card-header> -->
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-item class="pad1"> <b style=" color: #789527;">Services</b> </ion-item>
+  <ion-card-content>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-6>
+
+          <img src="assets/icon/med_app.png" height="100px" width="100px" (tap)="personal()" />
+
+          <figcaption><b style=" color: black;">Accepted Patients</b></figcaption>
+
+        </ion-col>
+
+        <ion-col col-6>
+
+          <img src="assets/icon/per_doc.png" height="100px" width="100px"  (tap)="accept()" />
+          <figcaption><b style=" color: black;">Personal Doctor Services</b></figcaption>
+
+        </ion-col>
+
+
+        <ion-col col-6>
+
+          <img src="assets/icon/home.png" height="100px" width="100px" (tap)="refer()" />
+          <figcaption><b style=" color: black;">Refer a patient to Ghinger</b></figcaption>
+
+        </ion-col>
+        <ion-col col-6>
+
+          <img src="assets/icon/pay.png" height="100px" width="100px"  />
+          <figcaption><b style=" color: black;">Bill and invoice information</b></figcaption>
+
+        </ion-col>
+      </ion-row>
+
+    </ion-grid>
+  </ion-card-content>
+
+
+</ion-content>

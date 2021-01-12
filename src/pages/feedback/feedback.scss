@@ -1,0 +1,47 @@
+page-feedback {
+
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* this adds the "card" effect */
+        padding: 16px;
+        text-align: center;
+         background-color: #f1f1f1 ;
+        // background-color: #5dba47 ;
+        
+      }
+
+      ion-select {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        overflow: hidden;
+        max-width: 100% !important; 
+
+    }
+
+    .select-text {
+        overflow: visible !important;
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        min-width: 21px;
+        font-size: inherit;
+        /* text-overflow: inherit; */
+        white-space: nowrap;
+        /* margin-right: 100%; */
+    }
+
+    .select-md {
+        padding: 13px 7px 13px 16px !important; 
+        /* margin-right: 100%; */
+    }
+
+    form {
+        margin: 0;
+        font: inherit;
+        color: inherit;
+        margin-left: 4% !important;
+    }
+
+}

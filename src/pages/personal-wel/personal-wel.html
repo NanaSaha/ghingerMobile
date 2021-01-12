@@ -1,0 +1,78 @@
+<!--<ion-header>-->
+<ion-content class="ash">
+  <ion-navbar>
+    <ion-title class="up1">
+      <!-- Personal Doctor -->
+    </ion-title>
+  </ion-navbar>
+  <!--</ion-header>-->
+
+  <div class="img-circular"></div>
+
+  <p class="down"></p>
+  <p class="down1" style="color: #5dba47; font-weight: bolder;" text-wrap>
+    Dr. {{surname}} {{first_name}}
+  </p>
+  <p style="text-align: center; color: black; font-weight: bold;">
+    is your personal doctor
+  </p>
+
+  <!-- <p class="down1">Your personal doctor is <br><p style=" color: #5dba47;">Dr. {{surname}} {{first_name}}</p></p> -->
+
+  <form class="padd">
+    <ion-item class="item1" text-wrap>What do you need? </ion-item>
+
+    <div class="row">
+      <div class="column">
+        <div class="card" tappable (tap)="phone('PC')">
+          <img src="assets/icon/phone.png" class="img_size" />
+
+          <figcaption>
+            <b id="txtcolor">Phone Consult</b>
+            <ion-badge color="danger1" item-end
+              >{{phoneconsult_appointment_count>0 ?
+              phoneconsult_appointment_count : null}}</ion-badge
+            >
+          </figcaption>
+        </div>
+      </div>
+      <div class="column">
+        <div class="card" tappable (tap)="video('PDVC')">
+          <img src="assets/icon/vid.png" class="img_size" />
+          <figcaption>
+            <b id="txtcolor">Video Consult</b>
+            <ion-badge color="danger1" item-end
+              >{{pdvc_patient_appointment_count>0 ?
+              pdvc_patient_appointment_count : null}}</ion-badge
+            >
+          </figcaption>
+        </div>
+      </div>
+      <div class="column">
+        <div class="card" tappable (tap)="homecare('PDHC')">
+          <img src="assets/icon/home.png" class="img_size" />
+          <figcaption>
+            <b id="txtcolor">Home Care</b>
+            <ion-badge color="danger1" item-end
+              >{{pdhc_patient_appointment_count>0 ?
+              pdhc_patient_appointment_count : null}}</ion-badge
+            >
+          </figcaption>
+        </div>
+      </div>
+
+      <div class="column">
+        <div class="card" tappable (tap)="prescription('PDDP')">
+          <img src="assets/icon/presc.png" class="img_size" />
+          <figcaption>
+            <b id="txtcolor">Prescriptions</b>
+            <ion-badge color="danger1" item-end
+              >{{pddp_patient_appointment_count>0 ?
+              pddp_patient_appointment_count : null}}</ion-badge
+            >
+          </figcaption>
+        </div>
+      </div>
+    </div>
+  </form>
+</ion-content>

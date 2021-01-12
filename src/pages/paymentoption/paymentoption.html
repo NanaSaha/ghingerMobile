@@ -1,0 +1,118 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title style="text-align: center">Make Payment</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (tap)="closeModal()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding class="background">
+  <br /><br />
+  <div class="center-texts">
+    <div class="center-texts" text-center>
+      <p style="font-size: 15px; font-weight: bold">
+        Choose your payment options
+      </p>
+    </div>
+  </div>
+  <br /><br /><br />
+
+  <ion-row text-center text-wrap>
+    <ion-col col-1> </ion-col>
+
+    <ion-col col-5 padding>
+      <angular4-paystack
+        [key]="'pk_live_df632ae19ef3c4f2f59aa10572d7b80b954c03e1'"
+        [email]="'info@ghingerhealth.com'"
+        [amount]="amount"
+        [ref]="random_id"
+        [channels]="channels"
+        [currency]="'GHS'"
+        [class]="'btn btn-primary'"
+        (close)="paymentCancel()"
+        (callback)="paymentDone($event)"
+        >Pay with Mobile Money/Card</angular4-paystack
+      >
+      <!-- <button
+        ion-button
+        large
+        color="green1"
+        outline
+        class="customBtn"
+        (tap)="paymentmethod('Card')"
+      >
+        <div>
+          <div>
+            <img
+              src="assets/icon/002-business.png"
+              class="custom-icon"
+              scroll="false"
+              height="45px"
+              width="45px"
+            />
+          </div>
+
+          <label class="menu-text" text-wrap>Cards</label>
+        </div>
+      </button> -->
+    </ion-col>
+
+    <ion-col col-5 padding>
+      <!-- <button
+        ion-button
+        large
+        color="green1"
+        outline
+        class="customBtn"
+        (tap)="paymentmethod('Momo')"
+      >
+        <div>
+          <div>
+            <img
+              src="assets/icon/online-payment.png"
+              class="custom-icon"
+              scroll="false"
+              height="45px"
+              width="45px"
+            />
+          </div>
+          <label class="menu-text" text-wrap>Mobile Money</label>
+        </div>
+      </button> -->
+    </ion-col>
+
+    <ion-col col-1> </ion-col>
+
+    <ion-card>
+      <ion-card-header> Alternative Momo Payment</ion-card-header>
+
+      <ion-card-content>
+        Payment instructions for those outside Ghana.
+
+        <ul class="pricing-plan__list">
+          <li class="pricing-plan__feature">
+            Send Mobile Money to
+            <span style="color: #781318; font-weight: 800">233591482084 </span>
+          </li>
+          <li class="pricing-plan__feature">
+            Ghinger Momo Account name:
+            <span style="color: #781318; font-weight: 800"
+              >Ghinger Healthcare Limited.</span
+            >
+            (Note if your money transfer app requires first and last name, use
+            first name: Ghinger, last name: Healthcare Limited.
+          </li>
+          <li class="pricing-plan__feature">
+            Send WhatsApp text to
+            <span style="color: #781318; font-weight: 800">233550641351 </span>
+            to let Ghinger know you made the payment and request for
+            acknowledgment of payment receipt.
+          </li>
+        </ul>
+      </ion-card-content>
+    </ion-card>
+  </ion-row>
+</ion-content>

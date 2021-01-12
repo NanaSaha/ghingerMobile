@@ -1,0 +1,121 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Video Appointment Details!</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (tap)="closeModal()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <!--<h2>Add User</h2>-->
+  <form>
+    <ion-item text-wrap class="text-left">
+      <ion-label col-6><b>Request Category</b></ion-label>
+      <ion-label col-7
+        >{{currentvidappointmentdetaildata.requestcategory}}</ion-label
+      >
+    </ion-item>
+    <ion-item
+      text-wrap
+      class="text-left"
+      *ngIf="currentvidappointmentdetaildata.requestcategory =='Beneficiary'"
+    >
+      <ion-label col-5><b>Beneficiary</b></ion-label>
+      <ion-label col-7
+        >{{currentvidappointmentdetaildata.beneficiary}}</ion-label
+      >
+    </ion-item>
+
+    <ion-item
+      text-wrap
+      class="text-left"
+      *ngIf="currentvidappointmentdetaildata.requestcategory =='Beneficiary'"
+    >
+      <ion-label col-5><b>Beneficiary Sex</b></ion-label>
+      <ion-label col-7
+        >{{currentvidappointmentdetaildata.beneficiary_gender}}</ion-label
+      >
+    </ion-item>
+    <ion-item
+      text-wrap
+      class="text-left"
+      *ngIf="currentvidappointmentdetaildata.requestcategory =='Beneficiary'"
+    >
+      <ion-label col-5><b>Beneficiary Age</b></ion-label>
+      <ion-label col-7
+        >{{currentvidappointmentdetaildata.beneficiary_age}}</ion-label
+      >
+    </ion-item>
+    <ion-item
+      text-wrap
+      class="text-left"
+      *ngIf="currentvidappointmentdetaildata.requestcategory =='Beneficiary'"
+    >
+      <ion-label col-5><b>Beneficiary Number</b></ion-label>
+      <ion-label col-7
+        >{{currentvidappointmentdetaildata.beneficiary_phone_number}}</ion-label
+      >
+    </ion-item>
+    <ion-item text-wrap class="text-left">
+      <ion-label col-6><b>Request Urgency</b></ion-label>
+      <ion-label col-7
+        >{{currentvidappointmentdetaildata.requesturgency}}</ion-label
+      >
+    </ion-item>
+    <ion-item text-wrap class="text-left">
+      <ion-label col-5><b>Complaints</b></ion-label>
+      <ion-label col-7
+        >{{currentvidappointmentdetaildata.complaint |
+        removehtmltags}}</ion-label
+      >
+    </ion-item>
+    <ion-item text-wrap class="text-left">
+      <ion-label col-5><b>Previous medical history </b></ion-label>
+      <ion-label col-7
+        >{{currentvidappointmentdetaildata.prevmedicalhistory |
+        removehtmltags}}</ion-label
+      >
+    </ion-item>
+    <ion-item text-wrap class="text-left">
+      <ion-label col-5><b>Allergies </b></ion-label>
+      <ion-label col-7
+        >{{currentvidappointmentdetaildata.allergies |
+        removehtmltags}}</ion-label
+      >
+    </ion-item>
+    <ion-item text-wrap class="text-left">
+      <ion-label col-6><b>Proposed Date and Time</b></ion-label>
+      <ion-label col-7
+        >{{currentvidappointmentdetaildata.proposeddateandtime | date:
+        'yyyy-MM-dd h:mm a' }}</ion-label
+      >
+    </ion-item>
+    <!-- <ion-item text-wrap class="text-left">
+      <ion-label col-6><b>Source</b></ion-label>
+      <ion-label col-7>{{currentvidappointmentdetaildata.source}}</ion-label>
+    </ion-item> -->
+    <ion-item text-wrap class="text-left">
+      <ion-label col-6><b>Confirm Status</b></ion-label>
+      <ion-label col-7
+        >{{currentvidappointmentdetaildata.confirmstatus}}</ion-label
+      >
+    </ion-item>
+
+    <div padding style="text-align: center;" *ngIf="doctor_records">
+      <button
+        ion-button
+        class="small_button"
+        color="green1"
+        round
+        type="submit"
+        (click)="doctorrecords(doctor_records)"
+      >
+        Doctor Records
+      </button>
+    </div>
+
+    <!--<button ion-button type="submit" block>Add User</button>-->
+  </form>
+</ion-content>

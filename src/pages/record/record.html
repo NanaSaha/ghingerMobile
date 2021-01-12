@@ -1,0 +1,42 @@
+<ion-content class="main-view">
+
+  <div class="overlay" (click)="closeModal()"></div>
+  <ion-scroll class="modal_content" scrollY="true">
+    <!--<div class="modal_content">-->
+    <ion-buttons end>
+      <button ion-button icon-only (tap)="closeModal()"><ion-icon name="close"></ion-icon></button>
+    </ion-buttons>
+    <br/>
+   
+ 
+
+    <ion-card-content>
+      <ion-card>
+        <ion-item>
+          <p class="position" style=" color: black;"> Record Details </p>
+
+        </ion-item>
+        
+          <ion-item *ngFor="let item of record_list; let i = index" text-wrap>
+            
+            <p> <b style=" color: #789527;">Clinical Complaints</b><br> {{item.clinical_complaints | removehtmltags}}<br> </p><br>
+            <p> <b style=" color: #789527;">Clinical Examinations</b><br> {{item.clinical_examinations | removehtmltags}}<br></p><br>
+            <p><b style=" color: #789527;">Working Diagnosis</b><br> {{item.working_diagnosis | removehtmltags}}<br></p><br>
+            <p><b style=" color: #789527;">Investigation Required</b><br> {{item.investigation_rquired | removehtmltags}}<br></p><br>
+            <p><b style=" color: #789527;">Follow-up Plan</b><br> {{item.follow_up_plan | removehtmltags}}<br></p><br>
+            <p><b style=" color: #789527;">Treatments</b><br> {{item.treatments | removehtmltags}} </p><br>
+             <p><b style=" color: #789527;">Date</b><br> {{item.created_at | date: 'yyyy-MM-dd h:mm a'}} </p><br>
+
+          </ion-item>
+      
+
+      </ion-card>
+
+      <div padding style="text-align: center;" >
+        <button ion-button class="small_button" color="primary" round type="submit" (tap)="closeModal()">Back</button>
+      </div>
+
+    </ion-card-content>
+  </ion-scroll>
+</ion-content>
+

@@ -1,0 +1,390 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Subscription Type</ion-title>
+    <ion-buttons end class="margin" tappable (tap)="home()">
+      <button ion-button icon-only>
+        <ion-icon name="home"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <!-- ELDERLY ONE -->
+  <div *ngIf="subscription_type =='Elderly' ">
+    <ion-card>
+      <ion-card-content>
+        <br />
+        <h1 class="billdetails">Elderly person’s home visit</h1>
+        <br />
+
+        <ul class="pricing-plan__list">
+          <li class="pricing-plan__feature">Single person</li>
+          <li class="pricing-plan__feature">
+            Monthly (or quarterly) doctor visit
+          </li>
+          <li class="pricing-plan__feature">40 min - 1 hour</li>
+          <li class="pricing-plan__feature">Complete health review</li>
+          <li class="pricing-plan__feature">Review of medications</li>
+          <li class="pricing-plan__feature">
+            Arrange labs investigations (if req’d)
+          </li>
+          <li class="pricing-plan__feature">Provide prescriptions</li>
+          <li class="pricing-plan__feature">
+            Provide lifestyle advice (exercise,nutrition etc)
+          </li>
+          <li class="pricing-plan__feature">Medical report sent by email</li>
+        </ul>
+
+        <ion-row>
+          <ion-col col-12>
+            <ion-item class="totallbl" text-wrap
+              >$350 - $500
+              <p>per Monthly visit or per Quarterly Visit</p></ion-item
+            >
+          </ion-col>
+
+          <!-- <ion-col col-6>
+            <ion-item class="totallbl" text-wrap>
+              GHC 350 - GHC 500
+              <p>per Quarterly Visit</p></ion-item
+            >
+          </ion-col> -->
+        </ion-row>
+
+        <div *ngIf="sub_user_id !=''">
+          <button
+            ion-button
+            color="primary"
+            outline
+            (tap)="subscription_summary()"
+          >
+            Renew Subscription
+          </button>
+          <button
+            ion-button
+            color="secondary"
+            outline
+            (tap)="goto_subscription('ElderlyPersonsHomeVisit')"
+          >
+            New Subscription
+          </button>
+        </div>
+
+        <div *ngIf="sub_user_id ==''">
+          <button
+            ion-button
+            color="secondary"
+            outline
+            (tap)="goto_subscription('ElderlyPersonsHomeVisit')"
+          >
+            Subscribe
+          </button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Elderly couple home visit in one address -->
+
+    <ion-card>
+      <ion-card-content>
+        <br />
+        <h1 class="billdetails">Elderly couple home visit in one address</h1>
+        <br />
+
+        <ul class="pricing-plan__list">
+          <li class="pricing-plan__feature">Couple visit</li>
+          <li class="pricing-plan__feature">
+            Monthly / quarterly doctor visit
+          </li>
+          <li class="pricing-plan__feature">Total time – 1.5hours</li>
+          <li class="pricing-plan__feature">Complete health review</li>
+          <li class="pricing-plan__feature">Review of medications</li>
+          <li class="pricing-plan__feature">
+            Arrange labs investigations ( if req’d)
+          </li>
+          <li class="pricing-plan__feature">Provide prescriptions</li>
+          <li class="pricing-plan__feature">
+            Provide lifestyle advice (exercise , nutrition etc
+          </li>
+          <li class="pricing-plan__feature">Medical report sent by email</li>
+        </ul>
+
+        <ion-row>
+          <ion-col col-6>
+            <ion-item class="totallbl" text-wrap
+              >$500
+              <p>per Monthly visit</p></ion-item
+            >
+          </ion-col>
+
+          <ion-col col-6>
+            <ion-item class="totallbl" text-wrap>
+              $640
+              <p>per Quarterly Visit</p></ion-item
+            >
+          </ion-col>
+        </ion-row>
+
+        <button
+          ion-button
+          color="secondary"
+          outline
+          (tap)="goto_subscription('ElderlyCoupleVisitOneAddress')"
+        >
+          Subscribe
+        </button>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Elderly couple visit in different addresses -->
+
+    <ion-card>
+      <ion-card-content>
+        <br />
+        <h1 class="billdetails">Elderly couple visit in different addresses</h1>
+        <br />
+        <ul class="pricing-plan__list">
+          <li class="pricing-plan__feature">2 elderly persons</li>
+          <li class="pricing-plan__feature">
+            Monthly / quarterly doctor visit
+          </li>
+          <li class="pricing-plan__feature">40 min - 1 hour</li>
+          <li class="pricing-plan__feature">Complete health review</li>
+          <li class="pricing-plan__feature">Review of medications</li>
+          <li class="pricing-plan__feature">
+            Arrange labs investigations ( if req’d)
+          </li>
+          <li class="pricing-plan__feature">Provide prescriptions</li>
+          <li class="pricing-plan__feature">
+            Provide lifestyle advice (exercise,nutrition etc)
+          </li>
+          <li class="pricing-plan__feature">Medical report sent by email</li>
+        </ul>
+
+        <ion-row>
+          <ion-col col-6>
+            <ion-item class="totallbl" text-wrap
+              >$540
+              <p>per Monthly visit</p></ion-item
+            >
+          </ion-col>
+
+          <ion-col col-6>
+            <ion-item class="totallbl" text-wrap>
+              $670
+              <p>per Quarterly Visit</p></ion-item
+            >
+          </ion-col>
+        </ion-row>
+
+        <button
+          ion-button
+          color="secondary"
+          outline
+          (tap)="goto_subscription('ElderlyCoupleVisitDiffAddress')"
+        >
+          Subscribe
+        </button>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- ELDERLY ENDS -->
+  <!-- CHRONIC ONE -->
+  <div *ngIf="subscription_type =='Chronic' ">
+    <ion-card>
+      <ion-card-content>
+        <br />
+        <h1 class="billdetails">Health surveillance plan for singles</h1>
+        <br />
+
+        <ul class="pricing-plan__list">
+          <li class="pricing-plan__feature">One person</li>
+          <li class="pricing-plan__feature">
+            Monthly / Quarterly doctor visit
+          </li>
+          <li class="pricing-plan__feature">Total time – 1 hour</li>
+          <li class="pricing-plan__feature">Complete health review</li>
+          <li class="pricing-plan__feature">Review of medications</li>
+          <li class="pricing-plan__feature">
+            Arrange labs investigations (if req’d)
+          </li>
+          <li class="pricing-plan__feature">Provide prescriptions</li>
+          <li class="pricing-plan__feature">
+            Provide lifestyle advice (exercise,nutrition etc)
+          </li>
+          <li class="pricing-plan__feature">Medical report sent by email</li>
+        </ul>
+
+        <ion-row>
+          <ion-col col-6>
+            <ion-item class="totallbl" text-wrap
+              >$350
+              <p>per Monthly visit</p></ion-item
+            >
+          </ion-col>
+          <ion-col col-6>
+            <ion-item class="totallbl" text-wrap
+              >$350
+              <p>per Quarterly visit</p></ion-item
+            >
+          </ion-col>
+        </ion-row>
+
+        <button
+          ion-button
+          color="secondary"
+          outline
+          (tap)="goto_subscription('ChronicSingle')"
+        >
+          Subscribe
+        </button>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Elderly couple home visit in one address -->
+
+    <ion-card>
+      <ion-card-content>
+        <br />
+        <h1 class="billdetails">Health surveillance plan for couples</h1>
+        <br />
+
+        <ul class="pricing-plan__list">
+          <li class="pricing-plan__feature">Two persons</li>
+          <li class="pricing-plan__feature">
+            Monthly / Quarterly doctor visit
+          </li>
+          <li class="pricing-plan__feature">Total time – 1.5hours</li>
+          <li class="pricing-plan__feature">Complete health review</li>
+          <li class="pricing-plan__feature">Review of medications</li>
+          <li class="pricing-plan__feature">
+            Arrange labs investigations ( if req’d)
+          </li>
+          <li class="pricing-plan__feature">Provide prescriptions</li>
+          <li class="pricing-plan__feature">
+            Provide lifestyle advice (exercise , nutrition etc
+          </li>
+          <li class="pricing-plan__feature">Medical report sent by email</li>
+        </ul>
+        <ion-row>
+          <ion-col col-6>
+            <ion-item class="totallbl" text-wrap
+              >$500
+              <p>per Monthly visit</p></ion-item
+            >
+          </ion-col>
+          <ion-col col-6>
+            <ion-item class="totallbl" text-wrap
+              >$640
+              <p>per Quarterly visit</p></ion-item
+            >
+          </ion-col>
+        </ion-row>
+
+        <button
+          ion-button
+          color="secondary"
+          outline
+          (tap)="goto_subscription('ChronicCouple')"
+        >
+          Subscribe
+        </button>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- CHRONIC ENDS -->
+  <!-- ANNUAL ONE -->
+  <div *ngIf="subscription_type =='Screening' ">
+    <ion-card>
+      <ion-card-content>
+        <br />
+        <h1 class="billdetails">
+          Single Adult, 40yrs and over with no chronic illness
+        </h1>
+        <br />
+
+        <ul class="pricing-plan__list">
+          <li class="pricing-plan__feature">Annual home visit doctor</li>
+          <li class="pricing-plan__feature">Complete health check</li>
+          <li class="pricing-plan__feature">
+            All standard health screening tests included in package
+          </li>
+          <li class="pricing-plan__feature">
+            Tests include : Liver Function Test, Kidney Function Test, Diabetic
+            Screening, Full Blood Count, Lipid Profile
+          </li>
+          <li class="pricing-plan__feature">
+            PSA and cervical screening (can be added at extra cost)
+          </li>
+          <li class="pricing-plan__feature">Medical report sent by email</li>
+        </ul>
+
+        <ion-row>
+          <ion-col col-12>
+            <ion-item class="totallbl" text-wrap
+              >$500
+              <p>pay Once</p></ion-item
+            >
+          </ion-col>
+        </ion-row>
+
+        <button
+          ion-button
+          color="secondary"
+          outline
+          (tap)="goto_subscription('ScreenAdult')"
+        >
+          Subscribe
+        </button>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Elderly couple home visit in one address -->
+
+    <ion-card>
+      <ion-card-content>
+        <br />
+        <h1 class="billdetails">
+          2 adults , 40yrs and over with no chronic illness
+        </h1>
+        <br />
+        <ul class="pricing-plan__list">
+          <li class="pricing-plan__feature">Annual home visit doctor</li>
+          <li class="pricing-plan__feature">Complete health check</li>
+          <li class="pricing-plan__feature">
+            All standard health screening tests included in package
+          </li>
+          <li class="pricing-plan__feature">
+            Tests include : Liver Function Test, Kidney Function Test, Diabetic
+            Screening, Full Blood Count, Lipid Profile
+          </li>
+          <li class="pricing-plan__feature">
+            PSA and cervical screening (can be added at extra cost)
+          </li>
+          <li class="pricing-plan__feature">Medical report sent by email</li>
+        </ul>
+
+        <ion-row>
+          <ion-col col-12>
+            <ion-item class="totallbl" text-wrap
+              >$950
+              <p>pay Once</p></ion-item
+            >
+          </ion-col>
+        </ion-row>
+
+        <button
+          ion-button
+          color="secondary"
+          outline
+          (tap)="goto_subscription('ScreenAdultCouple')"
+        >
+          Subscribe
+        </button>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

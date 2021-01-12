@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Payment History</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="background">
+  <ion-list *ngIf="list?.length == 0">
+    <p class="textstyle">No Payment History Found</p>
+  </ion-list>
+
+  <ion-list *ngFor="let item of list">
+    <ion-item>
+      <ion-avatar item-start *ngIf=" item.network == 'MTN'">
+        <img src="assets/icon/mtn.png" />
+      </ion-avatar>
+      <ion-avatar item-start *ngIf=" item.network == 'VOD'">
+        <img src="assets/icon/voda.png" />
+      </ion-avatar>
+
+      <ion-avatar item-start *ngIf=" item.network == 'AIR'">
+        <img src="assets/icon/airtel.png" />
+      </ion-avatar>
+
+      <ion-avatar item-start *ngIf=" item.network == 'TIG'">
+        <img src="assets/icon/tigo.png" />
+      </ion-avatar>
+      <ion-avatar item-start *ngIf=" item.network == null">
+        <!-- <img src="assets/icon/tigo.png" /> -->
+        VISA
+      </ion-avatar>
+
+      <h4 text-wrap>
+        Reference ID:
+        <span style="color: rgb(0, 60, 255);">{{ item.transaction_id}}</span>
+      </h4>
+
+      <h2 text-wrap>
+        Momo Num: {{ item.customer_number}}
+      </h2>
+      <h2 text-wrap>
+        Amount: GHc {{ item.amount}}
+      </h2>
+
+      <h2 text-wrap *ngIf=" item.trans_status == true">
+        Status: <span style="color: green;"><b>Payment Successful</b></span>
+      </h2>
+      <h2 text-wrap *ngIf=" item.trans_status == false">
+        Status: <span style="color: red;">Failed...</span>
+      </h2>
+      <h2 text-wrap>
+        Date: {{ item.created_at | date: 'medium'}}
+      </h2>
+    </ion-item>
+  </ion-list>
+</ion-content>

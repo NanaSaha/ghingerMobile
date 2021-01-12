@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Forgot password ? </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="background">
+  <img src="assets/icon/new_ghinger_logo.png" class="logo_position" />
+
+  <form [formGroup]="resetPasswordForm" class="padd">
+    <ion-item>
+      <ion-label floating> Enter Reset code sent via SMS</ion-label>
+      <ion-input
+        type="text"
+        formControlName="resetcode"
+        name="resetcode"
+        [class.invalid]="!resetPasswordForm.controls.resetcode.valid && (resetPasswordForm.controls.resetcode.dirty || submitAttempt)"
+      ></ion-input>
+    </ion-item>
+    <br />
+
+    <p class="pad">
+      <button
+        ion-button
+        round
+        color="primary"
+        [disabled]="!this.resetPasswordForm.valid"
+        (tap)="reset()"
+      >
+        Proceed
+      </button>
+
+      <br />
+      <br />
+    </p>
+  </form>
+</ion-content>

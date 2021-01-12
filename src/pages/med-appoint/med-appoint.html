@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Appointment History</ion-title>
+
+    <ion-buttons end class="margin" tappable (tap)="home()">
+      <button ion-button icon-only>
+        <ion-icon name="home"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content overflow-scroll="true" class="background">
+  <!--<ion-card-header class="pad">
+    <img src="assets/icon/logo.png" height="60px" width="200px" />
+  </ion-card-header>-->
+  <!--<br/>-->
+  <p><b style="color: black;">Medical Appointments Made.. </b></p>
+
+  <ion-item *ngIf="requester_id == null">
+    <p class="center"><b style="color: black;">No appointment History </b></p>
+  </ion-item>
+
+  <ion-item *ngIf="data1?.length > 0">
+    <ion-list *ngFor="let location of data1">
+      <ion-card>
+        <ion-item>
+          <br />
+          <h4>
+            <ion-icon class="green" ios="ios-time" md="md-time">&nbsp;</ion-icon
+            ><b>Proposed Date: {{ location.proposed_date}}</b>
+          </h4>
+          <h4>
+            <ion-icon
+              class="green"
+              ios="ios-phone-portrait"
+              md="md-phone-portrait"
+              >&nbsp;</ion-icon
+            ><b>Source of Appointment: {{ location.src}}</b>
+          </h4>
+          <h4>
+            <ion-icon class="green" ios="ios-book" md="md-book">&nbsp;</ion-icon
+            ><b>Complaints: {{ location.complaint_desc}}</b>
+          </h4>
+          <h4>
+            <ion-icon
+              class="green"
+              ios="ios-checkmark-circle"
+              md="md-checkmark-circle"
+              >&nbsp;</ion-icon
+            ><b>Status: {{ location.active_status}}</b>
+          </h4>
+          <br />
+        </ion-item>
+      </ion-card>
+    </ion-list>
+  </ion-item>
+
+  <!--<div *ngIf="requester_id?.length == 0">-->
+  <ion-fab right bottom *ngIf="requester_id != null">
+    <button ion-fab color="green1" (tap)=" presentModal()">
+      <ion-icon name="add"></ion-icon>
+    </button>
+
+    <ion-fab-list side="top"> </ion-fab-list>
+  </ion-fab>
+  <!--</div>-->
+</ion-content>

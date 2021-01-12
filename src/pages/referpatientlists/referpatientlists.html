@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title style="text-align: center;">Clients referred!</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (tap)="closeModal()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <!-- <h3 style="text-align: center;">Patients referred</h3> -->
+
+  <ion-buttons end>
+    <button ion-button full color="green1" (click)="referpatient()" icon-only>
+      Refer Client <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-buttons>
+
+  <ion-list *ngIf="check?.length > 0; else refer_patientsfalse">
+    <ion-item *ngFor="let patients_referred of check">
+      <br />
+      <table>
+        <tbody>
+          <!-- <tr><th scope="row">No.</th><td>1</td></tr> -->
+          <tr>
+            <th scope="row">Surname</th>
+            <td>{{patients_referred.surname}}</td>
+          </tr>
+          <tr>
+            <th scope="row">Other Name(s)</th>
+            <td>{{patients_referred.other_names}}</td>
+          </tr>
+          <tr>
+            <th scope="row">Date of Birth</th>
+            <td>{{patients_referred.dob | date: 'yyyy-MM-dd' }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Contact</th>
+            <td>{{patients_referred.contact}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- <ion-row>
+        <ion-col col-2>
+        </ion-col>
+        <ion-col col-8>
+            <button ion-button  class="small_button" color="green1" round type="submit" (click)="attend_to(pds_appointments.id)">Attend to</button>
+        </ion-col>
+        <ion-col col-2>
+        </ion-col>
+      </ion-row> -->
+    </ion-item>
+  </ion-list>
+
+  <ng-template #refer_patientsfalse>
+    <ion-list>
+      <ion-item>
+        <br />
+        <p style="text-align: center;">
+          <strong>Sorry, no records were found.</strong>
+        </p>
+      </ion-item>
+    </ion-list>
+  </ng-template>
+
+  <!-- else show Sorry you do not have any appointment -->
+</ion-content>

@@ -1,0 +1,30 @@
+page-hospital-list {
+  .background {
+    background-color: #fff;
+    // background-image: url("../assets/icon/green_background_image.jpg");
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    align-content: center;
+    text-align: center;
+  }
+
+  .wide {
+    // background-color: #14245c;
+    width: 100%;
+    height: 40%;
+  }
+
+  .center {
+    margin-top: 50%;
+    margin-bottom: 100%;
+    align-content: center;
+    text-align: center;
+  }
+
+  ion-item {
+    background-color: transparent !important;
+    background: transparent !important;
+  }
+}

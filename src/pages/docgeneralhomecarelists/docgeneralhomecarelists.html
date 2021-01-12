@@ -1,0 +1,64 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Home Care History</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (tap)="closeModal()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+  </ion-refresher>
+  <h3 style="text-align: center;">Home Care History</h3>
+  <ion-list *ngIf="doc_gen_homecare_appoints?.length > 0; else med_appointmentsfalse">
+    <ion-item *ngFor="let doc_gen_homecare_appoints of doc_gen_homecare_appoints">
+      <ion-grid>
+        <ion-row>
+          <ion-col col-8>
+            <h2>{{doc_gen_homecare_appoints.surname}} {{doc_gen_homecare_appoints.other_names}}</h2>
+            <strong>
+              <p>{{doc_gen_homecare_appoints.appointment_type}}</p>
+            </strong>
+          </ion-col>
+
+          <ion-col col-2>
+
+              <button ion-button class="small_button" color="green1" round type="submit" (click)="doc_gen_homecare_details(doc_gen_homecare_appoints)">Details</button><br>
+              <!-- <button *ngIf="!doc_gen_homecare_appoints.paid || doc_gen_homecare_appoints.paid == false" ion-button  class="small_button" color="ash" round type="submit">Pending Payment</button> -->
+
+              <button *ngIf="!doc_gen_homecare_appoints.paid || doc_gen_homecare_appoints.paid == false" ion-button
+            class="medium_button deepash1" color="deepash" round type="submit">Pending <br>Payment</button>
+
+          </ion-col>
+
+
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+
+  <ng-template #med_appointmentsfalse>
+    <ion-list>
+      <ion-item>
+        <br>
+        <ion-grid>
+          <ion-row>
+            <ion-col col-8>
+              <h2 style="text-align: center;">Sorry you do not have any appointment</h2>
+            </ion-col>
+
+          </ion-row>
+        </ion-grid>
+
+      </ion-item>
+    </ion-list>
+
+  </ng-template>
+
+</ion-content>

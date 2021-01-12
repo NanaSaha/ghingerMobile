@@ -1,0 +1,46 @@
+<ion-header >
+  <ion-navbar style="text-align: center;">
+    <ion-title>Appointments</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content >
+ 
+  <ion-card-content  style="text-align:center;">
+    <Label style="color: #5dba47; font-weight:bold; font-size: 120%;">Check your appointments</Label>
+</ion-card-content>
+
+
+  <div class="row">
+    <div class="column" *ngIf="my_person_type == 'D' || my_person_type == 'N'">
+      <div class="card" tappable (tap)="new_appointments()">
+    
+          <img src="assets/icon/clock_doc.png" class="img_size"   />
+
+          <figcaption><b id="txtcolor">New Appointments <ion-badge color="danger1" item-end>{{doc_new_total_count_appoint_counter>0 ? doc_new_total_count_appoint_counter : null}}</ion-badge></b>
+            
+          </figcaption>
+      </div>
+    </div>
+    <div class="column" *ngIf="my_person_type == 'D' || my_person_type == 'N'">
+      <div class="card" tappable (tap)="gen_appointments()">
+       
+         <img src="assets/icon/appointment.png" class="img_size"  />
+        <figcaption><b  id="txtcolor">General Appointments <ion-badge color="danger1" item-end>{{doc_general_total_count_appoint_counter>0 ? doc_general_total_count_appoint_counter : null }}</ion-badge></b>
+          
+        </figcaption>
+      </div>
+    </div>
+    <div class="column" *ngIf="my_person_type == 'D'">
+      <div class="card" tappable (tap)="pds_appointments()">
+         <img src="assets/icon/doctor.png" class="img_size"  />
+        <figcaption><b id="txtcolor">PDS Appointments 
+         
+        </b></figcaption>
+      </div>
+    </div>
+    
+  </div>
+
+
+</ion-content>

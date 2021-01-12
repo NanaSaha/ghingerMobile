@@ -1,0 +1,158 @@
+<ion-content class="main-view">
+  <div class="overlay" (click)="closeModal()"></div>
+  <ion-scroll class="modal_content" scrollY="true">
+    <!--<div class="modal_content">-->
+    <ion-buttons end>
+      <button ion-button icon-only (tap)="closeModal()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+    <br />
+    <br />
+    <br />
+
+    <ion-card-content>
+      <ion-card>
+        <ion-item>
+          <p class="position" style="color: black;">
+            Personal Doctor Service Appointments
+          </p>
+        </ion-item>
+
+        <ion-list
+          *ngIf="pds_appointments?.length > 0; else pds_appointmentsfalse"
+        >
+          <ion-item *ngFor="let pds_appointments of pds_appointments">
+            <br />
+            <table text-wrap>
+              <tbody text-wrap>
+                <tr>
+                  <th scope="row">Client Name</th>
+                  <td>
+                    {{pds_appointments.surname}}
+                    {{pds_appointments.other_names}}
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Client Contact</th>
+                  <td>{{pds_appointments.contact}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Request Type</th>
+                  <td>{{pds_appointments.category}}</td>
+                </tr>
+                <tr *ngIf="pds_appointments.category == 'Beneficiary'">
+                  <th scope="row">Beneficiary Name</th>
+                  <td>{{pds_appointments.beneficiary_name}}</td>
+                </tr>
+                <tr *ngIf="pds_appointments.category == 'Beneficiary'">
+                  <th scope="row">Beneficiary's Age</th>
+                  <td>{{pds_appointments.beneficiary_age}}</td>
+                </tr>
+                <tr *ngIf="pds_appointments.category == 'Beneficiary'">
+                  <th scope="row">Beneficiary's Sex</th>
+                  <td>{{pds_appointments.beneficiary_gender}}</td>
+                </tr>
+                <tr *ngIf="pds_appointments.category == 'Beneficiary'">
+                  <th scope="row">Beneficiary's Phone No.</th>
+                  <td>{{pds_appointments.beneficiary_phone_number}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Request Urgency</th>
+                  <td>{{pds_appointments.urgency}}</td>
+                </tr>
+
+                <tr>
+                  <th scope="row">Appt Type</th>
+                  <td>{{pds_appointments.appointment_type}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Medications</th>
+                  <td>{{pds_appointments.medication | removehtmltags}}</td>
+                </tr>
+
+                <tr>
+                  <th scope="row">Prev Med. History</th>
+                  <td>
+                    {{pds_appointments.prev_medical_history | removehtmltags}}
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Allergies</th>
+                  <td>{{pds_appointments.allergies | removehtmltags}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Proposed Date</th>
+                  <td>
+                    {{pds_appointments.proposed_date | date: 'yyyy-MM-dd h:mm a'
+                    }}
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Appt Date</th>
+                  <td>
+                    {{pds_appointments.created_at | date: 'yyyy-MM-dd h:mm a' }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h4 class="totallbl">
+              Potential Earning: GH¢ {{pds_appointments.appt_amnt}}
+            </h4>
+
+            <ion-row>
+              <ion-col col-1> </ion-col>
+              <ion-col col-5>
+                <button
+                  ion-button
+                  class="small_button"
+                  color="green1"
+                  round
+                  type="submit"
+                  (click)="accept_pds_appt(pds_appointments.pre_appointment_id,pds_appointments.id)"
+                >
+                  Accept
+                </button>
+              </ion-col>
+              <ion-col col-5>
+                <button
+                  ion-button
+                  class="small_button"
+                  color="danger1"
+                  round
+                  type="submit"
+                  (click)="decline_pds_appt(pds_appointments.pre_appointment_id,pds_appointments.id)"
+                >
+                  Decline
+                </button>
+              </ion-col>
+              <ion-col col-1> </ion-col>
+            </ion-row>
+
+            <div padding style="text-align: center;">
+              <button
+                ion-button
+                color="primary"
+                class="button-bottom1"
+                (tap)="closeModal()"
+              >
+                Back
+              </button>
+            </div>
+          </ion-item>
+        </ion-list>
+
+        <ng-template #pds_appointmentsfalse>
+          <ion-list>
+            <ion-item>
+              <p style="text-align: center;">
+                Sorry you do not have any appointment
+              </p>
+            </ion-item>
+          </ion-list>
+        </ng-template>
+      </ion-card>
+    </ion-card-content>
+  </ion-scroll>
+</ion-content>

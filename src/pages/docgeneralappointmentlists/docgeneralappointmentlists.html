@@ -1,0 +1,59 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>General Appointments</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (tap)="closeModal()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+  </ion-refresher>
+  
+  <h3 style="text-align: center;">General Appointments</h3>
+
+  <ion-list *ngIf="gen_appoint_details?.length > 0; else gen_appointmentsfalse">
+  <ion-item *ngFor="let gen_appoint_detail of gen_appoint_details">
+    <ion-grid>
+      <ion-row>
+        <!-- <ion-col col-2>
+           <strong>1</strong>
+          </ion-col> -->
+        <ion-col col-8>
+          <h2>{{gen_appoint_detail.surname}} {{gen_appoint_detail.other_names}}</h2>
+          <strong>
+            <p>{{gen_appoint_detail.appointment_type}}</p>
+          </strong>
+          <p>{{gen_appoint_detail.created_at | date: 'yyyy-MM-dd h:mm a' }}</p>
+          <p> Potential Earnings: GH¢ {{gen_appoint_detail.appt_amnt}} </p>
+        </ion-col>
+        <ion-col col-2>
+          <button ion-button class="small_button" color="green1" round type="submit" (click)="gen_appointment_history_details(gen_appoint_detail)">Details</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+  </ion-list>
+
+  <ng-template #gen_appointmentsfalse>
+    <ion-list>
+      <ion-item>
+        <br>
+        <ion-grid>
+          <ion-row *ngIf="gen_appointment_msg?.length > 0;">
+            <p>{{gen_appointment_msg}}</p>
+          </ion-row>
+        </ion-grid>
+
+      </ion-item>
+    </ion-list>
+
+  </ng-template>
+  
+</ion-content>

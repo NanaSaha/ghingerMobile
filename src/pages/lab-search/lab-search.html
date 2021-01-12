@@ -1,0 +1,83 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Welcome to Lab Appointments</ion-title>
+    <ion-buttons end class="margin" tappable (tap)="home()">
+      <button ion-button icon-only>
+        <ion-icon name="home"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content overflow-scroll="true" class="background">
+  <div class="card">
+    <form [formGroup]="searchForm" class="padd" text-wrap>
+      <p class="pad" style="color: white;" text-wrap>
+        Please tell us your location...
+      </p>
+
+      <ion-item text-wrap>
+        <ion-label floating>Choose City</ion-label>
+        <ionic-selectable
+          item-content
+          [(ngModel)]="city_id"
+          [items]="cities"
+          itemValueField="id"
+          itemTextField="city_town_name"
+          [canSearch]="true"
+          (onChange)="get_suburbs(city_id)"
+          formControlName="city_id"
+          name="city_town_name"
+          [class.invalid]="!searchForm.controls.city_id.valid && (searchForm.controls.city_id.dirty || submitAttempt)"
+        >
+        </ionic-selectable>
+      </ion-item>
+
+      <br />
+
+      <ion-item *ngIf="searchForm.value.city_id">
+        <ion-label floating>Choose Surburb</ion-label>
+        <ionic-selectable
+          item-content
+          [(ngModel)]="surburb_id"
+          [items]="suburbs"
+          itemValueField="id"
+          itemTextField="suburb_name"
+          [canSearch]="true"
+          formControlName="suburb_id"
+          (onChange)="surburbChange($event)"
+          name="suburb_name"
+          [class.invalid]="!searchForm.controls.suburb_id.valid && (searchForm.controls.suburb_id.dirty || submitAttempt)"
+          text-wrap
+        >
+        </ionic-selectable>
+      </ion-item>
+
+      <!-- <br>
+
+
+      <ion-auto-complete *ngIf="searchForm.value.city_id" [dataProvider]="SuburbLocationService" [options]="{ placeholder : 'Enter Suburb' }"
+      #input #searchbar>
+      <ion-icon ios="ios-person" md="md-person"></ion-icon>
+    </ion-auto-complete> -->
+
+      <br />
+      <br />
+
+      <br />
+
+      <div padding style="text-align: center;">
+        <button
+          ion-button
+          class="small_button"
+          color="primary"
+          round
+          [disabled]="!this.searchForm.valid"
+          (tap)="go()"
+        >
+          Proceed
+        </button>
+      </div>
+    </form>
+  </div>
+</ion-content>

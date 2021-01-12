@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ApplicationProperties</key>
+	<dict>
+		<key>ApplicationPath</key>
+		<string>Applications/Ghinger Health.app</string>
+		<key>CFBundleIdentifier</key>
+		<string>com.ghinger</string>
+		<key>CFBundleShortVersionString</key>
+		<string>0.0.1</string>
+		<key>CFBundleVersion</key>
+		<string>0.0.1</string>
+		<key>SigningIdentity</key>
+		<string>Apple Development: Nana Osafo-Bosompem (USWSFLY6MZ)</string>
+		<key>Team</key>
+		<string>YZ47A6H3R9</string>
+	</dict>
+	<key>ArchiveVersion</key>
+	<integer>2</integer>
+	<key>CreationDate</key>
+	<date>2020-08-08T09:05:25Z</date>
+	<key>Name</key>
+	<string>Ghinger Health</string>
+	<key>SchemeName</key>
+	<string>Ghinger Health</string>
+</dict>
+</plist>

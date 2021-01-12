@@ -1,0 +1,142 @@
+<ion-content class="main-view">
+  <div class="overlay" (click)="closeModal()"></div>
+  <ion-scroll class="modal_content" scrollY="true">
+    <ion-buttons end>
+      <button ion-button icon-only (tap)="closeModal()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+    <br /><br /><br />
+
+    <ion-card-content>
+      <ion-card>
+        <h3 style="text-align: center;">General Appointments</h3>
+
+        <ion-list
+          *ngIf="gen_appt_details?.length > 0; else pds_appointmentsfalse"
+        >
+          <ion-item *ngFor="let gen_appt_details of gen_appt_details">
+            <br />
+            <table text-wrap>
+              <tbody text-wrap>
+                <tr>
+                  <th scope="row" text-wrap="true">Client Name</th>
+                  <td text-wrap="true">
+                    {{gen_appt_details.surname}}
+                    {{gen_appt_details.other_names}}
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row" text-wrap="true">Client Contact</th>
+                  <td text-wrap="true">{{gen_appt_details.contact}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Request Type</th>
+                  <td>{{gen_appt_details.category}}</td>
+                </tr>
+                <tr *ngIf="gen_appt_details.category == 'Beneficiary'">
+                  <th scope="row">Beneficiary Name</th>
+                  <td>{{gen_appt_details.beneficiary_name}}</td>
+                </tr>
+                <tr *ngIf="gen_appt_details.category == 'Beneficiary'">
+                  <th scope="row">Beneficiary's Age</th>
+                  <td>{{gen_appt_details.beneficiary_age}}</td>
+                </tr>
+                <tr *ngIf="gen_appt_details.category == 'Beneficiary'">
+                  <th scope="row">Beneficiary's Sex</th>
+                  <td>{{gen_appt_details.beneficiary_gender}}</td>
+                </tr>
+                <tr *ngIf="gen_appt_details.category == 'Beneficiary'">
+                  <th scope="row">Beneficiary's Phone No.</th>
+                  <td>{{gen_appt_details.beneficiary_phone_number}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Request Urgency</th>
+                  <td>{{gen_appt_details.urgency}}</td>
+                </tr>
+
+                <tr>
+                  <th scope="row">Appt Type</th>
+                  <td>{{gen_appt_details.appointment_type}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Medications</th>
+                  <td>{{gen_appt_details.medication | removehtmltags}}</td>
+                </tr>
+
+                <tr>
+                  <th scope="row">Prev Med. History</th>
+                  <td>
+                    {{gen_appt_details.prev_medical_history | removehtmltags}}
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Allergies</th>
+                  <td>{{gen_appt_details.allergies | removehtmltags}}</td>
+                </tr>
+                <tr>
+                  <th scope="row" text-wrap="true">Appt Date</th>
+                  <td text-wrap="true">
+                    {{gen_appt_details.created_at | date: 'yyyy-MM-dd h:mm a' }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h4 class="totallbl">
+              Potential Earning: GH¢ {{gen_appt_details.appt_amnt}}
+            </h4>
+
+            <ion-row>
+              <ion-col col-1> </ion-col>
+              <ion-col col-5>
+                <button
+                  ion-button
+                  class="small_button"
+                  color="green1"
+                  round
+                  type="submit"
+                  (click)="accept_gen_appt(gen_appt_details.pre_appointment_id,gen_appt_details.id)"
+                >
+                  Accept
+                </button>
+              </ion-col>
+              <ion-col col-5>
+                <button
+                  ion-button
+                  class="small_button"
+                  color="danger1"
+                  round
+                  type="submit"
+                  (click)="decline_gen_appt(gen_appt_details.pre_appointment_id,gen_appt_details.id)"
+                >
+                  Decline
+                </button>
+              </ion-col>
+              <ion-col col-1> </ion-col>
+            </ion-row>
+
+            <div padding style="text-align: center;">
+              <button
+                ion-button
+                color="primary"
+                class="button-bottom1"
+                (tap)="closeModal()"
+              >
+                Back
+              </button>
+            </div>
+          </ion-item>
+        </ion-list>
+
+        <ng-template #pds_appointmentsfalse>
+          <ion-list>
+            <ion-item>
+              <p>Sorry you do not have any appointment.</p>
+            </ion-item>
+          </ion-list>
+        </ng-template>
+      </ion-card>
+    </ion-card-content>
+  </ion-scroll>
+</ion-content>

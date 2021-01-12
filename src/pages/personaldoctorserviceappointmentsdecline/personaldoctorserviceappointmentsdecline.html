@@ -1,0 +1,54 @@
+<ion-content class="main-view">
+
+  <div class="overlay" (click)="closeModal()"></div>
+  <ion-scroll class="modal_content" scrollY="true">
+    <!--<div class="modal_content">-->
+    <ion-buttons end>
+      <button ion-button icon-only (tap)="closeModal()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+    <br/>
+
+    <ion-card-content>
+      <ion-card>
+        <ion-item>
+          <p class="position" style=" color: black;">Let us know why you wouldn't be available </p>
+
+        </ion-item>
+
+        <!-- * Date you will be available -->
+
+        <form [formGroup]="PerDocDeclineForm">
+          
+          
+          <ion-list>
+      
+            <ion-item>
+              <ion-label floating>* Date you will be available</ion-label>
+              <ion-datetime displayFormat="YYYY-MM-DD"  [min]="minSelectabledate" pickerFormat="YYYY-MM-DD" formControlName="appointment_date" name="appointment_date" [class.invalid]="!PerDocDeclineForm.controls.appointment_date.valid && (PerDocDeclineForm.controls.appointment_date.dirty || submitAttempt)"></ion-datetime>
+            </ion-item>
+            
+            <ion-item>
+              <ion-label floating class="decrease_font_size">Your option(s)/Reason(s)</ion-label>
+              <ion-textarea type="text" formControlName="decline_reason" name="decline_reason" class="decrease_font_size" [class.invalid]="!PerDocDeclineForm.controls.decline_reason.valid && (PerDocDeclineForm.controls.decline_reason.dirty || submitAttempt)"></ion-textarea>
+            </ion-item>
+            
+      
+            <div padding>
+              <button ion-button  color="green1" class="button-bottom" block [disabled]="!this.PerDocDeclineForm.valid" (tap)="decline()">Submit</button>
+            </div>
+
+            <div padding style="text-align: center;" >
+              <button ion-button  color="primary" class="button-bottom1" (tap)="closeModal()">Back</button>
+            </div>
+      
+          </ion-list>
+      
+        </form>
+
+      </ion-card>
+
+    </ion-card-content>
+  </ion-scroll>
+</ion-content>

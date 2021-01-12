@@ -1,0 +1,214 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title style="text-align: center;">Prescription</ion-title>
+    <!-- <ion-buttons end>
+      <button ion-button icon-only (tap)="closeModal()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons> -->
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <!-- <p style="text-align:center;">
+    <b style=" color: black;">Book an Appointment </b>
+  </p> -->
+
+  <form [formGroup]="prescriptionForm">
+    <ion-list>
+      <br /><br />
+      <ion-item>
+        <ion-label class="movemove1"> Request Type</ion-label>
+        <ion-select
+          formControlName="requester_cat"
+          name="requester_cat"
+          required
+        >
+          <ion-option
+            formControlName="requester_cat"
+            name="requester_cat"
+            value="S"
+            ngDefaultControl
+            >Self</ion-option
+          >
+          <ion-option
+            formControlName="requester_cat"
+            name="requester_cat"
+            value="T"
+            ngDefaultControl
+            >Beneficiary</ion-option
+          >
+        </ion-select>
+      </ion-item>
+
+      <ion-item
+        *ngIf="prescriptionForm.controls?.requester_cat.value =='T' "
+        no-lines
+      >
+        <ion-item>
+          <ion-input
+            class="movemove"
+            placeholder="Enter Beneficiary Name"
+            formControlName="beneficiary_name"
+            name="beneficiary_name"
+            [class.invalid]="!prescriptionForm.controls?.beneficiary_name.valid && (prescriptionForm.controls?.beneficiary_name.dirty || submitAttempt)"
+          ></ion-input>
+        </ion-item>
+      </ion-item>
+
+      <ion-item
+        *ngIf="prescriptionForm.controls.requester_cat.value =='T' "
+        no-lines
+      >
+        <ion-item>
+          <ion-input
+            type="number"
+            class="movemove"
+            placeholder="Enter Beneficiary's Age"
+            formControlName="beneficiary_age"
+            name="beneficiary_age"
+            [class.invalid]="!prescriptionForm.controls.beneficiary_age.valid && (prescriptionForm.controls.beneficiary_age.dirty || submitAttempt)"
+          ></ion-input>
+        </ion-item>
+      </ion-item>
+
+      <ion-item
+        *ngIf="prescriptionForm.controls.requester_cat.value =='T' "
+        no-lines
+      >
+        <ion-item>
+          <ion-input
+            type="number"
+            class="movemove"
+            placeholder="Enter Beneficiary Phone Number"
+            formControlName="beneficiary_phone_number"
+            name="beneficiary_phone_number"
+            [class.invalid]="!prescriptionForm.controls?.beneficiary_phone_number.valid && (prescriptionForm.controls?.beneficiary_phone_number.dirty || submitAttempt)"
+          ></ion-input>
+        </ion-item>
+      </ion-item>
+
+      <ion-item>
+        <ion-label class="movemove1"> Request Urgency</ion-label>
+        <ion-select
+          formControlName="req_urgency"
+          name="req_urgency"
+          [class.invalid]="!prescriptionForm.controls?.requester_cat.valid && (prescriptionForm.controls?.requester_cat.dirty || submitAttempt)"
+        >
+          <ion-option
+            formControlName="req_urgency"
+            name="req_urgency"
+            value="S"
+            ngDefaultControl
+            >Standard</ion-option
+          >
+          <ion-option
+            formControlName="req_urgency"
+            name="req_urgency"
+            value="E"
+            ngDefaultControl
+            >Express</ion-option
+          >
+        </ion-select> </ion-item
+      ><br />
+
+      <ion-item class="height">
+        <ion-textarea
+          class="movemove3"
+          placeholder="List medication(s) you require..."
+          lineHeight="22"
+          name="medication"
+          formControlName="medication"
+          [class.invalid]="!prescriptionForm.controls?.medication.valid && (prescriptionForm.controls?.medication.dirty || submitAttempt)"
+        ></ion-textarea>
+        <ion-label> </ion-label>
+      </ion-item>
+
+      <ion-item no-lines>
+        <p class="center">OR</p>
+      </ion-item>
+
+      <ion-item>
+        <ion-label class="movemove1">Drug lists</ion-label>
+        <ionic-selectable
+          item-content
+          [(ngModel)]="port"
+          itemValueField="id"
+          itemTextField="drug_name"
+          [items]="check"
+          [isMultiple]="true"
+          [canClear]="true"
+          [class.invalid]="!prescriptionForm.controls.medication.valid && (prescriptionForm.controls.medication.dirty || submitAttempt)"
+          formControlName="medication"
+          (onChange)="portChange($event)"
+          [canSearch]="true"
+          placeholder="Select medication you require..."
+        >
+          <ng-template ionicSelectableValueTemplate let-check="value">
+            <div
+              class="ionic-selectable-value-item"
+              *ngFor="let port of check"
+              text-wrap
+            >
+              {{port.drug_name}}- GHC{{port.price}}
+            </div>
+          </ng-template>
+        </ionic-selectable>
+      </ion-item>
+
+      <ion-item class="height">
+        <ion-textarea
+          class="movemove3"
+          placeholder="Let us know your allergies"
+          lineHeight="22"
+          formControlName="allergies"
+          name="allergies"
+          [class.invalid]="!prescriptionForm.controls.allergies.valid && (prescriptionForm.controls.allergies.dirty || submitAttempt)"
+        ></ion-textarea>
+        <ion-label> </ion-label>
+      </ion-item>
+
+      <ion-item class="height">
+        <ion-textarea
+          class="movemove3"
+          placeholder="Please provide your medical history"
+          lineHeight="22"
+          formControlName="prev_medical_history"
+          name="prev_medical_history"
+          [class.invalid]="!prescriptionForm.controls.prev_medical_history.valid && (prescriptionForm.controls.prev_medical_history.dirty || submitAttempt)"
+        ></ion-textarea>
+        <ion-label> </ion-label>
+      </ion-item>
+
+      <ion-item class="height">
+        <ion-label floating text-wrap="true" class="movemove3">
+          Duration of medication (no of days)
+        </ion-label>
+        <ion-input
+          type="number"
+          name="med_duration"
+          formControlName="med_duration"
+          [class.invalid]="!prescriptionForm.controls?.med_duration.valid && (prescriptionForm.controls?.med_duration.dirty || submitAttempt)"
+        ></ion-input>
+      </ion-item>
+
+      <p class="pad" style="text-align: center;">
+        <button
+          ion-button
+          color="green1"
+          class="submitbtn"
+          [disabled]="!this.prescriptionForm.valid"
+          (tap)="submit()"
+          style="
+            text-align: center;
+            border-radius: 60px;
+            height: 40px;
+            width: 90%;
+          "
+        >
+          Submit
+        </button>
+      </p>
+    </ion-list>
+  </form>
+</ion-content>

@@ -1,0 +1,53 @@
+<ion-header>
+
+    <ion-navbar>
+      <ion-title>PDS Prescription!</ion-title>
+      <ion-buttons end>
+        <button ion-button icon-only (tap)="closeModal()"><ion-icon name="close"></ion-icon></button>
+      </ion-buttons>
+    </ion-navbar>
+  
+  </ion-header>
+  
+  <ion-content>
+    <h3 style="text-align: center;">PDS Prescription</h3>
+    <ion-list *ngIf="pds_prescription_details?.length > 0; else pds_appointmentsfalse">
+      <ion-item *ngFor="let pds_prescription_details of pds_prescription_details">
+        <ion-grid>
+          <ion-row>
+            <ion-col col-8 text-wrap>
+              <h2 text-wrap>{{pds_prescription_details.surname}} {{pds_prescription_details.other_names}}</h2>
+              <strong><p text-wrap>{{pds_prescription_details.appointment_type}}</p></strong>
+              <strong><p  *ngIf="pds_prescription_details.attended_to == false;" text-wrap>Potential Earnings: GH¢ {{pds_prescription_details.appt_amnt}}</p></strong>
+              <strong><p  *ngIf="pds_prescription_details.attended_to == true;" text-wrap>Actual Earnings: GH¢ {{pds_prescription_details.appt_amnt}}</p></strong>
+            </ion-col>
+            <ion-col col-4>
+              <button ion-button  class="small_button" color="green1" round type="submit" (click)="get_pds_prescription_details(pds_prescription_details)">Details</button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-list>
+  
+    <ng-template #pds_appointmentsfalse>
+      <ion-list>
+        <ion-item>
+          <br>
+          <ion-grid>
+            <ion-row>
+              <ion-col col-12>
+                <h2 style="text-align: center;">Sorry you do not have any appointment</h2>              
+              </ion-col>
+              <!-- <ion-col col-4>
+                <button ion-button  class="small_button" color="green1" round type="submit" (click)="pds_appt_details()">Details</button>
+              </ion-col> -->
+            </ion-row>
+          </ion-grid>
+            
+        </ion-item>
+      </ion-list>
+        
+    </ng-template>
+  
+  </ion-content>
+  

@@ -1,0 +1,74 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Personal Doctor Prescription</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (tap)="closeModal()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+<ion-content padding>
+  <form>
+    <ion-item text-wrap class="text-left">
+      <ion-label col-5><b>Request Category</b></ion-label>
+      <ion-label col-7>{{currentpersonaldoctorprescriptiondetaildata.requestcategory}}</ion-label>
+    </ion-item>
+    <ion-item text-wrap class="text-left" *ngIf="currentpersonaldoctorprescriptiondetaildata.requestcategory =='Beneficiary'">
+      <ion-label col-5><b>Beneficiary</b></ion-label>
+      <ion-label col-7>{{currentpersonaldoctorprescriptiondetaildata.beneficiary}}</ion-label>
+    </ion-item>
+
+    <ion-item text-wrap class="text-left" *ngIf="currentpersonaldoctorprescriptiondetaildata.requestcategory =='Beneficiary'">
+      <ion-label col-5><b>Beneficiary Sex</b></ion-label>
+      <ion-label col-7>{{currentpersonaldoctorprescriptiondetaildata.beneficiary_gender}}</ion-label>
+    </ion-item>
+    <ion-item text-wrap class="text-left" *ngIf="currentpersonaldoctorprescriptiondetaildata.requestcategory =='Beneficiary'">
+      <ion-label col-5><b>Beneficiary Age</b></ion-label>
+      <ion-label col-7>{{currentpersonaldoctorprescriptiondetaildata.beneficiary_age}}</ion-label>
+    </ion-item>
+    <ion-item text-wrap class="text-left" *ngIf="currentpersonaldoctorprescriptiondetaildata.requestcategory =='Beneficiary'">
+      <ion-label col-5><b>Beneficiary Number</b></ion-label>
+      <ion-label col-7>{{currentpersonaldoctorprescriptiondetaildata.beneficiary_phone_number}}</ion-label>
+    </ion-item>
+
+    <ion-item text-wrap class="text-left" *ngIf="currentpersonaldoctorprescriptiondetaildata.requestcategory =='Beneficiary'">
+      <ion-label col-5><b>Request Urgency</b></ion-label>
+      <ion-label col-7>{{currentpersonaldoctorprescriptiondetaildata.requesturgency}}</ion-label>
+    </ion-item>
+
+    <ion-item text-wrap class="text-left">
+      <ion-label col-5><b>Proposed Medication</b></ion-label>
+      <ion-label col-7>{{currentpersonaldoctorprescriptiondetaildata.medications | removehtmltags}}</ion-label>
+    </ion-item>
+
+    <ion-item text-wrap class="text-left">
+      <ion-label col-5><b>Duration</b></ion-label>
+      <ion-label col-7>{{currentpersonaldoctorprescriptiondetaildata.duration}}</ion-label>
+    </ion-item>
+
+    <ion-item text-wrap class="text-left">
+      <ion-label col-5><b>Source</b></ion-label>
+      <ion-label col-7>{{currentpersonaldoctorprescriptiondetaildata.source}}</ion-label>
+    </ion-item>
+
+    <ion-item text-wrap class="text-left">
+      <ion-label col-5><b>Date Created</b></ion-label>
+      <ion-label col-7>{{currentpersonaldoctorprescriptiondetaildata.created_at | date: 'yyyy-MM-dd h:mm a'}}</ion-label>
+    </ion-item>
+
+    <ion-item text-wrap class="text-left">
+      <ion-label col-5><b>Confirm Status</b></ion-label>
+      <ion-label col-7>{{currentpersonaldoctorprescriptiondetaildata.confirmstatus}}</ion-label>
+    </ion-item>
+
+    <div padding style="text-align: center;" *ngIf="doctor_records">
+        <button ion-button class="small_button" color="green1" round type="submit" (click)="doctorrecords(doctor_records)">Doctor
+          Records</button>
+      </div>
+
+
+
+  </form>
+</ion-content>

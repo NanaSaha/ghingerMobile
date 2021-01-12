@@ -1,0 +1,207 @@
+<!-- <form [formGroup]="personalDocLocationForm" class="padd">
+      <ion-card-content>
+        <ion-card>
+          <ion-item class="position">
+            <p class="position" style="color: black;">
+              Welcome to <br />
+              personal doctor service
+            </p>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Select City</ion-label>
+            <ionic-selectable
+              item-content
+              [(ngModel)]="city_id"
+              [items]="cities"
+              itemValueField="id"
+              itemTextField="city_town_name"
+              [canSearch]="true"
+              (onChange)="get_suburbs(city_id)"
+              formControlName="city_id"
+              name="city_town_name"
+              [class.invalid]="!personalDocLocationForm.controls.city_id.valid && (personalDocLocationForm.controls.city_id.dirty || submitAttempt)"
+            >
+            </ionic-selectable>
+          </ion-item> -->
+
+<!-- <br />
+          <ion-item *ngIf="searchForm.value.city_id">
+            <ion-label>Surburb</ion-label>
+            <ionic-selectable
+              item-content
+              [(ngModel)]="surburb_id"
+              [items]="suburbs"
+              itemValueField="id"
+              itemTextField="suburb_name"
+              [canSearch]="true"
+              formControlName="suburb_id"
+              (onChange)="surburbChange($event)"
+              name="suburb_name"
+              [class.invalid]="!searchForm.controls.suburb_id.valid && (searchForm.controls.suburb_id.dirty || submitAttempt)"
+            >
+            </ionic-selectable>
+          </ion-item>
+       
+          <br /> -->
+
+<!-- <ion-item
+            class="height"
+            [class.invalid]="!personalDocLocationForm.controls.prev_medical_history.valid && (personalDocLocationForm.controls.prev_medical_history.dirty || submitAttempt)"
+          >
+            <ion-textarea
+              class="movemove3"
+              placeholder="Provide previous medical history..."
+              lineHeight="22"
+              name="prev_medical_history"
+            ></ion-textarea>
+            <ion-label> </ion-label>
+          </ion-item> -->
+<!-- 
+          <ion-item>
+            <ion-label text-wrap> Do you have a preferred doctor?</ion-label>
+
+            <ion-select
+              formControlName="yesorno"
+              name="yesorno"
+              [class.invalid]="!personalDocLocationForm.controls.yesorno.valid && (personalDocLocationForm.controls.yesorno.dirty || submitAttempt)"
+            >
+              <ion-option value="Y">Yes</ion-option>
+              <ion-option value="N">No</ion-option>
+            </ion-select>
+          </ion-item>
+
+          <br />
+          <ion-item *ngIf="personalDocLocationForm.value.yesorno == 'Y'">
+            <ion-item
+              formControlName="doc_name"
+              name="doc_name"
+              [class.invalid]="!personalDocLocationForm.controls.doc_name.valid && (personalDocLocationForm.controls.doc_name.dirty || submitAttempt)"
+            >
+              <ion-textarea
+                class="movemove3"
+                placeholder="Enter Doctor Name"
+              ></ion-textarea>
+            </ion-item>
+          </ion-item>
+          <br />
+
+          <br /> -->
+<!-- 
+          <div padding style="text-align: center;">
+            <button
+              ion-button
+              class="small_button"
+              block
+              color="green1"
+              [disabled]="!this.personalDocLocationForm.valid"
+              (tap)="submit()"
+            >
+              SUBMIT
+            </button>
+          </div>
+        </ion-card>
+      </ion-card-content>
+    </form>
+  </ion-scroll>
+</ion-content> -->
+
+<ion-header>
+  <ion-navbar>
+    <ion-title style="text-align: center;" text-wrap
+      >Personal Doctor Service</ion-title
+    >
+    <ion-buttons end class="margin" tappable (tap)="home()">
+      <button ion-button icon-only>
+        <ion-icon name="home"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="background">
+  <div class="card">
+    <form [formGroup]="personalDocLocationForm" class="padd">
+      <h4 class="pad" style="color: white;" text-wrap>
+        COMPLETE THE FORM TO REQUEST FOR A PERSONAL DOCTOR
+      </h4>
+
+      <ion-item text-wrap>
+        <ion-label text-wrap>Tell us your location</ion-label>
+        <ionic-selectable
+          item-content
+          [(ngModel)]="city_id"
+          [items]="cities"
+          itemValueField="id"
+          itemTextField="city_town_name"
+          [canSearch]="true"
+          (onChange)="get_suburbs(city_id)"
+          formControlName="city_id"
+          name="city_town_name"
+          [class.invalid]="!personalDocLocationForm.controls.city_id.valid && (personalDocLocationForm.controls.city_id.dirty || submitAttempt)"
+        >
+        </ionic-selectable>
+      </ion-item>
+
+      <br />
+
+      <ion-item *ngIf="personalDocLocationForm.value.city_id">
+        <ion-label text-wrap>Your Surburb</ion-label>
+        <ionic-selectable
+          item-content
+          [(ngModel)]="surburb_id"
+          [items]="suburbs"
+          itemValueField="id"
+          itemTextField="suburb_name"
+          [canSearch]="true"
+          formControlName="suburb_id"
+          (onChange)="surburbChange($event)"
+          name="suburb_name"
+          [class.invalid]="!personalDocLocationForm.controls.suburb_id.valid && (personalDocLocationForm.controls.suburb_id.dirty || submitAttempt)"
+        >
+        </ionic-selectable>
+      </ion-item>
+
+      <br />
+
+      <ion-item>
+        <ion-label floating text-wrap>
+          Do you have a preferred doctor?</ion-label
+        >
+
+        <ion-select
+          formControlName="yesorno"
+          name="yesorno"
+          [class.invalid]="!personalDocLocationForm.controls.yesorno.valid && (personalDocLocationForm.controls.yesorno.dirty || submitAttempt)"
+        >
+          <ion-option value="Y">Yes</ion-option>
+          <ion-option value="N">No</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item *ngIf="personalDocLocationForm.value.yesorno == 'Y'">
+        <ion-label floating text-wrap> Enter Doctor Name</ion-label>
+        <ion-textarea
+          lineHeight="22"
+          formControlName="doc_name"
+          name="doc_name"
+          [class.invalid]="!personalDocLocationForm.controls.doc_name.valid && (personalDocLocationForm.controls.doc_name.dirty || submitAttempt)"
+        ></ion-textarea>
+      </ion-item>
+
+      <br />
+      <div padding style="text-align: center;">
+        <button
+          ion-button
+          class="small_button"
+          color="primary"
+          round
+          [disabled]="!this.personalDocLocationForm.valid"
+          (tap)="submit()"
+        >
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
+</ion-content>

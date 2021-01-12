@@ -1,0 +1,198 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title style="text-align: center">Make Payment</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (tap)="closeModal()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content overflow-scroll="true" class="background">
+  <p><b style="color: black">Complete Payment</b></p>
+
+  <div *ngIf="payment_type =='Momo' ">
+    <form [formGroup]="paymentForm">
+      <ion-list>
+        <ion-item>
+          <ion-label floating> Name</ion-label>
+          <ion-input
+            type="text"
+            formControlName="patient_name"
+            name="patient_name"
+            [value]="patient_name"
+            [class.invalid]="!paymentForm.controls.patient_name.valid && (paymentForm.controls.patient_name.dirty || submitAttempt)"
+            readonly="true"
+          ></ion-input>
+        </ion-item>
+
+        <!-- <ion-item>
+              <ion-label floating>
+               
+                Appointment Type</ion-label>
+                <ion-input type="text" formControlName="bill_appointment_title" name="bill_appointment_title" [value]="bill_appointment_title" readonly="true"></ion-input>
+            </ion-item> -->
+
+        <ion-item>
+          <ion-label floating> Mobile Money Number</ion-label>
+          <ion-input
+            type="number"
+            formControlName="customer_number"
+            name="customer_number"
+            [class.invalid]="!paymentForm.controls.customer_number.valid && (paymentForm.controls.customer_number.dirty || submitAttempt)"
+          ></ion-input>
+        </ion-item>
+
+        <br />
+        <ion-item>
+          <ion-label> Mobile Network</ion-label>
+          <ion-select
+            formControlName="nw"
+            name="nw"
+            [class.invalid]="!paymentForm.controls.nw.valid && (paymentForm.controls.nw.dirty || submitAttempt)"
+          >
+            <ion-option
+              formControlName="nw"
+              name="nw"
+              value="MTN"
+              ngDefaultControl
+              >Mtn</ion-option
+            >
+            <ion-option
+              formControlName="nw"
+              name="nw"
+              value="TIG"
+              ngDefaultControl
+              >Tigo</ion-option
+            >
+            <ion-option
+              formControlName="nw"
+              name="nw"
+              value="VOD"
+              ngDefaultControl
+              >Vodafone</ion-option
+            >
+            <ion-option
+              formControlName="nw"
+              name="nw"
+              value="AIR"
+              ngDefaultControl
+              >Airtel</ion-option
+            >
+          </ion-select>
+        </ion-item>
+
+        <!-- <ion-item *ngIf="paymentForm.controls.nw.value == 'VOD'">
+          <ion-label floating> Voucher Code</ion-label>
+          <ion-input
+            type="number"
+            formControlName="voucher_code"
+            name="voucher_code"
+            [class.invalid]="!paymentForm.controls.voucher_code.valid && (paymentForm.controls.voucher_code.dirty || submitAttempt)"
+          ></ion-input>
+
+          <label padding text-center style="text-align: center; color: #f53d3d;"
+            >Kindly dial <b>*110#</b> and select option 6 to<br />
+            generate a voucher code for your <br />vodafone payment.</label
+          >
+        </ion-item> 
+
+        <ion-card *ngIf="paymentForm.controls.nw.value == 'VOD'">
+          <ion-item>
+            <b text-wrap> Notice</b><br />
+            <p text-wrap>1. Dial *110#</p>
+            <br />
+            <p text-wrap>2. Choose Option 6 to generate your payment Voucher</p>
+            <br />
+            <p text-wrap>
+              3. You will recieve an SMS with a 6 digit Voucher Code
+            </p>
+            <br />
+            <p text-wrap>4. Enter the Voucher Code in the voucher code input</p>
+            <br />
+            <p text-wrap>5. Initiate Payment by tapping the Pay button</p>
+            <br />
+          </ion-item>
+        </ion-card> -->
+
+        <ion-card *ngIf="paymentForm.controls.nw.value == 'MTN'">
+          <ion-item>
+            <b text-wrap> Notice</b><br />
+
+            <p text-wrap>
+              Before making payment, please make sure you have no pending
+              payment approval request
+            </p>
+          </ion-item>
+        </ion-card>
+
+        <ion-item>
+          <ion-label floating> Amount (GHS)</ion-label>
+          <ion-input
+            type="number"
+            formControlName="amount"
+            name="amount"
+            value="{{amount}}"
+            [class.invalid]="!paymentForm.controls.amount.valid && (paymentForm.controls.amount.dirty || submitAttempt)"
+            readonly="true"
+          ></ion-input>
+        </ion-item>
+
+        <p class="pad">
+          <button
+            ion-button
+            color="green1"
+            [disabled]="!this.paymentForm.valid"
+            (tap)="makePayment()"
+          >
+            PROCEED
+          </button>
+        </p>
+      </ion-list>
+    </form>
+  </div>
+
+  <div *ngIf="payment_type =='Card' ">
+    <form [formGroup]="paymentCardForm">
+      <ion-list>
+        <ion-item>
+          <ion-label floating> Name</ion-label>
+          <ion-input
+            type="text"
+            formControlName="patient_name"
+            name="patient_name"
+            [value]="patient_name"
+            [class.invalid]="!paymentCardForm.controls.patient_name.valid && (paymentCardForm.controls.patient_name.dirty || submitAttempt)"
+            readonly="true"
+          ></ion-input>
+        </ion-item>
+
+        <br />
+
+        <ion-item>
+          <ion-label floating> Amount (GHS)</ion-label>
+          <ion-input
+            type="number"
+            formControlName="amount"
+            name="amount"
+            value="{{amount}}"
+            [class.invalid]="!paymentCardForm.controls.amount.valid && (paymentCardForm.controls.amount.dirty || submitAttempt)"
+            readonly="false"
+          ></ion-input>
+        </ion-item>
+
+        <p class="pad">
+          <button
+            ion-button
+            color="green1"
+            [disabled]="!this.paymentCardForm.valid"
+            (tap)="card_payment()"
+          >
+            PROCEED
+          </button>
+        </p>
+      </ion-list>
+    </form>
+  </div>
+</ion-content>

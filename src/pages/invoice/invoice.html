@@ -1,0 +1,87 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title style="text-align: center;">Doctor Invoices</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (tap)="closeModal()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)"> </ion-refresher>
+
+  <h3 style="text-align: center;">Invoices</h3>
+
+  <ion-row>
+    <ion-col col-6>
+      <ion-item class="item1" text-wrap="true">Patient </ion-item>
+    </ion-col>
+    <ion-col col-6>
+      <ion-item class="item1" text-wrap="true">Actual Earnings </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-list *ngIf="pds_appoint_details?.length > 0; else pds_appointmentsfalse">
+    <ion-item *ngFor="let pds_appoint_details of pds_appoint_details">
+      <ion-grid>
+        <ion-row>
+          <ion-col col-8 text-wrap="true">
+            <h2 text-wrap="true">
+              {{pds_appoint_details.surname}}
+              {{pds_appoint_details.other_names}}
+            </h2>
+            <strong text-wrap="true">
+              <p text-wrap="true">{{pds_appoint_details.appointment_type}}</p>
+            </strong>
+            <p text-wrap="true">
+              {{pds_appoint_details.confirmed_date | date: 'medium' }}
+            </p>
+          </ion-col>
+          <ion-col col-4 text-wrap="true">
+            <!-- <button ion-button class="small_button" color="green1" round type="submit" (click)="pds_appt_details(pds_appoint_details)">Appt Details</button> -->
+            <b text-wrap="true" style="color: red;"
+              >GH¢ {{pds_appoint_details.appt_amnt}}</b
+            >
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+
+  <ng-template #pds_appointmentsfalse>
+    <ion-list>
+      <ion-item>
+        <br />
+        <ion-grid>
+          <ion-row>
+            <ion-col col-12>
+              <h2 style="text-align: center;" text-wrap>
+                Sorry you have no earnings yet. Please attend to an appointment
+                to realise your earnings
+              </h2>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-list>
+  </ng-template>
+</ion-content>
+
+<ion-footer>
+  <p style="text-align: center;">
+    Note*: Actual Earnings are only shown after an appointment has been attended
+    to
+  </p>
+  <ion-row>
+    <ion-col col-12>
+      <button ion-button color="green1" (tap)="request()">
+        Request Funds
+      </button>
+    </ion-col>
+    <!-- <ion-col col-6>
+      <button ion-button color="green1" class="right" (tap)="order()">Place an Order</button>
+    </ion-col> -->
+  </ion-row>
+</ion-footer>

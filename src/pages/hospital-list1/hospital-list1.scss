@@ -1,0 +1,35 @@
+page-hospital-list1 {
+
+
+.background{
+
+ /* The image used */
+    background-image: url("../assets/icon/back.png"); 
+   
+    height: 100%;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    align-content: center;
+    text-align:center;
+
+    }
+
+    .center{
+    margin-top: 50%;
+    margin-bottom: 100%;
+    align-content: center;
+    text-align: center;
+}
+
+     ion-item {
+  
+background-color: transparent !important;
+background: transparent !important;
+
+     
+}
+
+}

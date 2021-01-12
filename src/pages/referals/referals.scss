@@ -1,0 +1,49 @@
+page-referals {
+  #outside {
+    width: 400px;
+    height: 150px;
+    border-style: dashed;
+    border-width: 3px;
+    position: relative;
+  }
+  #inside {
+    background-color: white;
+    width: 404px;
+    height: 154px;
+    position: absolute;
+    top: -2px;
+    left: -2px;
+  }
+
+  .column3 {
+    // background-color: #5dba47;
+    width: 100%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    text-align: center;
+    border-radius: 8px;
+    margin-left: 1%;
+    margin-bottom: 3%;
+    height: 100px;
+    border-style: dashed;
+    -webkit-user-select: auto;
+  }
+
+  .img_size {
+    height: 70px;
+    width: 70px;
+  }
+
+  .inn {
+    float: left;
+    clear: left;
+  }
+
+  .border {
+    margin-top: 10px;
+  }
+
+  #txtcolor {
+    font-size: 25px;
+    color: red;
+  }
+}

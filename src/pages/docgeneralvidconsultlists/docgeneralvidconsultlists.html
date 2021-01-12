@@ -1,0 +1,63 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Video Consults!</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (tap)="closeModal()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+  </ion-refresher>
+
+  <h3 style="text-align: center;">Video Consults</h3>
+  <ion-list *ngIf="doc_gen_vidconsults?.length > 0; else med_appointmentsfalse">
+    <ion-item *ngFor="let doc_gen_vidconsults of doc_gen_vidconsults">
+      <ion-grid>
+        <ion-row>
+          <!-- <ion-col col-2>
+           <strong>1</strong>
+          </ion-col> -->
+          <ion-col col-8>
+            <h2>{{doc_gen_vidconsults.surname}} {{doc_gen_vidconsults.other_names}}</h2>
+            <strong>
+              <p>{{doc_gen_vidconsults.appointment_type}}</p>
+            </strong>
+          </ion-col>
+          <ion-col col-2>
+
+            <button ion-button class="small_button" color="green1" round type="submit" (click)="get_gen_vidconsult_details(doc_gen_vidconsults)">Details</button><br>
+              <button *ngIf="!get_gen_vidconsult_details.paid || get_gen_vidconsult_details.paid == false" ion-button
+            class="medium_button deepash1" color="deepash" round type="submit">Pending <br>Payment</button>
+
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+
+  <ng-template #med_appointmentsfalse>
+    <ion-list>
+      <ion-item>
+        <br>
+        <ion-grid>
+          <ion-row>
+            <ion-col col-8>
+              <h2 style="text-align: center;">Sorry you do not have any appointment</h2>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+      </ion-item>
+    </ion-list>
+
+  </ng-template>
+
+</ion-content>

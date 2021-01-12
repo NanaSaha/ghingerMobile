@@ -1,0 +1,88 @@
+page-lab-history {
+  
+
+.background{
+
+ /* The image used */
+    // background-image: url("../assets/icon/back.png"); 
+     background-color: #ece7e7;
+   
+    height: 100%;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    align-content: center;
+    text-align:center;
+
+    }
+
+.back_color{
+
+  
+    background-color: #92d36e; 
+   
+    height: 100%;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    align-content: center;
+    text-align:center;
+
+    }
+
+
+ion-modal {
+    .modal-wrapper {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: block;
+        width: 50%;
+        height: 50%;
+    }
+}
+
+
+     ion-item {
+  
+background-color: transparent !important;
+background: transparent !important;
+
+     
+}
+
+.center{
+    margin-top: 50%;
+    margin-bottom: 100%;
+    align-content: center;
+    text-align: center;
+}
+
+.pad{
+    margin-top: -6%;
+    
+    align-content: center;
+    text-align: center;
+}
+
+
+ion-fab{
+
+    margin-right: 5%;
+
+
+}
+
+
+
+    ion-icon.green{
+
+        color: #789527;
+
+
+    }
+}
