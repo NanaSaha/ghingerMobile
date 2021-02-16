@@ -12,6 +12,12 @@ log.txt
 .vscode/
 npm-debug.log*
 
+
+Ghinger-beta.apk
+/ghinger-key.jks
+/ghinger_new-key.jks
+
+
 .idea/
 .sourcemaps/
 .sass-cache/
@@ -28,6 +34,8 @@ plugins/android.json
 plugins/ios.json
 www/
 $RECYCLE.BIN/
+ 
+/app-release-unsigned.apk
 
 .DS_Store
 Thumbs.db

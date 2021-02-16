@@ -165,6 +165,39 @@
 
     <ion-item>
       <br />
+      <ion-label floating>How did you know about us? (Optional)</ion-label>
+      <ion-input
+        type="text"
+        formControlName="referal_code"
+        name="referal_code"
+        [class.invalid]="!signupForm.controls.referal_code.valid && (signupForm.controls.referal_code.dirty || submitAttempt)"
+      ></ion-input>
+    </ion-item>
+    <br />
+
+    <ion-item *ngIf="showpassword">
+      <br />
+      <ion-label floating>Password</ion-label>
+      <ion-input
+        type="text"
+        formControlName="password"
+        name="password"
+        [class.invalid]="!signupForm.controls.password.valid && (signupForm.controls.password.dirty || submitAttempt)"
+      ></ion-input>
+      <button
+        ion-button
+        clear
+        color="dark"
+        item-right
+        (tap)="togglePasswordText()"
+        id="stle2"
+      >
+        <ion-icon name="eye-off" id="iconeye"> </ion-icon>
+      </button>
+    </ion-item>
+
+    <ion-item *ngIf="!showpassword">
+      <br />
       <ion-label floating>Password</ion-label>
       <ion-input
         type="password"
@@ -172,6 +205,16 @@
         name="password"
         [class.invalid]="!signupForm.controls.password.valid && (signupForm.controls.password.dirty || submitAttempt)"
       ></ion-input>
+      <button
+        ion-button
+        clear
+        color="dark"
+        item-right
+        (tap)="togglePasswordText()"
+        id="stle2"
+      >
+        <ion-icon name="eye"> </ion-icon>
+      </button>
     </ion-item>
     <p
       *ngIf="!signupForm.controls.password.valid  && (signupForm.controls.password.dirty || submitAttempt)"

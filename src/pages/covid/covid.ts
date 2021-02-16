@@ -35,6 +35,10 @@ export class CovidPage {
   messageList;
   api_code;
 
+   public public_key = 'pk_live_df632ae19ef3c4f2f59aa10572d7b80b954c03e1'; //Put your paystack Test or Live Key here
+  public channels = ['bank', 'card', 'ussd', 'qr','mobile_money']; //Paystack Payment Methods
+  public random_id = Math.floor(Date.now() / 1000); //Line to generate reference number
+
   constructor(
     public alertCtrl: AlertController,
     public data: DataProvider,
@@ -124,13 +128,12 @@ export class CovidPage {
     );
   }
 
-  goto_subscription(visit_type) {
-    this.visit_type = visit_type;
-    console.log("VISIT TYPE" + this.visit_type);
+  goto_subscription() {
+   
 
     this.navCtrl.push(BookCovidPage, {
       value: this.from_login,
-      visit_type: visit_type,
+      visit_type: "",
     });
   }
 
@@ -244,6 +247,35 @@ export class CovidPage {
 
   home() {
     this.navCtrl.setRoot(MenuPage);
+  }
+
+
+   //Callback function on successful payment 
+  paymentDone(ref: any) {
+    console.log(ref) //ref contains the response from paystack after successful payment
+
+
+
+    let alert = this.alertCtrl.create({
+                  title: "Ghinger Health Care",
+                  subTitle: "Payment Successful",
+                  buttons: [
+                    {
+                      text: "OK",
+                      handler: () => {
+                        this.navCtrl.setRoot(MenuPage);
+                      },
+                    },
+                  ],
+                });
+                alert.present();
+    
+  }
+
+  //Event triggered if User cancel the payment
+  paymentCancel() {
+    console.log('gateway closed')
+    //  this.navCtrl.push("ReceiptPage", { momo_network: "", order_id: this.order_id, user_details: this.user_details })
   }
 }
 

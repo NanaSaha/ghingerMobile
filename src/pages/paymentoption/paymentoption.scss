@@ -1,49 +1,53 @@
 page-paymentoption {
+  .btn-primary {
+    order-radius: 17px;
+    background-color: #b72569 !important;
+    font-size: 17px !important;
+    line-height: 4;
+    padding-left: 20px;
+    padding-right: 20px;
+    color: white;
+  }
 
+  .img1 {
+    border-radius: 50%;
+  }
 
-    .img1 {
-        border-radius: 50%;
-    }
+  .row-center img {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    top: 70px;
+    transform: translateY(-50%);
+  }
 
-    .row-center img {
-        position:absolute;
-        left: 0;
-        right: 0;
-        margin:0 auto;
-        top:70px;
-        transform:translateY(-50%);
-    }
-   
-    .logo{
-        background-position: center;
+  .logo {
+    background-position: center;
     background-repeat: no-repeat;
-        align-content: center;
-        text-align:center;
-    }
+    align-content: center;
+    text-align: center;
+  }
 
-    .custom-icon {
-        font-size: 128px;
-        color : #2f9c0e;
-      }
+  .custom-icon {
+    font-size: 128px;
+    color: #2f9c0e;
+  }
 
+  .ion-title {
+    align-content: center;
+    text-align: center;
+  }
 
-   
+  .button.customBtn {
+    width: 120px;
+    height: 100px;
+  }
 
-    .ion-title{
-        align-content: center;
-        text-align: center;
-    }
-
-
-      .button.customBtn{
-        width:120px;
-        height:100px;
-    }
-
-    .menu-text{
-        align-content: center;
-        text-align: center;
-        font-size: 13px;
-        font-weight: bold;
-    }
+  .menu-text {
+    align-content: center;
+    text-align: center;
+    font-size: 13px;
+    font-weight: bold;
+  }
 }

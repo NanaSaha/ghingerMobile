@@ -21,21 +21,21 @@
   <br /><br /><br />
 
   <ion-row text-center text-wrap>
-    <ion-col col-1> </ion-col>
-
-    <ion-col col-5 padding>
-      <angular4-paystack
-        [key]="'pk_live_df632ae19ef3c4f2f59aa10572d7b80b954c03e1'"
-        [email]="'info@ghingerhealth.com'"
-        [amount]="amount"
-        [ref]="random_id"
-        [channels]="channels"
-        [currency]="'GHS'"
-        [class]="'btn btn-primary'"
-        (close)="paymentCancel()"
-        (callback)="paymentDone($event)"
-        >Pay with Mobile Money/Card</angular4-paystack
-      >
+    <ion-col col-12>
+      <ion-item no-lines>
+        <angular4-paystack
+          [key]="'pk_live_df632ae19ef3c4f2f59aa10572d7b80b954c03e1'"
+          [email]="'info@ghingerhealth.com'"
+          [amount]="amount"
+          [ref]="random_id"
+          [channels]="channels"
+          [currency]="'GHS'"
+          [class]="'btn btn-primary'"
+          (close)="paymentCancel()"
+          (callback)="paymentDone($event)"
+          >Pay with Mobile Money/Card</angular4-paystack
+        >
+      </ion-item>
       <!-- <button
         ion-button
         large

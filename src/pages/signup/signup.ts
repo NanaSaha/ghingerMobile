@@ -36,6 +36,8 @@ export class SignupPage {
   suburbs: any;
   country_id: any;
 
+   public showpassword: boolean;
+
   public itemList: Array<Object>;
 
   constructor(
@@ -214,6 +216,15 @@ export class SignupPage {
   signin() {
     this.navCtrl.push(LoginPage);
   }
+
+ 
+
+
+  togglePasswordText() {
+    console.log("SHOW STATUS" + this.showpassword)
+     console.log("SHOW STATUS" + !this.showpassword)
+    this.showpassword = !this.showpassword;
+}
 
   experimentmovetoAddregisPage() {
     let loader = this.loadingCtrl.create({

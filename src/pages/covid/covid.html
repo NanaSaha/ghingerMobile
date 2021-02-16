@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Subscription Type</ion-title>
+    <ion-title>Covid Test</ion-title>
     <ion-buttons end class="margin" tappable (tap)="home()">
       <button ion-button icon-only>
         <ion-icon name="home"></ion-icon>
@@ -10,52 +10,202 @@
 </ion-header>
 
 <ion-content padding>
-  <!-- ELDERLY ONE -->
-  <div>
-    <ion-card>
-      <ion-card-content>
-        <br />
-        <h1 class="billdetails">COVID-19</h1>
-        <br />
+  <ion-row>
+    <h1 class="billdetails">WALK-IN PLANS</h1>
+    <ion-col col-6>
+      <ion-card>
+        <ion-card-content>
+          <br />
+          <h1 class="billdetails">Results in 24 hours</h1>
+          <br />
 
-        <ul class="pricing-plan__list">
-          <li class="pricing-plan__feature">Single person</li>
-          <li class="pricing-plan__feature">
-            Monthly (or quarterly) doctor visit
-          </li>
-          <li class="pricing-plan__feature">40 min - 1 hour</li>
-          <li class="pricing-plan__feature">Complete health review</li>
-          <li class="pricing-plan__feature">Review of medications</li>
-          <li class="pricing-plan__feature">
-            Arrange labs investigations (if req’d)
-          </li>
-          <li class="pricing-plan__feature">Provide prescriptions</li>
-          <li class="pricing-plan__feature">
-            Provide lifestyle advice (exercise,nutrition etc)
-          </li>
-          <li class="pricing-plan__feature">Medical report sent by email</li>
-        </ul>
+          <ion-row>
+            <ion-col col-12>
+              <ion-item class="totallbl" text-wrap
+                >GHC 300
+                <p></p
+              ></ion-item>
+            </ion-col>
+          </ion-row>
 
-        <ion-row>
-          <ion-col col-12>
-            <ion-item class="totallbl" text-wrap
-              >GHC 350 - GHC 500
-              <p>per Monthly visit or per Quarterly Visit</p></ion-item
+          <div>
+            <!-- <button
+              ion-button
+              color="secondary"
+              outline
+              (tap)="goto_subscription()"
             >
-          </ion-col>
-        </ion-row>
+              Proceed to Pay
+            </button> -->
 
-        <div>
-          <button
-            ion-button
-            color="secondary"
-            outline
-            (tap)="goto_subscription('ElderlyPersonsHomeVisit')"
-          >
-            Subscribe
-          </button>
-        </div>
-      </ion-card-content>
-    </ion-card>
-  </div>
+            <angular4-paystack
+              [key]="'pk_live_df632ae19ef3c4f2f59aa10572d7b80b954c03e1'"
+              [email]="'info@ghingerhealth.com'"
+              [amount]="300"
+              [ref]="random_id"
+              [channels]="channels"
+              [currency]="'GHS'"
+              [class]="'disable-hover button button-md button-outline button-outline-md button-outline-md-secondary'"
+              (close)="paymentCancel()"
+              (callback)="paymentDone($event)"
+              >Proceed to Pay</angular4-paystack
+            >
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+
+    <ion-col col-6>
+      <ion-card>
+        <ion-card-content>
+          <br />
+          <h1 class="billdetails">Results in 12 hours</h1>
+          <br />
+
+          <ion-row>
+            <ion-col col-12>
+              <ion-item class="totallbl" text-wrap
+                >GHC 480
+                <p></p
+              ></ion-item>
+            </ion-col>
+          </ion-row>
+
+          <div>
+            <button
+              ion-button
+              color="secondary"
+              outline
+              (tap)="goto_subscription()"
+            >
+              Proceed to Pay
+            </button>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+
+    <ion-col col-6>
+      <ion-card>
+        <ion-card-content>
+          <br />
+          <h1 class="billdetails">Results in 2-4 hours</h1>
+          <br />
+
+          <ion-row>
+            <ion-col col-12>
+              <ion-item class="totallbl" text-wrap
+                >GHC 830
+                <p></p
+              ></ion-item>
+            </ion-col>
+          </ion-row>
+
+          <div>
+            <button
+              ion-button
+              color="secondary"
+              outline
+              (tap)="goto_subscription()"
+            >
+              Proceed to Pay
+            </button>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <h1 class="billdetails">HOME PLANS</h1>
+    <ion-col col-6>
+      <ion-card>
+        <ion-card-content>
+          <br />
+          <h1 class="billdetails">Results in 24 hours</h1>
+          <br />
+
+          <ion-row>
+            <ion-col col-12>
+              <ion-item class="totallbl" text-wrap
+                >GHC 550
+                <p></p
+              ></ion-item>
+            </ion-col>
+          </ion-row>
+
+          <div>
+            <button
+              ion-button
+              color="secondary"
+              outline
+              (tap)="goto_subscription()"
+            >
+              Proceed to Pay
+            </button>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+
+    <ion-col col-6>
+      <ion-card>
+        <ion-card-content>
+          <br />
+          <h1 class="billdetails">Results in 12 hours</h1>
+          <br />
+
+          <ion-row>
+            <ion-col col-12>
+              <ion-item class="totallbl" text-wrap
+                >GHC 720
+                <p></p
+              ></ion-item>
+            </ion-col>
+          </ion-row>
+
+          <div>
+            <button
+              ion-button
+              color="secondary"
+              outline
+              (tap)="goto_subscription()"
+            >
+              Proceed to Pay
+            </button>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+
+    <ion-col col-6>
+      <ion-card>
+        <ion-card-content>
+          <br />
+          <h1 class="billdetails">Results in 2-4 hours</h1>
+          <br />
+
+          <ion-row>
+            <ion-col col-12>
+              <ion-item class="totallbl" text-wrap
+                >GHC 980
+                <p></p
+              ></ion-item>
+            </ion-col>
+          </ion-row>
+
+          <div>
+            <button
+              ion-button
+              color="secondary"
+              outline
+              (tap)="goto_subscription()"
+            >
+              Proceed to Pay
+            </button>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
 </ion-content>

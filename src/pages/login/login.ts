@@ -31,6 +31,8 @@ export class LoginPage {
   
   splash = true;
 
+  public showpassword: boolean;
+
   public loginForm: any;
   submitAttempt: boolean = false;
   loginVal: any;
@@ -85,6 +87,9 @@ export class LoginPage {
     public http: Http,
     public storage: Storage
   ) {
+
+
+
     this.storage.get("remember").then((remember) => {
       console.log("remember = " + remember);
       if (remember == true) {
@@ -125,6 +130,13 @@ export class LoginPage {
   signup() {
     this.navCtrl.push(SignupPage);
   }
+
+
+  togglePasswordText() {
+    console.log("SHOW STATUS" + this.showpassword)
+     console.log("SHOW STATUS" + !this.showpassword)
+    this.showpassword = !this.showpassword;
+}
 
   login() {
     this.try_login_logic();

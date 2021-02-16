@@ -19,6 +19,7 @@ import { CompleteTestService } from "../../providers/complete-test-service/compl
 import "rxjs/add/operator/map";
 import { Storage } from "@ionic/storage";
 import { MomopaymentPage } from "../momopayment/momopayment";
+import { MenuPage } from "../menu/menu";
 
 @Component({
   selector: "page-paymentoption",
@@ -94,7 +95,7 @@ export class PaymentoptionPage {
     this.subscription_id = this.navParams.get("subscription_id");
 
     console.log("PARAMS " + this.from_params);
-    this.amount = this.from_params;
+    this.amount = this.from_params * 100;
     
     console.log("AMOUNT FROM PARAMS " + this.amount);
   }
@@ -127,5 +128,33 @@ export class PaymentoptionPage {
       buttons: ["OK"],
     });
     alert.present();
+  }
+
+      //Callback function on successful payment 
+  paymentDone(ref: any) {
+    console.log(ref) //ref contains the response from paystack after successful payment
+
+
+
+    let alert = this.alertCtrl.create({
+                  title: "Ghinger Health Care",
+                  subTitle: "Payment Successful",
+                  buttons: [
+                    {
+                      text: "OK",
+                      handler: () => {
+                        this.navCtrl.setRoot(MenuPage);
+                      },
+                    },
+                  ],
+                });
+                alert.present();
+    
+  }
+
+  //Event triggered if User cancel the payment
+  paymentCancel() {
+    console.log('gateway closed')
+    //  this.navCtrl.push("ReceiptPage", { momo_network: "", order_id: this.order_id, user_details: this.user_details })
   }
 }

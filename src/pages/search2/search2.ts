@@ -53,6 +53,8 @@ export class Search2Page {
   person_details_code: any;
   content: any = [];
 
+  kofi = "2"
+
   medappointmentdetails = { id: "" };
   rowid: any;
 
@@ -163,6 +165,7 @@ export class Search2Page {
       this.person_details = jsonBody;
       this.person_details_code = JSON.stringify(this.person_details.resp_code);
 
+      console.log("PERSON DETAILS" + this.person_details.length);
       console.log("Jsson body " + this.person_details_code);
       console.log("LAB " + JSON.stringify(jsonBody));
     });
