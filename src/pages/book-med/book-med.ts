@@ -45,6 +45,7 @@ export class BookMedPage {
   minSelectabledate: any;
   maxSelectabledate: any;
   date: any;
+  token;
 
   constructor(
     public app: App,
@@ -65,32 +66,29 @@ export class BookMedPage {
     ];
 
     this.appointForm = this._form.group({
-      requester_cat: ["", Validators.compose([Validators.required])],
+      request_cat_id: ["", Validators.compose([Validators.required])],
       beneficiary_name: [""],
 
       beneficiary_phone_number: [""],
       beneficiary_age: [""],
-      req_urgency: ["", Validators.compose([Validators.required])],
+      request_urgency_id: ["", Validators.compose([Validators.required])],
       proposed_date: ["", Validators.compose([Validators.required])],
       proposed_time: ["", Validators.compose([Validators.required])],
-      appointment_type_id: ["MA"],
-      complaint_desc: ["", Validators.compose([Validators.required])],
-      prev_medical_history: ["", Validators.compose([Validators.required])],
+      apt_type_id: ["MA"],
+      complaint: ["", Validators.compose([Validators.required])],
+      prev_history: ["", Validators.compose([Validators.required])],
       allergies: [""],
-      location_name: [""],
     });
 
     this.from_hosp = this.navParams.get("value");
     this.from_login = this.navParams.get("another");
+    this.token = this.navParams.get("token");
 
-    this.storage.get("suburb_id").then((suburb_id) => {
-      this.sub_id = suburb_id;
-    });
+    // this.storage.get("suburb_id").then((suburb_id) => {
+    //   this.sub_id = suburb_id;
+    // });
 
-    this.from_login2 = this.navParams.get("pers_value");
-    this.from_login3 = this.navParams.get("doc_value");
-
-    this.showvalues1();
+    this.sub_id = this.navParams.get("sub_id");
 
     this.body = this.from_login; // this.body = Array.of(this.from_login);
 
@@ -119,21 +117,21 @@ export class BookMedPage {
     console.log("port:", event.value);
   }
 
-  showvalues1() {
-    console.log(
-      "-----------------------Book Med Appt Page -----------------------"
-    );
-    console.log("this.from_login = " + this.from_login);
-    console.log("this.from_login_doc = " + this.from_login3);
-    console.log("this.from_login_pers = " + this.from_login2);
-    console.log(
-      "-----------------------Book Med Appt Page -----------------------"
-    );
-  }
+  // showvalues1() {
+  //   console.log(
+  //     "-----------------------Book Med Appt Page -----------------------"
+  //   );
+  //   console.log("this.from_login = " + this.from_login);
+  //   console.log("this.from_login_doc = " + this.from_login3);
+  //   console.log("this.from_login_pers = " + this.from_login2);
+  //   console.log(
+  //     "-----------------------Book Med Appt Page -----------------------"
+  //   );
+  // }
 
-  ionViewDidLoad() {
-    console.log("ionViewDidLoad BookMedPage");
-  }
+  // ionViewDidLoad() {
+  //   console.log("ionViewDidLoad BookMedPage");
+  // }
 
   public event = {
     month: "Year-Month-Day",
@@ -142,10 +140,6 @@ export class BookMedPage {
   };
 
   book_appoint() {
-    // console.log()
-    // this.showvalues();
-    // this.navigate_to_Menu_page();
-
     this.appointmentVal = JSON.stringify(this.appointForm.value);
 
     this.jsonBody = JSON.parse(this.appointmentVal);
@@ -159,22 +153,38 @@ export class BookMedPage {
     console.log("THIS IS SUBUR ID" + this.sub_id);
     console.log("THIS IS THE ALERGIES" + this.jsonBody.allergies);
 
+    // this.params = {
+    //   suburb_id: this.sub_id,
+    //   provider_id: this.from_hosp,
+    //   requester_id: this.requester_id,
+    //   request_cat_id: this.jsonBody.request_cat_id,
+    //   beneficiary_name: this.jsonBody.beneficiary_name,
+
+    //   beneficiary_phone_number: this.jsonBody.beneficiary_phone_number,
+    //   beneficiary_age: this.jsonBody.beneficiary_age,
+    //   request_urgency_id: this.jsonBody.request_urgency_id,
+    //   apt_type_id: this.jsonBody.apt_type_id,
+    //   proposed_date:
+    //     this.jsonBody.proposed_date + " " + this.jsonBody.proposed_time,
+    //   complaint: this.jsonBody.complaint,
+    //   prev_history: this.jsonBody.prev_history,
+    //   allergies: this.jsonBody.allergies,
+    // };
+
     this.params = {
-      suburb_id: this.sub_id,
-      provider_id: this.from_hosp,
-      requester_id: this.requester_id,
-      requester_cat: this.jsonBody.requester_cat,
-      beneficiary_name: this.jsonBody.beneficiary_name,
-      // "beneficiary_gender":this.jsonBody.beneficiary_gender,
-      beneficiary_phone_number: this.jsonBody.beneficiary_phone_number,
-      beneficiary_age: this.jsonBody.beneficiary_age,
-      req_urgency: this.jsonBody.req_urgency,
-      appointment_type_id: this.jsonBody.appointment_type_id,
-      proposed_date:
-        this.jsonBody.proposed_date + " " + this.jsonBody.proposed_time,
-      complaint_desc: this.jsonBody.complaint_desc,
-      prev_medical_history: this.jsonBody.prev_medical_history,
+      proposed_date: this.jsonBody.proposed_date,
+      proposed_time: this.jsonBody.proposed_time,
+      apt_type_id: this.jsonBody.apt_type_id,
+      request_cat_id: this.jsonBody.request_cat_id,
+      request_urgency_id: this.jsonBody.request_urgency_id,
       allergies: this.jsonBody.allergies,
+      prev_history: this.jsonBody.prev_history,
+      bene_name: this.jsonBody.beneficiary_name,
+      bene_age: this.jsonBody.beneficiary_age,
+      bene_contact: this.jsonBody.beneficiary_phone_number,
+      suburb_id: this.sub_id,
+      complaint: this.jsonBody.complaint,
+      provider_id: this.from_hosp,
     };
 
     let loader = this.loadingCtrl.create({
@@ -183,42 +193,24 @@ export class BookMedPage {
 
     loader.present();
 
-    this.data.appointment(this.params).then(
+    this.data.appointment(this.params, this.token).then(
       (result) => {
         console.log("THIS IS THE RESULT" + result);
-        var jsonBody = result["_body"];
-        console.log(jsonBody);
-
-        jsonBody = JSON.parse(jsonBody);
-        console.log(jsonBody);
-
-        var desc = jsonBody["resp_desc"];
-        var code = jsonBody["resp_code"];
-
-        console.log(desc);
-        console.log(code);
-
-        this.messageList = desc;
-        this.api_code = code;
 
         loader.dismiss();
 
-        if (this.api_code == "000") {
-          let alert = this.alertCtrl.create({
-            title: "",
-            subTitle: this.messageList,
-            buttons: ["OK"],
-          });
-          alert.present();
-        }
+        this.navCtrl.setRoot(MenuPage, {
+          value: this.from_login,
+        });
 
-        // console.log(this.app.getRootNav());
-        //this.alph = this.app.getRootNavs()
+        let alert = this.alertCtrl.create({
+          title: "GHinger Healthcare",
+          subTitle:
+            "Your Medical Appointment has been received successfully. The Ghinger team will call you shortly",
+          buttons: ["OK"],
+        });
 
-        //this.alph =  this.app.getRootNavById('n4')
-        // this.alph[0].setRoot(MenuPage, { value: this.from_login,doc_value: this.from_login3,pers_value: this.from_login2 });
-
-        this.navigate_to_Menu_page();
+        alert.present();
       },
       (err) => {
         loader.dismiss();

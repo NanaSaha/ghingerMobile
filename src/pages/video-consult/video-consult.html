@@ -1,53 +1,73 @@
-
-
 <ion-content class="main-view">
-  
   <div class="overlay" (click)="closeModal()"></div>
-   <ion-scroll class="modal_content" scrollY="true">
-  <!--<div class="modal_content">-->
-     <ion-buttons end>
-      <button ion-button icon-only (tap)="closeModal()"><ion-icon name="close"></ion-icon></button>
+  <ion-scroll class="modal_content" scrollY="true">
+    <!--<div class="modal_content">-->
+    <ion-buttons end>
+      <button ion-button icon-only (tap)="closeModal()">
+        <ion-icon name="close"></ion-icon>
+      </button>
     </ion-buttons>
-    <br/>
-  <br/>
-  <br/>
+    <br />
+    <br />
+    <br />
 
-  <ion-card-content>
-    <ion-card>
-      <ion-item >
-        <p class="position" style=" color: black;">Video Consult </p>
-          
-      </ion-item>
-      <br/>
-      <br/>
-
-
-       <!--<form >-->
- <ion-list>
-        <ion-item >
-          <ion-textarea placeholder="Appointment Date" lineHeight="22"  name="proposed_date"
-           ></ion-textarea>
-          <ion-datetime class="datetimeColor" displayFormat="MMM DD YYYY " [min]="minSelectabledate"  [(ngModel)]="app_date"></ion-datetime>
-         <ion-label><ion-icon class="green" ios="ios-calendar" md="md-calendar"></ion-icon> </ion-label>
+    <ion-card-content>
+      <ion-card>
+        <ion-item>
+          <p class="position" style="color: black">Video Consult</p>
         </ion-item>
-        
-        <ion-item >
-          <ion-textarea placeholder="Appointment Time" lineHeight="22"  name="proposed_time" ></ion-textarea>
-          <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="app_time" ></ion-datetime>
-         <ion-label><ion-icon class="green" ios="ios-time" md="md-time"></ion-icon></ion-label>
-        </ion-item>  
-      
-      </ion-list>
-   
-  <!--</form>-->
+        <br />
+        <br />
 
-      <ion-item  style="text-align: center;" class='greener' (tap)="submit()">
-        <p class="position" style=" color: white; text-align: center;" >SUBMIT</p>
-      </ion-item>
-    </ion-card>
+        <!--<form >-->
+        <ion-list>
+          <ion-item>
+            <ion-textarea
+              placeholder="Appointment Date"
+              lineHeight="22"
+              name="proposed_date"
+            ></ion-textarea>
+            <ion-datetime
+              class="datetimeColor"
+              displayFormat="MMM DD YYYY "
+              [min]="minSelectabledate"
+              [(ngModel)]="app_date"
+            ></ion-datetime>
+            <ion-label
+              ><ion-icon
+                class="green"
+                ios="ios-calendar"
+                md="md-calendar"
+              ></ion-icon>
+            </ion-label>
+          </ion-item>
 
-  </ion-card-content>
-  <!--</div>-->
+          <ion-item>
+            <ion-textarea
+              placeholder="Appointment Time"
+              lineHeight="22"
+              name="proposed_time"
+            ></ion-textarea>
+            <ion-datetime
+              displayFormat="h:mm A"
+              pickerFormat="h mm A"
+              [(ngModel)]="app_time"
+            ></ion-datetime>
+            <ion-label
+              ><ion-icon class="green" ios="ios-time" md="md-time"></ion-icon
+            ></ion-label>
+          </ion-item>
+        </ion-list>
+
+        <!--</form>-->
+
+        <ion-item style="text-align: center" class="greener" (tap)="submit()">
+          <p class="position" style="color: white; text-align: center">
+            SUBMIT
+          </p>
+        </ion-item>
+      </ion-card>
+    </ion-card-content>
+    <!--</div>-->
   </ion-scroll>
 </ion-content>
-

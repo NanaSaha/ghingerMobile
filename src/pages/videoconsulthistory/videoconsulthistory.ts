@@ -40,7 +40,7 @@ export class VideoconsulthistoryPage {
   sub_id: any;
   string: any;
 
-  requester_id1: any;
+  requester_id: any;
   from_login_doc: any = [];
   from_login_pers: any = [];
   body1: any;
@@ -50,6 +50,8 @@ export class VideoconsulthistoryPage {
   body2: any;
   jsonBod2: any;
   appointmentType: any;
+  resp_code;
+  no_appointments;
 
   // person_type3: any;
 
@@ -58,6 +60,9 @@ export class VideoconsulthistoryPage {
   // items: any = [];
   // videoconsultappointmentdetails = { id: '' };
   rowid: any;
+  token;
+
+  history_list: any = [];
 
   constructor(
     public navCtrl: NavController,
@@ -68,33 +73,28 @@ export class VideoconsulthistoryPage {
     public alertCtrl: AlertController,
     public modalCtrl: ModalController,
     public viewCtrl: ViewController,
-    public storage: Storage
+    public storage: Storage,
+    public toastCtrl: ToastController
   ) {
-    console.log("We are in Video Consult Appointments History page");
     this.from_login = this.navParams.get("value");
+    console.log("VALUE from Login " + this.from_login);
+    this.token = this.navParams.get("token");
 
-    this.from_login2 = this.navParams.get("pers_value");
-    this.from_login3 = this.navParams.get("doc_value");
-    this.appointmentType = this.navParams.get("appointmentType");
-
-    console.log("this.appointmentType = " + this.appointmentType);
-
-    console.log("VALUE IN TABS CONSTRUCTOR IS" + this.from_login);
+    var results_body = JSON.parse(this.from_login);
+    var user_id = results_body["data"]["user_infos"][0].user_id;
 
     this.body = this.from_login;
 
     this.jsonBody = this.body;
 
-    this.requester_id1 = this.jsonBody[0].id;
+    this.requester_id = user_id;
+    this.check = this.jsonBody[0];
 
-    this.params = {
-      requester_id: this.requester_id1,
-      appointment_type_id: this.appointmentType,
-    };
-
-    this.newparams = JSON.stringify(this.params);
-
-    console.log("New params " + this.newparams);
+    console.log("VALUE IN medication history IS" + this.from_login);
+    console.log(
+      "VALUE of requester IN medication appointment history  IS " +
+        this.requester_id
+    );
 
     this.getVideoConsultAppointmentHistory();
   }
@@ -105,9 +105,9 @@ export class VideoconsulthistoryPage {
 
   openNewAppointment() {
     let confirm = this.alertCtrl.create({
-      title: "Video Consultation",
+      title: "Video / Phone Consultation",
       message:
-        "Consultation Fee :: GHc 80. Would you want to proceed to book the appointment?",
+        "Video Consultation Fee :: GHc 80.<br> Phone Consultation Fee :: GHc 60 Would you want to proceed to book the appointment?",
 
       buttons: [
         {
@@ -127,9 +127,8 @@ export class VideoconsulthistoryPage {
             setTimeout(() => {
               this.navCtrl.push(VidConsultPage, {
                 value: this.from_login,
-                doc_value: this.from_login3,
-                pers_value: this.from_login2,
                 appointmentType: this.appointmentType,
+                token: this.token,
               });
             }, 1000);
 
@@ -151,48 +150,56 @@ export class VideoconsulthistoryPage {
     loading.present();
 
     setTimeout(() => {
-      this.jsonBody = JSON.parse(this.newparams);
+      this.data.getVideoConsultHistory(this.token).then(
+        (result) => {
+          console.log("THIS IS THE RESULT" + result);
+          console.log("THIS IS THE ONLY DATARESULT" + result["data"]);
+          this.video_consult_details = result["data"];
 
-      this.data.getVideoConsultHistory(this.jsonBody).then((result) => {
-        // this.contacts = result;
-        console.log(result);
+          let new_list = [];
 
-        var jsonBody = result["_body"];
-        jsonBody = JSON.parse(jsonBody);
-        this.video_consult_details = jsonBody;
+          for (let x in this.video_consult_details) {
+            console.log(
+              "XXXXX" +
+                JSON.stringify(
+                  this.video_consult_details[x]["appointment_type"]
+                )
+            );
 
-        console.log("Jsson body " + JSON.stringify(jsonBody));
-        // if()
+            if (
+              this.video_consult_details[x]["appointment_type"].id == "VC" &&
+              this.video_consult_details[x]["apt_type_id"] == "VC"
+            ) {
+              new_list.push({
+                title: this.video_consult_details[x]["appointment_type"].title,
+                price: this.video_consult_details[x]["appointment_type"].price,
+                date: this.video_consult_details[x].created_at,
+                status: this.video_consult_details[x].confirm_status,
+                complaint: this.video_consult_details[x].complaint,
+                id: this.video_consult_details[x].id,
+              });
+            }
+          }
 
-        if (this.jsonBody.resp_code == "119") {
-          let alert = this.alertCtrl.create({
-            title: "Ghinger",
-            subTitle: this.jsonBody.resp_desc,
-            buttons: ["OK"],
-          });
-          alert.present();
+          console.log("NEW LIST" + JSON.stringify(new_list));
+          this.history_list = new_list;
+          loading.dismiss();
+        },
+        (err) => {
+          this.no_appointments = "no";
+
+          this.showtoast("No Appointments");
+          loading.dismiss();
         }
-
-        // loading.dismiss();
-      });
-
-      loading.dismiss();
+      );
     }, 1);
   }
 
-  video_appointment_history_details(
-    video_consult_appoint_history_id,
-    appointmentType
-  ) {
-    // console.log("Video consult history detail this.appointmentType = "+appointmentType);
+  video_appointment_history_details(video_consult_appoint_history_id) {
     this.navCtrl.push(VideoconsultdetailsPage, {
       value: this.from_login,
-      doc_value: this.from_login_doc,
-      pers_value: this.from_login_pers,
       video_consult_appoint_history_id: video_consult_appoint_history_id,
-      appointmentType: appointmentType,
     });
-    // rowid: rowid
   }
 
   public bill(data) {
@@ -207,5 +214,14 @@ export class VideoconsulthistoryPage {
       doc_value: this.from_login_doc,
       pers_value: this.from_login_pers,
     });
+  }
+
+  showtoast(message) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      duration: 3000,
+      position: "bottom",
+    });
+    toast.present();
   }
 }

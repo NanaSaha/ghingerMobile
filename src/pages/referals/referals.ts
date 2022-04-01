@@ -18,8 +18,9 @@ export class ReferalsPage {
     this.storage.get("value").then((value) => {
       this.user_details = value;
       console.log("this.user_details " + JSON.stringify(this.user_details));
-      this.email = this.user_details[0].email;
-      this.mobile_number = this.user_details[0].mobile_number;
+      var results_body = JSON.parse(this.user_details);
+      this.mobile_number = results_body["data"]["user_infos"][0].phone;
+      this.email = results_body["data"]["email"];
       console.log("iEMAIL" + this.email);
       console.log("Phone" + this.mobile_number);
     });

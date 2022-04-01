@@ -20,6 +20,7 @@ export class SubscriptionSummaryPage {
   jsonBody: any;
   subscription_id;
   amount;
+  token;
 
   constructor(
     public navCtrl: NavController,
@@ -32,37 +33,38 @@ export class SubscriptionSummaryPage {
     this.from_params = this.navParams.get("params");
 
     console.log("VALUE IN Login IS" + this.from_login);
-    console.log("PARAMS " + this.from_params);
-    this.phone_number = this.from_params.phone_number;
+    console.log("PARAMS " + JSON.stringify(this.from_params));
+
     this.amount = this.from_params.amount;
-    console.log("phone_number " + this.phone_number);
+
     console.log("amount " + this.amount);
+    this.token = this.navParams.get("token");
 
-    this.login_list = JSON.stringify(this.from_login);
-    this.jsonBody = JSON.parse(this.login_list);
-    this.user_id = this.jsonBody[0].id;
-    console.log("USER ID " + this.user_id);
+    // this.login_list = JSON.stringify(this.from_login);
+    // this.jsonBody = JSON.parse(this.login_list);
+    // this.user_id = this.jsonBody[0].id;
+    // console.log("USER ID " + this.user_id);
 
-    this.params = {
-      user_id: this.user_id,
-    };
+    // this.params = {
+    //   user_id: this.user_id,
+    // };
 
-    let loader = this.loadingCtrl.create({
-      content: "Please wait ...",
-    });
+    // let loader = this.loadingCtrl.create({
+    //   content: "Please wait ...",
+    // });
 
-    loader.present();
+    // loader.present();
 
-    this.data.retrieve_subscription_id(this.params).then((result) => {
-      console.log("THIS IS THE RESULT" + result);
-      var jsonBody = result["_body"];
+    // this.data.retrieve_subscription_id(this.params).then((result) => {
+    //   console.log("THIS IS THE RESULT" + result);
+    //   var jsonBody = result["_body"];
 
-      var qp = JSON.parse(jsonBody);
-      this.subscription_id = qp["id"];
-      console.log(this.subscription_id);
-    });
+    //   var qp = JSON.parse(jsonBody);
+    //   this.subscription_id = qp["id"];
+    //   console.log(this.subscription_id);
+    // });
 
-    loader.dismiss();
+    // loader.dismiss();
   }
 
   make_payment() {
@@ -70,6 +72,7 @@ export class SubscriptionSummaryPage {
       value: this.from_login,
       params: this.amount,
       subscription_id: this.subscription_id,
+      token: this.token,
     });
   }
 

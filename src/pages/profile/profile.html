@@ -1,8 +1,8 @@
 <ion-header>
   <ion-navbar>
-    <button ion-button menuToggle (click)="openMenu()">
+    <!-- <button ion-button menuToggle (click)="openMenu()">
       <ion-icon name="keypad"></ion-icon>
-    </button>
+    </button> -->
 
     <ion-title> Profile </ion-title>
     <!-- 
@@ -18,34 +18,34 @@
   <div class="img-circular"></div>
   <br />
 
-  <ion-list *ngFor="let item of user_details">
-    <p class="down1">{{item.other_names}} {{item.surname}}</p>
+  <ion-list>
+    <p class="down1">{{first_name}} {{surname}}</p>
   </ion-list>
 
-  <ion-item *ngIf="user_type == 'C'">
-    <ion-item *ngFor="let item of user_details">
+  <ion-item *ngIf="user_type == 'C'" no-lines>
+    <ion-item no-lines>
       <ion-row class="container">
         <ion-col col-9>
           <h2 style="color: #5dba47; font-weight: bolder">Profile Details</h2>
           <ion-item no-lines>
-            <p class="font_style" text-wrap>Email : {{item.email}}</p></ion-item
+            <p class="font_style" text-wrap>Email : {{email}}</p></ion-item
           >
           <ion-item no-lines>
             <p class="font_style" text-wrap>
-              Fullname: {{item.other_names}} {{item.surname}}
+              Fullname: {{first_name}} {{surname}}
             </p></ion-item
           >
           <ion-item no-lines>
             <p class="font_style" text-wrap>
-              Mobile Number: {{item.mobile_number}}
+              Mobile Number: {{phone}}
             </p></ion-item
           >
           <ion-item no-lines>
-            <p class="font_style" text-wrap>Email: {{item.email}}</p></ion-item
+            <p class="font_style" text-wrap>Email: {{email}}</p></ion-item
           >
         </ion-col>
         <ion-col col-3>
-          <button ion-button color="secondary" outline (tap)="edit(item)">
+          <button ion-button color="secondary" outline (tap)="edit()">
             Edit
           </button>
         </ion-col>
@@ -54,30 +54,29 @@
   </ion-item>
 
   <ion-item *ngIf="user_type == 'D' || user_type == 'N'" no-lines>
-    <ion-item *ngFor="let item of user_details">
+    <ion-item no-lines>
       <ion-row class="container">
         <ion-col col-9>
           <h2 style="color: #5dba47; font-weight: bolder">Profile Details</h2>
           <ion-item>
-            <p class="font_style" text-wrap>Email : {{item.email}}</p></ion-item
+            <p class="font_style" text-wrap>Email : {{email}}</p></ion-item
           >
           <ion-item>
             <p class="font_style" text-wrap>
-              Fullname: {{item.other_names}} {{item.surname}}
+              Fullname: {{first_name}} {{surname}}
             </p></ion-item
           >
           <ion-item>
             <p class="font_style" text-wrap>
-              Mobile Number: {{item.mobile_number}}
+              Mobile Number: {{phone}}
             </p></ion-item
           >
-          <ion-item>
-            <p class="font_style" text-wrap>Email: {{item.email}}</p></ion-item
-          >
-          <!-- <ion-item no-lines> <p class="font_style" text-wrap>Speciality: </p></ion-item> -->
+          <!-- <ion-item>
+            <p class="font_style" text-wrap>Email: {{email}}</p></ion-item
+          > -->
         </ion-col>
         <ion-col col-3>
-          <button ion-button color="secondary" outline (tap)="edit(item)">
+          <button ion-button color="secondary" outline (tap)="edit()">
             Edit
           </button>
         </ion-col>

@@ -36,7 +36,9 @@ export class SignupPage {
   suburbs: any;
   country_id: any;
 
-   public showpassword: boolean;
+  step: any = 1;
+
+  public showpassword: boolean;
 
   public itemList: Array<Object>;
 
@@ -55,10 +57,8 @@ export class SignupPage {
       {
         surname: ["", Validators.compose([Validators.required])],
 
-        other_names: ["", Validators.compose([Validators.required])],
-        mobile_number: ["", Validators.compose([Validators.required])],
-
-        // Validators.compose([Validators.maxLength(12), Validators.minLength(10), Validators.required])],
+        first_name: ["", Validators.compose([Validators.required])],
+        phone: ["", Validators.compose([Validators.required])],
         email: [
           "",
           Validators.compose([
@@ -68,15 +68,12 @@ export class SignupPage {
             ),
           ]),
         ],
-        user_type: ["", Validators.compose([Validators.required])],
-        pds: [""],
+        role_id: ["", Validators.compose([Validators.required])],
         password: ["", Validators.compose([Validators.required])],
         referal_code: [""],
-        // "confirmPassword": ["", Validators.compose([Validators.required])],
-      }
-      // {
-      //   validator: PasswordValidation.MatchPassword // your validation method
-      // }
+        confirmPassword: ["", Validators.compose([Validators.required])],
+      },
+      { validator: PasswordValidation.MatchPassword } // your validation method
     );
 
     this.date = new Date();
@@ -91,13 +88,40 @@ export class SignupPage {
   //   this.getcountries();
   // }
 
+  submit() {
+    this.step = this.step + 1;
+  }
+
+  prev() {
+    this.step = this.step - 1;
+  }
+
+  //  signup() {
+  //   this.signupVal = JSON.stringify(this.signupForm.value);
+
+  //   this.jsonBody = JSON.parse(this.signupVal);
+
+  //   console.log("THIS IS THE SIGNUP raw values VALUES" + this.signupVal);
+  //   console.log("THIS IS THE SIGNUP VALUES" + this.jsonBody);
+
+  //   let loader = this.loadingCtrl.create({
+  //     content: "Please wait ...",
+  //   });
+
+  //   loader.present();
+
+  //    this.navCtrl.setRoot(LoginPage, { value: this.jsonBody })
+  //      loader.dismiss();
+  // }
+
   signup() {
+    //JSON stringified
     this.signupVal = JSON.stringify(this.signupForm.value);
 
+    //Array Objects of user details
     this.jsonBody = JSON.parse(this.signupVal);
 
-    console.log("THIS IS THE SIGNUP raw values VALUES" + this.signupVal);
-    console.log("THIS IS THE SIGNUP VALUES" + this.jsonBody);
+    console.log("JSON BODY BEOFRE LOGIN IN" + this.jsonBody);
 
     let loader = this.loadingCtrl.create({
       content: "Please wait ...",
@@ -107,33 +131,23 @@ export class SignupPage {
 
     this.data.registration(this.jsonBody).then(
       (result) => {
+        // var results_body = result["_body"];
+        var results_body = result;
         console.log(result);
-        var jsonBody = result["_body"];
-        console.log(jsonBody);
+        console.log("JSON BODY" + results_body);
 
-        jsonBody = JSON.parse(jsonBody);
-        console.log(jsonBody);
+        // var body_array = JSON.parse(results_body);
 
-        var desc = jsonBody["resp_desc"];
-        var code = jsonBody["resp_code"];
-        var user_type1 = jsonBody["user_type1"];
-        this.regid = jsonBody["regid"];
+        var code = results_body["code"];
+        var role = results_body["data"]["role"]["id"];
+        this.regid = results_body["data"]["id"];
 
-        console.log(desc);
-        console.log(code);
+        console.log("Code " + code);
+        console.log("ROLE " + role);
+        console.log("REGG " + this.regid);
 
-        this.messageList = desc;
-        this.api_code = code;
-
-        loader.dismiss();
-
-        if (this.api_code == "000") {
-          let loader = this.loadingCtrl.create({
-            content: "Signing up...",
-          });
-          loader.present();
-
-          if (user_type1 == "D" || user_type1 == "N") {
+        if (code == "200") {
+          if (role == "D" || role == "N") {
             setTimeout(() => {
               let alert = this.alertCtrl.create({
                 title: "",
@@ -145,22 +159,23 @@ export class SignupPage {
                     handler: () => {
                       this.navCtrl.setRoot(ProfessionalInfoPage, {
                         regid: this.regid,
-                        user_type1: user_type1,
+                        user_type1: role,
                       });
+
+                      // this.navCtrl.setRoot(ProfessionalInfoPage, {
+                      //   regid: this.retrieve_patient_details,
+                      //   user_type1: role,
+                      //   value: this.retrieve_patient_details,
+                      // });
+
+                      // this.navCtrl.setRoot(LoginPage, {
+                      //   value: this.jsonBody,
+                      // });
                     },
                   },
                 ],
               });
               alert.present();
-            }, 3);
-
-            setTimeout(() => {
-              let alert = this.alertCtrl.create({
-                title: "",
-                subTitle:
-                  "Sign up has been successful. Kindly complete the professional info form.",
-                buttons: ["OK"],
-              });
               loader.dismiss();
             }, 3);
           } else {
@@ -178,37 +193,52 @@ export class SignupPage {
                 ],
               });
               alert.present();
-            }, 3);
-
-            setTimeout(() => {
-              let alert = this.alertCtrl.create({
-                title: "",
-                subTitle: "Sign up has been successful. Kindly login..",
-                buttons: ["OK"],
-              });
               loader.dismiss();
             }, 3);
           }
+          // loader.dismiss();
         } else {
           let alert = this.alertCtrl.create({
             title: "",
-            subTitle: this.messageList,
-            buttons: ["OK"],
+            subTitle:
+              "You already have an account with Ghinger. So please login or click on 'Forget Password' to reset your password",
+            buttons: [
+              {
+                text: "OK",
+                handler: () => {
+                  this.navCtrl.setRoot(LoginPage, { value: this.jsonBody });
+                },
+              },
+            ],
           });
+
           alert.present();
+          loader.dismiss();
         }
       },
       (err) => {
+        console.log("ERROR :::::", err);
+        // let alert = this.alertCtrl.create({
+        //   title: "",
+        //   subTitle:
+        //     "Oops! We could not accept your registration. Kindly review your entries and try again",
+        //   buttons: ["OK"],
+        // });
         let alert = this.alertCtrl.create({
-          title: "",
+          title: "Oops!",
           subTitle:
-            "Oops! We could not accept your registration. Kindly review your entries and try again",
-          buttons: ["OK"],
+            "You already have an account with Ghinger. <br> So please login or click on 'Forget Password' to reset your password",
+          buttons: [
+            {
+              text: "OK",
+              handler: () => {
+                this.navCtrl.setRoot(LoginPage, { value: this.jsonBody });
+              },
+            },
+          ],
         });
         alert.present();
-
         loader.dismiss();
-        console.log(err);
       }
     );
   }
@@ -217,14 +247,11 @@ export class SignupPage {
     this.navCtrl.push(LoginPage);
   }
 
- 
-
-
   togglePasswordText() {
-    console.log("SHOW STATUS" + this.showpassword)
-     console.log("SHOW STATUS" + !this.showpassword)
+    console.log("SHOW STATUS" + this.showpassword);
+    console.log("SHOW STATUS" + !this.showpassword);
     this.showpassword = !this.showpassword;
-}
+  }
 
   experimentmovetoAddregisPage() {
     let loader = this.loadingCtrl.create({
@@ -287,12 +314,12 @@ export class SignupPage {
       day = "" + d.getDate(),
       year = d.getFullYear();
 
-    console.log("year" + year + "and day = " + day);
+    // console.log("year" + year + "and day = " + day);
 
     if (month.length < 2) month = "0" + month;
     if (day.length < 2) day = "0" + day;
 
-    console.log("year" + year + "and day = " + day);
+    // console.log("year" + year + "and day = " + day);
 
     return [year, month, day].join("-");
   }

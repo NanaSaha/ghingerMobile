@@ -19,16 +19,17 @@ import { Storage } from "@ionic/storage";
 import moment from "moment";
 
 import { TabsPage } from "../tabs/tabs";
+import { CovidPage } from "../covid/covid";
+import { ProfessionalInfoPage } from "../professionalinfo/professionalinfo";
 
 @Component({
   selector: "page-login",
   templateUrl: "login.html",
 })
 export class LoginPage {
+  passwordType: string = "password";
+  passwordIcon: string = "eye-off";
 
-   passwordType: string = 'password';
-  passwordIcon: string = 'eye-off';
-  
   splash = true;
 
   public showpassword: boolean;
@@ -43,7 +44,7 @@ export class LoginPage {
   Phonenumber: string;
   PIN: string;
   retrieve: string;
-  retrieve1: string;
+  retrieve_patient_details: string;
   retrieve_pers: string;
   retrieve_doc: string;
   retrieve_doc3: string;
@@ -87,23 +88,6 @@ export class LoginPage {
     public http: Http,
     public storage: Storage
   ) {
-
-
-
-    this.storage.get("remember").then((remember) => {
-      console.log("remember = " + remember);
-      if (remember == true) {
-        this.storage.get("user_login_type").then((user_login_type) => {
-          if (user_login_type == "Doctor") {
-            this.navCtrl.setRoot(DoctorHomePage);
-          } else if (user_login_type == "Patient") {
-            // this.navCtrl.setRoot(MenuPage);
-            this.navCtrl.setRoot(MenuPage);
-          }
-        });
-      }
-    });
-
     this.loginForm = this._form.group({
       password: ["", Validators.compose([Validators.required])],
       email: [
@@ -113,13 +97,12 @@ export class LoginPage {
           Validators.pattern("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$"),
         ]),
       ],
-      rememberme: [false],
     });
   }
 
   ionViewDidLoad() {
     setTimeout(() => (this.splash = false), 4000);
-    console.log("ionViewDidLoad SliderPage");
+    console.log("ionViewDidLoad Login Page");
   }
 
   params = {
@@ -131,36 +114,23 @@ export class LoginPage {
     this.navCtrl.push(SignupPage);
   }
 
-
   togglePasswordText() {
-    console.log("SHOW STATUS" + this.showpassword)
-     console.log("SHOW STATUS" + !this.showpassword)
+    console.log("SHOW STATUS" + this.showpassword);
+    console.log("SHOW STATUS" + !this.showpassword);
     this.showpassword = !this.showpassword;
-}
+  }
+
+  test_login() {
+    this.navCtrl.setRoot(TabsPage);
+  }
 
   login() {
     this.try_login_logic();
   }
 
   try_login_logic() {
-    if (this.rememberme) {
-      console.log("rememberme = " + this.rememberme);
-      if (this.rememberme == false) {
-        console.log("rememberme is false = " + this.rememberme);
-        this.storage.clear();
-      } else {
-        console.log(
-          "rememberme is true ... setting remember = " + this.rememberme
-        );
-        this.storage.set("remember", true);
-      }
-    } else {
-      console.log("rememberme is false = " + this.rememberme);
-      this.storage.clear();
-    }
-
     let loader = this.loadingCtrl.create({
-      content: "Please wait ...",
+      content: "Login processing..",
     });
 
     loader.present();
@@ -184,264 +154,130 @@ export class LoginPage {
 
       this.data.try_login(this.jsonBody).then(
         (result) => {
-          var body1 = result["_body"];
-          body1 = JSON.parse(body1);
+          // var results_body = result["_body"];
+          var results_body = result;
 
-          this.retrieve1 = body1;
-          this.retrieve1 = JSON.stringify(body1);
-          console.log(
-            "##################### 1. START retrieve1 #############################"
-          );
-          console.log(
-            "LETS SEE THE PERSONAL DATA RETRIEVED : retrieve1 " +
-              JSON.stringify(this.retrieve1)
-          );
-          console.log("PARAMS = jsonBody " + JSON.stringify(this.jsonBody));
-          console.log(
-            "####################### END retrieve1 #############################"
-          );
+          console.log(result);
+          console.log("REVIEW RESULTS BODY " + results_body);
+          //results_body = JSON.parse(results_body);
 
-          this.body1 = Array.of(this.retrieve1);
-          this.jsonBody1 = JSON.parse(this.body1);
+          this.retrieve_patient_details = JSON.stringify(results_body);
+
+          var code = results_body["code"];
+          var token = results_body["data"]["token"];
+          var role = results_body["data"]["role"]["id"];
+          var message = results_body["message"];
 
           console.log(
-            " this.jsonBody1 = " + JSON.stringify(this.jsonBody1.resp_desc)
+            "retrieve_patient_details " + this.retrieve_patient_details
           );
+          console.log("LOGIN CODE " + code);
+          console.log("TOKEN CODE " + token);
+          console.log("ROLE CODE " + role);
+          console.log("MESSAGE " + message);
 
-          if (this.jsonBody1["LOGIN_SUC"]) {
-            var desc = this.jsonBody1["LOGIN_SUC"].resp_desc;
-            var code = this.jsonBody1["LOGIN_SUC"].resp_code;
+          this.storage.set("person_type", role);
 
-            console.log(desc);
-            console.log(code);
+          if (code == "200") {
+            //set token into storage
+            this.storage.set("token", token);
 
-            this.messageList = desc;
-            this.api_code = code;
+            console.log("TOKEN STORED " + this.storage.set("token", token));
 
-            if (this.api_code == "117") {
-              let loader = this.loadingCtrl.create({
-                content: "Login processing...",
-              });
+            //if user is a doctor
+            if (role == "D") {
+              setTimeout(() => {
+                this.storage.set("user_login_type", "Doctor");
 
-              loader.present();
+                this.storage.set("value", this.retrieve_patient_details);
 
-              //process the other variables
+                // this.navCtrl.setRoot(ProfessionalInfoPage, {
+                //   regid: this.retrieve_patient_details,
+                //   user_type1: role,
+                //   value: this.retrieve_patient_details,
+                // });
 
-              if (this.jsonBody1["result1"]) {
-                console.log(
-                  "this.jsonBody1['result1'] =  " +
-                    JSON.stringify(this.jsonBody1["result1"])
-                );
+                this.navCtrl.setRoot(CovidPage, {
+                  value: this.retrieve_patient_details,
+                  token: token,
+                });
+              }, 1);
 
-                // this.my_body = JSON.parse(this.jsonBody1["result1"]);
-                this.my_body = this.jsonBody1["result1"];
+              setTimeout(() => {
+                loader.dismiss();
+              }, 1);
+            }
 
-                this.my_body = JSON.stringify(this.my_body);
-                console.log("jsonBody = " + this.my_body);
+            //if user is a Nurse
+            else if (role == "N") {
+              setTimeout(() => {
+                this.storage.set("user_login_type", "Nurse");
 
-                this.my_body = Array.of(this.my_body);
-                this.my_body = JSON.parse(this.my_body);
+                this.storage.set("value", this.retrieve_patient_details);
 
-                if (this.my_body[0].user_type) {
-                  this.person_type1 = this.my_body[0].user_type;
-                  this.storage.set("person_type", this.person_type1);
-                  console.log("VALUE of USER TYPE  IS " + this.person_type1);
-                }
-              }
+                this.navCtrl.setRoot(CovidPage, {
+                  value: this.retrieve_patient_details,
+                  token: token,
+                });
+              }, 1);
 
-              //result1
-              if (this.jsonBody1["result1"]) {
-                console.log("result 1 begin");
+              setTimeout(() => {
+                loader.dismiss();
+              }, 1);
+            }
 
-                this.my_body = this.jsonBody1["result1"];
-                this.my_body = JSON.stringify(this.my_body);
+            //if user is a Patient
+            else if (role == "C") {
+              setTimeout(() => {
+                this.storage.set("user_login_type", "Patient");
 
-                this.my_body = JSON.parse(this.my_body);
+                this.storage.set("value", this.retrieve_patient_details);
 
-                this.retrieve1 = this.my_body;
+                this.navCtrl.setRoot(TabsPage, {
+                  value: this.retrieve_patient_details,
+                  token: token,
+                });
+              }, 1);
 
-                console.log(
-                  "this.jsonBody1['result1'] : retrieve1 " +
-                    JSON.stringify(this.retrieve1)
-                );
-                console.log("result 1 end");
-              }
-
-              //result2
-              if (this.jsonBody1["result2"]) {
-                console.log("result 2 begin");
-
-                this.my_body = this.jsonBody1["result2"];
-                this.my_body = JSON.stringify(this.my_body);
-                console.log("jsonBody = " + this.my_body);
-                this.my_body = JSON.parse(this.my_body);
-
-                this.retrieve = this.my_body;
-
-                console.log("result 2 end");
-              }
-
-              //result3
-              if (this.jsonBody1["result3"]) {
-                this.my_body = this.jsonBody1["result3"];
-                this.my_body = JSON.stringify(this.my_body);
-                console.log("jsonBody = " + this.my_body);
-                this.my_body = JSON.parse(this.my_body);
-
-                this.retrieve_pers = this.my_body;
-              }
-
-              //result4
-              if (this.jsonBody1["result4"]) {
-                this.my_body = this.jsonBody1["result4"];
-                this.my_body = JSON.stringify(this.my_body);
-                console.log("jsonBody = " + this.my_body);
-                this.my_body = JSON.parse(this.my_body);
-
-                this.retrieve_doc = this.my_body;
-                this.retrieve_doc3 = this.my_body;
-
-                console.log("RETRIEVE DOC " + this.retrieve_doc);
-              }
-
-              if (this.jsonBody1["retrieve_user_status"]) {
-                console.log("retrieve_user_status begin");
-
-                this.my_body = this.jsonBody1["retrieve_user_status"];
-                this.my_body = JSON.stringify(this.my_body);
-                console.log("jsonBody = " + this.my_body);
-                this.my_body = JSON.parse(this.my_body);
-
-                this.retrieve_user_status = this.my_body;
-
-                console.log("retrieve_user_status end");
-              }
-
-              if (this.person_type1) {
-                console.log(
-                  "############## this.person_type1 ##################" +
-                    this.person_type1
-                );
-                if (this.person_type1 == "D") {
-                  setTimeout(() => {
-                    this.storage.set("user_login_type", "Doctor");
-
-                    this.storage.set("value", this.retrieve);
-                    this.storage.set("doc_value", this.retrieve_doc);
-                    this.storage.set("pers_value", this.retrieve_pers);
-                    this.storage.set("doc_value2", this.retrieve1);
-                    this.storage.set(
-                      "retrieve_user_status",
-                      this.retrieve_user_status
-                    );
-
-                    this.navCtrl.setRoot(DoctorHomePage, {
-                      value: this.retrieve,
-                      doc_value: this.retrieve_doc,
-                      pers_value: this.retrieve_pers,
-                      doc_value2: this.retrieve1,
-                      retrieve_user_status: this.retrieve_user_status,
-                    });
-                  }, 1);
-
-                  setTimeout(() => {
-                    loader.dismiss();
-                  }, 1);
-                } else if (this.person_type1 == "N") {
-                  setTimeout(() => {
-                    this.storage.set("user_login_type", "Nurse");
-
-                    this.storage.set("value", this.retrieve);
-                    this.storage.set("doc_value", this.retrieve_doc);
-                    this.storage.set("pers_value", this.retrieve_pers);
-                    this.storage.set("doc_value2", this.retrieve1);
-                    this.storage.set(
-                      "retrieve_user_status",
-                      this.retrieve_user_status
-                    );
-
-                    this.navCtrl.setRoot(DoctorHomePage, {
-                      value: this.retrieve,
-                      doc_value: this.retrieve_doc,
-                      pers_value: this.retrieve_pers,
-                      doc_value2: this.retrieve1,
-                      retrieve_user_status: this.retrieve_user_status,
-                    });
-                  }, 1);
-
-                  setTimeout(() => {
-                    loader.dismiss();
-                  }, 1);
-                } else if (this.person_type1 == "C") {
-                  console.log(
-                    "############## this.person_type1 ##################" +
-                      this.person_type1 +
-                      "go to menu page"
-                  );
-                  setTimeout(() => {
-                    this.storage.set("user_login_type", "Patient");
-
-                    this.storage.set("value", this.retrieve);
-                    this.storage.set("doc_value", this.retrieve_doc3);
-                    this.storage.set("pers_value", this.retrieve_pers);
-                    this.storage.set("results_1", this.retrieve1);
-
-                    console.log(
-                      "after login successful, we are heading to Menupage - By Padmore"
-                    );
-
-                    this.navCtrl.setRoot(MenuPage, { value: this.retrieve });
-                  }, 1);
-
-                  setTimeout(() => {
-                    loader.dismiss();
-                  }, 1);
-                } else {
-                  let alert = this.alertCtrl.create({
-                    title: "Ghinger",
-                    subTitle: "Cannot be logged on at this time.",
-                    buttons: ["OK"],
-                  });
-                  alert.present();
-                }
-              }
+              setTimeout(() => {
+                loader.dismiss();
+              }, 1);
             } else {
               let alert = this.alertCtrl.create({
-                title: "",
-                subTitle: this.messageList,
+                title: "Ghinger",
+                subTitle: message,
                 buttons: ["OK"],
               });
               alert.present();
+              loader.dismiss();
             }
           } else {
-            this.messageList = JSON.stringify(this.jsonBody1.resp_desc);
-
             let alert = this.alertCtrl.create({
               title: "Ghinger",
-              subTitle: this.messageList,
+              subTitle: message,
               buttons: ["OK"],
             });
             alert.present();
+            loader.dismiss();
           }
-
-          loader.dismiss();
         },
+
         (err) => {
           let alert = this.alertCtrl.create({
-            title: "",
+            title: "No Account!",
             subTitle:
-              "Your internet connection has been lost. Please check your internet and try again.",
+              "Invalid Email or Password. Kindly sign up to access GHinger",
             buttons: ["OK"],
           });
           alert.present();
 
-          let toast = this.toastCtrl.create({
-            message:
-              "Your internet connection has been lost. Please check your internet and try again.",
-            duration: 5000,
-            position: "top",
-          });
-          toast.present();
+          // let toast = this.toastCtrl.create({
+          //   message:
+          //     "Invalid Email or Password. Kindly sign up to access GHinger",
+          //   duration: 5000,
+          //   position: "top",
+          // });
+          // toast.present();
 
           loader.dismiss();
           console.log(JSON.stringify(err));
@@ -450,19 +286,12 @@ export class LoginPage {
     }, 1);
   }
 
-  check_rememberme() {
-    console.log("rememberme  state:" + this.rememberme);
-  }
-
   reset() {
     this.navCtrl.push(PasswordPage);
   }
 
-
-
-
   hideShowPassword() {
-     this.passwordType = this.passwordType === 'text' ? 'password' : 'text';
-     this.passwordIcon = this.passwordIcon === 'eye-off' ? 'eye' : 'eye-off';
- }
+    this.passwordType = this.passwordType === "text" ? "password" : "text";
+    this.passwordIcon = this.passwordIcon === "eye-off" ? "eye" : "eye-off";
+  }
 }

@@ -40,7 +40,7 @@ export class MedicationhistoryPage {
   sub_id: any;
   string: any;
 
-  requester_id1: any;
+  requester_id: any;
   from_login_doc: any = [];
   from_login_pers: any = [];
   body1: any;
@@ -49,6 +49,9 @@ export class MedicationhistoryPage {
 
   body2: any;
   jsonBod2: any;
+  resp_code;
+  no_appointments;
+  history_list: any = [];
 
   // person_type3: any;
 
@@ -57,6 +60,7 @@ export class MedicationhistoryPage {
   // items: any = [];
   medappointmentdetails = { id: "" };
   rowid: any;
+  token;
 
   constructor(
     // private keyboard: Keyboard,
@@ -68,31 +72,32 @@ export class MedicationhistoryPage {
     public alertCtrl: AlertController,
     public modalCtrl: ModalController,
     public viewCtrl: ViewController,
-    public storage: Storage
+    public storage: Storage,
+    public toastCtrl: ToastController
   ) {
-    console.log("We are in Medication Appointments History page");
     this.from_login = this.navParams.get("value");
+    console.log("VALUE from Login " + this.from_login);
+    this.token = this.navParams.get("token");
+    console.log("TOKEN " + this.token);
 
-    this.from_login2 = this.navParams.get("pers_value");
-    this.from_login3 = this.navParams.get("doc_value");
-    console.log("VALUE IN TABS CONSTRUCTOR IS" + this.from_login);
+    var results_body = JSON.parse(this.from_login);
+    var user_id = results_body["data"]["user_infos"][0].user_id;
 
-    this.body = this.from_login; //this.body = Array.of(this.from_login);
+    this.body = this.from_login;
 
-    this.jsonBody = this.body; // this.jsonBody = JSON.parse(this.body);
+    this.jsonBody = this.body;
 
-    console.log("JSON BODY IS" + this.jsonBody);
-    this.requester_id1 = this.jsonBody[0].id;
+    this.requester_id = user_id;
     this.check = this.jsonBody[0];
 
     console.log("VALUE IN medication history IS" + this.from_login);
     console.log(
       "VALUE of requester IN medication appointment history  IS " +
-        this.requester_id1
+        this.requester_id
     );
 
     this.params = {
-      requester_id: this.requester_id1,
+      requester_id: this.requester_id,
     };
 
     this.newparams = JSON.stringify(this.params);
@@ -130,8 +135,7 @@ export class MedicationhistoryPage {
             setTimeout(() => {
               this.navCtrl.push(MedicationSearchPage, {
                 value: this.from_login,
-                doc_value: this.from_login3,
-                pers_value: this.from_login2,
+                token: this.token,
               });
             }, 1000);
 
@@ -144,18 +148,6 @@ export class MedicationhistoryPage {
     });
     confirm.present();
   }
-
-  //suppose to open the new medication appointment modal page
-  //   console.log("Open new medication page");
-  //   console.log('---------------- Medication History ------------------');
-  //   console.log("this.from_login = "+this.from_login);
-  //   console.log("doc_value = "+this.from_login3);
-  //   console.log("this.from_login_pers = "+this.from_login2);
-  //   console.log('---------------- Medication History End ------------------');
-  //   this.navCtrl.push(MedicationSearchPage, {
-  //     value: this.from_login, doc_value: this.from_login3, pers_value: this.from_login2
-  //   });
-  // }
 
   public bill(data) {
     console.log(data);
@@ -181,47 +173,48 @@ export class MedicationhistoryPage {
     setTimeout(() => {
       this.jsonBody = JSON.parse(this.newparams);
 
-      this.data.getMedicationHistory(this.jsonBody).then(
+      this.data.getMedicationHistory(this.token).then(
         (result) => {
-          // this.contacts = result;
-          console.log(result);
+          console.log("THIS IS THE RESULT" + result);
+          console.log("THIS IS THE ONLY DATARESULT" + result["data"]);
+          this.person_details = result["data"];
 
-          var jsonBody = result["_body"];
-          jsonBody = JSON.parse(jsonBody);
+          let new_list = [];
 
-          if (this.jsonBody) {
-            this.person_details = jsonBody;
-          } else {
-            this.person_details = "0";
+          for (let x in this.person_details) {
+            if (
+              this.person_details[x]["appointment_type"].id == "MD" &&
+              this.person_details[x]["apt_type_id"] == "MD"
+            ) {
+              new_list.push({
+                title: this.person_details[x]["appointment_type"].title,
+                price: this.person_details[x]["appointment_type"].price,
+                date: this.person_details[x].created_at,
+                status: this.person_details[x].confirm_status,
+                complaint: this.person_details[x].complaint,
+                id: this.person_details[x].id,
+              });
+            }
           }
+          this.history_list = new_list;
           loading.dismiss();
-
-          console.log("Jsson body " + jsonBody);
-          console.log("Jsson body " + JSON.stringify(jsonBody));
         },
         (err) => {
           loading.dismiss();
-          this.showalertmessage(
-            "Sorry. An Error occured. Kindly refresh and try again."
-          );
-          console.log("error = " + JSON.stringify(err));
+          this.no_appointments = "no";
+
+          this.showtoast("No Appointments");
         }
       );
     }, 1);
   }
 
   medication_appointment_history_details(medication_appoint_history) {
-    console.log(
-      "in medication history page: rowid = " + medication_appoint_history
-    );
-
     this.navCtrl.push(MedicationdetailsPage, {
       value: this.from_login,
-      doc_value: this.from_login_doc,
-      pers_value: this.from_login_pers,
       medication_appoint_history: medication_appoint_history,
+      token: this.token,
     });
-    // rowid: rowid
   }
 
   showalertmessage(mainmsg) {
@@ -231,5 +224,14 @@ export class MedicationhistoryPage {
       buttons: ["OK"],
     });
     alert.present();
+  }
+
+  showtoast(message) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      duration: 3000,
+      position: "bottom",
+    });
+    toast.present();
   }
 }

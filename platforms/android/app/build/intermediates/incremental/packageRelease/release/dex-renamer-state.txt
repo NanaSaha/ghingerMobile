@@ -1,4 +1,0 @@
-#Thu Feb 11 14:53:21 GMT 2021
-base.0=/Users/saha/Ionic/devdex-ghinger/platforms/android/app/build/intermediates/transforms/dex/release/0
-renamed.0=classes.dex
-file.0=/Users/saha/Ionic/devdex-ghinger/platforms/android/app/build/intermediates/transforms/dex/release/0/classes.dex

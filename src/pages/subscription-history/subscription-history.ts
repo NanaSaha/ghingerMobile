@@ -36,6 +36,7 @@ export class SubscriptionHistoryPage {
   list2: any;
   q: any;
   newparams: any;
+  token;
 
   constructor(
     public alertCtrl: AlertController,
@@ -46,57 +47,37 @@ export class SubscriptionHistoryPage {
     public navCtrl: NavController,
     public navParams: NavParams
   ) {
-    this.storage.get("value").then((value) => {
-      this.user_details = value;
-      console.log("this.user_details " + JSON.stringify(this.user_details));
-      this.user_id = this.user_details[0].id;
-      console.log("user_id " + this.user_id);
-
-      this.params = {
-        user_id: this.user_id,
-      };
-
-      this.newparams = JSON.stringify(this.params);
-
-      console.log("New params " + this.newparams);
-
-      let loader = this.loadingCtrl.create({
-        content: "Please wait ...",
-      });
-
-      loader.present();
-
-      console.log(this.params);
-      this.jsonBody = JSON.parse(this.newparams);
-
-      this.data.subscription_history(this.jsonBody).then(
-        (result) => {
-          console.log(result);
-
-          this.paymentJson = JSON.stringify(result);
-
-          console.log("LETS SEE THE PROCESS ORDER " + this.paymentJson);
-          this.list = JSON.parse(this.paymentJson);
-
-          console.log(result);
-
-          var jsonBody = result["_body"];
-          jsonBody = JSON.parse(jsonBody);
-          this.list = jsonBody;
-
-          loader.dismiss();
-        },
-        (err) => {
-          loader.dismiss();
-          let alert = this.alertCtrl.create({
-            title: "",
-            subTitle: "Sorry, cant connect right now. Please try again!",
-            buttons: ["OK"],
-          });
-          alert.present();
-        }
-      );
+    this.storage.get("token").then((token) => {
+      this.token = token;
+      console.log("TOKEN IN MENu " + this.token);
     });
+    let loader = this.loadingCtrl.create({
+      content: "Please wait ...",
+    });
+
+    loader.present();
+
+    console.log(this.params);
+
+    this.data.subscription_history().then(
+      (result) => {
+        console.log(result);
+
+        console.log("THIS IS THE RESULT" + result);
+        console.log("THIS IS THE ONLY DATARESULT" + result["data"]);
+        this.list = result["data"];
+        loader.dismiss();
+      },
+      (err) => {
+        loader.dismiss();
+        let alert = this.alertCtrl.create({
+          title: "",
+          subTitle: "Sorry, cant connect right now. Please try again!",
+          buttons: ["OK"],
+        });
+        alert.present();
+      }
+    );
   }
 
   history_details(item) {

@@ -1,4 +1,4 @@
-// import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { HttpModule } from "@angular/http";
 import { ErrorHandler, NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
@@ -14,7 +14,6 @@ import { IonicSelectableModule } from "ionic-selectable";
 import { Items } from "../mocks/providers/items";
 // import { Settings, User, Api } from '../providers';
 import { MyApp } from "./app.component";
-import { OneSignal } from "@ionic-native/onesignal";
 
 import {
   FileTransfer,
@@ -159,20 +158,28 @@ import { SubscriptionForeignPage } from "../pages/subscription-foreign/subscript
 import { SubscriptionBookForeignPage } from "../pages/subscription-book-foreign/subscription-book-foreign";
 
 import { CovidPage } from "../pages/covid/covid";
-import { BookCovidPage } from '../pages/book-covid/book-covid';
-
+import { BookCovidPage } from "../pages/book-covid/book-covid";
 
 import { WriteReportPage } from "../pages/write-report/write-report";
 import { ReportsPage } from "../pages/reports/reports";
 import { ReferalsPage } from "../pages/referals/referals";
 import { TermsPage } from "../pages/terms/terms";
 
+import { SpecialistPage } from "../pages/specialist/specialist";
+import { MorePage } from "../pages/more/more";
 
+import { SpecialistDetailsPage } from "../pages/specialist-details/specialist-details";
+
+import { MedicalrecordPage } from "../pages/medicalrecord/medicalrecord";
+import { InsuranceformPage } from "../pages/insuranceform/insuranceform";
 
 import { InAppBrowser } from "@ionic-native/in-app-browser";
 import { WebView } from "@ionic-native/ionic-webview/ngx";
 
-import { Angular4PaystackModule } from 'angular4-paystack';
+import { Angular4PaystackModule } from "angular4-paystack";
+
+import { BookSpecialistPage } from "../pages/book-specialist/book-specialist";
+import { SpecialistHistoryDetailsPage } from "../pages/specialist-history-details/specialist-history-details";
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -180,24 +187,14 @@ import { Angular4PaystackModule } from 'angular4-paystack';
 //   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 // }
 
-export function provideSettings(storage: Storage) {
-  /**
-   * The Settings provider takes a set of default settings for your app.
-   *
-   * You can add new settings options at any time. Once the settings are saved,
-   * these values will not overwrite the saved values (this can be done manually if desired).
-   */
-  // return new Settings(storage, {
-  //   option1: true,
-  //   option2: 'Ionitron J. Framework',
-  //   option3: '3',
-  //   option4: 'Hello'
-  // });
-}
+export function provideSettings(storage: Storage) {}
 
 @NgModule({
   declarations: [
     MyApp,
+    MedicalrecordPage,
+    SpecialistDetailsPage,
+    MorePage,
     AboutPage,
     ContactPage,
     HomePage,
@@ -316,12 +313,16 @@ export function provideSettings(storage: Storage) {
     SubscriptionForeignPage,
     SubscriptionBookForeignPage,
     BookCovidPage,
-    CovidPage
+    CovidPage,
+    SpecialistPage,
+    InsuranceformPage,
+    SpecialistHistoryDetailsPage,
+    BookSpecialistPage,
   ],
   imports: [
     BrowserModule,
     IonicSelectableModule,
-    // HttpClientModule,
+    HttpClientModule,
     HttpModule,
     AutoCompleteModule,
     IonicModule.forRoot(MyApp, {
@@ -330,7 +331,7 @@ export function provideSettings(storage: Storage) {
       autoFocusAssist: false,
     }),
     IonicStorageModule.forRoot(),
-     Angular4PaystackModule,
+    Angular4PaystackModule,
 
     // TranslateModule.forRoot({
     //   loader: {
@@ -345,6 +346,9 @@ export function provideSettings(storage: Storage) {
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    SpecialistDetailsPage,
+    MorePage,
+    SpecialistPage,
     AboutPage,
     ContactPage,
     HomePage,
@@ -463,7 +467,11 @@ export function provideSettings(storage: Storage) {
     SubscriptionForeignPage,
     SubscriptionBookForeignPage,
     BookCovidPage,
-    CovidPage
+    CovidPage,
+    MedicalrecordPage,
+    InsuranceformPage,
+    SpecialistHistoryDetailsPage,
+    BookSpecialistPage,
   ],
   providers: [
     // Api,
@@ -492,7 +500,7 @@ export function provideSettings(storage: Storage) {
     BackgroundMode,
     ScreenOrientation,
     InAppBrowser,
-    OneSignal,
+
     WebView,
 
     // { provide: Settings, useFactory: provideSettings, deps: [Storage] },

@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>More</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content id="background2">
+  <ion-list>
+    <div>
+      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+        {{p.title}} <ion-icon name="chevron-forward-outline"></ion-icon>
+      </button>
+    </div>
+    <div *ngIf="user_type =='C' ">
+      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+        <ion-icon item-left [name]="p.icon"></ion-icon>
+        {{p.title}}
+      </button>
+    </div>
+
+    <div *ngIf="user_type =='N' || user_type =='D' ">
+      <button menuClose ion-item *ngFor="let p of pages2" (click)="openPage(p)">
+        <ion-icon item-left [name]="p.icon"></ion-icon>
+        {{p.title}}
+      </button>
+    </div>
+
+    <ion-footer>
+      <p class="footer-font">
+        Designed & Developed By
+        <span>
+          <a class="footer-font2" href="https://www.devdexsoftware.com"
+            >Devdex Software
+          </a>
+        </span>
+      </p></ion-footer
+    >
+  </ion-list>
+</ion-content>
+
+<!-- <ion-nav [root]="rootPage"></ion-nav> -->

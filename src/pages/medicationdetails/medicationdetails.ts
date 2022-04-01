@@ -25,7 +25,7 @@ import { LabimagesPage } from "../labimages/labimages";
 })
 export class MedicationdetailsPage {
   currentmedappointmentdetail: any;
-  currentmedappointmentdetaildata = {
+  currentvidappointmentdetaildata = {
     id: 0,
     location: "",
     serviceprovider: "",
@@ -63,6 +63,7 @@ export class MedicationdetailsPage {
   suburb_name;
   confirmed_date;
   api_code;
+  token;
 
   constructor(
     // private keyboard: Keyboard,
@@ -78,85 +79,80 @@ export class MedicationdetailsPage {
     this.medication_appoint_history = navParams.get(
       "medication_appoint_history"
     );
+    this.token = navParams.get("token");
 
-    console.log(
-      "MEDICAION APPOINTMENT ID " + this.medication_appoint_history.id
-    );
+    console.log("MEDICAION APPOINTMENT ID " + this.medication_appoint_history);
 
-    this.getCurrentMedicationDetails(this.medication_appoint_history);
-    this.read_appointment(this.medication_appoint_history.id);
-    this.getMedicationPreConfirmedDetails();
+    this.getCurrentMedicationDetails();
+    // this.read_appointment(this.medication_appoint_history.id);
+    // this.getMedicationPreConfirmedDetails();
 
-    this.params = {
-      appointment_id: this.medication_appoint_history.id,
-    };
+    // this.params = {
+    //   appointment_id: this.medication_appoint_history.id,
+    // };
 
-    this.newparams = JSON.stringify(this.params);
+    // this.newparams = JSON.stringify(this.params);
 
-    console.log("New params " + this.newparams);
+    // console.log("New params " + this.newparams);
   }
 
-  ionViewDidLoad() {
-    console.log("ionViewDidLoad Medication appointment details Page");
-  }
+  // getCurrentMedicationDetails(medication_appoint_history) {
+  //   let loading = this.loadingCtrl.create({
+  //     content: "Please wait...",
+  //   });
 
-  getCurrentMedicationDetails(medication_appoint_history) {
-    let loading = this.loadingCtrl.create({
-      content: "Please wait...",
-    });
+  //   loading.present();
 
-    loading.present();
+  //   this.jsonBody1 = Array.of(medication_appoint_history);
 
-    this.jsonBody1 = Array.of(medication_appoint_history);
+  //   // loading.dismiss();
 
-    // loading.dismiss();
+  //   if (this.jsonBody1) {
+  //     if (this.jsonBody1[0]) {
+  //       //   this.currentmedappointmentdetaildata.id = data["id"];
+  //       this.currentmedappointmentdetaildata.location = this.jsonBody1[0].suburb_name;
+  //       this.currentmedappointmentdetaildata.requestcategory = this.jsonBody1[0].category;
+  //       this.currentmedappointmentdetaildata.beneficiary = this.jsonBody1[0].beneficiary_name;
+  //       this.currentmedappointmentdetaildata.beneficiary_phone_number = this.jsonBody1[0].beneficiary_phone_number;
+  //       this.currentmedappointmentdetaildata.beneficiary_age = this.jsonBody1[0].beneficiary_age;
 
-    if (this.jsonBody1) {
-      if (this.jsonBody1[0]) {
-        //   this.currentmedappointmentdetaildata.id = data["id"];
-        this.currentmedappointmentdetaildata.location = this.jsonBody1[0].suburb_name;
-        this.currentmedappointmentdetaildata.requestcategory = this.jsonBody1[0].category;
-        this.currentmedappointmentdetaildata.beneficiary = this.jsonBody1[0].beneficiary_name;
-        this.currentmedappointmentdetaildata.beneficiary_phone_number = this.jsonBody1[0].beneficiary_phone_number;
-        this.currentmedappointmentdetaildata.beneficiary_age = this.jsonBody1[0].beneficiary_age;
+  //       if (this.jsonBody1[0].beneficiary_gender) {
+  //         if (this.jsonBody1[0].beneficiary_gender == "F") {
+  //           this.currentmedappointmentdetaildata.beneficiary_gender = "Female";
+  //         } else if (this.jsonBody1[0].beneficiary_gender == "M") {
+  //           this.currentmedappointmentdetaildata.beneficiary_gender = "Male";
+  //         } else {
+  //           this.currentmedappointmentdetaildata.beneficiary_gender = "";
+  //         }
+  //       }
+  //       // this.currentmedappointmentdetaildata.beneficiary_gender = this.jsonBody1[0].beneficiary_gender;
 
-        if (this.jsonBody1[0].beneficiary_gender) {
-          if (this.jsonBody1[0].beneficiary_gender == "F") {
-            this.currentmedappointmentdetaildata.beneficiary_gender = "Female";
-          } else if (this.jsonBody1[0].beneficiary_gender == "M") {
-            this.currentmedappointmentdetaildata.beneficiary_gender = "Male";
-          } else {
-            this.currentmedappointmentdetaildata.beneficiary_gender = "";
-          }
-        }
-        // this.currentmedappointmentdetaildata.beneficiary_gender = this.jsonBody1[0].beneficiary_gender;
+  //       this.currentmedappointmentdetaildata.requesturgency = this.jsonBody1[0].urgency;
+  //       this.currentmedappointmentdetaildata.created_at = this.jsonBody1[0].created_at;
+  //       this.currentmedappointmentdetaildata.confirmed_date = this.jsonBody1[0].confirmed_date;
+  //       this.currentmedappointmentdetaildata.complaint = this.jsonBody1[0].complaint_desc;
+  //       this.currentmedappointmentdetaildata.prevmedicalhistory = this.jsonBody1[0].prev_medical_history;
+  //       this.currentmedappointmentdetaildata.allergies = this.jsonBody1[0].allergies;
+  //       this.currentmedappointmentdetaildata.medications = this.jsonBody1[0].medication;
 
-        this.currentmedappointmentdetaildata.requesturgency = this.jsonBody1[0].urgency;
-        this.currentmedappointmentdetaildata.created_at = this.jsonBody1[0].created_at;
-        this.currentmedappointmentdetaildata.confirmed_date = this.jsonBody1[0].confirmed_date;
-        this.currentmedappointmentdetaildata.complaint = this.jsonBody1[0].complaint_desc;
-        this.currentmedappointmentdetaildata.prevmedicalhistory = this.jsonBody1[0].prev_medical_history;
-        this.currentmedappointmentdetaildata.allergies = this.jsonBody1[0].allergies;
-        this.currentmedappointmentdetaildata.medications = this.jsonBody1[0].medication;
+  //       if (this.jsonBody1[0].src == "APP") {
+  //         this.currentmedappointmentdetaildata.source = "Mobile App";
+  //       }
 
-        if (this.jsonBody1[0].src == "APP") {
-          this.currentmedappointmentdetaildata.source = "Mobile App";
-        }
+  //       if (this.jsonBody1[0].confirm_status == true) {
+  //         this.currentmedappointmentdetaildata.confirmstatus = "Confirmed";
+  //       } else {
+  //         this.currentmedappointmentdetaildata.confirmstatus = "Not Confirmed";
+  //       }
+  //       this.currentmedappointmentdetaildata.image_name = this.jsonBody1[0].image_name;
+  //       this.currentmedappointmentdetaildata.appointment_type_id = this.jsonBody1[0].appointment_type_id;
 
-        if (this.jsonBody1[0].confirm_status == true) {
-          this.currentmedappointmentdetaildata.confirmstatus = "Confirmed";
-        } else {
-          this.currentmedappointmentdetaildata.confirmstatus = "Not Confirmed";
-        }
-        this.currentmedappointmentdetaildata.image_name = this.jsonBody1[0].image_name;
-        this.currentmedappointmentdetaildata.appointment_type_id = this.jsonBody1[0].appointment_type_id;
+  //       loading.dismiss();
+  //     }
+  //   }
+  // }
 
-        loading.dismiss();
-      }
-    }
-  }
-
-  getMedicationPreConfirmedDetails() {
+  getCurrentMedicationDetails() {
     let loading = this.loadingCtrl.create({
       content: "Please wait...",
     });
@@ -164,62 +160,35 @@ export class MedicationdetailsPage {
     loading.present();
 
     setTimeout(() => {
-      this.jsonBody = JSON.parse(this.newparams);
+      this.data
+        .getMedicationPreConfirmed(this.medication_appoint_history, this.token)
+        .then(
+          (result) => {
+            let results = result["data"];
 
-      console;
+            console.log("LEST SEE DATA COMING FOR DETAILS---::--", results);
+            console.log("COMPLAINTS---::--", results.complaint);
 
-      this.data.getMedicationPreConfirmed(this.jsonBody).then(
-        (result) => {
-          // this.contacts = result;
-          console.log(result);
+            this.currentvidappointmentdetaildata.complaint = results.complaint;
+            this.currentvidappointmentdetaildata.prevmedicalhistory =
+              results.prev_history;
+            this.currentvidappointmentdetaildata.allergies = results.allergies;
 
-          var jsonBody = result["_body"];
+            this.currentvidappointmentdetaildata.proposeddateandtime =
+              results.proposed_date;
+            this.currentvidappointmentdetaildata.confirmstatus =
+              results.confirm_status;
 
-          console.log(jsonBody);
-
-          jsonBody = JSON.parse(jsonBody);
-          console.log(jsonBody);
-
-          var desc = jsonBody["resp_desc"];
-          var code = jsonBody["resp_code"];
-
-          console.log(desc);
-          console.log(code);
-          this.api_code = code;
-          // jsonBody = JSON.parse(jsonBody);
-
-          // console.log("JSON BODYYY" + JSON.stringify(jsonBody)[resp_code]);
-
-          // let code = jsonBody;
-          // var resp_code = code[2];
-          // console.log(resp_code);
-
-          if (this.api_code != "119") {
-            if (this.jsonBody) {
-              this.confirmed_details = jsonBody;
-              console.log("CONFRIM DETAIL " + this.confirmed_details);
-              console.log("SUBURD " + this.confirmed_details[0].suburb_name);
-              this.suburb_name = this.confirmed_details[0].suburb_name;
-              this.complaint_desc = this.confirmed_details[0].complaint_desc;
-              this.comment = this.confirmed_details[0].comment;
-              this.confirmed_date = this.confirmed_details[0].confirmed_date;
-            } else {
-              this.confirmed_details = "0";
-            }
+            loading.dismiss();
+          },
+          (err) => {
+            loading.dismiss();
+            this.showalertmessage(
+              "Sorry. An Error occured. Kindly refresh and try again."
+            );
+            console.log("error = " + JSON.stringify(err));
           }
-          loading.dismiss();
-
-          console.log("Jsson body " + jsonBody);
-          console.log("Jsson body " + JSON.stringify(jsonBody));
-        },
-        (err) => {
-          loading.dismiss();
-          this.showalertmessage(
-            "Sorry. An Error occured. Kindly refresh and try again."
-          );
-          console.log("error = " + JSON.stringify(err));
-        }
-      );
+        );
     }, 1);
   }
 

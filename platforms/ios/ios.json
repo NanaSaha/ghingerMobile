@@ -81,10 +81,6 @@
               "count": 1
             },
             {
-              "xml": "<feature name=\"OneSignalPush\"><param name=\"ios-package\" value=\"OneSignalPush\" /></feature>",
-              "count": 1
-            },
-            {
               "xml": "<feature name=\"FileTransfer\"><param name=\"ios-package\" value=\"CDVFileTransfer\" /></feature>",
               "count": 1
             },
@@ -113,10 +109,6 @@
             {
               "xml": "<array><string>audio</string></array>",
               "count": 1
-            },
-            {
-              "xml": "<array><string>remote-notification</string></array>",
-              "count": 1
             }
           ],
           "LSApplicationQueriesSchemes": [
@@ -129,30 +121,17 @@
       },
       "*-Debug.plist": {
         "parents": {
-          "aps-environment": [
-            {
-              "xml": "<string>development</string>",
-              "count": 1
-            }
-          ]
+          "aps-environment": []
         }
       },
       "*-Release.plist": {
         "parents": {
-          "aps-environment": [
-            {
-              "xml": "<string>production</string>",
-              "count": 1
-            }
-          ]
+          "aps-environment": []
         }
       }
     }
   },
   "installed_plugins": {
-    "cordova-android-support-gradle-release": {
-      "PACKAGE_NAME": "$(PRODUCT_BUNDLE_IDENTIFIER)"
-    },
     "cordova-plugin-android-permissions": {
       "PACKAGE_NAME": "$(PRODUCT_BUNDLE_IDENTIFIER)"
     },
@@ -210,13 +189,13 @@
     "es6-promise-plugin": {
       "PACKAGE_NAME": "$(PRODUCT_BUNDLE_IDENTIFIER)"
     },
-    "onesignal-cordova-plugin": {
-      "PACKAGE_NAME": "$(PRODUCT_BUNDLE_IDENTIFIER)"
-    },
     "cordova-plugin-file-transfer": {
       "PACKAGE_NAME": "$(PRODUCT_BUNDLE_IDENTIFIER)"
     },
     "cordova-plugin-ionic-webview": {
+      "PACKAGE_NAME": "$(PRODUCT_BUNDLE_IDENTIFIER)"
+    },
+    "cordova-android-support-gradle-release": {
       "PACKAGE_NAME": "$(PRODUCT_BUNDLE_IDENTIFIER)"
     }
   },
@@ -557,14 +536,6 @@
       "runs": true
     },
     {
-      "id": "onesignal-cordova-plugin.OneSignal",
-      "file": "plugins/onesignal-cordova-plugin/www/OneSignal.js",
-      "pluginId": "onesignal-cordova-plugin",
-      "clobbers": [
-        "OneSignal"
-      ]
-    },
-    {
       "id": "cordova-plugin-file-transfer.FileTransferError",
       "file": "plugins/cordova-plugin-file-transfer/www/FileTransferError.js",
       "pluginId": "cordova-plugin-file-transfer",
@@ -598,7 +569,6 @@
     }
   ],
   "plugin_metadata": {
-    "cordova-android-support-gradle-release": "1.4.7",
     "cordova-plugin-android-permissions": "1.0.0",
     "cordova-plugin-app-version": "0.1.9",
     "cordova-plugin-device": "2.0.2",
@@ -618,8 +588,8 @@
     "cordova-plugin-statusbar": "2.4.3",
     "cordova-plugin-whitelist": "1.3.3",
     "es6-promise-plugin": "4.2.2",
-    "onesignal-cordova-plugin": "2.11.0",
     "cordova-plugin-file-transfer": "1.7.1",
-    "cordova-plugin-ionic-webview": "5.0.0"
+    "cordova-plugin-ionic-webview": "5.0.0",
+    "cordova-android-support-gradle-release": "3.0.1"
   }
 }

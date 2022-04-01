@@ -10,18 +10,18 @@
 </ion-header>
 
 <ion-content overflow-scroll="true" class="background">
-  <p>
+  <!-- <p>
     <b style="color: black; text-align: center" text-wrap
       >Subscription for {{visit_type}}</b
     >
-  </p>
+  </p> -->
 
   <form [formGroup]="subscriptionForm">
     <ion-list>
       <ion-item
         class="height"
         [hidden]="!value"
-        *ngIf="visit_type =='ElderlyPersonsHomeVisit' "
+        *ngIf="visit_type =='d99b8ddd-80ab-4ec6-93df-3447bce2b1f4' "
       >
         <ion-input
           type="text"
@@ -37,7 +37,7 @@
       <ion-item
         class="height"
         [hidden]="!value"
-        *ngIf="visit_type =='ElderlyCoupleVisitOneAddress' "
+        *ngIf="visit_type =='433a2dbc-3ce6-4d75-b5a1-a789e9bb95de' "
       >
         <ion-input
           class="movemove3"
@@ -54,7 +54,7 @@
       <ion-item
         class="height"
         [hidden]="!value"
-        *ngIf="visit_type =='ElderlyCoupleVisitDiffAddress' "
+        *ngIf="visit_type =='7a376237-ec25-416b-a838-185c9bf0d3d5' "
       >
         <ion-input
           class="movemove3"
@@ -71,7 +71,7 @@
       <ion-item
         class="height"
         [hidden]="!value"
-        *ngIf="visit_type =='ChronicSingle' "
+        *ngIf="visit_type =='a508f6f4-92b5-41a5-94a4-6d8f31fd574e' "
       >
         <ion-input
           class="movemove3"
@@ -88,7 +88,7 @@
       <ion-item
         class="height"
         [hidden]="!value"
-        *ngIf="visit_type =='ChronicCouple' "
+        *ngIf="visit_type =='79720c3e-c69f-4cee-a89e-de674090042c' "
       >
         <ion-input
           class="movemove3"
@@ -105,7 +105,7 @@
       <ion-item
         class="height"
         [hidden]="!value"
-        *ngIf="visit_type =='ScreenAdult' "
+        *ngIf="visit_type =='3bdb32c2-46f0-4cda-96f9-14893021a34b' "
       >
         <ion-input
           class="movemove3"
@@ -122,7 +122,7 @@
       <ion-item
         class="height"
         [hidden]="!value"
-        *ngIf="visit_type =='ScreenAdultCouple' "
+        *ngIf="visit_type =='562ba444-dcfa-4d8f-848e-e19524cdb1b0' "
       >
         <ion-input
           class="movemove3"
@@ -703,7 +703,7 @@
         ></ion-textarea>
       </ion-item>
 
-      <ion-item *ngIf="visit_type =='ElderlyPersonsHomeVisit' ">
+      <ion-item *ngIf="visit_type =='d99b8ddd-80ab-4ec6-93df-3447bce2b1f4' ">
         <ion-label floating>Subsciption Amount*</ion-label>
         <ion-select
           formControlName="amount"
@@ -728,7 +728,7 @@
         </ion-select>
       </ion-item>
 
-      <ion-item *ngIf="visit_type =='ElderlyCoupleVisitOneAddress' ">
+      <ion-item *ngIf="visit_type =='433a2dbc-3ce6-4d75-b5a1-a789e9bb95de' ">
         <ion-label floating>Subsciption Amount*</ion-label>
         <ion-select
           formControlName="amount"
@@ -753,7 +753,7 @@
         </ion-select>
       </ion-item>
 
-      <ion-item *ngIf="visit_type =='ElderlyCoupleVisitDiffAddress' ">
+      <ion-item *ngIf="visit_type =='7a376237-ec25-416b-a838-185c9bf0d3d5' ">
         <ion-label floating>Subsciption Amount*</ion-label>
         <ion-select
           formControlName="amount"
@@ -778,7 +778,7 @@
         </ion-select>
       </ion-item>
 
-      <ion-item *ngIf="visit_type =='ChronicSingle' ">
+      <ion-item *ngIf="visit_type =='a508f6f4-92b5-41a5-94a4-6d8f31fd574e' ">
         <ion-label floating>Subsciption Amount*</ion-label>
         <ion-select
           formControlName="amount"
@@ -802,7 +802,7 @@
         </ion-select>
       </ion-item>
 
-      <ion-item *ngIf="visit_type =='ChronicCouple' ">
+      <ion-item *ngIf="visit_type =='79720c3e-c69f-4cee-a89e-de674090042c' ">
         <ion-label floating>Subsciption Amount*</ion-label>
         <ion-select
           formControlName="amount"
@@ -826,7 +826,7 @@
         </ion-select>
       </ion-item>
 
-      <ion-item *ngIf="visit_type =='ScreenAdult' ">
+      <ion-item *ngIf="visit_type =='3bdb32c2-46f0-4cda-96f9-14893021a34b' ">
         <ion-label floating>Subsciption Amount*</ion-label>
         <ion-select
           formControlName="amount"
@@ -843,7 +843,7 @@
         </ion-select>
       </ion-item>
 
-      <ion-item *ngIf="visit_type =='ScreenAdultCouple' ">
+      <ion-item *ngIf="visit_type =='562ba444-dcfa-4d8f-848e-e19524cdb1b0' ">
         <ion-label floating>Subsciption Amount*</ion-label>
         <ion-select
           formControlName="amount"

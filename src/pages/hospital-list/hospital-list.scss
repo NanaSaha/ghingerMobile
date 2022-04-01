@@ -27,4 +27,66 @@ page-hospital-list {
     background-color: transparent !important;
     background: transparent !important;
   }
+
+  .direct_service_row {
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    overflow: -moz-scrollbars-none;
+    -ms-overflow-style: none;
+    overflow: hidden;
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+    width: 100%;
+
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-top: 0%;
+    margin-bottom: 0%;
+  }
+
+  .column3 {
+    //background-color: #5dba47;
+    width: 48%;
+    //box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    text-align: center;
+    border-radius: 8px;
+    margin-left: 1%;
+    margin-bottom: 3%;
+
+    border-left: 1px solid #ece6e6;
+    border-right: 1px solid #ece6e6;
+  }
+
+  .round_image {
+    width: 50%;
+    margin-top: 26%;
+
+    align-items: center;
+    margin-left: 29%;
+  }
+
+  .img_size {
+    width: 35%;
+    margin-top: 10%;
+    margin-left: 5%;
+    margin-bottom: -16%;
+  }
+
+  #txtcolor {
+    font-size: 12.8px;
+  }
+
+  .headerDivider {
+    border-left: 1px solid #ece6e6;
+    border-right: 1px solid #ece6e6;
+    height: 80px;
+    /* position: absolute; */
+    right: 249px;
+    /* top: 30px; */
+    margin-top: 8%;
+  }
 }

@@ -79,13 +79,14 @@ export class BookLabPage {
   maxSelectabledate: any;
   date: any;
   lastImage1: string = null;
-  appointment_type_id: string = "";
+  apt_type_id: string = "";
   appointment_id: string = "";
   converted;
   final_img_path: any;
   strip_url: any;
   targetPath: string;
   raw_file_path: any;
+  token;
 
   constructor(
     public sanitizer: DomSanitizer,
@@ -108,43 +109,40 @@ export class BookLabPage {
     public alertCtrl: AlertController,
     public storage: Storage
   ) {
-    this.ports = [
-      { id: 1, name: "Tokai", price: "GHC230" },
-      { id: 2, name: "Vladivostok", price: "GHC32" },
-      { id: 3, name: "Navlakhi", price: "GHC12" },
-    ];
+    this.apt_type_id = "LA";
+    this.token = this.navParams.get("token");
 
     this.appointForm = this._form.group({
-      requester_cat: ["", Validators.compose([Validators.required])],
+      request_cat_id: ["", Validators.compose([Validators.required])],
       lab_services: [""],
       beneficiary_name: [
         "",
         ExtraValidators.conditional(
-          (group) => group.controls.requester_cat.value == "T",
+          (group) => group.controls.request_cat_id.value == "T",
           Validators.compose([Validators.required])
         ),
       ],
       beneficiary_phone_number: [
         "",
         ExtraValidators.conditional(
-          (group) => group.controls.requester_cat.value == "T",
+          (group) => group.controls.request_cat_id.value == "T",
           Validators.compose([Validators.maxLength(10)])
         ),
       ],
       beneficiary_age: [
         "",
         ExtraValidators.conditional(
-          (group) => group.controls.requester_cat.value == "T",
+          (group) => group.controls.request_cat_id.value == "T",
           Validators.compose([Validators.required])
         ),
       ],
 
-      req_urgency: ["", Validators.compose([Validators.required])],
+      request_urgency_id: ["", Validators.compose([Validators.required])],
       proposed_date: ["", Validators.compose([Validators.required])],
       proposed_time: ["", Validators.compose([Validators.required])],
-      appointment_type_id: ["LA"],
+      apt_type_id: ["LA"],
 
-      test_list: [""],
+      lab_ids: [""],
       prev_medical_history: ["", Validators.compose([Validators.required])],
       allergies: [""],
       location_name: [""],
@@ -154,30 +152,16 @@ export class BookLabPage {
     this.from_login = this.navParams.get("another");
     this.sub_id = this.navParams.get("sub_id");
 
-    // this.storage.get("suburb_id").then((suburb_id) => {
-    //   this.sub_id = suburb_id;
-    //   // this.getnewappointments(this.doctor_id);
-    // });
+    console.log("THIS IS THE SUB ID IN MED BOOK" + this.sub_id);
 
-    this.from_login2 = this.navParams.get("pers_value");
-    this.from_login3 = this.navParams.get("doc_value");
+    var results_body = JSON.parse(this.from_login);
+    var user_id = results_body["data"]["user_infos"][0].user_id;
 
-    this.body = this.from_login; // this.body = Array.of(this.from_login)
-
-    this.jsonBody = this.body; // this.jsonBody = JSON.parse(this.body);
-    this.requester_id = this.jsonBody[0].id;
+    this.body = this.from_login;
+    this.jsonBody = this.body;
+    this.requester_id = user_id;
 
     console.log("THIS IS THE requester_id ID is " + this.requester_id);
-    console.log("THIS IS THE SUB ID IN LAB BOOK" + this.sub_id);
-
-    this.raw = this.from_hosp; // this.raw = JSON.stringify(this.from_hosp);
-    this.body = this.from_login; // this.body = Array.of(this.from_login)
-
-    this.jsonBody = this.body; // this.jsonBody = JSON.parse(this.body);
-
-    console.log("Raw values from Hospital " + this.raw);
-    console.log("from lab search " + this.from_hosp);
-    console.log("from LOgin" + this.from_login);
 
     let loading = this.loadingCtrl.create({
       content: "Please wait...",
@@ -186,38 +170,29 @@ export class BookLabPage {
     loading.present();
 
     setTimeout(() => {
-      this.data.get_lab_services().then(
+      this.data.get_lab_services(this.token).then(
         (result) => {
-          console.log("RESULTS IS " + result);
-          console.log("RESULTS IS" + this.data.get_lab_services());
-          var body = result["_body"];
-          body = JSON.parse(body);
-          this.check = body;
-          console.log("LETS SEE ARRAY OF CHECK " + this.check);
+          var string_results = JSON.stringify(result);
+          console.log("SUBSCRIPTION HISTORY RESULTS " + string_results);
+
+          this.check = result["data"];
+
+          console.log("LETS SEE ARRAY OF MEDICAINE " + this.check);
           console.log(
-            "LETS SEE STRINGIFY OF CHECK " + JSON.stringify(this.check)
+            "LETS SEE STRINGIFY OF MEDICINE " + JSON.stringify(this.check)
           );
           this.body = Array.of(this.check);
 
-          let orders;
+          // let orders;
 
-          for (let x in this.check) {
-            this.new_list.push(this.check[x]["title"]);
-          }
+          // for (let x in this.check) {
+          //   this.new_list.push(this.check[x]["title"]);
+          // }
 
-          console.log("NEW LIST " + this.new_list);
-          orders = this.new_list;
-          console.log(orders);
-          console.log("ORDERS NEXT " + this.new_list);
-
-          var desc = body["resp_desc"];
-          var code = body["resp_code"];
-
-          console.log(desc);
-          console.log(code);
-
-          this.messageList = desc;
-          this.api_code = code;
+          // console.log("NEW LIST " + this.new_list);
+          // orders = this.new_list;
+          // console.log(orders);
+          // console.log("ORDERS NEXT " + this.new_list);
 
           loading.dismiss();
         },
@@ -269,16 +244,16 @@ export class BookLabPage {
         this.jsonBody.proposed_time
     );
     console.log(
-      "THIS IS MEDICATION LIST" + JSON.stringify(this.jsonBody.test_list)
+      "THIS IS MEDICATION LIST" + JSON.stringify(this.jsonBody.lab_ids)
     );
 
-    let lab_details = this.jsonBody.test_list;
+    let lab_details = this.jsonBody.lab_ids;
     let orders = {};
     let new_lab_list = [];
 
     for (let x in lab_details) {
       // new_list.push({ 'drug_name': med_details[x]['drug_name']})
-      new_lab_list.push(lab_details[x]["title"]);
+      new_lab_list.push(lab_details[x]["id"]);
       // console.log
     }
 
@@ -287,9 +262,9 @@ export class BookLabPage {
     console.log(new_lab_list);
     console.log(JSON.stringify(orders));
 
-    this.appointment_type_id = this.jsonBody.appointment_type_id;
+    this.apt_type_id = this.jsonBody.apt_type_id;
 
-    if (!this.jsonBody.test_list) {
+    if (!this.jsonBody.lab_ids) {
       if (!this.lastImage) {
         this.showmessage(
           "Kindly provide your list of lab test by either typing the list in the text field or uploading a picture of the lab test"
@@ -298,20 +273,53 @@ export class BookLabPage {
       }
     }
 
+    // this.params = {
+    //   suburb_id: this.sub_id,
+    //   requester_id: this.requester_id,
+    //   request_cat_id: this.jsonBody.request_cat_id,
+    //   beneficiary_name: this.jsonBody.beneficiary_name,
+    //   beneficiary_age: this.jsonBody.beneficiary_age,
+    //   beneficiary_phone_number: this.jsonBody.beneficiary_phone_number,
+    //   request_urgency_id: this.jsonBody.request_urgency_id,
+    //   apt_type_id: this.jsonBody.apt_type_id,
+    //   proposed_date:
+    //     this.jsonBody.proposed_date + " " + this.jsonBody.proposed_time,
+    //   lab_ids: new_lab_list,
+    //   prev_medical_history: this.jsonBody.prev_medical_history,
+    //   allergies: this.jsonBody.allergies,
+    // };
+
+    //NEW PARAMS -- TO SATISFY API
+    // this.params = {
+    //   proposed_date: this.jsonBody.proposed_date,
+    //   proposed_time: this.jsonBody.proposed_time,
+    //   apt_type_id: this.jsonBody.apt_type_id,
+    //   request_cat_id: this.jsonBody.request_cat_id,
+    //   request_urgency_id: this.jsonBody.request_urgency_id,
+    //   complaint: this.jsonBody.prev_medical_history,
+    //   allergies: this.jsonBody.allergies,
+    //   prev_history: this.jsonBody.prev_medical_history,
+    //   bene_name: this.jsonBody.beneficiary_name,
+    //   bene_age: this.jsonBody.beneficiary_age,
+    //   bene_contact: this.jsonBody.beneficiary_phone_number,
+    //   suburb_id: this.sub_id,
+    //   lab_ids: new_lab_list,
+    // };
+
     this.params = {
-      suburb_id: this.sub_id,
-      requester_id: this.requester_id,
-      requester_cat: this.jsonBody.requester_cat,
-      beneficiary_name: this.jsonBody.beneficiary_name,
-      beneficiary_age: this.jsonBody.beneficiary_age,
-      beneficiary_phone_number: this.jsonBody.beneficiary_phone_number,
-      req_urgency: this.jsonBody.req_urgency,
-      appointment_type_id: this.jsonBody.appointment_type_id,
-      proposed_date:
-        this.jsonBody.proposed_date + " " + this.jsonBody.proposed_time,
-      test_list: new_lab_list,
-      prev_medical_history: this.jsonBody.prev_medical_history,
+      proposed_date: this.jsonBody.proposed_date,
+      proposed_time: this.jsonBody.proposed_time,
+      apt_type_id: this.jsonBody.apt_type_id,
+      request_cat_id: this.jsonBody.request_cat_id,
+      request_urgency_id: this.jsonBody.request_urgency_id,
       allergies: this.jsonBody.allergies,
+      prev_history: this.jsonBody.prev_history,
+      bene_name: this.jsonBody.beneficiary_name,
+      bene_age: this.jsonBody.beneficiary_age,
+      bene_contact: this.jsonBody.beneficiary_phone_number,
+      lab_ids: new_lab_list,
+      suburb_id: this.sub_id,
+      complaint: "Labs",
     };
 
     console.log("this.params = " + JSON.stringify(this.params));
@@ -322,61 +330,24 @@ export class BookLabPage {
 
     loader.present();
 
-    this.data.l_appointment(this.params).then(
+    this.data.l_appointment(this.params, this.token).then(
       (result) => {
         console.log("THIS IS THE RESULT" + result);
-        var jsonBody = result["_body"];
-        console.log(jsonBody);
-
-        jsonBody = JSON.parse(jsonBody);
-        console.log(jsonBody);
-
-        var desc = jsonBody["resp_desc"];
-        var code = jsonBody["resp_code"];
-        this.appointment_id = jsonBody["appointment_id"];
-
-        console.log(desc);
-        console.log(code);
-
-        this.messageList = desc;
-        this.api_code = code;
 
         loader.dismiss();
 
-        if (this.api_code == "000") {
-          if (this.lastImage) {
-            if (this.lastImage != "") {
-              this.uploadImage(
-                this.requester_id,
-                this.jsonBody.appointment_type_id,
-                this.appointment_id
-              );
-              // return;
-            }
-          } else {
-            let alert = this.alertCtrl.create({
-              title: "Lab Order",
-              subTitle: desc,
-              buttons: [
-                {
-                  text: "OK",
-                  handler: () => {
-                    this.navCtrl.setRoot(MenuPage, {
-                      value: this.from_login,
-                      doc_value: this.from_login3,
-                      pers_value: this.from_login2,
-                    });
-                  },
-                },
-              ],
-            });
-            alert.present();
-          }
-        }
+        this.navCtrl.setRoot(MenuPage, {
+          value: this.from_login,
+        });
 
-        if (this.api_code != "000") {
-          this.showmessage(this.messageList);
-        }
+        let alert = this.alertCtrl.create({
+          title: "GHinger Healthcare",
+          subTitle:
+            "Your Lab request has been received successfully. The Ghinger team will call you shortly",
+          buttons: ["OK"],
+        });
+
+        alert.present();
       },
       (err) => {
         loader.dismiss();
@@ -582,7 +553,7 @@ export class BookLabPage {
     );
   }
 
-  public uploadImage(requester_id, appointment_type_id, appointment_id) {
+  public uploadImage(requester_id, apt_type_id, appointment_id) {
     // Destination URL
     // var url = encodeURI("https://api.ghingerhealth.com/saveImage");
     var url = encodeURI("https://api.ghingerhealth.com/saveImage");
@@ -612,7 +583,7 @@ export class BookLabPage {
         fileName: filename,
 
         requester_id: requester_id,
-        appointment_type_id: appointment_type_id,
+        apt_type_id: apt_type_id,
         appointment_id: appointment_id,
       },
     };
@@ -668,7 +639,7 @@ export class BookLabPage {
     );
   }
 
-  // public uploadImage(requester_id, appointment_type_id, appointment_id) {
+  // public uploadImage(requester_id, apt_type_id, appointment_id) {
 
   //   var targetPath = this.pathForImage(this.lastImage);
   //   console.log("LETS SEE THE TARGET PATH " + targetPath)
@@ -688,7 +659,7 @@ export class BookLabPage {
   //       // file_type: 'P',
   //       //  applicant_id: this.applicant_id,
   //       "requester_id": requester_id,
-  //       "appointment_type_id": appointment_type_id,
+  //       "apt_type_id": apt_type_id,
   //       "appointment_id": appointment_id
   //     },
   //   };

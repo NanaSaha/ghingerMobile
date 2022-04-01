@@ -1,0 +1,167 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title style="text-align: center">Specialists</ion-title>
+
+    <ion-buttons end class="margin" tappable (tap)="home()">
+      <button ion-button icon-only>
+        <ion-icon name="home"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="direct_service_row2">
+    <div class="c3">
+      <ion-row>
+        <ion-col col-8>
+          <div class="align-col">
+            <h2 class="fboldness">Request for any Specialist here</h2>
+            <p style="color: white">
+              Ghinger will assign a Doctor to you within minutes
+            </p>
+            <form [formGroup]="specialityForm">
+              <ion-list>
+                <ion-item>
+                  <ion-label floating>Choose Specialist</ion-label>
+                  <ionic-selectable
+                    item-content
+                    [(ngModel)]="specialists_id"
+                    [items]="specialists"
+                    itemValueField="id"
+                    itemTextField="name"
+                    [canSearch]="true"
+                    (onChange)="get_specialist(specialists_id)"
+                    formControlName="specialists_id"
+                    name="name"
+                    [class.invalid]="!specialityForm.controls.specialists_id.valid && (specialityForm.controls.specialists_id.dirty || submitAttempt)"
+                  >
+                  </ionic-selectable>
+                </ion-item>
+              </ion-list>
+            </form>
+            <button
+              ion-button
+              color="primary"
+              icon-end
+              (tap)="bookSpecialist()"
+            >
+              Request Specialist <ion-icon name="add"></ion-icon>
+            </button>
+          </div>
+        </ion-col>
+        <ion-col col-4>
+          <div class="align-col">
+            <img src="/assets/imgs/doc1.png" class="side-image" />
+            <!-- <img
+              class=""
+              src="https://res.cloudinary.com/sahanana/image/upload/v1616670379/Black_Male_Doctor_Portrait_732x549-thumbnail_owjc14.jpg"
+            /> -->
+          </div>
+        </ion-col>
+      </ion-row>
+    </div>
+  </div>
+
+  <div class="aliText">
+    <ion-item no-lines>
+      <h3 class="BigText">Recent Specialist Appointments</h3>
+      <p>View Details and Bill of appointments</p>
+    </ion-item>
+  </div>
+  <ion-list *ngIf="history_list?.length > 0">
+    <ion-item *ngFor="let video_consult_detail of history_list" no-lines>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-8 text-wrap>
+            <h2>{{video_consult_detail.date | date: 'medium' }}</h2>
+            <ion-list>
+              <p>{{video_consult_detail.complaint}}</p>
+            </ion-list>
+
+            <strong>
+              <p
+                *ngIf="video_consult_detail.status == 'Confirmed'; else confirmstatusfalse"
+              >
+                Confirmed
+              </p>
+            </strong>
+            <ng-template #confirmstatusfalse>
+              <br />
+              <strong>Not Confirmed</strong>
+            </ng-template>
+          </ion-col>
+          <ion-col col-4 text-wrap>
+            <button
+              ion-button
+              class="small_button"
+              color="green1"
+              round
+              type="submit"
+              (click)="specialist_appointment_history_details(video_consult_detail.id)"
+              text-wrap
+            >
+              Details
+            </button>
+            <br />
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+
+  <!-- <ion-card *ngIf="person_details?.length > 0">
+    <ion-list>
+      <ion-item *ngFor="let video_consult_detail of person_details">
+        <ion-grid>
+          <ion-row *ngIf="video_consult_detail.apt_type_id == 'SR' ">
+            <ion-col col-8 text-wrap>
+              <h2>{{video_consult_detail.created_at | date: 'medium' }}</h2>
+              <ion-list>
+                <p>
+                  {{video_consult_detail.specialist_apt_extras[0].specialist_master.name}}
+                </p>
+             
+
+                <p style="color: red">
+                  GH¢ {{video_consult_detail.appointment_type.price}}
+                </p>
+              </ion-list>
+
+              <strong>
+                <p
+                  *ngIf="video_consult_detail.confirm_status == 'Confirmed'; else confirmstatusfalse"
+                >
+                  Confirmed
+                </p>
+              </strong>
+              <ng-template #confirmstatusfalse>
+                <br />
+                <strong>Not Confirmed</strong>
+              </ng-template>
+            </ion-col>
+            <ion-col col-4 text-wrap>
+              <button
+                ion-button
+                class="small_button"
+                color="green1"
+                round
+                type="submit"
+                (click)="specialist_appointment_history_details(video_consult_detail.id)"
+                text-wrap
+              >
+                Details
+              </button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-list>
+  </ion-card> -->
+
+  <ion-list *ngIf="no_appointments == 'no' ">
+    <ion-item no-lines>
+      <p>No Appointments made</p>
+    </ion-item>
+  </ion-list>
+</ion-content>

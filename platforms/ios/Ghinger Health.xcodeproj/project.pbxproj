@@ -37,9 +37,7 @@
 		931A47737FAD47E0890D7E89 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F010B61363C349BBAAF79E5A /* CoreLocation.framework */; };
 		9350715D848B41FD9A7FB7E2 /* CDVMarket.m in Sources */ = {isa = PBXBuildFile; fileRef = 32F5388000014E96A7BFAAE7 /* CDVMarket.m */; };
 		96D6CD222CE4472282CEF496 /* CDVSplashScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EA00AF4C671431ABE5BF555 /* CDVSplashScreen.m */; };
-		A620DF0969EA49B48EB428DD /* OneSignalPush.m in Sources */ = {isa = PBXBuildFile; fileRef = CB52E26A62874CA1956DB322 /* OneSignalPush.m */; };
 		A8FD27046D5F4837BB925074 /* CDVFile.m in Sources */ = {isa = PBXBuildFile; fileRef = B7B8A639E0D14DEB83969E46 /* CDVFile.m */; };
-		AEF8F8AA91124985926A5BDC /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEC9592378FE4F61A9AA80D8 /* SystemConfiguration.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		B15FD973A3ED463B87DCDF34 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D2A9777D0E947068DBA79BA /* MessageUI.framework */; };
 		B591E829F04F4435AF9A9645 /* AppVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = A59675FB1D1B4597815C6F99 /* AppVersion.m */; };
 		BCBBBBA99F2A4E5486617E67 /* CDVWKWebViewEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = F97834BEAD5541E988A2E7F7 /* CDVWKWebViewEngine.m */; };
@@ -136,7 +134,6 @@
 		80F47E19077B4A9A847349BB /* CDVLocalFilesystem.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVLocalFilesystem.h; path = "cordova-plugin-file/CDVLocalFilesystem.h"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Ghinger Health-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Ghinger Health-Info.plist"; path = "Ghinger Health/Ghinger Health-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = SOURCE_ROOT; };
 		8DEF68F466D6461187BC95B3 /* IONAssetHandler.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = IONAssetHandler.h; path = "cordova-plugin-ionic-webview/IONAssetHandler.h"; sourceTree = "<group>"; };
-		9902733C0EB5437986BAB3AD /* OneSignalPush.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = OneSignalPush.h; path = "onesignal-cordova-plugin/OneSignalPush.h"; sourceTree = "<group>"; };
 		9EA00AF4C671431ABE5BF555 /* CDVSplashScreen.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CDVSplashScreen.m; path = "cordova-plugin-splashscreen/CDVSplashScreen.m"; sourceTree = "<group>"; };
 		A1A69BF7CE774D06BFF95B8C /* CoreTelephony.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		A263A75F28784D14BFDD1C86 /* CDVDevice.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVDevice.h; path = "cordova-plugin-device/CDVDevice.h"; sourceTree = "<group>"; };
@@ -156,7 +153,6 @@
 		C6745941E84E48D88C6C312E /* CDVFileTransfer.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVFileTransfer.h; path = "cordova-plugin-file-transfer/CDVFileTransfer.h"; sourceTree = "<group>"; };
 		C6E5F8198D6C492E8E3603CD /* APPBackgroundMode.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = APPBackgroundMode.h; path = "cordova-plugin-background-mode/APPBackgroundMode.h"; sourceTree = "<group>"; };
 		CB19E800042C4C76934220A4 /* CDVConnection.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVConnection.h; path = "cordova-plugin-network-information/CDVConnection.h"; sourceTree = "<group>"; };
-		CB52E26A62874CA1956DB322 /* OneSignalPush.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = OneSignalPush.m; path = "onesignal-cordova-plugin/OneSignalPush.m"; sourceTree = "<group>"; };
 		CD298E3B51D4CA562A8E8868 /* Pods-Ghinger Health.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ghinger Health.release.xcconfig"; path = "Target Support Files/Pods-Ghinger Health/Pods-Ghinger Health.release.xcconfig"; sourceTree = "<group>"; };
 		CFD10AB62D9841C682265FBB /* CDVConnection.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CDVConnection.m; path = "cordova-plugin-network-information/CDVConnection.m"; sourceTree = "<group>"; };
 		D0A5898D360D4FD48EC73B21 /* CDVAssetLibraryFilesystem.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVAssetLibraryFilesystem.h; path = "cordova-plugin-file/CDVAssetLibraryFilesystem.h"; sourceTree = "<group>"; };
@@ -171,7 +167,6 @@
 		EB87FDF41871DAF40020F90C /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = ../../config.xml; sourceTree = "<group>"; };
 		EC8B26D9876E4FBC9B0073F7 /* CDVCamera.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVCamera.h; path = "cordova-plugin-camera/CDVCamera.h"; sourceTree = "<group>"; };
 		ED33DF2A687741AEAF9F8254 /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
-		EEC9592378FE4F61A9AA80D8 /* SystemConfiguration.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		F010B61363C349BBAAF79E5A /* CoreLocation.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		F3C0254643C64042902DB221 /* AppVersion.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = AppVersion.h; path = "cordova-plugin-app-version/AppVersion.h"; sourceTree = "<group>"; };
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = "Ghinger Health/config.xml"; sourceTree = "<group>"; };
@@ -190,7 +185,6 @@
 				931A47737FAD47E0890D7E89 /* CoreLocation.framework in Frameworks */,
 				EFD052E70DD64DBBB1D78AB7 /* AVFoundation.framework in Frameworks */,
 				B15FD973A3ED463B87DCDF34 /* MessageUI.framework in Frameworks */,
-				AEF8F8AA91124985926A5BDC /* SystemConfiguration.framework in Frameworks */,
 				2ADB13A3BA6E48E1B581BEC4 /* CoreTelephony.framework in Frameworks */,
 				2F491403EC4703BC5553AA63 /* libPods-Ghinger Health.a in Frameworks */,
 				D5F6C8F45B2E4474ABF30EB1 /* WebKit.framework in Frameworks */,
@@ -279,7 +273,6 @@
 				F010B61363C349BBAAF79E5A /* CoreLocation.framework */,
 				566EEC8D78D848DAB387EC52 /* AVFoundation.framework */,
 				1D2A9777D0E947068DBA79BA /* MessageUI.framework */,
-				EEC9592378FE4F61A9AA80D8 /* SystemConfiguration.framework */,
 				A1A69BF7CE774D06BFF95B8C /* CoreTelephony.framework */,
 				EB2C089A410DE4B829F00E47 /* libPods-Ghinger Health.a */,
 				69ADBF75428D49B6AF20A97F /* WebKit.framework */,
@@ -362,8 +355,6 @@
 				B28823E9A73E4D11962AABDC /* CDVViewController+SplashScreen.h */,
 				493A18A860C44985B86AEB22 /* CDVStatusBar.m */,
 				B1CC53FC51D34B089DE986C2 /* CDVStatusBar.h */,
-				CB52E26A62874CA1956DB322 /* OneSignalPush.m */,
-				9902733C0EB5437986BAB3AD /* OneSignalPush.h */,
 				2ECF9689624B4E499F9D728D /* CDVFileTransfer.m */,
 				C6745941E84E48D88C6C312E /* CDVFileTransfer.h */,
 				F97834BEAD5541E988A2E7F7 /* CDVWKWebViewEngine.m */,
@@ -555,7 +546,6 @@
 				96D6CD222CE4472282CEF496 /* CDVSplashScreen.m in Sources */,
 				8033844F56434602B2575702 /* CDVViewController+SplashScreen.m in Sources */,
 				EF0AD5AC5F2D40B2A620F6DE /* CDVStatusBar.m in Sources */,
-				A620DF0969EA49B48EB428DD /* OneSignalPush.m in Sources */,
 				054153A83FC74284B0B5EC6D /* CDVFileTransfer.m in Sources */,
 				BCBBBBA99F2A4E5486617E67 /* CDVWKWebViewEngine.m in Sources */,
 				49CCAAA827844FB0AABCF19E /* CDVWKWebViewUIDelegate.m in Sources */,

@@ -1,241 +1,163 @@
-<!-- <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="keypad"></ion-icon>
-    </button>
-    <div class="pad">
-      <img src="assets/icon/new_ghinger_logo.png" class="logo_position" />
-    </div>
-  </ion-navbar>
-</ion-header> -->
-
-<!-- <ion-content class="background">
-  <br />
-  <div class="img-circular"></div>
-
-  <p class="down"></p>
-  <br />
-  <br />
-  <p class="down1">
-    <strong>{{welcome_msg}}</strong>
-    <br />
-  </p>
-
-  <form class="padd">
-    <div class="row" *ngIf="my_person_type == 'D'">
-      <div class="column">
-        <div class="card" tappable (tap)="appointments()">
-          <img src="assets/icon/clock_doc.png" class="img_size" />
-          <figcaption>
-            <b id="txtcolor"
-              >Appointments
-              <ion-badge color="danger1" item-end
-                >{{doc_all_total_count_appoint_counter}}</ion-badge
-              >
-            </b>
-          </figcaption>
-        </div>
-      </div>
-      <div class="column">
-        <div class="card" tappable (tap)="pds()">
-          <img src="assets/icon/doctor.png" class="img_size" />
-          <figcaption>
-            <b id="txtcolor">Personal Doctor Services</b>
-          </figcaption>
-        </div>
-      </div>
-      <div class="column">
-        <div class="card" tappable (tap)="invoice()">
-          <img src="assets/icon/bill.jpg" class="img_size" />
-          <figcaption>
-            <b id="txtcolor">Bills & Invoices</b>
-          </figcaption>
-        </div>
-      </div>
-      <div class="column">
-        <div class="card" tappable (tap)="referpatient()">
-          <img src="assets/icon/refer.png" class="img_size" />
-          <figcaption>
-            <b id="txtcolor">Refer a Patient to Ghinger</b>
-          </figcaption>
-        </div>
-      </div>
-    </div>
-
-    <div class="row" *ngIf="my_person_type == 'N'">
-      <div class="column">
-        <div class="card" tappable (tap)="appointments()">
-          <img src="assets/icon/clock_doc.png" class="img_size" />
-
-          <figcaption>
-            <b id="txtcolor"
-              >Appointments
-              <ion-badge color="danger1" item-end
-                >{{doc_all_total_count_appoint_counter}}</ion-badge
-              >
-            </b>
-          </figcaption>
-        </div>
-      </div>
-      <div class="column">
-        <div class="card" tappable (tap)="referpatient()">
-          <img src="assets/icon/refer.png" hclass="img_size" />
-          <figcaption>
-            <b id="txtcolor">Refer a Patient to Ghinger</b>
-          </figcaption>
-        </div>
-      </div>
-      <div class="column">
-        <div class="card" tappable (tap)="invoice()">
-          <img src="assets/icon/bill.png" class="img_size" />
-          <figcaption>
-            <b id="txtcolor">Bills & Invoices</b>
-          </figcaption>
-        </div>
-      </div>
-    </div>
-  </form>
-</ion-content> -->
-
-<!-- <ion-content class="background">
-  <ion-item no-lines class="center_new">
-    <h2>
-      <strong>{{welcome_msg}}</strong>
-      <br />
-    </h2>
-    <p class="center" text-wrap>
-      Check your incoming appointments and subscriptions
-    </p>
-  </ion-item>
-
-  <div class="direct_service_row" *ngIf="my_person_type == 'D'">
-    <div class="column3">
-      <div class="border" tappable (tap)="subscriptions()">
-        <img src="assets/icon/elderly.svg" class="img_size" />
-
-        <figcaption>
-          <b id="txtcolor">Subscriptions</b>
-        </figcaption>
-      </div>
-    </div>
-
-    <div class="column3">
-      <div class="border" tappable (tap)="appointments()">
-        <img src="assets/icon/annual.svg" class="img_size" />
-
-        <figcaption>
-          <b id="txtcolor">Appointments</b>
-          <ion-badge color="danger1" item-end
-            >{{doc_all_total_count_appoint_counter}}</ion-badge
-          >
-        </figcaption>
-      </div>
-    </div>
-
-    <div class="column3">
-      <div class="border" tappable (tap)="pds()">
-        <img src="assets/icon/doc_icon.png" class="img_size" />
-        <figcaption>
-          <b id="txtcolor">Personal Doctor Services</b>
-        </figcaption>
-      </div>
-    </div>
-
-    <div class="column3">
-      <div class="border" tappable (tap)="invoice()">
-        <img src="assets/icon/bill.svg" class="img_size" />
-        <figcaption>
-          <b style="color: white;">Bills & Invoices</b>
-        </figcaption>
-      </div>
-    </div>
-
-    <div class="column3">
-      <div class="border" tappable (tap)="referpatient()">
-        <img src="assets/icon/refer.svg" class="img_size" />
-        <figcaption>
-          <b style="color: white;">Refer a Patient to Ghinger</b>
-        </figcaption>
-      </div>
-    </div>
-  </div>
-
-  FOR NURSES -->
-<!-- 
-  <div class="direct_service_row" *ngIf="my_person_type == 'N'">
-    <div class="column3">
-      <div class="border" tappable (tap)="subscriptions()">
-        <img src="assets/icon/elderly.svg" class="img_size" />
-
-        <figcaption>
-          <b id="txtcolor">Subscriptions</b>
-        </figcaption>
-      </div>
-    </div>
-
-    <div class="column3">
-      <div class="border" tappable (tap)="appointments()">
-        <img src="assets/icon/annual.svg" class="img_size" />
-
-        <figcaption>
-          <b id="txtcolor">Appointments</b>
-          <ion-badge color="danger1" item-end
-            >{{doc_all_total_count_appoint_counter}}</ion-badge
-          >
-        </figcaption>
-      </div>
-    </div>
-
-    <div class="column3">
-      <div class="border" tappable (tap)="invoice()">
-        <img src="assets/icon/bill.svg" class="img_size" />
-        <figcaption>
-          <b style="color: white;">Bills & Invoices</b>
-        </figcaption>
-      </div>
-    </div>
-
-    <div class="column3">
-      <div class="border" tappable (tap)="referpatient()">
-        <img src="assets/icon/refer.svg" class="img_size" />
-        <figcaption>
-          <b style="color: white;">Refer a Patient to Ghinger</b>
-        </figcaption>
-      </div>
-    </div>
-  </div>
-</ion-content> -->
-
-<ion-header class="header_background">
-  <ion-row id="move_row">
-    <ion-col col-4>
-      <button ion-button menuToggle>
-        <ion-icon name="keypad"></ion-icon>
-      </button>
-    </ion-col>
-    <ion-col col-4>
-      <img src="assets/icon/new_ghinger_logo.png" class="logo_position" />
-    </ion-col>
-  </ion-row>
-</ion-header>
-
 <ion-content>
-  <!-- <ion-card> -->
+  <div class="aliText">
+    <ion-item no-lines>
+      <h4 class="greetText" text-wrap>{{greetings}}, {{other_names}}</h4>
+      <p text-wrap>We might have some appointments waiting for you</p>
+    </ion-item>
+  </div>
+
+  <div class="slide_card">
+    <ion-slides autoplay="5000" speed="500" autoplayDisableOnInteraction="true">
+      <ion-slide>
+        <div class="home_card_row">
+          <div class="home_card_row_col2">
+            <ion-row>
+              <ion-col col-8>
+                <div class="align-col">
+                  <h2 class="fboldness">
+                    All your incoming Appointments at one place
+                  </h2>
+                  <p style="color: white">
+                    View and write your medical reports .
+                  </p>
+
+                  <!-- <button
+                    ion-button
+                    color="primary"
+                    icon-end
+                    (tap)="subscription('Chronic')"
+                  >
+                    Subscribe now
+                  </button> -->
+                </div>
+              </ion-col>
+              <ion-col col-4>
+                <div>
+                  <img src="/assets/imgs/doc1.png" class="side-image" />
+                </div>
+              </ion-col>
+            </ion-row>
+          </div>
+        </div>
+      </ion-slide>
+    </ion-slides>
+  </div>
+
   <div class="content-padd">
-    <h3 class="header_text1" text-wrap>--- {{welcome_msg}} ---</h3>
+    <div class="aliText">
+      <ion-item no-lines>
+        <!-- <h4 class="greetText" text-wrap>{{greetings}}, {{other_names}}</h4> -->
+        <p text-wrap>Check your incoming appointments and subscriptions</p>
+      </ion-item>
+    </div>
 
-    <p class="center" text-wrap>
-      Check your incoming appointments and subscriptions
-    </p>
+    <div class="direct_service_row">
+      <div class="column2" tappable (tap)="appointments()">
+        <ion-row>
+          <ion-col col-4 id="icon_col">
+            <img src="assets/icon/annual.svg" class="round_image" />
+          </ion-col>
 
-    <div class="direct_service_row" *ngIf="my_person_type == 'D'">
-      <div class="column3" tappable (tap)="subscriptions()">
+          <ion-col col-8 id="text_col">
+            <div class="button_text">
+              <b id="txtcolor">Appointments</b>
+            </div>
+          </ion-col>
+        </ion-row>
+      </div>
+      <!-- <div class="column1" tappable (tap)="subscriptions()">
         <ion-row>
           <ion-col col-4 id="icon_col">
             <img src="assets/icon/elderly.svg" class="round_image" />
           </ion-col>
 
           <ion-col col-8 id="text_col">
+            <div class="button_text">
+              <b id="txtcolor">Subscriptions</b>
+            </div>
+          </ion-col>
+        </ion-row>
+      </div> -->
+
+      <div class="column1" tappable (tap)="medRecord()">
+        <ion-row>
+          <ion-col col-4 id="icon_col">
+            <img src="assets/icon/refer.svg" class="round_image" />
+          </ion-col>
+
+          <ion-col col-8 id="text_col">
+            <div class="button_text">
+              <b id="txtcolor">Patient Medical Records</b>
+            </div>
+          </ion-col>
+        </ion-row>
+      </div>
+
+      <div class="column3" tappable (tap)="invoice()">
+        <ion-row>
+          <ion-col col-4 id="icon_col">
+            <img src="assets/icon/bill.svg" class="round_image" />
+          </ion-col>
+
+          <ion-col col-8 id="text_col">
+            <div class="button_text">
+              <b id="txtcolor">Bills & Invoices</b>
+            </div>
+          </ion-col>
+        </ion-row>
+      </div>
+
+      <!-- <div class="column5" tappable (tap)="invoice()">
+        <ion-row>
+          <ion-col col-4 id="icon_col">
+            <img src="assets/icon/bill.svg" class="round_image" />
+          </ion-col>
+
+          <ion-col col-8 id="text_col">
+            <div class="button_text">
+              <b id="txtcolor">Bills & Invoices</b>
+            </div>
+          </ion-col>
+        </ion-row>
+      </div> -->
+
+      <!-- <div class="column44" tappable (tap)="invoice()">
+        <ion-row>
+          <ion-col col-4 id="icon_col">
+            <img src="assets/icon/bill.svg" class="round_image" />
+          </ion-col>
+
+          <ion-col col-8 id="text_col">
+            <div class="button_text">
+              <b id="txtcolor">Bills & Invoices</b>
+            </div>
+          </ion-col>
+        </ion-row>
+      </div> -->
+
+      <!-- <div class="column44" tappable (tap)="referpatient()">
+        <ion-row>
+          <ion-col col-4 id="icon_col">
+            <img src="assets/icon/refer.svg" class="round_image" />
+          </ion-col>
+
+          <ion-col col-8 id="text_col">
+            <div class="button_text">
+              <b id="txtcolor">Refer a Patient to Ghinger</b>
+            </div>
+          </ion-col>
+        </ion-row>
+      </div> -->
+    </div>
+
+    <!-- <div class="direct_service_row">
+      <div class="column3" tappable (tap)="subscriptions()">
+        <ion-row>
+          <ion-col col-3 id="icon_col">
+            <img src="assets/icon/elderly.svg" class="round_image" />
+          </ion-col>
+
+          <ion-col col-9 id="text_col">
             <div class="button_text">
               <b id="txtcolor">Subscriptions</b>
             </div>
@@ -255,20 +177,6 @@
               <ion-badge color="danger1" item-end
                 >{{doc_all_total_count_appoint_counter}}</ion-badge
               >
-            </div>
-          </ion-col>
-        </ion-row>
-      </div>
-
-      <div class="column3" tappable (tap)="pds()">
-        <ion-row>
-          <ion-col col-4 id="icon_col">
-            <img src="assets/icon/doc_icon.png" class="round_image" />
-          </ion-col>
-
-          <ion-col col-8 id="text_col">
-            <div class="button_text">
-              <b id="txtcolor">Personal Doctor Services</b>
             </div>
           </ion-col>
         </ion-row>
@@ -301,68 +209,7 @@
           </ion-col>
         </ion-row>
       </div>
-    </div>
-
-    <div class="direct_service_row" *ngIf="my_person_type == 'N'">
-      <div class="column3" tappable (tap)="subscriptions()">
-        <ion-row>
-          <ion-col col-4 id="icon_col">
-            <img src="assets/icon/elderly.svg" class="round_image" />
-          </ion-col>
-
-          <ion-col col-8 id="text_col">
-            <div class="button_text">
-              <b id="txtcolor">Subscriptions</b>
-            </div>
-          </ion-col>
-        </ion-row>
-      </div>
-
-      <div class="column3" tappable (tap)="appointments()">
-        <ion-row>
-          <ion-col col-4 id="icon_col">
-            <img src="assets/icon/annual.svg" class="round_image" />
-          </ion-col>
-
-          <ion-col col-8 id="text_col">
-            <div class="button_text">
-              <b id="txtcolor">Appointments</b>
-              <ion-badge color="danger1" item-end
-                >{{doc_all_total_count_appoint_counter}}</ion-badge
-              >
-            </div>
-          </ion-col>
-        </ion-row>
-      </div>
-
-      <div class="column3" tappable (tap)="invoice()">
-        <ion-row>
-          <ion-col col-4 id="icon_col">
-            <img src="assets/icon/bill.svg" class="round_image" />
-          </ion-col>
-
-          <ion-col col-8 id="text_col">
-            <div class="button_text">
-              <b id="txtcolor">Bills & Invoices</b>
-            </div>
-          </ion-col>
-        </ion-row>
-      </div>
-
-      <div class="column3" tappable (tap)="referpatient()">
-        <ion-row>
-          <ion-col col-4 id="icon_col">
-            <img src="assets/icon/refer.svg" class="round_image" />
-          </ion-col>
-
-          <ion-col col-8 id="text_col">
-            <div class="button_text">
-              <b id="txtcolor">Refer a Patient to Ghinger</b>
-            </div>
-          </ion-col>
-        </ion-row>
-      </div>
-    </div>
+    </div> -->
   </div>
   <!-- </ion-card> -->
 </ion-content>

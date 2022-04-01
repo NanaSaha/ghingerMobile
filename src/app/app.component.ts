@@ -15,6 +15,7 @@ import { ReferalsPage } from "../pages/referals/referals";
 import { MenuPage } from "../pages/menu/menu";
 import { DoctorHomePage } from "../pages/doctorhome/doctorhome";
 import { WelcomePage } from "../pages/welcome/welcome";
+
 import { ContactPage } from "../pages/contact/contact";
 import { Badge } from "@ionic-native/badge";
 import { Storage } from "@ionic/storage";
@@ -36,7 +37,7 @@ import { SubscriptionHistoryPage } from "../pages/subscription-history/subscript
 
 import { SubscriptionHistoryDocPage } from "../pages/subscription-history-doc/subscription-history-doc";
 import { FeedbackPage } from "../pages/feedback/feedback";
-import { OneSignal } from "@ionic-native/onesignal";
+// import { OneSignal } from "@ionic-native/onesignal";
 
 @Component({
   templateUrl: "app.html",
@@ -51,6 +52,7 @@ export class MyApp {
   current_version_id: any;
   app_platform: string;
   my_person_type: string;
+  bearer_token;
 
   rootPage: any;
   signal_app_id: string = "8c272963-d90e-415d-91eb-af6471836603";
@@ -79,7 +81,6 @@ export class MyApp {
   }>;
 
   constructor(
-    public oneSignal: OneSignal,
     public event: Events,
     public menu: MenuController,
     public platform: Platform,
@@ -103,15 +104,23 @@ export class MyApp {
 
     this.event.subscribe("user_details", (data) => {
       this.user_details = data;
-      console.log("CUSTOMER DETAILS HERE" + this.user_details);
-      console.log(data);
-      console.log(JSON.stringify(data));
-      this.other_names = this.user_details[0].other_names;
-      this.surname = this.user_details[0].surname;
-      this.user_type = this.user_details[0].user_type;
+      if (this.user_details == "null") {
+        console.log("CUSTOMER DETAILS NOT HERE" + this.user_details);
+      } else {
+        console.log("CUSTOMER DETAILS HERE" + this.user_details);
+        console.log(data);
+        console.log(JSON.stringify(data));
+        var all_details = JSON.parse(this.user_details);
 
-      console.log("FIRST NAME " + this.other_names);
-      console.log("USER TYPE " + this.user_type);
+        this.other_names = all_details["data"]["user_infos"][0].first_name;
+        this.surname = all_details["data"]["user_infos"][0].surname;
+        this.user_type = all_details["data"]["role"]["id"];
+
+        console.log("FIRST NAME " + this.other_names);
+        console.log("USER TYPE " + this.user_type);
+
+        this.storage.set("user_details", this.user_details);
+      }
     });
 
     console.log("Readdddyyyyyyy-------READY!!!!!!!!!!!!!!!!!");
@@ -121,25 +130,39 @@ export class MyApp {
       console.log("Person type " + this.my_person_type);
     });
 
-    this.storage.get("remember").then((remember) => {
-      console.log("remember = " + remember);
-      if (remember == true) {
-        this.storage.get("user_login_type").then((user_login_type) => {
-          console.log(`user_login_type = ${user_login_type}`);
-          if (user_login_type == "Doctor") {
-            this.rootPage = DoctorHomePage;
-          }
-          if (user_login_type == "Nurse") {
-            this.rootPage = DoctorHomePage;
-          } else if (user_login_type == "Patient") {
-            this.rootPage = WelcomePage;
-          } else {
-            this.rootPage = WelcomePage;
-            //this.rootPage = MenuPage; //CHANGE TO WELCOMEPAGE
-          }
-        });
+    this.storage.get("token").then((token) => {
+      this.bearer_token = token;
+      console.log("TOKEN IN DATA PROVIDER CONSTRUCT " + this.bearer_token);
+    });
+
+    // this.storage.get("remember").then((remember) => {
+    //   console.log("remember = " + remember);
+    //   if (remember == true) {
+    //     this.storage.get("user_login_type").then((user_login_type) => {
+    //       console.log(`user_login_type = ${user_login_type}`);
+    //       if (user_login_type == "Doctor") {
+    //         this.rootPage = DoctorHomePage;
+    //       }
+    //       if (user_login_type == "Nurse") {
+    //         this.rootPage = DoctorHomePage;
+    //       } else if (user_login_type == "Patient") {
+    //         this.rootPage = WelcomePage;
+    //       } else {
+    //         this.rootPage = WelcomePage;
+    //       }
+    //     });
+    //   } else {
+    //     this.rootPage = WelcomePage;
+    //   }
+    // });
+
+    this.storage.get("sliderShown").then((shown) => {
+      console.log("SLIDER SHOWN ? = " + shown);
+      if (shown == true) {
+        this.rootPage = LoginPage;
       } else {
         this.rootPage = WelcomePage;
+        this.storage.set("sliderShown", true);
       }
     });
 
@@ -254,7 +277,7 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
-      this.setupPush();
+      // this.setupPush();
 
       // var notificationOpenedCallback = function (jsonData) {
       //   console.log("notificationOpenedCallback: " + JSON.stringify(jsonData));
@@ -314,33 +337,33 @@ export class MyApp {
     });
   }
 
-  setupPush() {
-    this.oneSignal.startInit(this.signal_app_id, this.firebase_sender_id);
+  // setupPush() {
+  //   this.oneSignal.startInit(this.signal_app_id, this.firebase_sender_id);
 
-    this.oneSignal.inFocusDisplaying(
-      this.oneSignal.OSInFocusDisplayOption.InAppAlert
-    );
+  //   this.oneSignal.inFocusDisplaying(
+  //     this.oneSignal.OSInFocusDisplayOption.InAppAlert
+  //   );
 
-    this.oneSignal.handleNotificationReceived().subscribe((res) => {
-      let msg = res.payload.body;
-      let title = res.payload.title;
-      let additionalData = res.payload.additionalData;
-      this.showalertmessage_default(title, msg);
+  //   this.oneSignal.handleNotificationReceived().subscribe((res) => {
+  //     let msg = res.payload.body;
+  //     let title = res.payload.title;
+  //     let additionalData = res.payload.additionalData;
+  //     this.showalertmessage_default(title, msg);
 
-      console.log(res);
-    });
+  //     console.log(res);
+  //   });
 
-    this.oneSignal.handleNotificationOpened().subscribe((res) => {
-      let additionalData = res.notification.payload.additionalData;
-      this.showalertmessage_default(
-        "Notification Opened",
-        "You already read this before"
-      );
-      console.log(res);
-    });
+  //   this.oneSignal.handleNotificationOpened().subscribe((res) => {
+  //     let additionalData = res.notification.payload.additionalData;
+  //     this.showalertmessage_default(
+  //       "Notification Opened",
+  //       "You already read this before"
+  //     );
+  //     console.log(res);
+  //   });
 
-    this.oneSignal.endInit();
-  }
+  //   this.oneSignal.endInit();
+  // }
 
   ionViewDidEnter() {
     //  this.menu.enable(true);
@@ -517,7 +540,7 @@ export class MyApp {
             setTimeout(() => {
               console.log("logging out in 1 second");
               this.storage.clear();
-              this.storage.set("remember", false);
+              this.storage.set("sliderShown", false);
               this.nav.setRoot(LoginPage);
             }, 1000);
 

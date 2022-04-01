@@ -9,13 +9,13 @@ import {
   AlertController,
 } from "ionic-angular";
 import { SubscriptionSummaryPage } from "../subscription-summary/subscription-summary";
+import { Storage } from "@ionic/storage";
 
 @Component({
-  selector: 'page-subscription-foreign',
-  templateUrl: 'subscription-foreign.html',
+  selector: "page-subscription-foreign",
+  templateUrl: "subscription-foreign.html",
 })
 export class SubscriptionForeignPage {
-
   from_login: any = [];
   from_login2: any = [];
   from_login3: any = [];
@@ -33,6 +33,7 @@ export class SubscriptionForeignPage {
   user_phone;
   messageList;
   api_code;
+  token;
 
   constructor(
     public alertCtrl: AlertController,
@@ -40,7 +41,8 @@ export class SubscriptionForeignPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public loadingCtrl: LoadingController,
-    public toastCtrl: ToastController
+    public toastCtrl: ToastController,
+    public storage: Storage
   ) {
     console.log("We are in SUbscription page");
     this.from_login = this.navParams.get("value");
@@ -56,6 +58,11 @@ export class SubscriptionForeignPage {
     this.user_first_name = this.from_login[0].other_names;
     this.user_phone = this.from_login[0].mobile_number;
     console.log("user_id " + this.user_id);
+
+    this.storage.get("token").then((token) => {
+      this.token = token;
+      console.log("TOKEN IN MENu " + this.token);
+    });
     // sub_name
 
     //CHECK IF USER SUBSCRIPTION EXIST
@@ -76,7 +83,7 @@ export class SubscriptionForeignPage {
     console.log(this.params);
     this.jsonBody = JSON.parse(this.newparams);
 
-    this.data.subscription_history(this.jsonBody).then(
+    this.data.subscription_history().then(
       (result) => {
         console.log(result);
 
@@ -97,18 +104,16 @@ export class SubscriptionForeignPage {
         // this.sub_user_id = this.list[0].user_id;
 
         // console.log("SUBSCRIPTION USER ID TYPE" + this.sub_user_id);
-        
+
         if (this.list.length == 0) {
-          console.log("SUBSCRIPTION IS EMPTY")
-          this.sub_user_id = ""
-        }
-        else {
+          console.log("SUBSCRIPTION IS EMPTY");
+          this.sub_user_id = "";
+        } else {
           this.sub_user_id = this.list[0].user_id;
 
-        console.log("SUBSCRIPTION USER ID TYPE" + this.sub_user_id);
+          console.log("SUBSCRIPTION USER ID TYPE" + this.sub_user_id);
         }
 
-        
         loader.dismiss();
       },
       (err) => {
@@ -188,7 +193,7 @@ export class SubscriptionForeignPage {
 
             loader.present();
 
-            this.data.book_subscription(this.params).then(
+            this.data.book_subscription(this.params, this.token).then(
               (result) => {
                 console.log("THIS IS THE RESULT" + result);
                 var jsonBody = result["_body"];

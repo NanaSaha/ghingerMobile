@@ -1,19 +1,29 @@
-import { Component, ViewChild } from '@angular/core';
-import { MenuController, NavController, NavParams, ViewController, App } from 'ionic-angular';
-import { ToastController, LoadingController, AlertController, ModalController } from 'ionic-angular';
-import { DataProvider } from '../../providers/data/data';
-import { Http } from '@angular/http';
+import { Component, ViewChild } from "@angular/core";
+import {
+  MenuController,
+  NavController,
+  NavParams,
+  ViewController,
+  App,
+} from "ionic-angular";
+import {
+  ToastController,
+  LoadingController,
+  AlertController,
+  ModalController,
+} from "ionic-angular";
+import { DataProvider } from "../../providers/data/data";
+import { Http } from "@angular/http";
 // import { Keyboard } from '@ionic-native/keyboard';
-import 'rxjs/add/operator/map';
-import { MenuPage } from '../menu/menu';
-
+import "rxjs/add/operator/map";
+import { MenuPage } from "../menu/menu";
+import { Storage } from "@ionic/storage";
 
 @Component({
-  selector: 'page-video-consult',
-  templateUrl: 'video-consult.html',
+  selector: "page-video-consult",
+  templateUrl: "video-consult.html",
 })
 export class VideoConsultPage {
-
   messageList: any;
   api_code: any;
   location: any;
@@ -35,175 +45,175 @@ export class VideoConsultPage {
   appointmentType: any;
   minSelectabledate: any;
   date: any;
+  token;
 
-  constructor(public app: App, public menu: MenuController, public toastCtrl: ToastController, public navCtrl: NavController, public navParams: NavParams, public data: DataProvider, public loadingCtrl: LoadingController, public alertCtrl: AlertController, public modalCtrl: ModalController, public viewCtrl: ViewController) {
-
-    this.from_login = this.navParams.get('value')
-    this.from_login_doc = this.navParams.get('doc_value')
-    this.from_login_pers = this.navParams.get('pers_value')
-    this.appointmentType = this.navParams.get('appointmentType')
+  constructor(
+    public app: App,
+    public menu: MenuController,
+    public toastCtrl: ToastController,
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public data: DataProvider,
+    public loadingCtrl: LoadingController,
+    public alertCtrl: AlertController,
+    public modalCtrl: ModalController,
+    public viewCtrl: ViewController,
+    public storage: Storage
+  ) {
+    this.from_login = this.navParams.get("value");
+    this.from_login_doc = this.navParams.get("doc_value");
+    this.from_login_pers = this.navParams.get("pers_value");
+    this.appointmentType = this.navParams.get("appointmentType");
 
     this.date = new Date();
     this.minSelectabledate = this.formatDate(this.date);
 
+    this.storage.get("token").then((token) => {
+      this.token = token;
+      console.log("TOKEN IN MENu " + this.token);
+    });
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad PhoneConsultPage');
+    console.log("ionViewDidLoad PhoneConsultPage");
   }
 
-
   closeModal() {
-
-
     this.viewCtrl.dismiss();
   }
 
-
-
   submit() {
-
-    this.from_login = this.navParams.get('value')
-    console.log('VALUE IN TABS CONSTRUCTOR IS' + this.from_login);
-    this.body = Array.of(this.from_login)
+    this.from_login = this.navParams.get("value");
+    console.log("VALUE IN TABS CONSTRUCTOR IS" + this.from_login);
+    this.body = Array.of(this.from_login);
     this.jsonBody = JSON.parse(this.body);
-    this.requester_id = this.jsonBody[0].id
-    this.check = this.jsonBody[0]
+    this.requester_id = this.jsonBody[0].id;
+    this.check = this.jsonBody[0];
 
-    console.log("THIS IS THE REquester ID " + this.requester_id)
-    console.log("THIS IS THE APP DATE " + this.app_date)
-    console.log("THIS IS THE APP TIME " + this.app_time)
+    console.log("THIS IS THE REquester ID " + this.requester_id);
+    console.log("THIS IS THE APP DATE " + this.app_date);
+    console.log("THIS IS THE APP TIME " + this.app_time);
 
     this.params2 = {
+      appointment_type_id: this.appointmentType,
+      requester_id: this.requester_id,
+      proposed_date: this.app_date + " " + this.app_time,
+    };
 
-      "appointment_type_id": this.appointmentType,
-      "requester_id": this.requester_id,
-      "proposed_date": this.app_date + " " + this.app_time,
-    }
+    console.log("LETS SEE ALL THE PARAMS " + JSON.stringify(this.params2));
 
-    console.log("LETS SEE ALL THE PARAMS " + JSON.stringify(this.params2))
-
-    console.log("LETS SEE ALL THE PARAMS " + JSON.stringify(this.params2))
-
+    console.log("LETS SEE ALL THE PARAMS " + JSON.stringify(this.params2));
 
     let loader = this.loadingCtrl.create({
-      content: "Please wait ..."
-
+      content: "Please wait ...",
     });
 
     loader.present();
 
-    this.data.phone_consult(this.params2).then((result) => {
+    this.data.phone_consult(this.params2, this.token).then(
+      (result) => {
+        console.log("THIS IS THE RESULT" + result);
+        var jsonBody = result["_body"];
+        console.log(jsonBody);
 
-      console.log("THIS IS THE RESULT" + result);
-      var jsonBody = result["_body"];
-      console.log(jsonBody);
+        jsonBody = JSON.parse(jsonBody);
+        console.log(jsonBody);
 
-      jsonBody = JSON.parse(jsonBody);
-      console.log(jsonBody)
+        var desc = jsonBody["resp_desc"];
+        var code = jsonBody["resp_code"];
 
+        console.log(desc);
+        console.log(code);
 
-      var desc = jsonBody["resp_desc"];
-      var code = jsonBody["resp_code"];
+        this.messageList = desc;
+        this.api_code = code;
 
+        loader.dismiss();
 
-      console.log(desc);
-      console.log(code);
+        //     if (this.api_code == "000") {
+        //   let alert = this.alertCtrl.create({
+        //     title: "",
+        //     subTitle: this.messageList,
+        //     buttons: ['OK']
+        //   });
+        //   alert.present();
+        // }
+        //  this.viewCtrl.dismiss();
+        // this.navCtrl.setRoot(MenuPage, { 'value': this.from_login });
 
-      this.messageList = desc;
-      this.api_code = code;
+        if (this.api_code == "000") {
+          let alert = this.alertCtrl.create({
+            title: "",
+            subTitle:
+              "Video Consult Appointment made Successfully. You would be contacted shortly. Thank you!",
+            buttons: ["OK"],
+          });
 
-      loader.dismiss();
+          // this.viewCtrl.dismiss();
+          // this.app.getActiveNav().popToRoot()
 
-      //     if (this.api_code == "000") {
-      //   let alert = this.alertCtrl.create({
-      //     title: "",
-      //     subTitle: this.messageList,
-      //     buttons: ['OK']
-      //   });
-      //   alert.present();
-      // }
-      //  this.viewCtrl.dismiss();
-      // this.navCtrl.setRoot(MenuPage, { 'value': this.from_login });
+          // this.navCtrl.popToRoot()
+          // this.navCtrl.pop()
+          this.navCtrl.setRoot(MenuPage, {
+            value: this.from_login,
+            doc_value: this.from_login_doc,
+            pers_value: this.from_login_pers,
+          });
+          alert.present();
+        }
 
+        if (this.api_code == "555") {
+          let alert = this.alertCtrl.create({
+            title: "",
+            subTitle: this.messageList,
+            buttons: ["OK"],
+          });
 
+          alert.present();
+        }
+      },
+      (err) => {
+        loader.dismiss();
+        this.toastCtrl
+          .create({
+            message: "Could not process this request successfully.",
+            duration: 5000,
+          })
+          .present();
 
-      if (this.api_code == "000") {
-        let alert = this.alertCtrl.create({
-          title: '',
-          subTitle: "Video Consult Appointment made Successfully. You would be contacted shortly. Thank you!",
-          buttons: ['OK']
-        });
-
-
-        // this.viewCtrl.dismiss();
-        // this.app.getActiveNav().popToRoot()
-
-        // this.navCtrl.popToRoot()
-        // this.navCtrl.pop()
-        this.navCtrl.setRoot(MenuPage, { value: this.from_login, doc_value: this.from_login_doc, pers_value: this.from_login_pers });
-        alert.present();
-
-
-
+        console.log(err);
       }
-
-
-      if (this.api_code == "555") {
-        let alert = this.alertCtrl.create({
-          title: '',
-          subTitle: this.messageList,
-          buttons: ['OK']
-        });
-
-
-        alert.present();
-      }
-
-
-    }, (err) => {
-      loader.dismiss();
-      this.toastCtrl.create({
-        message: "Could not process this request successfully.",
-        duration: 5000
-      }).present();
-
-      console.log(err);
-    });
-
+    );
   }
-
 
   formatDate(date) {
     var d = new Date(date),
-      month = '' + (d.getMonth() + 1),
-      day = '' + (d.getDate()),
+      month = "" + (d.getMonth() + 1),
+      day = "" + d.getDate(),
       year = d.getFullYear();
 
     // console.log("year" + year + "and day = " + day);
-    if (month.length < 2) month = '0' + month;
-    if (day.length < 2) day = '0' + day;
+    if (month.length < 2) month = "0" + month;
+    if (day.length < 2) day = "0" + day;
 
     console.log("year" + year + "and day = " + day);
 
-    return [year, month, day].join('-');
+    return [year, month, day].join("-");
   }
 
   formatDatemax(date) {
     var d = new Date(date),
-      month = '' + (d.getMonth() + 1),
-      day = '' + (d.getDate() - 14),
+      month = "" + (d.getMonth() + 1),
+      day = "" + (d.getDate() - 14),
       year = d.getFullYear();
 
     console.log("year" + year + "and day = " + day);
 
-
-    if (month.length < 2) month = '0' + month;
-    if (day.length < 2) day = '0' + day;
+    if (month.length < 2) month = "0" + month;
+    if (day.length < 2) day = "0" + day;
 
     console.log("year" + year + "and day = " + day);
 
-    return [year, month, day].join('-');
+    return [year, month, day].join("-");
   }
-
 }

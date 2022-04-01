@@ -65,6 +65,7 @@ export class AddRegisPage {
   suburbs: any;
   surb;
   cities: any;
+  token;
 
   constructor(
     public toastCtrl: ToastController,
@@ -81,6 +82,11 @@ export class AddRegisPage {
   ) {
     this.from_login = this.navParams.get("value");
     this.from_regis_id = this.navParams.get("doc_value");
+
+    this.storage.get("token").then((token) => {
+      this.token = token;
+      console.log("TOKEN IN MENu " + this.token);
+    });
 
     this.body = Array.of(this.from_regis_id);
     this.jsonBody = JSON.parse(this.body);
@@ -114,7 +120,7 @@ export class AddRegisPage {
       console.log("city_id = " + JSON.stringify(city_id.id));
 
       setTimeout(() => {
-        this.data.get_suburbs_by_city(city_id.id).then(
+        this.data.get_suburbs_by_city(city_id.id, this.token).then(
           (result) => {
             console.log(result);
             var jsonBody = result["_body"];
@@ -206,7 +212,7 @@ export class AddRegisPage {
 
         loader.present();
 
-        this.data.update_registration(this.params2).then(
+        this.data.update_registration(this.params2, this.token).then(
           (result) => {
             console.log(result);
             var jsonBody = result["_body"];

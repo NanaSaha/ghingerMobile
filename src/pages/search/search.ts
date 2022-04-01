@@ -47,6 +47,7 @@ export class SearchPage {
   cities: any;
   suburbs: any;
   surb;
+  token;
 
   constructor(
     public navCtrl: NavController,
@@ -62,9 +63,10 @@ export class SearchPage {
     public toastCtrl: ToastController
   ) {
     this.from_login = this.navParams.get("value");
+    this.token = this.navParams.get("token");
+    var results_body = JSON.parse(this.from_login);
+    var user_id = results_body["data"]["user_infos"][0].user_id;
 
-    this.from_login2 = this.navParams.get("pers_value");
-    this.from_login3 = this.navParams.get("doc_value");
     console.log("VALUE IN TABS CONSTRUCTOR IS" + this.from_login);
 
     this.searchForm = this._form.group({
@@ -72,14 +74,14 @@ export class SearchPage {
       suburb_id: ["", Validators.compose([Validators.required])],
     });
 
-    this.data.get_cities_by_region().then(
+    this.data.get_cities_by_region(this.token).then(
       (result) => {
         console.log(result);
-        var jsonBody = result["_body"];
-        jsonBody = JSON.parse(jsonBody);
-        this.cities = jsonBody;
+        var jsonBody = result;
+        // jsonBody = JSON.parse(jsonBody);
+        this.cities = jsonBody["data"];
 
-        console.log("Jsson body " + JSON.stringify(jsonBody));
+        console.log("Jsson body " + JSON.stringify(this.cities));
       },
       (err) => {
         console.log("error = " + JSON.stringify(err));
@@ -90,7 +92,7 @@ export class SearchPage {
   surburbChange(event: { component: IonicSelectableComponent; value: any }) {
     this.surb = event.value;
     console.log("Surburb Id:", this.surb.id);
-    console.log("Surburb Name:", this.surb.suburb_name);
+    console.log("Surburb Name:", this.surb.name);
   }
 
   go() {
@@ -100,99 +102,84 @@ export class SearchPage {
 
     loader.present();
 
-    let data = this.surb.suburb_name;
-
-    console.log("LOCATION ENTERED " + data);
+    let data = this.surb.id;
 
     if (data == undefined) {
       let alert = this.alertCtrl.create({
         title: "",
         subTitle:
-          "Please enter your location.Your location should be on ghinger.",
+          "Please enter your location.Your location should be on Ghinger.",
         buttons: ["OK"],
       });
       alert.present();
       loader.dismiss();
     } else {
-      this.params = {
-        location: data,
-      };
-      console.log("PARAMETERS" + this.params);
-
-      this.data.hospitals(this.params).then(
+      this.data.hospitals(this.surb.id).then(
         (result) => {
           console.log("RESULTS IS " + result);
-          console.log("RESULTS IS" + this.data.hospitals(this.params));
-          var body = result["_body"];
-          body = JSON.parse(body);
-          this.check = body;
-          console.log("RESULTS IS " + this.check);
-          this.string = JSON.stringify(this.check);
-          console.log("LETS SEE THE STRING " + this.string);
+          var string_results = JSON.stringify(result);
+          console.log("SUBSCRIPTION HISTORY RESULTS " + string_results);
 
-          this.jsonBody = JSON.parse(this.string);
+          let hospital_data = result["data"];
+          console.log("HOSPITAL DATA " + hospital_data);
 
-          if (this.jsonBody[0]) {
-            if (this.jsonBody[0].suburb_id) {
-              this.sub_id = this.jsonBody[0].suburb_id;
-              console.log("LETS SEE THE Surburb " + this.sub_id);
-              if (this.sub_id) {
-                this.storage.set("suburb_id", this.sub_id);
-              }
-            }
-          }
+          // this.jsonBody = JSON.parse(this.string);
 
-          var desc = body["resp_desc"];
-          var code = body["resp_code"];
+          // if (this.jsonBody[0]) {
+          //   if (this.jsonBody[0].suburb_id) {
+          //     this.sub_id = this.jsonBody[0].suburb_id;
+          //     console.log("LETS SEE THE Surburb " + this.sub_id);
+          //     if (this.sub_id) {
+          //       this.storage.set("suburb_id", this.sub_id);
+          //     }
+          //   }
+          // }
 
-          console.log(desc);
-          console.log(code);
+          // if (code == "119") {
+          //   loader.dismiss();
+          //   this.showalertmessage("Ghinger", desc);
+          // } else {
+          //   console.log("VALUES FROM LOCATION SEARCH" + data);
+          //   console.log(data);
+          //   console.log("VALUES FROM LOCATION IN ID " + this.sub_id);
 
-          this.messageList = desc;
-          this.api_code = code;
+          loader.dismiss();
 
-          if (code == "119") {
-            loader.dismiss();
-            this.showalertmessage("Ghinger", desc);
-          } else {
-            console.log("VALUES FROM LOCATION SEARCH" + data);
-            console.log(data);
-            console.log("VALUES FROM LOCATION IN ID " + this.sub_id);
-
-            loader.dismiss();
-
-            this.navCtrl.push(HospitalListPage, {
-              value: data,
-              another: this.from_login,
-              sub_id: this.sub_id,
-              doc_value: this.from_login3,
-              pers_value: this.from_login2,
-            });
-          }
+          this.navCtrl.push(HospitalListPage, {
+            value: hospital_data,
+            another: this.from_login,
+            sub_id: this.surb.id,
+            sub_name: this.surb.name,
+            token: this.token,
+          });
         },
         (err) => {
           console.log(err);
+          this.showalertmessage(
+            "Ooops",
+            "Something went wrong. Please try again"
+          );
         }
       );
     }
   }
 
   get_suburbs(city_id) {
+    console.log("CITYYY ID " + JSON.stringify(city_id));
     if (city_id) {
       this.storage.set("city_id", city_id.id);
 
       console.log("city_id = " + JSON.stringify(city_id.id));
 
       setTimeout(() => {
-        this.data.get_suburbs_by_city(city_id.id).then(
+        this.data.get_suburbs_by_city(city_id.id, this.token).then(
           (result) => {
             console.log(result);
-            var jsonBody = result["_body"];
-            jsonBody = JSON.parse(jsonBody);
-            this.suburbs = jsonBody;
+            var jsonBody = result;
+            this.suburbs = jsonBody["data"];
             // loading.dismiss();
 
-            console.log("Jsson body " + JSON.stringify(jsonBody));
+            console.log("Jsson body " + JSON.stringify(this.suburbs));
           },
           (err) => {
             // loading.dismiss();

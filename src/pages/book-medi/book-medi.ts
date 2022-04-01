@@ -73,6 +73,7 @@ export class BookMediPage {
   strip_url: any;
   targetPath: string;
   raw_file_path: any;
+  token;
 
   constructor(
     public sanitizer: DomSanitizer,
@@ -93,81 +94,57 @@ export class BookMediPage {
     public alertCtrl: AlertController,
     public storage: Storage
   ) {
-    // this.ports = [
-    //   { id: 1, name: 'Tokai',price: 'GHC230'},
-    //   { id: 2, name: 'Vladivostok',price: 'GHC32' },
-    //   { id: 3, name: 'Navlakhi',price: 'GHC12' }
-    // ];
-
-    // this.requester_id = "1";
-    // this.appointment_id = "2";
     this.appointment_type_id = "MD";
 
     this.appointForm = this._form.group({
-      requester_cat: ["", Validators.compose([Validators.required])],
+      request_cat_id: ["", Validators.compose([Validators.required])],
       beneficiary_name: [
         "",
         ExtraValidators.conditional(
-          (group) => group.controls.requester_cat.value == "T",
+          (group) => group.controls.request_cat_id.value == "T",
           Validators.compose([Validators.required])
         ),
       ],
       beneficiary_phone_number: [
         "",
         ExtraValidators.conditional(
-          (group) => group.controls.requester_cat.value == "T",
+          (group) => group.controls.request_cat_id.value == "T",
           Validators.compose([Validators.maxLength(10)])
         ),
       ],
       beneficiary_age: [
         "",
         ExtraValidators.conditional(
-          (group) => group.controls.requester_cat.value == "T",
+          (group) => group.controls.request_cat_id.value == "T",
           Validators.compose([Validators.required])
         ),
       ],
       proposed_date: ["", Validators.compose([Validators.required])],
       proposed_time: ["", Validators.compose([Validators.required])],
 
-      req_urgency: ["", Validators.compose([Validators.required])],
-      appointment_type_id: ["MD"],
+      request_urgency_id: ["", Validators.compose([Validators.required])],
+      apt_type_id: ["MD"],
       medication: [""],
-      // "medication": ['',
-      //   ExtraValidators.conditional(this.pathForImage(this.lastImage) == '', Validators.compose([Validators.required])),
-      // ],
-      prev_medical_history: ["", Validators.compose([Validators.required])],
+
+      prev_history: ["", Validators.compose([Validators.required])],
       allergies: [""],
-      location_name: [""],
     });
 
     this.from_hosp = this.navParams.get("value");
     this.from_login = this.navParams.get("another");
     this.sub_id = this.navParams.get("sub_id");
-
-    // this.storage.get("suburb_id").then((suburb_id) => {
-    //   this.sub_id = suburb_id;
-    //   console.log("this.sub_id = " + JSON.stringify(this.sub_id));
-    // });
+    this.token = this.navParams.get("token");
 
     console.log("THIS IS THE SUB ID IN MED BOOK" + this.sub_id);
-    this.from_login2 = this.navParams.get("pers_value");
-    this.from_login3 = this.navParams.get("doc_value");
 
-    this.body = this.from_login; // this.body = Array.of(this.from_login);
+    var results_body = JSON.parse(this.from_login);
+    var user_id = results_body["data"]["user_infos"][0].user_id;
 
-    this.jsonBody = this.body; // this.jsonBody = JSON.parse(this.body);
-    this.requester_id = this.jsonBody[0].id;
+    this.body = this.from_login;
+    this.jsonBody = this.body;
+    this.requester_id = user_id;
 
     console.log("THIS IS THE requester_id ID is " + this.requester_id);
-
-    this.raw = this.from_hosp; // this.raw = JSON.stringify(this.from_hosp);
-    this.body = this.from_login; // this.body = Array.of(this.from_login)
-
-    this.jsonBody = this.body; // this.jsonBody = JSON.parse(this.body);
-
-    console.log("Raw values from Hospital " + this.raw);
-    console.log("from lab search " + this.from_hosp);
-    console.log("from LOgin" + this.from_login);
 
     let loading = this.loadingCtrl.create({
       content: "Please wait...",
@@ -176,16 +153,16 @@ export class BookMediPage {
     loading.present();
 
     setTimeout(() => {
-      this.data.get_drug_services().then(
+      this.data.get_drug_services(this.token).then(
         (result) => {
-          console.log("RESULTS IS " + result);
-          console.log("RESULTS IS" + this.data.get_drug_services());
-          var body = result["_body"];
-          body = JSON.parse(body);
-          this.check = body;
-          console.log("LETS SEE ARRAY OF CHECK " + this.check);
+          var string_results = JSON.stringify(result);
+          console.log("SUBSCRIPTION HISTORY RESULTS " + string_results);
+
+          this.check = result["data"];
+
+          console.log("LETS SEE ARRAY OF MEDICAINE " + this.check);
           console.log(
-            "LETS SEE STRINGIFY OF CHECK " + JSON.stringify(this.check)
+            "LETS SEE STRINGIFY OF MEDICINE " + JSON.stringify(this.check)
           );
           this.body = Array.of(this.check);
 
@@ -201,12 +178,6 @@ export class BookMediPage {
 
   portChange(event: { component: IonicSelectableComponent; value: any }) {
     console.log("port:", event.value);
-  }
-
-  locationChange(event: { component: IonicSelectableComponent; value: any }) {
-    this.medications = event.value;
-    console.log("Location Id:", this.medications.id);
-    console.log("Location Name:", this.medications.drug_name);
   }
 
   options() {
@@ -244,9 +215,8 @@ export class BookMediPage {
     let new_med_list = [];
 
     for (let x in med_details) {
-      // new_list.push({ 'drug_name': med_details[x]['drug_name']})
-      new_med_list.push(med_details[x]["drug_name"]);
-      // console.log
+      new_med_list.push(med_details[x]["id"]);
+      console.log("NEW MEDICAL LST::", new_med_list);
     }
 
     orders = new_med_list;
@@ -265,20 +235,22 @@ export class BookMediPage {
       }
     }
 
+    //NEW PARAMS -- TO SATISFY API
+
     this.params = {
-      suburb_id: this.sub_id,
-      requester_id: this.requester_id,
-      requester_cat: this.jsonBody.requester_cat,
-      beneficiary_name: this.jsonBody.beneficiary_name,
-      beneficiary_age: this.jsonBody.beneficiary_age,
-      beneficiary_phone_number: this.jsonBody.beneficiary_phone_number,
-      req_urgency: this.jsonBody.req_urgency,
-      appointment_type_id: this.jsonBody.appointment_type_id,
-      proposed_date:
-        this.jsonBody.proposed_date + " " + this.jsonBody.proposed_time,
-      medication: new_med_list,
-      prev_medical_history: this.jsonBody.prev_medical_history,
+      proposed_date: this.jsonBody.proposed_date,
+      proposed_time: this.jsonBody.proposed_time,
+      apt_type_id: this.jsonBody.apt_type_id,
+      request_cat_id: this.jsonBody.request_cat_id,
+      request_urgency_id: this.jsonBody.request_urgency_id,
       allergies: this.jsonBody.allergies,
+      prev_history: this.jsonBody.prev_history,
+      bene_name: this.jsonBody.beneficiary_name,
+      bene_age: this.jsonBody.beneficiary_age,
+      bene_contact: this.jsonBody.beneficiary_phone_number,
+      medications: new_med_list,
+      suburb_id: this.sub_id,
+      complaint: "Medication",
     };
 
     console.log("this.params = " + JSON.stringify(this.params));
@@ -289,64 +261,28 @@ export class BookMediPage {
 
     loader.present();
 
-    this.data.medication(this.params).then(
+    this.data.medication(this.params, this.token).then(
       (result) => {
         console.log("THIS IS THE RESULT" + result);
-        var jsonBody = result["_body"];
-        console.log(jsonBody);
 
-        jsonBody = JSON.parse(jsonBody);
-
-        var desc = jsonBody["resp_desc"];
-        var code = jsonBody["resp_code"];
-        this.appointment_id = jsonBody["appointment_id"];
-
-        console.log(desc);
-        console.log(code);
-        console.log("APPT ID " + this.appointment_id);
-
-        this.messageList = desc;
-        this.api_code = code;
         loader.dismiss();
 
-        if (this.api_code == "000") {
-          if (this.lastImage) {
-            if (this.lastImage != "") {
-              this.uploadImage(
-                this.requester_id,
-                this.jsonBody.appointment_type_id,
-                this.appointment_id
-              );
-              // return;
-            }
-          } else {
-            let alert = this.alertCtrl.create({
-              title: "Medication Order",
-              subTitle: desc,
-              buttons: [
-                {
-                  text: "OK",
-                  handler: () => {
-                    this.navCtrl.setRoot(MenuPage, {
-                      value: this.from_login,
-                      doc_value: this.from_login3,
-                      pers_value: this.from_login2,
-                    });
-                  },
-                },
-              ],
-            });
-            alert.present();
-          }
-        }
+        this.navCtrl.setRoot(MenuPage, {
+          value: this.from_login,
+        });
 
-        if (this.api_code != "000") {
-          this.showmessage(this.messageList);
-        }
+        let alert = this.alertCtrl.create({
+          title: "GHinger Healthcare",
+          subTitle:
+            "Your Medication request has been received successfully. The Ghinger team will call you shortly",
+          buttons: ["OK"],
+        });
+
+        alert.present();
       },
       (err) => {
         loader.dismiss();
-        this.showmessage("Could not process this request successfully.");
+        this.showmessage("Could not process this request. Please try again!");
 
         console.log(JSON.stringify(err));
       }

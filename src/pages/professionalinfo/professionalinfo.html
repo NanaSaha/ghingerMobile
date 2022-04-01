@@ -8,7 +8,7 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding="true">
+<!-- <ion-content padding="true">
   <ion-refresher (ionRefresh)="doRefresh($event)"> </ion-refresher>
 
   <form [formGroup]="professionalInfoForm" class="padd">
@@ -17,8 +17,8 @@
         >Please Provide these additional info to proceed..
       </b>
     </p>
-    <br />
-
+    <br /> -->
+<!-- 
     <ion-item [hidden]="!value">
       <ion-label> user_type1</ion-label>
       <ion-select
@@ -30,126 +30,9 @@
           >{{user_type1}}</ion-option
         >
       </ion-select>
-    </ion-item>
+    </ion-item> -->
 
-    <ion-item>
-      <ion-label>Your City</ion-label>
-      <ionic-selectable
-        item-content
-        [(ngModel)]="city_id"
-        [items]="cities"
-        itemValueField="id"
-        itemTextField="city_town_name"
-        [canSearch]="true"
-        (onChange)="get_suburbs(city_id)"
-        formControlName="city_id"
-        name="city_town_name"
-        [class.invalid]="!professionalInfoForm.controls.city_id.valid && (professionalInfoForm.controls.city_id.dirty || submitAttempt)"
-      >
-      </ionic-selectable>
-    </ion-item>
-
-    <br />
-    <!-- <ion-auto-complete *ngIf="professionalInfoForm.value.city_id" [dataProvider]="SuburbLocationService" [options]="{ placeholder : 'Enter Suburb' }"
-      #input #searchbar>
- 
-    </ion-auto-complete> -->
-
-    <ion-item *ngIf="professionalInfoForm.value.city_id">
-      <ion-label>Surburb</ion-label>
-      <ionic-selectable
-        item-content
-        [(ngModel)]="surburb_id"
-        [items]="suburbs"
-        itemValueField="id"
-        itemTextField="suburb_name"
-        [canSearch]="true"
-        formControlName="suburb_id"
-        (onChange)="surburbChange($event)"
-        name="suburb_name"
-        [class.invalid]="!professionalInfoForm.controls.suburb_id.valid && (professionalInfoForm.controls.suburb_id.dirty || submitAttempt)"
-      >
-      </ionic-selectable>
-    </ion-item>
-
-    <br />
-
-    <br />
-    <br />
-
-    <ion-item>
-      <ion-label floating>
-        Which hospital do you work at?
-      </ion-label>
-      <ion-input
-        type="text"
-        [(ngModel)]="hospital_name"
-        name="hospital_name"
-        formControlName="hospital_name"
-        [class.invalid]="!professionalInfoForm.controls.hospital_name.valid && (professionalInfoForm.controls.hospital_name.dirty || submitAttempt)"
-      ></ion-input>
-    </ion-item>
-
-    <ion-item *ngIf="professionalInfoForm.value.user_type1 == 'D'">
-      <ion-label floating>Specialty</ion-label>
-
-      <ion-select
-        name="specialty_name"
-        [(ngModel)]="specialty_name"
-        formControlName="specialty_name"
-        [class.invalid]="!professionalInfoForm.controls.specialty_name.valid && (professionalInfoForm.controls.specialty_name.dirty || submitAttempt)"
-      >
-        <ion-option
-          *ngFor="let data of jsonBody1"
-          [value]="data.id"
-          ngDefaultControl
-          >{{data.title}}</ion-option
-        >
-      </ion-select>
-    </ion-item>
-
-    <ion-item *ngIf="professionalInfoForm.value.user_type1 == 'D'">
-      <ion-label floating> Specialty Duration (in years)</ion-label>
-      <ion-input
-        type="number"
-        [(ngModel)]="specialty_duration"
-        name="specialty_duration"
-        formControlName="specialty_duration"
-        [class.invalid]="!professionalInfoForm.controls.specialty_duration.valid && (professionalInfoForm.controls.specialty_duration.dirty || submitAttempt)"
-      ></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label floating>
-        Please Provide License number
-      </ion-label>
-      <ion-input
-        type="text"
-        [(ngModel)]="license_number"
-        name="license_number"
-        formControlName="license_number"
-        [class.invalid]="!professionalInfoForm.controls.license_number.valid && (professionalInfoForm.controls.license_number.dirty || submitAttempt)"
-      ></ion-input>
-    </ion-item>
-
-    <ion-item *ngIf="professionalInfoForm.value.user_type1 == 'D'">
-      <ion-label floating>Medical Regulator</ion-label>
-      <!-- <ion-input type="text"  [(ngModel)]="hospital_name" name="hospital_name"  ></ion-input> -->
-      <ion-select
-        name="medical_regulator"
-        [(ngModel)]="medical_regulator"
-        formControlName="medical_regulator"
-        [class.invalid]="!professionalInfoForm.controls.medical_regulator.valid && (professionalInfoForm.controls.medical_regulator.dirty || submitAttempt)"
-      >
-        <ion-option
-          *ngFor="let data of jsonBody2"
-          [value]="data.id"
-          ngDefaultControl
-          >{{data.group_name}}</ion-option
-        >
-      </ion-select>
-    </ion-item>
-
+<!-- 
     <ion-item *ngIf="professionalInfoForm.value.user_type1 == 'D'">
       <ion-label floating>Are you a Specialist?</ion-label>
       <ion-select
@@ -161,21 +44,9 @@
         <ion-option value="t" ngDefaultControl>Yes</ion-option>
         <ion-option value="f" ngDefaultControl>No</ion-option>
       </ion-select>
-    </ion-item>
+    </ion-item> -->
 
-    <ion-item *ngIf="has_specialty == 't'">
-      <ion-label floating>Has any foreign training?</ion-label>
-      <!-- <ion-input type="text"  [(ngModel)]="hospital_name" name="hospital_name"  ></ion-input> -->
-      <ion-select
-        name="foreign_training"
-        [(ngModel)]="foreign_training"
-        formControlName="foreign_training"
-        [class.invalid]="!professionalInfoForm.controls.foreign_training.valid && (professionalInfoForm.controls.foreign_training.dirty || submitAttempt)"
-      >
-        <ion-option value="t" selected>Yes</ion-option>
-        <ion-option value="f" ngDefaultControl>No</ion-option>
-      </ion-select>
-    </ion-item>
+<!-- 
 
     <ion-item *ngIf="foreign_training == 't'">
       <ion-label floating> Foriegn Medical Regulator </ion-label>
@@ -186,8 +57,8 @@
         formControlName="foreign_medical_regulator"
         [class.invalid]="!professionalInfoForm.controls.foreign_medical_regulator.valid && (professionalInfoForm.controls.foreign_medical_regulator.dirty || submitAttempt)"
       ></ion-input>
-    </ion-item>
-
+    </ion-item> -->
+<!-- 
     <ion-item *ngIf="foreign_training == 't'">
       <ion-label floating> Foriegn License Number </ion-label>
       <ion-input
@@ -197,12 +68,165 @@
         formControlName="foreign_license_number"
         [class.invalid]="!professionalInfoForm.controls.foreign_license_number.valid && (professionalInfoForm.controls.foreign_license_number.dirty || submitAttempt)"
       ></ion-input>
-    </ion-item>
-
+    </ion-item> -->
+<!-- 
     <div padding style="text-align: center;">
       <button
         ion-button
         class="small_button"
+        color="green1"
+        round
+        [disabled]="!this.professionalInfoForm.valid"
+        (tap)="signup()"
+      >
+        Submit
+      </button>
+    </div>
+  </form>
+</ion-content> -->
+
+<ion-content class="background">
+  <h4 id="textLogin">Please Provide these additional info to proceed..</h4>
+
+  <form [formGroup]="professionalInfoForm" class="padd">
+    <ion-item>
+      <ion-label>Your City</ion-label>
+      <ionic-selectable
+        item-content
+        [(ngModel)]="city_id"
+        [items]="cities"
+        itemValueField="id"
+        itemTextField="name"
+        [canSearch]="true"
+        (onChange)="get_suburbs(city_id)"
+        formControlName="city_id"
+        name="name"
+        [class.invalid]="!professionalInfoForm.controls.city_id.valid && (professionalInfoForm.controls.city_id.dirty || submitAttempt)"
+      >
+      </ionic-selectable>
+    </ion-item>
+
+    <br />
+    <ion-item *ngIf="professionalInfoForm.value.city_id">
+      <ion-label>Surburb</ion-label>
+      <ionic-selectable
+        item-content
+        [(ngModel)]="surburb_id"
+        [items]="suburbs"
+        itemValueField="id"
+        itemTextField="name"
+        [canSearch]="true"
+        formControlName="suburb_id"
+        (onChange)="surburbChange($event)"
+        name="suburb_name"
+        [class.invalid]="!professionalInfoForm.controls.suburb_id.valid && (professionalInfoForm.controls.suburb_id.dirty || submitAttempt)"
+      >
+      </ionic-selectable>
+    </ion-item>
+
+    <br />
+
+    <ion-item>
+      <ion-label floating> Which hospital do you work at? </ion-label>
+      <ion-input
+        type="text"
+        name="hospital"
+        formControlName="hospital"
+        [class.invalid]="!professionalInfoForm.controls.hospital.valid && (professionalInfoForm.controls.hospital.dirty || submitAttempt)"
+      ></ion-input>
+    </ion-item>
+
+    <br />
+
+    <ion-item>
+      <ion-label floating>Specialty</ion-label>
+      <ion-input
+        type="text"
+        name="specialty"
+        formControlName="specialty"
+        [class.invalid]="!professionalInfoForm.controls.specialty.valid && (professionalInfoForm.controls.specialty.dirty || submitAttempt)"
+      ></ion-input>
+
+      <!-- <ion-select
+        name="specialty"
+        formControlName="specialty"
+        [class.invalid]="!professionalInfoForm.controls.specialty.valid && (professionalInfoForm.controls.specialty.dirty || submitAttempt)"
+      >
+        <ion-option
+          *ngFor="let data of jsonBody1"
+          [value]="data.id"
+          ngDefaultControl
+          >{{data.title}}</ion-option
+        >
+      </ion-select> -->
+    </ion-item>
+
+    <br />
+
+    <ion-item>
+      <ion-label floating> Specialty Duration (in years)</ion-label>
+      <ion-input
+        type="number"
+        [(ngModel)]="specialty_duration"
+        name="specialty_duration"
+        formControlName="specialty_duration"
+        [class.invalid]="!professionalInfoForm.controls.specialty_duration.valid && (professionalInfoForm.controls.specialty_duration.dirty || submitAttempt)"
+      ></ion-input>
+    </ion-item>
+    <br />
+
+    <ion-item>
+      <ion-label floating> Please Provide License number </ion-label>
+      <ion-input
+        type="text"
+        [(ngModel)]="license_number"
+        name="license_number"
+        formControlName="license_number"
+        [class.invalid]="!professionalInfoForm.controls.license_number.valid && (professionalInfoForm.controls.license_number.dirty || submitAttempt)"
+      ></ion-input>
+    </ion-item>
+    <br />
+    <ion-item>
+      <ion-label floating>Medical Regulator</ion-label>
+
+      <!-- <ion-select
+        name="medical_regulator"
+        [(ngModel)]="medical_regulator"
+        formControlName="medical_regulator"
+        [class.invalid]="!professionalInfoForm.controls.medical_regulator.valid && (professionalInfoForm.controls.medical_regulator.dirty || submitAttempt)"
+      >
+        <ion-option
+          *ngFor="let data of jsonBody2"
+          [value]="data.id"
+          ngDefaultControl
+          >{{data.group_name}}</ion-option
+        >
+      </ion-select> -->
+      <ion-input
+        type="text"
+        name="medical_regulator"
+        formControlName="medical_regulator"
+        [class.invalid]="!professionalInfoForm.controls.medical_regulator.valid && (professionalInfoForm.controls.medical_regulator.dirty || submitAttempt)"
+      ></ion-input>
+    </ion-item>
+    <br />
+    <ion-item>
+      <ion-label floating>Has any foreign training?</ion-label>
+
+      <ion-select
+        name="has_foreign_training"
+        formControlName="has_foreign_training"
+        [class.invalid]="!professionalInfoForm.controls.has_foreign_training.valid && (professionalInfoForm.controls.has_foreign_training.dirty || submitAttempt)"
+      >
+        <ion-option value="true" selected>Yes</ion-option>
+        <ion-option value="false" ngDefaultControl>No</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <div padding style="text-align: center">
+      <button
+        ion-button
+        class="button button-dark customBtn"
         color="green1"
         round
         [disabled]="!this.professionalInfoForm.valid"

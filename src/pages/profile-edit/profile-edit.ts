@@ -31,9 +31,10 @@ export class ProfileEditPage {
   user_id: any;
   person_id: any;
 
-  profile = { surname: "", other_names: "", mobile_number: "", email: "" };
+  profile = { surname: "", first_name: "", mobile_number: "", email: "" };
 
   from_checkout: any;
+  token;
 
   constructor(
     public data: DataProvider,
@@ -43,24 +44,32 @@ export class ProfileEditPage {
     public navParams: NavParams
   ) {
     this.user_details = this.navParams.get("user_details");
-    this.user_id = this.user_details[0].reg_id;
-    this.person_id = this.user_details[0].id;
-    console.log("USER ID 1 " + this.user_id);
-    console.log("PERSON ID 1 " + this.person_id);
+    this.token = this.navParams.get("token");
+
+    var results_body = JSON.parse(this.user_details);
+
+    let user_mobile_number = results_body["data"]["user_infos"][0].phone;
+    var role = results_body["data"]["role"]["id"];
+    var user_id = results_body["data"]["user_infos"][0].user_id;
+    var surname = results_body["data"]["user_infos"][0].surname;
+    var other_names = results_body["data"]["user_infos"][0].first_name;
+    var email = results_body["data"]["email"];
+
+    console.log(role, user_id, surname, other_names, email);
 
     this.updateProfile = this._form.group({
       surname: ["", Validators.compose([Validators.required])],
-
-      other_names: ["", Validators.compose([Validators.required])],
+      first_name: ["", Validators.compose([Validators.required])],
       mobile_number: ["", Validators.compose([Validators.required])],
       email: ["", Validators.compose([Validators.required])],
     });
 
     if (this.navParams.get("user_details")) {
-      this.profile.surname = this.user_details[0].surname;
-      this.profile.other_names = this.user_details[0].other_names;
-      this.profile.mobile_number = this.user_details[0].mobile_number;
-      this.profile.email = this.user_details[0].email;
+      this.profile.surname = results_body["data"]["user_infos"][0].surname;
+      this.profile.first_name =
+        results_body["data"]["user_infos"][0].first_name;
+      this.profile.mobile_number = results_body["data"]["user_infos"][0].phone;
+      this.profile.email = results_body["data"]["email"];
     }
   }
 
@@ -68,20 +77,15 @@ export class ProfileEditPage {
     this.loginVal = JSON.stringify(this.updateProfile.value);
     this.jsonBody = JSON.parse(this.loginVal);
 
-    this.user_id = JSON.parse(this.user_details[0].reg_id);
-    this.person_id = JSON.parse(this.user_details[0].id);
-    console.log("loginVal " + this.loginVal);
-    console.log("jsonBody " + this.jsonBody);
-    console.log("USER ID 2 " + this.user_id);
-    console.log("PERSON ID 2 " + this.person_id);
+    console.log("SURNAME " + this.jsonBody.surname);
+    console.log("first_name " + this.jsonBody.first_name);
+    console.log("mobile_number " + this.jsonBody.mobile_number);
 
     this.params = {
-      id: this.user_id,
-      person_id: this.person_id,
       surname: this.jsonBody.surname,
-      other_names: this.jsonBody.other_names,
-      mobile_number: this.jsonBody.mobile_number,
+      first_name: this.jsonBody.first_name,
       email: this.jsonBody.email,
+      phone: this.jsonBody.mobile_number,
     };
 
     let loader = this.loadingCtrl.create({
@@ -90,19 +94,23 @@ export class ProfileEditPage {
 
     loader.present();
 
-    this.data.update_profile(this.params).then((result) => {
-      this.body1 = result;
-      this.retrieved = this.body1;
-      this.retrieved = JSON.stringify(this.body1);
-      console.log("retrieved " + this.retrieved);
-    });
+    this.data.update_profile(this.params, this.token).then(
+      (result) => {
+        var results_body = result;
+        console.log(result);
+        console.log("JSON BODY" + results_body);
+      },
+      (err) => {
+        console.log("UPDATE ERROR" + JSON.stringify(err));
+      }
+    );
 
     loader.dismiss();
 
-    this.navCtrl.setRoot(ProfilePage, {
-      user_details: this.user_details,
-      type: "edit",
-    });
+    // this.navCtrl.setRoot(ProfilePage, {
+    //   user_details: this.user_details,
+    //   type: "edit",
+    // });
   }
 
   home() {

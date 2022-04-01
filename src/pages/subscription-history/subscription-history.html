@@ -21,16 +21,21 @@
     <ion-item>
       <ion-row>
         <ion-col col-7>
-          <h4 text-wrap><b> Subscription Name:</b> {{ item.sub_name}}</h4>
-          <h4 text-wrap><b> Amount:</b> GHc {{ item.amount}}</h4>
-          <h4 text-wrap *ngIf=" item.paid_status == true">
+          <h4 text-wrap>
+            <b> Subscription Name:</b> {{ item.subscription_master.title}}
+          </h4>
+          <h4 text-wrap>
+            <b> Amount:</b> GHc {{ item.subscription_master.price}}
+          </h4>
+          <h4 text-wrap *ngIf=" item.payment_status == true">
             <b> Payment Status:</b> Paid
           </h4>
-          <h4 text-wrap *ngIf=" item.paid_status == false">
+          <h4 text-wrap *ngIf="item.payment_status == false">
             <b> Payment Status:</b> Not Paid
           </h4>
           <h4 text-wrap>
-            <b> Subscription Date:</b> {{ item.created_at | date: 'medium'}}
+            <b> Subscription Date:</b> {{ item.emergency_contacts[0].created_at
+            | date: 'medium'}}
           </h4>
         </ion-col>
 

@@ -43,7 +43,7 @@ export class HomecarehistoryPage {
   sub_id: any;
   string: any;
 
-  requester_id1: any;
+  requester_id: any;
   from_login_doc: any = [];
   from_login_pers: any = [];
   body1: any;
@@ -56,6 +56,11 @@ export class HomecarehistoryPage {
   content: any = [];
   rowid: any;
   appointmentType: any;
+  resp_code;
+  no_appointments;
+  token;
+
+  history_list: any = [];
 
   constructor(
     // private keyboard: Keyboard,
@@ -67,24 +72,31 @@ export class HomecarehistoryPage {
     public alertCtrl: AlertController,
     public modalCtrl: ModalController,
     public viewCtrl: ViewController,
-    public storage: Storage
+    public storage: Storage,
+    public toastCtrl: ToastController
   ) {
-    // console.log("We are in Home Care Consult Appointments History page");
     this.from_login = this.navParams.get("value");
+    this.token = this.navParams.get("token");
+    console.log("VALUE from Login " + this.from_login);
 
-    this.from_login2 = this.navParams.get("pers_value");
-    this.from_login3 = this.navParams.get("doc_value");
-    this.appointmentType = navParams.get("appointmentType");
+    var results_body = JSON.parse(this.from_login);
+    var user_id = results_body["data"]["user_infos"][0].user_id;
 
     this.body = this.from_login;
 
     this.jsonBody = this.body;
 
-    this.requester_id1 = this.jsonBody[0].id;
+    this.requester_id = user_id;
+    this.check = this.jsonBody[0];
+
+    console.log("VALUE IN medication history IS" + this.from_login);
+    console.log(
+      "VALUE of requester IN medication appointment history  IS " +
+        this.requester_id
+    );
 
     this.params = {
-      requester_id: this.requester_id1,
-      appointment_type_id: this.appointmentType,
+      requester_id: this.requester_id,
     };
 
     this.newparams = JSON.stringify(this.params);
@@ -99,7 +111,6 @@ export class HomecarehistoryPage {
       title: "Home Consultation",
       message:
         "Fee: Ghc350 - GHc 500 . Do you please like to proceed to book the appointment?",
-      //message: 'Standard Fee: GH¢ 0.1 :: Express Fee: GH¢ 0.1. <br> Would you want to proceed to book the appointment?',
 
       buttons: [
         {
@@ -119,9 +130,8 @@ export class HomecarehistoryPage {
             setTimeout(() => {
               this.navCtrl.push(HomeSearchPage, {
                 value: this.from_login,
-                doc_value: this.from_login3,
-                pers_value: this.from_login2,
                 appointmentType: this.appointmentType,
+                token: this.token,
               });
             }, 1000);
 
@@ -157,29 +167,43 @@ export class HomecarehistoryPage {
     loading.present();
 
     setTimeout(() => {
-      this.jsonBody = JSON.parse(this.newparams);
-
-      this.data.getHomeCareAppointmentHistory(this.jsonBody).then(
+      this.data.getHomeCareAppointmentHistory(this.token).then(
         (result) => {
-          // this.contacts = result;
-          console.log(result);
+          console.log("THIS IS THE RESULT" + result);
+          console.log("THIS IS THE ONLY DATARESULT" + result["data"]);
 
-          var jsonBody = result["_body"];
-          jsonBody = JSON.parse(jsonBody);
-          this.homecare_details = jsonBody;
+          this.homecare_details = result["data"];
 
-          console.log("Jsson body " + jsonBody);
+          console.log("LENTH " + this.homecare_details.length);
+
+          let new_list = [];
+
+          for (let x in this.homecare_details) {
+            if (
+              this.homecare_details[x]["appointment_type"].id == "HC" &&
+              this.homecare_details[x]["apt_type_id"] == "HC"
+            ) {
+              new_list.push({
+                title: this.homecare_details[x]["appointment_type"].title,
+                price: this.homecare_details[x]["appointment_type"].price,
+                date: this.homecare_details[x].created_at,
+                status: this.homecare_details[x].confirm_status,
+                complaint: this.homecare_details[x].complaint,
+                id: this.homecare_details[x].id,
+              });
+            }
+          }
+          this.history_list = new_list;
+
+          loading.dismiss();
         },
         (err) => {
+          this.no_appointments = "no";
+
+          this.showtoast("No Appointments");
           loading.dismiss();
-          this.showalertmessage(
-            "Sorry. An Error occured. Kindly refresh and try again."
-          );
-          console.log("error = " + JSON.stringify(err));
         }
       );
-
-      loading.dismiss();
     }, 1);
   }
 
@@ -187,16 +211,11 @@ export class HomecarehistoryPage {
     this.navCtrl.setRoot(MenuPage);
   }
 
-  homecare_appointment_history_details(
-    homecare_appoint_history_id,
-    appointmentType
-  ) {
+  homecare_appointment_history_details(homecare_appoint_history_id) {
     this.navCtrl.push(HomecaredetailsPage, {
       value: this.from_login,
-      doc_value: this.from_login_doc,
-      pers_value: this.from_login_pers,
+
       homecare_appoint_history_id: homecare_appoint_history_id,
-      appointmentType: appointmentType,
     });
     // rowid: rowid
   }
@@ -208,5 +227,14 @@ export class HomecarehistoryPage {
       buttons: ["OK"],
     });
     alert.present();
+  }
+
+  showtoast(message) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      duration: 3000,
+      position: "bottom",
+    });
+    toast.present();
   }
 }

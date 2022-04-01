@@ -15,16 +15,13 @@ import "rxjs/add/operator/map";
 import { IonicSelectableComponent } from "ionic-selectable";
 import { SubscriptionSummaryPage } from "../subscription-summary/subscription-summary";
 
-
-
 @Component({
-  selector: 'page-subscription-book-foreign',
-  templateUrl: 'subscription-book-foreign.html',
+  selector: "page-subscription-book-foreign",
+  templateUrl: "subscription-book-foreign.html",
 })
 export class SubscriptionBookForeignPage {
-
-  passwordType: string = 'password';
-  passwordIcon: string = 'eye-off';
+  passwordType: string = "password";
+  passwordIcon: string = "eye-off";
 
   from_login: any = [];
   visit_type;
@@ -39,6 +36,7 @@ export class SubscriptionBookForeignPage {
   params: any;
   messageList: any;
   api_code: any;
+  token;
 
   public subscriptionForm: any;
   constructor(
@@ -49,7 +47,8 @@ export class SubscriptionBookForeignPage {
     public toastCtrl: ToastController,
     public http: Http,
     public loadingCtrl: LoadingController,
-    public alertCtrl: AlertController
+    public alertCtrl: AlertController,
+    public storage: Storage
   ) {
     this.from_login = this.navParams.get("value");
     this.visit_type = this.navParams.get("visit_type");
@@ -97,8 +96,12 @@ export class SubscriptionBookForeignPage {
     console.log("USER LNAME " + this.user_last_name);
     console.log("USER PHONE " + this.user_phone);
     console.log("USER EMAIL " + this.user_email);
-  }
 
+    this.storage.get("token").then((token) => {
+      this.token = token;
+      console.log("TOKEN IN MENu " + this.token);
+    });
+  }
 
   book_subscription() {
     this.subscriptionFormValue = JSON.stringify(this.subscriptionForm.value);
@@ -145,7 +148,7 @@ export class SubscriptionBookForeignPage {
 
     loader.present();
 
-    this.data.book_subscription(this.params).then(
+    this.data.book_subscription(this.params, this.token).then(
       (result) => {
         console.log("THIS IS THE RESULT" + result);
         var jsonBody = result["_body"];
@@ -197,13 +200,9 @@ export class SubscriptionBookForeignPage {
     this.navCtrl.setRoot(MenuPage);
   }
 
-
-
-
   hideShowPassword() {
-
-      console.log("err");
-     this.passwordType = this.passwordType === 'text' ? 'password' : 'text';
-     this.passwordIcon = this.passwordIcon === 'eye-off' ? 'eye' : 'eye-off';
- }
+    console.log("err");
+    this.passwordType = this.passwordType === "text" ? "password" : "text";
+    this.passwordIcon = this.passwordIcon === "eye-off" ? "eye" : "eye-off";
+  }
 }

@@ -10,10 +10,25 @@ page-signup {
     text-align: center;
   }
 
+  .button.customBtn {
+    width: 100%;
+    text-align: center;
+  }
+
+  #textLogin {
+    text-align: center;
+    padding-top: 20%;
+    font-weight: 700;
+  }
+
   .logo_position {
     padding-top: 5%;
-    height: 13%;
-    width: 20%;
+    height: 15%;
+    width: 26%;
+  }
+
+  .button-clear-md-dark {
+    background-color: #171717 !important;
   }
 
   // .item-block {
@@ -84,10 +99,10 @@ page-signup {
   //     box-shadow: inset 0 -1px 0 0 #0000 !important;
   //   }
 
-  //   .item-md.item-block .item-inner {
-  //     padding-right: 8px;
-  //     border-bottom: 1px solid transparent !important;
-  //   }
+  .item-md.item-block .item-inner {
+    padding-right: 8px;
+    border-bottom: 1px solid #000 !important;
+  }
 
   .button-inner {
     display: -webkit-box;
@@ -234,7 +249,7 @@ page-signup {
   //   }
 
   .background {
-    background-image: url("../assets/icon/green_background_image.jpg");
+    background-image: url("../assets/imgs/background.jpg");
 
     height: 100%;
     background-position: center;
@@ -450,8 +465,126 @@ page-signup {
   @media (min-width: 411px) {
     .logo_position {
       padding-top: 5%;
-      height: 17%;
-      width: 20%;
+      height: 15%;
+      width: 26%;
     }
+  }
+
+  //   PROGRESS BAR
+  .container {
+    width: 100%;
+    // margin: 100px auto;
+  }
+  .progressbar {
+    counter-reset: step;
+    margin-left: -10%;
+  }
+  .progressbar li {
+    list-style-type: none;
+    width: 33%;
+    float: left;
+    font-size: 12px;
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+    color: #7d7d7d;
+  }
+  .progressbar li:before {
+    width: 30px;
+    height: 30px;
+    content: counter(step);
+    counter-increment: step;
+    line-height: 30px;
+    border: 2px solid #7d7d7d;
+    display: block;
+    text-align: center;
+    margin: 0 auto 10px auto;
+    border-radius: 50%;
+    background-color: white;
+  }
+
+  .progressbar li:after {
+    width: 100%;
+    height: 2px;
+    content: "";
+    position: absolute;
+    background-color: #7d7d7d;
+    top: 15px;
+    left: -50%;
+    z-index: -1;
+  }
+  .progressbar li:first-child:after {
+    content: none;
+  }
+  .progressbar li.active {
+    color: #ff0000;
+  }
+  .progressbar li.active:before {
+    border-color: #ff0000;
+  }
+  .progressbar li.active + li:after {
+    background-color: #ff0000;
+  }
+
+  .border1 {
+    background: #efefef;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    font-size: 1.2rem;
+    line-height: 1.3;
+    margin: 0 auto 40px;
+    max-width: 400px;
+    padding: 15px;
+    position: relative;
+    margin-top: 40%;
+    width: 174%;
+    margin-left: -3%;
+  }
+
+  .border1 p {
+    margin: 0 0 10px;
+  }
+  .border1 p:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .border1::after {
+    border-right: 20px solid transparent;
+    border-bottom: 20px solid #efefef;
+    top: -20px;
+    content: "";
+    position: absolute;
+    right: 59px;
+  }
+
+  .border2 {
+    background: #efefef;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    font-size: 1.2rem;
+    line-height: 1.3;
+    margin: 0 auto 40px;
+    max-width: 400px;
+    padding: 15px;
+    position: relative;
+    margin-top: 40%;
+    width: 174%;
+    margin-left: -75%;
+  }
+
+  .border2 p {
+    margin: 0 0 10px;
+  }
+  .border2 p:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .border2::after {
+    border-right: 20px solid transparent;
+    border-bottom: 20px solid #efefef;
+    top: -20px;
+    content: "";
+    position: absolute;
+    right: 26px;
   }
 }

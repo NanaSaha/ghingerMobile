@@ -9,176 +9,42 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding>
-  <!--<h2>Add User</h2>-->
-  <form>
-    <ion-item text-wrap class="text-left">
-      <ion-label col-5><b>Location</b></ion-label>
-      <ion-label col-7>{{currentmedappointmentdetaildata.location}}</ion-label>
-    </ion-item>
-    <ion-item text-wrap class="text-left">
-      <ion-label col-5><b>Request Category</b></ion-label>
-      <ion-label col-7
-        >{{currentmedappointmentdetaildata.requestcategory}}</ion-label
-      >
-    </ion-item>
-    <ion-item
-      text-wrap
-      class="text-left"
-      *ngIf="currentmedappointmentdetaildata.requestcategory =='Beneficiary'"
+  <ion-item text-wrap class="text-left">
+    <ion-label col-5><b>Complaints</b></ion-label>
+    <ion-label col-7
+      >{{currentvidappointmentdetaildata.complaint | removehtmltags}}</ion-label
     >
-      <ion-label col-5><b>Beneficiary</b></ion-label>
-      <ion-label col-7
-        >{{currentmedappointmentdetaildata.beneficiary}}</ion-label
-      >
-    </ion-item>
-    <!-- <ion-item
-      text-wrap
-      class="text-left"
-      *ngIf="currentmedappointmentdetaildata.requestcategory =='Beneficiary'"
+  </ion-item>
+  <ion-item text-wrap class="text-left">
+    <ion-label col-5><b>Previous medical history </b></ion-label>
+    <ion-label col-7
+      >{{currentvidappointmentdetaildata.prevmedicalhistory |
+      removehtmltags}}</ion-label
     >
-      <ion-label col-5><b>Beneficiary Sex</b></ion-label>
-      <ion-label col-7
-        >{{currentmedappointmentdetaildata.beneficiary_gender}}</ion-label
-      >
-    </ion-item> -->
-    <ion-item
-      text-wrap
-      class="text-left"
-      *ngIf="currentmedappointmentdetaildata.requestcategory =='Beneficiary'"
+  </ion-item>
+  <ion-item text-wrap class="text-left">
+    <ion-label col-5><b>Allergies </b></ion-label>
+    <ion-label col-7
+      >{{currentvidappointmentdetaildata.allergies | removehtmltags}}</ion-label
     >
-      <ion-label col-5><b>Beneficiary Age</b></ion-label>
-      <ion-label col-7
-        >{{currentmedappointmentdetaildata.beneficiary_age}}</ion-label
-      >
-    </ion-item>
-    <ion-item
-      text-wrap
-      class="text-left"
-      *ngIf="currentmedappointmentdetaildata.requestcategory =='Beneficiary'"
+  </ion-item>
+  <ion-item text-wrap class="text-left">
+    <ion-label col-6><b>Proposed Date and Time</b></ion-label>
+    <ion-label col-7
+      >{{currentvidappointmentdetaildata.proposeddateandtime | date: 'yyyy-MM-dd
+      h:mm a' }}</ion-label
     >
-      <ion-label col-5><b>Beneficiary Number</b></ion-label>
-      <ion-label col-7
-        >{{currentmedappointmentdetaildata.beneficiary_phone_number}}</ion-label
-      >
-    </ion-item>
-    <ion-item text-wrap class="text-left">
-      <ion-label col-5><b>Request Urgency</b></ion-label>
-      <ion-label col-7
-        >{{currentmedappointmentdetaildata.requesturgency |
-        removehtmltags}}</ion-label
-      >
-    </ion-item>
-    <ion-item text-wrap class="text-left">
-      <ion-label col-5><b>Previous medical history</b></ion-label>
-      <ion-label col-7
-        >{{currentmedappointmentdetaildata.prevmedicalhistory |
-        removehtmltags}}</ion-label
-      >
-    </ion-item>
-    <ion-item text-wrap class="text-left">
-      <ion-label col-5><b>Medication</b></ion-label>
-      <ion-label col-7
-        >{{currentmedappointmentdetaildata.medications |
-        removehtmltags}}</ion-label
-      >
-    </ion-item>
-    <ion-item text-wrap class="text-left">
-      <ion-label col-5><b>Allergies</b></ion-label>
-      <ion-label col-7
-        >{{currentmedappointmentdetaildata.allergies |
-        removehtmltags}}</ion-label
-      >
-    </ion-item>
+  </ion-item>
 
-    <ion-item text-wrap class="text-left">
-      <ion-label col-5><b>Confirm Status</b></ion-label>
-      <ion-label col-7
-        >{{currentmedappointmentdetaildata.confirmstatus}}</ion-label
-      >
-    </ion-item>
-    <ion-item
-      text-wrap
-      class="text-left"
-      *ngIf="!currentmedappointmentdetaildata.confirmed_date"
+  <ion-item text-wrap class="text-left">
+    <ion-label col-6><b>Confirm Status</b></ion-label>
+    <ion-label col-7
+      >{{currentvidappointmentdetaildata.confirmstatus}}</ion-label
     >
-      <ion-label col-5><b>Date and Time</b></ion-label>
-      <ion-label col-7
-        >{{currentmedappointmentdetaildata.created_at | date: 'yyyy-MM-dd h:mm
-        a'}}</ion-label
-      >
-    </ion-item>
+  </ion-item>
 
-    <!-- <ion-item
-      text-wrap
-      class="text-left"
-      *ngIf="currentmedappointmentdetaildata.confirmed_date"
-    >
-      <ion-label col-5><b>Confirmed date: </b></ion-label>
-      <ion-label col-7
-        >{{currentmedappointmentdetaildata.confirmed_date | date: 'yyyy-MM-dd
-        h:mm a' }}</ion-label
-      >
-    </ion-item> -->
-    <br />
-
-    <ion-list>
-      <p style="text-align: center; color: #d82929">
-        CONFIRMED APPOINTMENT DETAILS
-      </p>
-      <ion-item text-wrap class="text-left">
-        <ion-label col-5><b>Suburb Name: </b></ion-label>
-        <ion-label col-7>{{suburb_name }}</ion-label>
-      </ion-item>
-
-      <ion-item text-wrap class="text-left">
-        <ion-label col-5><b>Complaints: </b></ion-label>
-        <ion-label col-7>{{complaint_desc | removehtmltags}}</ion-label>
-      </ion-item>
-
-      <ion-item text-wrap class="text-left">
-        <ion-label col-5><b>Comments: </b></ion-label>
-        <ion-label col-7>{{comment | removehtmltags}}</ion-label>
-      </ion-item>
-
-      <ion-item text-wrap class="text-left">
-        <ion-label col-5><b>Confirmed Date: </b></ion-label>
-        <ion-label col-7
-          >{{confirmed_date | date: 'yyyy-MM-dd h:mm a' }}</ion-label
-        >
-      </ion-item>
-      <!-- 
-      <ion-item text-wrap class="text-left">
-        <ion-label col-5><b>Medications: </b></ion-label>
-        <ion-label col-7>{{patientdetails.drug_name }}</ion-label>
-      </ion-item> -->
-    </ion-list>
-    <ion-list>
-      <ion-item text-wrap class="text-left" no-lines>
-        <ion-label col-5><b>Medications confirmed: </b></ion-label>
-      </ion-item>
-      <ion-item
-        text-wrap
-        class="text-left"
-        *ngFor="let patientdetails of confirmed_details"
-      >
-        <ion-label col-7
-          >{{patientdetails.drug_name | removehtmltags}}</ion-label
-        >
-      </ion-item>
-    </ion-list>
-
-    <br />
-    <div padding style="text-align: center">
-      <button
-        ion-button
-        round
-        color="green1"
-        class="button-bottom1"
-        *ngIf="currentmedappointmentdetaildata.image_name"
-        (tap)="show_appointment_image(currentmedappointmentdetaildata)"
-      >
-        View Lab Test Image
-      </button>
-    </div>
-  </form>
+  <ion-item text-wrap class="text-left">
+    <ion-label col-6><b>Payment Status</b></ion-label>
+    <ion-label col-7>Not Paid</ion-label>
+  </ion-item>
 </ion-content>

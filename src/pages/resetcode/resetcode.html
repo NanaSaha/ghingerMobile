@@ -1,37 +1,38 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>Forgot password ? </ion-title>
-  </ion-navbar>
+  <ion-navbar> </ion-navbar>
 </ion-header>
 
 <ion-content class="background">
-  <img src="assets/icon/new_ghinger_logo.png" class="logo_position" />
+  <h4 id="textLogin">Forgot password ?</h4>
 
   <form [formGroup]="resetPasswordForm" class="padd">
-    <ion-item>
-      <ion-label floating> Enter Reset code sent via SMS</ion-label>
+    <ion-item no-lines>
       <ion-input
         type="text"
+        placeholder="Enter Reset code sent via SMS"
         formControlName="resetcode"
         name="resetcode"
-        [class.invalid]="!resetPasswordForm.controls.resetcode.valid && (resetPasswordForm.controls.resetcode.dirty || submitAttempt)"
+        autocomplete="off"
+        [class.invalid]="!resetPasswordForm.controls.mobile_number.valid && (resetPasswordForm.controls.mobile_number.dirty || submitAttempt)"
       ></ion-input>
     </ion-item>
+
     <br />
 
     <p class="pad">
-      <button
-        ion-button
-        round
-        color="primary"
-        [disabled]="!this.resetPasswordForm.valid"
-        (tap)="reset()"
-      >
-        Proceed
-      </button>
-
-      <br />
-      <br />
+      <ion-buttons>
+        <button
+          ion-button
+          color="dark"
+          icon-end
+          [disabled]="!this.resetPasswordForm.valid"
+          (tap)="reset()"
+          class="button button-dark customBtn"
+        >
+          Proceed <ion-icon name="arrow-forward"></ion-icon>
+        </button>
+      </ion-buttons>
     </p>
+    <br />
   </form>
 </ion-content>

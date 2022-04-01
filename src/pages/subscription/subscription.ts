@@ -32,6 +32,7 @@ export class SubscriptionPage {
   user_phone;
   messageList;
   api_code;
+  token;
 
   constructor(
     public alertCtrl: AlertController,
@@ -43,83 +44,52 @@ export class SubscriptionPage {
   ) {
     console.log("We are in SUbscription page");
     this.from_login = this.navParams.get("value");
-    this.from_login2 = this.navParams.get("pers_value");
-    this.from_login3 = this.navParams.get("doc_value");
+
     this.subscription_type = this.navParams.get("sub_type");
+    this.token = this.navParams.get("token");
+
     console.log("VALUE IN Login IS" + this.from_login);
-    console.log("VALUE INPERS VALUE IS" + this.from_login2);
-    console.log("VALUE DoC VALUE IS" + this.from_login3);
+    console.log("VALUE IN token IS" + this.token);
+
     console.log("sub_type TYPE" + this.subscription_type);
 
-    this.user_id = this.from_login[0].id;
-    this.user_first_name = this.from_login[0].other_names;
-    this.user_phone = this.from_login[0].mobile_number;
+    var results_body = JSON.parse(this.from_login);
+    var user_id = results_body["data"]["user_infos"][0].user_id;
+
+    this.user_id = results_body["data"]["user_infos"][0].user_id;
+    this.user_first_name = results_body["data"]["user_infos"][0].first_name;
+    this.user_phone = results_body["data"]["user_infos"][0].phone;
     console.log("user_id " + this.user_id);
     // sub_name
 
     //CHECK IF USER SUBSCRIPTION EXIST
-    this.params = {
-      user_id: this.user_id,
-    };
 
-    this.newparams = JSON.stringify(this.params);
+    // let loader = this.loadingCtrl.create({
+    //   content: "Please wait ...",
+    // });
 
-    console.log("New params " + this.newparams);
+    // loader.present();
 
-    let loader = this.loadingCtrl.create({
-      content: "Please wait ...",
-    });
+    // this.data.subscription_history(this.user_id).then(
+    //   (result) => {
+    //     console.log(result);
 
-    loader.present();
+    //     var string_results = JSON.stringify(result);
 
-    console.log(this.params);
-    this.jsonBody = JSON.parse(this.newparams);
+    //     console.log("SUBSCRIPTION HISTORY RESULTS " + string_results);
 
-    this.data.subscription_history(this.jsonBody).then(
-      (result) => {
-        console.log(result);
-
-        this.paymentJson = JSON.stringify(result);
-
-        console.log("LETS SEE THE PROCESS ORDER " + this.paymentJson);
-        this.list = JSON.parse(this.paymentJson);
-
-        console.log(result);
-
-        var jsonBody = result["_body"];
-        jsonBody = JSON.parse(jsonBody);
-        this.list = jsonBody;
-
-        console.log(jsonBody);
-        console.log(this.list);
-
-        // this.sub_user_id = this.list[0].user_id;
-
-        // console.log("SUBSCRIPTION USER ID TYPE" + this.sub_user_id);
-        
-        if (this.list.length == 0) {
-          console.log("SUBSCRIPTION IS EMPTY")
-          this.sub_user_id = ""
-        }
-        else {
-          this.sub_user_id = this.list[0].user_id;
-
-        console.log("SUBSCRIPTION USER ID TYPE" + this.sub_user_id);
-        }
-
-        
-        loader.dismiss();
-      },
-      (err) => {
-        loader.dismiss();
-        let alert = this.alertCtrl.create({
-          title: "",
-          subTitle: "Sorry, cant connect right now. Please try again!",
-          buttons: ["OK"],
-        });
-        alert.present();
-      }
-    );
+    //     loader.dismiss();
+    //   },
+    //   (err) => {
+    //     loader.dismiss();
+    //     let alert = this.alertCtrl.create({
+    //       title: "",
+    //       subTitle: "Sorry, cant connect right now. Please try again!",
+    //       buttons: ["OK"],
+    //     });
+    //     alert.present();
+    //   }
+    // );
   }
 
   goto_subscription(visit_type) {
@@ -129,6 +99,7 @@ export class SubscriptionPage {
     this.navCtrl.push(SubscriptionBookPage, {
       value: this.from_login,
       visit_type: visit_type,
+      token: this.token,
     });
   }
 
@@ -187,7 +158,7 @@ export class SubscriptionPage {
 
             loader.present();
 
-            this.data.book_subscription(this.params).then(
+            this.data.book_subscription(this.params, this.token).then(
               (result) => {
                 console.log("THIS IS THE RESULT" + result);
                 var jsonBody = result["_body"];

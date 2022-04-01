@@ -49,6 +49,7 @@ export class MedicationSearchPage {
   cities: any;
   suburbs: any;
   surb;
+  token;
 
   constructor(
     // private keyboard: Keyboard,
@@ -65,12 +66,7 @@ export class MedicationSearchPage {
     public toastCtrl: ToastController
   ) {
     this.from_login = this.navParams.get("value");
-
-    this.from_login2 = this.navParams.get("pers_value");
-    this.from_login3 = this.navParams.get("doc_value");
-    console.log("VALUE IN LOGIN CONSTRUCTOR IS" + this.from_login);
-    console.log("VALUE IN PERS VALU CONSTRUCTOR IS" + this.from_login2);
-    console.log("VALUE IN DOC VALUE CONSTRUCTOR IS" + this.from_login3);
+    this.token = this.navParams.get("token");
 
     this.searchForm = this._form.group({
       // "country_id": ["", Validators.compose([Validators.required])],
@@ -79,14 +75,14 @@ export class MedicationSearchPage {
       suburb_id: ["", Validators.compose([Validators.required])],
     });
 
-    this.data.get_cities_by_region().then(
+    this.data.get_cities_by_region(this.token).then(
       (result) => {
         console.log(result);
-        var jsonBody = result["_body"];
-        jsonBody = JSON.parse(jsonBody);
-        this.cities = jsonBody;
+        var jsonBody = result;
+        // jsonBody = JSON.parse(jsonBody);
+        this.cities = jsonBody["data"];
 
-        console.log("Jsson body " + JSON.stringify(jsonBody));
+        console.log("Jsson body " + JSON.stringify(this.cities));
       },
       (err) => {
         console.log("error = " + JSON.stringify(err));
@@ -97,7 +93,7 @@ export class MedicationSearchPage {
   surburbChange(event: { component: IonicSelectableComponent; value: any }) {
     this.surb = event.value;
     console.log("Surburb Id:", this.surb.id);
-    console.log("Surburb Name:", this.surb.suburb_name);
+    console.log("Surburb Name:", this.surb.name);
   }
 
   go() {
@@ -107,7 +103,7 @@ export class MedicationSearchPage {
 
     loader.present();
 
-    let data = this.surb.suburb_name;
+    let data = this.surb.name;
     console.log("LOCATION ENTERED " + data);
 
     if (data == undefined) {
@@ -124,29 +120,28 @@ export class MedicationSearchPage {
         value: data,
         another: this.from_login,
         sub_id: this.surb.id,
-        doc_value: this.from_login3,
-        pers_value: this.from_login2,
+        token: this.token,
       });
       loader.dismiss();
     }
   }
 
   get_suburbs(city_id) {
+    console.log("CITYYY ID " + JSON.stringify(city_id));
     if (city_id) {
       this.storage.set("city_id", city_id.id);
 
       console.log("city_id = " + JSON.stringify(city_id.id));
 
       setTimeout(() => {
-        this.data.get_suburbs_by_city(city_id.id).then(
+        this.data.get_suburbs_by_city(city_id.id, this.token).then(
           (result) => {
             console.log(result);
-            var jsonBody = result["_body"];
-            jsonBody = JSON.parse(jsonBody);
-            this.suburbs = jsonBody;
+            var jsonBody = result;
+            this.suburbs = jsonBody["data"];
             // loading.dismiss();
 
-            console.log("Jsson body " + JSON.stringify(jsonBody));
+            console.log("Jsson body " + JSON.stringify(this.suburbs));
           },
           (err) => {
             // loading.dismiss();

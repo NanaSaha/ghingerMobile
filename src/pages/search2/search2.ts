@@ -40,7 +40,7 @@ export class Search2Page {
   sub_id: any;
   string: any;
 
-  requester_id1: any;
+  requester_id: any;
   from_login_doc: any = [];
   from_login_pers: any = [];
   body1: any;
@@ -52,13 +52,18 @@ export class Search2Page {
   person_details: any = [];
   person_details_code: any;
   content: any = [];
+  resp_code;
+  no_appointments;
+  token;
+  history_list: any = [];
 
-  kofi = "2"
+  kofi = "2";
 
   medappointmentdetails = { id: "" };
   rowid: any;
 
   constructor(
+    public toastCtrl: ToastController,
     public storage: Storage,
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -71,28 +76,27 @@ export class Search2Page {
   ) {
     console.log("We are in Medical Appointments History page");
     this.from_login = this.navParams.get("value");
-    this.from_login2 = this.navParams.get("pers_value");
-    this.from_login3 = this.navParams.get("doc_value");
-
     console.log("VALUE from Login " + this.from_login);
-    console.log("VALUE from login-doc " + this.from_login3);
-    console.log("VALUE from login-person " + this.from_login2);
+    this.token = this.navParams.get("token");
+
+    var results_body = JSON.parse(this.from_login);
+    var user_id = results_body["data"]["user_infos"][0].user_id;
 
     this.body = this.from_login;
 
     this.jsonBody = this.body;
 
-    this.requester_id1 = this.jsonBody[0].id;
+    this.requester_id = user_id;
     this.check = this.jsonBody[0];
 
     console.log("VALUE IN medical history IS" + this.from_login);
     console.log(
       "VALUE of requester IN medical appointment history  IS " +
-        this.requester_id1
+        this.requester_id
     );
 
     this.params = {
-      requester_id: this.requester_id1,
+      requester_id: this.requester_id,
     };
 
     this.newparams = this.params;
@@ -149,34 +153,64 @@ export class Search2Page {
 
     this.navCtrl.push(SearchPage, {
       value: this.from_login,
-      doc_value: this.from_login3,
-      pers_value: this.from_login2,
+      token: this.token,
     });
   }
 
   getAppointmentHistory() {
-    this.jsonBody = this.newparams;
-    // this.jsonBody = JSON.parse(this.newparams);
-    this.data.med_appointment_history(this.jsonBody).then((result) => {
-      console.log(result);
-
-      var jsonBody = result["_body"];
-      jsonBody = JSON.parse(jsonBody);
-      this.person_details = jsonBody;
-      this.person_details_code = JSON.stringify(this.person_details.resp_code);
-
-      console.log("PERSON DETAILS" + this.person_details.length);
-      console.log("Jsson body " + this.person_details_code);
-      console.log("LAB " + JSON.stringify(jsonBody));
+    let loading = this.loadingCtrl.create({
+      content: "Please wait...",
     });
+
+    loading.present();
+    this.data.med_appointment_history(this.token).then(
+      (result) => {
+        console.log("THIS IS THE RESULT" + result);
+        console.log("THIS IS THE ONLY DATARESULT" + result["data"]);
+        this.person_details = result["data"];
+        let new_list = [];
+
+        for (let x in this.person_details) {
+          if (
+            this.person_details[x]["appointment_type"].id == "MA" &&
+            this.person_details[x]["apt_type_id"] == "MA"
+          ) {
+            new_list.push({
+              title: this.person_details[x]["appointment_type"].title,
+              price: this.person_details[x]["appointment_type"].price,
+              date: this.person_details[x].created_at,
+              status: this.person_details[x].confirm_status,
+              complaint: this.person_details[x].complaint,
+              id: this.person_details[x].id,
+            });
+          }
+        }
+
+        console.log("NEW LIST" + JSON.stringify(new_list));
+        this.history_list = new_list;
+        loading.dismiss();
+      },
+
+      (err) => {
+        loading.dismiss();
+        this.no_appointments = "no";
+
+        let toast = this.toastCtrl.create({
+          message: "No Appointments Found",
+          duration: 5000,
+          position: "bottom",
+        });
+        toast.present();
+        console.log(JSON.stringify(err));
+      }
+    );
   }
 
   medical_appointment_history_details(medappointhistory) {
     this.navCtrl.push(MedappointmentdetailsPage, {
       value: this.from_login,
-      doc_value: this.from_login_doc,
-      pers_value: this.from_login_pers,
       medappointhistory: medappointhistory,
+      token: this.token,
     });
   }
 

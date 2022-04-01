@@ -17,6 +17,14 @@
     url("../assets/fonts/Montserrat-Light.ttf") format("truetype");
 }
 
+.item-label-floating ion-label {
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  width: 100% !important;
+  max-width: 100%;
+}
+
 .footer-font {
   text-decoration: none;
 }
@@ -43,24 +51,24 @@
   text-align: center;
 }
 
-.ion-page.show-page {
-  opacity: 1;
-  background: white !important;
-}
-ion-page {
-  left: 0;
-  top: 0;
-  position: absolute;
-  display: block;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  background: white;
-}
+// .ion-page.show-page {
+//   opacity: 1;
+//   background: white !important;
+// }
+// ion-page {
+//   left: 0;
+//   top: 0;
+//   position: absolute;
+//   display: block;
+//   width: 100%;
+//   height: 100%;
+//   opacity: 0;
+//   background: white;
+// }
 
-.ion-page {
-  overflow-y: scroll !important;
-}
+// .ion-page {
+//   overflow-y: scroll !important;
+// }
 
 .pad {
   text-align: center;
@@ -126,3 +134,16 @@ modal-wrapper {
   width: 66px;
   margin-left: 30%;
 }
+
+.tabs-md .tabbar {
+  background: #cee8c8 !important;
+  color: white;
+}
+
+// .tabbar a.tab-button[aria-selected="true"]:nth-of-type(1) {
+//   color: #f8fff6;
+// }
+
+// .tabbar a.tab-button[aria-selected="true"]:nth-of-type(1) .tab-button-icon {
+//   color: #ffffff;
+// }

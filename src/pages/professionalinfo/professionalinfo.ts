@@ -21,6 +21,7 @@ import { Http } from "@angular/http";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Storage } from "@ionic/storage";
 import { IonicSelectableComponent } from "ionic-selectable";
+import { DoctorHomePage } from "../doctorhome/doctorhome";
 
 import "rxjs/add/operator/map";
 
@@ -78,6 +79,9 @@ export class ProfessionalInfoPage {
   cities: any;
   suburbs: any;
   surb;
+  token;
+  doc_details;
+  account_id;
 
   constructor(
     public toastCtrl: ToastController,
@@ -95,97 +99,76 @@ export class ProfessionalInfoPage {
   ) {
     this.regid = this.navParams.get("regid");
     this.user_type1 = this.navParams.get("user_type1");
+    this.doc_details = this.navParams.get("value");
 
     console.log("USER TYPE IS " + this.user_type1);
+    console.log("DOC DETAILS " + this.doc_details);
+    console.log("DOC DETAILS STRING" + JSON.stringify(this.doc_details));
+    // this.account_id = JSON.parse(this.doc_details).data.id;
+    this.account_id = this.regid;
+    console.log("Account ID::" + JSON.stringify(this.account_id));
+
+    this.cities = [
+      {
+        id: "9b0219c4-a090-4727-a65d-1f63292b1805",
+        name: "Accra",
+      },
+
+      {
+        id: "7b2d0d01-8fd1-40b5-99fc-b5ade79fb485",
+        name: "Takoradi",
+      },
+      {
+        id: "d6559b4b-119a-4127-9779-328ef12bf18e",
+        name: "Tema",
+      },
+      {
+        id: "4bc68633-a6c2-4efa-a2f4-d416e5054a22",
+        name: "koforidua",
+      },
+    ];
+
+    // this.storage.get("token").then((token) => {
+    //   this.token = token;
+    //   console.log("TOKEN IN MENu " + this.token);
+
+    // this.data.get_cities_by_region(this.token).then(
+    //   (result) => {
+    //     console.log(result);
+    //     var jsonBody = result;
+
+    //     this.cities = jsonBody["data"];
+
+    //     console.log("Jsson body " + JSON.stringify(this.cities));
+    //   },
+    //   (err) => {
+    //     console.log("error = " + JSON.stringify(err));
+    //   }
+    // );
+    // });
 
     // this.regid = 3;
 
     this.professionalInfoForm = this._form.group({
-      user_type1: [this.user_type1, Validators.compose([Validators.required])],
-      city_id: ["", Validators.compose([Validators.required])],
+      // user_type1: [this.user_type1, Validators.compose([Validators.required])],
+      city_id: [""],
       suburb_id: [""],
-      hospital_name: ["", Validators.compose([Validators.required])],
-      specialty_name: [
-        "",
-        ExtraValidators.conditional(
-          (group) => group.controls.user_type1.value == "D",
-          Validators.compose([Validators.required])
-        ),
-      ],
-      specialty_duration: [
-        "",
-        ExtraValidators.conditional(
-          (group) => group.controls.user_type1.value == "D",
-          Validators.compose([Validators.required])
-        ),
-      ],
+      hospital: ["", Validators.compose([Validators.required])],
+      specialty: ["", Validators.compose([Validators.required])],
+      specialty_duration: ["", Validators.compose([Validators.required])],
       license_number: ["", Validators.compose([Validators.required])],
-      medical_regulator: [
-        "",
-        ExtraValidators.conditional(
-          (group) => group.controls.user_type1.value == "D",
-          Validators.compose([Validators.required])
-        ),
-      ],
-      has_specialty: [
-        "",
-        ExtraValidators.conditional(
-          (group) => group.controls.user_type1.value == "D",
-          Validators.compose([Validators.required])
-        ),
-      ],
-
-      foreign_training: [
-        "",
-        ExtraValidators.conditional(
-          (group) =>
-            group.controls.has_specialty.value == "t" &&
-            group.controls.user_type1.value == "D",
-          Validators.compose([Validators.required])
-        ),
-      ],
-      foreign_medical_regulator: [
-        "",
-        ExtraValidators.conditional(
-          (group) =>
-            group.controls.foreign_training.value == "t" &&
-            group.controls.user_type1.value == "D",
-          Validators.compose([Validators.maxLength(10)])
-        ),
-      ],
-      foreign_license_number: [
-        "",
-        ExtraValidators.conditional(
-          (group) =>
-            group.controls.foreign_training.value == "t" &&
-            group.controls.user_type1.value == "D",
-          Validators.compose([Validators.required])
-        ),
-      ],
+      medical_regulator: ["", Validators.compose([Validators.required])],
+      has_foreign_training: ["", Validators.compose([Validators.required])],
     });
 
-    this.getProfessional_groups();
-    this.getSpecialties();
-
-    this.data.get_cities_by_region().then(
-      (result) => {
-        console.log(result);
-        var jsonBody = result["_body"];
-        jsonBody = JSON.parse(jsonBody);
-        this.cities = jsonBody;
-
-        console.log("Jsson body " + JSON.stringify(jsonBody));
-      },
-      (err) => {
-        console.log("error = " + JSON.stringify(err));
-      }
-    );
+    // this.getProfessional_groups();
+    // this.getSpecialties();
   }
 
   surburbChange(event: { component: IonicSelectableComponent; value: any }) {
     this.surb = event.value;
     console.log("Surburb Id:", this.surb.id);
-    console.log("Surburb Name:", this.surb.suburb_name);
+    console.log("Surburb Name:", this.surb.name);
   }
 
   signup() {
@@ -195,100 +178,98 @@ export class ProfessionalInfoPage {
 
     loader.present();
 
-    // let data = this.searchbar.getValue();
-    let data = this.surb.suburb_name;
+    let data = this.surb.name;
     console.log("LOCATION ENTERED " + data);
 
     this.params2 = {
-      id: this.regid,
-
-      surburb_name: data,
-      hospital_name: this.professionalInfoForm.value.hospital_name,
-      has_specialty: this.professionalInfoForm.value.has_specialty,
-      specialty_name: this.professionalInfoForm.value.specialty_name,
+      account_id: this.account_id,
+      hospital: this.professionalInfoForm.value.hospital,
+      suburb_id: this.professionalInfoForm.value.suburb_id.id,
+      specialty: this.professionalInfoForm.value.specialty,
       specialty_duration: this.professionalInfoForm.value.specialty_duration,
       license_number: this.professionalInfoForm.value.license_number,
       medical_regulator: this.professionalInfoForm.value.medical_regulator,
-      foreign_training: this.professionalInfoForm.value.foreign_training,
-      foreign_medical_regulator: this.professionalInfoForm.value
-        .foreign_medical_regulator,
-      foreign_license_number: this.professionalInfoForm.value
-        .foreign_license_number,
+      has_foreign_training: this.professionalInfoForm.value.foreign_training,
     };
 
-    console.log("Add regis params = " + this.params2);
+    //     {
+    //     "hospital": "DD",
+    //     "account_id": "de9f6833-d1c0-4954-b46e-60a969f2c127",
+    //     "suburb_id": "5b04c3bb-b1e1-4689-bb3f-a5d40c922478",
+    //     "specialty": "heheh",
+    //     "medical_regulator": "GMA",
+    //     "specialty_duration": 4,
+    //     "license_number": "dkjUHHKK",
+    //     "has_foreign_training": false
+    // }
+    loader.dismiss();
+    console.log(
+      "THIS IS THE SURBURB ID::::" +
+        JSON.stringify(this.professionalInfoForm.value.suburb_id.id)
+    );
+
     console.log(
       "THIS IS THE STRINGIFY SIGNUP VALUES" + JSON.stringify(this.params2)
     );
     console.log("THIS IS THE SIGNUP VALUES" + this.params2);
 
-    this.data.update_registration(this.params2).then(
-      (result) => {
-        console.log(result);
-        var jsonBody = result["_body"];
-        console.log(jsonBody);
+    let alert = this.alertCtrl.create({
+      title: "Profile Successfully Created..",
+      subTitle: "Kindly Login with credentials created",
+      buttons: [
+        {
+          text: "OK",
+          handler: () => {
+            this.navCtrl.setRoot(LoginPage);
+          },
+        },
+      ],
+    });
+    alert.present();
 
-        jsonBody = JSON.parse(jsonBody);
-        console.log(jsonBody);
+    // this.data.update_registration(this.params2, this.token).then(
+    //   (result) => {
+    //     console.log("THIS IS THE RESULT" + result);
 
-        var desc = jsonBody["resp_desc"];
-        var code = jsonBody["resp_code"];
+    //     let loader = this.loadingCtrl.create({
+    //       content: "Submitting...",
+    //     });
+    //     loader.present();
 
-        console.log(desc);
-        console.log(code);
+    //     let alert = this.alertCtrl.create({
+    //       title: "",
+    //       subTitle: "Profile Successfully Created..",
+    //       buttons: [
+    //         {
+    //           text: "OK",
+    //           handler: () => {
 
-        this.messageList = desc;
-        this.api_code = code;
+    //             this.navCtrl.setRoot(DoctorHomePage, {
+    //               value: this.doc_details,
+    //               token: this.token,
+    //             });
+    //           },
+    //         },
+    //       ],
+    //     });
+    //     alert.present();
 
-        loader.dismiss();
+    //     setTimeout(() => {
+    //       loader.dismiss();
+    //     }, 1);
+    //   },
+    //   (err) => {
+    //     let alert = this.alertCtrl.create({
+    //       title: "",
+    //       subTitle:
+    //         "Registration unsuccessful. Please ensure that all details provided are correct and try again.",
+    //       buttons: ["OK"],
+    //     });
+    //     alert.present();
 
-        if (this.api_code == "000") {
-          let loader = this.loadingCtrl.create({
-            content: "Submitting...",
-          });
-          loader.present();
-
-          let alert = this.alertCtrl.create({
-            title: "",
-            subTitle:
-              "Submission successful.. Kindly login with your email and password.",
-            buttons: [
-              {
-                text: "OK",
-                handler: () => {
-                  this.navCtrl.setRoot(LoginPage);
-                },
-              },
-            ],
-          });
-          alert.present();
-
-          setTimeout(() => {
-            loader.dismiss();
-          }, 1);
-        }
-
-        if (this.api_code != "000") {
-          let alert = this.alertCtrl.create({
-            title: "",
-            subTitle: this.messageList,
-            buttons: ["OK"],
-          });
-        }
-      },
-      (err) => {
-        let alert = this.alertCtrl.create({
-          title: "",
-          subTitle:
-            "Registration unsuccessful. Please ensure that all details provided are correct and try again.",
-          buttons: ["OK"],
-        });
-        alert.present();
-
-        loader.dismiss();
-        console.log(err);
-      }
-    );
+    //     console.log(err);
+    //   }
+    // );
   }
 
   getSpecialties() {
@@ -371,35 +352,56 @@ export class ProfessionalInfoPage {
   }
 
   get_suburbs(city_id) {
+    console.log("CITYYY ID " + JSON.stringify(city_id));
+    console.log("TOKEN IN SURBURBS " + this.token);
     if (city_id) {
       this.storage.set("city_id", city_id.id);
 
       console.log("city_id = " + JSON.stringify(city_id.id));
 
-      setTimeout(() => {
-        this.data.get_suburbs_by_city(city_id.id).then(
-          (result) => {
-            console.log(result);
-            var jsonBody = result["_body"];
-            jsonBody = JSON.parse(jsonBody);
-            this.suburbs = jsonBody;
-            // loading.dismiss();
+      this.suburbs = [
+        {
+          id: "9b0219c4-a090-4727-a65d-1f63292b1805",
+          name: "Dansoman",
+        },
 
-            console.log("Jsson body " + JSON.stringify(jsonBody));
-          },
-          (err) => {
-            // loading.dismiss();
-            this.showalertmessage(
-              "Ghinger",
-              "Sorry. An Error occured. Kindly refresh and try again."
-            );
-            this.showmessage(
-              "Sorry. An Error occured. Kindly refresh and try again."
-            );
-            console.log("error = " + JSON.stringify(err));
-          }
-        );
-      }, 1);
+        {
+          id: "7b2d0d01-8fd1-40b5-99fc-b5ade79fb485",
+          name: "Lapaz",
+        },
+        {
+          id: "d6559b4b-119a-4127-9779-328ef12bf18e",
+          name: "Sowutuom",
+        },
+        {
+          id: "4bc68633-a6c2-4efa-a2f4-d416e5054a22",
+          name: "Kwashieman",
+        },
+      ];
+
+      // setTimeout(() => {
+      //   this.data.get_suburbs_by_city(city_id.id, this.token).then(
+      //     (result) => {
+      //       console.log(result);
+      //       var jsonBody = result;
+      //       this.suburbs = jsonBody["data"];
+      //       // loading.dismiss();
+
+      //       console.log("Jsson body " + JSON.stringify(this.suburbs));
+      //     },
+      //     (err) => {
+      //       // loading.dismiss();
+      //       this.showalertmessage(
+      //         "Ghinger",
+      //         "Sorry. An Error occured. Kindly refresh and try again."
+      //       );
+      //       this.showmessage(
+      //         "Sorry. An Error occured. Kindly refresh and try again."
+      //       );
+      //       console.log("error = " + JSON.stringify(err));
+      //     }
+      //   );
+      // }, 1);
     }
   }
 

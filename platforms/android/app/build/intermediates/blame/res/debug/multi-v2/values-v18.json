@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/saha/Ionic/devdex-ghinger/platforms/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-v18/values-v18.xml",
+            "outputFile": "/Users/saha/Ionic/ghingerV2/platforms/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-v18/values-v18.xml",
             "map": [
                 {
-                    "source": "/Users/saha/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.1.1.aar/15ea1494be6e857c813f48a9a0191638/res/values-v18/values-v18.xml",
+                    "source": "/Users/saha/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.1.1.aar/cf531e1d75ff06d59f175b1226d31656/res/values-v18/values-v18.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

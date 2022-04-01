@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Medical Records </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="background">
+  <!-- <ion-item class="center1" no-lines>No Medical Record Available</ion-item> -->
+
+  <ion-list no-lines *ngIf="pdata">
+    <ion-list class="accordion-list" overflow-scroll="true">
+      <ion-list-header
+        *ngFor="let item of pdata; let i = index"
+        no-lines
+        no-padding
+      >
+        <button
+          ion-item
+          (click)="toggleSection(i)"
+          detail-none
+          [ngClass]="{'section-active': item.open, 'section': !item.open}"
+        >
+          <ion-icon item-right name="arrow-down" *ngIf="!item.open"></ion-icon>
+          <ion-icon item-right name="arrow-up" *ngIf="item.open"></ion-icon>
+          {{ item.patient.email }}
+        </button>
+
+        <ion-list *ngIf="item.open" no-lines>
+          <ion-list-header no-padding>
+            <ion-row class="container">
+              <ion-col col-12>
+                <h2 text-wrap>
+                  <b style="color: black" text-wrap>{{item.note}}</b>
+                </h2>
+
+                <p text-wrap>Action Taken:: {{ item.action_taken}}</p>
+                <p text-wrap>Action Needed:: {{ item.action_needed}}</p>
+              </ion-col>
+            </ion-row>
+          </ion-list-header>
+        </ion-list>
+      </ion-list-header>
+    </ion-list>
+  </ion-list>
+</ion-content>

@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title style="text-align: center;">Doctor Invoices</ion-title>
+    <ion-title style="text-align: center">Doctor Invoices</ion-title>
     <ion-buttons end>
       <button ion-button icon-only (tap)="closeModal()">
         <ion-icon name="close"></ion-icon>
@@ -12,7 +12,7 @@
 <ion-content>
   <ion-refresher (ionRefresh)="doRefresh($event)"> </ion-refresher>
 
-  <h3 style="text-align: center;">Invoices</h3>
+  <h3 style="text-align: center">Invoices</h3>
 
   <ion-row>
     <ion-col col-6>
@@ -40,8 +40,7 @@
             </p>
           </ion-col>
           <ion-col col-4 text-wrap="true">
-            <!-- <button ion-button class="small_button" color="green1" round type="submit" (click)="pds_appt_details(pds_appoint_details)">Appt Details</button> -->
-            <b text-wrap="true" style="color: red;"
+            <b text-wrap="true" style="color: red"
               >GH¢ {{pds_appoint_details.appt_amnt}}</b
             >
           </ion-col>
@@ -57,9 +56,9 @@
         <ion-grid>
           <ion-row>
             <ion-col col-12>
-              <h2 style="text-align: center;" text-wrap>
-                Sorry you have no earnings yet. Please attend to an appointment
-                to realise your earnings
+              <h2 style="text-align: center" text-wrap>
+                You have no earnings yet. Please attend to an appointment to
+                realize your earnings.
               </h2>
             </ion-col>
           </ion-row>
@@ -70,18 +69,13 @@
 </ion-content>
 
 <ion-footer>
-  <p style="text-align: center;">
+  <p style="text-align: center">
     Note*: Actual Earnings are only shown after an appointment has been attended
     to
   </p>
-  <ion-row>
+  <!-- <ion-row>
     <ion-col col-12>
-      <button ion-button color="green1" (tap)="request()">
-        Request Funds
-      </button>
+      <button ion-button color="green1" (tap)="request()">Request Funds</button>
     </ion-col>
-    <!-- <ion-col col-6>
-      <button ion-button color="green1" class="right" (tap)="order()">Place an Order</button>
-    </ion-col> -->
-  </ion-row>
+  </ion-row> -->
 </ion-footer>

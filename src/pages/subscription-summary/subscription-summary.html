@@ -10,29 +10,6 @@
 </ion-header>
 
 <ion-content padding="true" class="background">
-  <!-- <ion-card>
-
-    <ion-card-content>
-      <table col-10>
-        <tbody text-wrap>
-          <tr *ngIf="patient_name;">
-            <th scope="row" style="text-align: left;">Requester</th>
-            <td style="text-align: right;">{{patient_name}}</td>
-          </tr>
-
-          <tr *ngIf="appointment_type_title;">
-            <th scope="row" style="text-align: left;">Appointment Type</th>
-            <td style="text-align: right;">{{appointment_type_title}}</td>
-          </tr>
-          <tr *ngIf="paid_status">
-            <th scope="row" style="text-align: left;">Status</th>
-            <td style="text-align: right;">{{paid_status}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </ion-card-content>
-  </ion-card> -->
-
   <ion-item>
     <br />
     <h1 class="billdetails">Subscription Details</h1>
@@ -50,62 +27,35 @@
                 </td>
               </tr>
 
-              <tr *ngIf="from_params.phone_number;">
-                <th scope="row" class="th">Phone Number</th>
-                <td class="td">{{from_params.phone_number}}</td>
-              </tr>
-
-              <tr *ngIf="from_params.email;">
-                <th scope="row" class="th">Email</th>
-                <td class="td" *ngIf="from_params.email">
-                  {{from_params.email}}
-                </td>
-              </tr>
-
-              <tr *ngIf="from_params.gender;">
-                <th scope="row" class="th">Gender</th>
-                <td class="td">{{from_params.gender}}</td>
-              </tr>
-
-              <tr *ngIf="from_params.marital_status">
-                <th scope="row" class="th">Marital Status</th>
-                <td class="td">{{from_params.marital_status}}</td>
-              </tr>
-
-              <tr *ngIf="from_params.religion">
-                <th scope="row" class="th">Religion</th>
-                <td class="td">{{from_params.religion}}</td>
-              </tr>
-
               <tr *ngIf="from_params.address">
                 <th scope="row" class="th">Address</th>
                 <td class="td">{{from_params.address}}</td>
               </tr>
 
-              <tr *ngIf="from_params.emergency_name">
+              <tr *ngIf="from_params.e_name">
                 <th scope="row" class="th">Emergency Name</th>
-                <td class="td">{{from_params.emergency_name}}</td>
+                <td class="td">{{from_params.e_name}}</td>
               </tr>
 
-              <tr *ngIf="from_params.emergency_phone">
+              <tr *ngIf="from_params.e_phone">
                 <th scope="row" class="th">Emergency Phone</th>
-                <td class="td">{{from_params.emergency_phone}}</td>
+                <td class="td">{{from_params.e_phone}}</td>
               </tr>
 
-              <tr *ngIf="from_params.emergency_email">
+              <tr *ngIf="from_params.e_email">
                 <th scope="row" class="th">Emergency Email</th>
-                <td class="td">{{from_params.emergency_email}}</td>
+                <td class="td">{{from_params.e_email}}</td>
               </tr>
 
-              <tr *ngIf="from_params.emergency_address">
+              <tr *ngIf="from_params.e_address">
                 <th scope="row" class="th">Emergency Address</th>
-                <td class="td">{{from_params.emergency_address}}</td>
+                <td class="td">{{from_params.e_address}}</td>
               </tr>
 
-              <tr *ngIf="from_params.sub_name">
+              <!-- <tr *ngIf="from_params.sub_name">
                 <th scope="row" class="th">Subscription Name</th>
                 <td class="td">{{from_params.sub_name}}</td>
-              </tr>
+              </tr> -->
             </tbody>
           </table>
         </ion-card-content>

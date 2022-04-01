@@ -1,219 +1,68 @@
 page-home-search {
   .background {
-    background-image: url("../assets/icon/green_background_image.jpg");
-    height: 100%;
-    background-position: center;
-    background-repeat: no-repeat;
+    /* height: 185px; */
+    color: white;
+    background: linear-gradient(138deg, #ffffff, #ffffff9c),
+      url(/assets/icon/G8.png);
     background-size: cover;
-    align-content: center;
+    background-position: bottom right;
+    background-repeat: no-repeat;
+  }
+  .BigText {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.1px;
+    line-height: 30px;
+    margin-bottom: 2px;
+    margin-top: 0.5rem;
+  }
+
+  .aliText {
+    margin-top: 10%;
     text-align: center;
   }
 
-  .item-block {
-    margin: 0;
-    padding: 0;
-    text-align: initial;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
+  .direct_service_row2 {
     display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    overflow: -moz-scrollbars-none;
+    -ms-overflow-style: none;
     overflow: hidden;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-    -ms-flex-align: center;
-    align-items: center;
-    -webkit-box-pack: justify;
-    -webkit-justify-content: space-between;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-    width: 80%;
-    min-height: 4.4rem;
-    border: 1;
-    font-weight: normal;
-    line-height: normal;
-    text-decoration: none;
-    color: inherit;
-    text-align: center;
-    margin-left: 10%;
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+    width: 100%;
+
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-top: 0%;
+    margin-bottom: 5%;
+    height: 340px;
   }
 
-  ion-input,
-  ion-textarea {
-    position: relative;
-    display: block;
-    -webkit-box-flex: 1;
-    -webkit-flex: 1;
-    -ms-flex: 1;
-    flex: 1;
-    width: 100%;
-    // border: 2px solid #000000;
-    border-radius: 6px;
-    background-color: #fff;
+  .c3 {
+    width: 95%;
+    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    text-align: center;
+    border-radius: 8px;
+    margin-top: 5%;
+    background-color: #ffffff;
+    text-align: center;
+    border-radius: 8px;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    height: 280px;
+  }
+
+  .padd {
+    margin-top: 5%;
   }
 
   .item-md {
-    height: 100%;
-
-    background-color: transparent !important;
-  }
-
-  .item-input .label-md,
-  .item-select .label-md,
-  .item-datetime .label-md {
-    color: #000 !important;
-  }
-
-  .ionic-selectable-md .ionic-selectable-icon-inner {
-    color: #0e0d0d;
-  }
-
-  .item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus):not(.item-input-has-focus)
-    .item-inner {
-    border-bottom-color: rgba(223, 13, 13, 0) !important;
-    box-shadow: inset 0 -1px 0 0 #0000 !important;
-  }
-
-  .item-md.item-block .item-inner {
-    padding-right: 8px;
-    border-bottom: 1px solid transparent !important;
-  }
-
-  .button-inner {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-    -webkit-flex-flow: row nowrap;
-    -ms-flex-flow: row nowrap;
-    flex-flow: row nowrap;
-    -webkit-flex-shrink: 0;
-    -ms-flex-negative: 0;
-    flex-shrink: 0;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-    -ms-flex-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    -webkit-justify-content: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    // width: 97% !important;
-    // height: 100%;
-    // border: 2px solid #000000 !important;
-    // border-radius: 6px !important;
-    // background-color: #fff !important;
-    // margin-left: 3% !important;
-  }
-
-  ion-select {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    overflow: hidden;
-    max-width: 78% !important;
-  }
-
-  .select-md .select-placeholder {
-    color: #999;
-    z-index: 122 !important;
-  }
-
-  .datetime-md .datetime-placeholder {
-    color: #999;
-    z-index: 122 !important;
-  }
-
-  .label-md,
-  .item-datetime .label-md {
-    color: #999;
-    z-index: 122 !important;
-  }
-
-  .label-md {
-    margin: 13px 140px 13px 0 !important;
-  }
-
-  .back_color {
-    background-color: #92d36e;
-
-    height: 100%;
-
-    /* Center and scale the image nicely */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    align-content: center;
-    text-align: center;
-  }
-
-  ion-modal {
-    .modal-wrapper {
-      position: absolute;
-      top: 0;
-      left: 0;
-      display: block;
-      width: 50%;
-      height: 50%;
-    }
-  }
-
-  .card {
-    padding-top: 15%;
-    // background-color: #789527;
-    // background-color: #ece7e7;
-  }
-  .pad {
-    text-align: center;
-  }
-
-  .trans {
-    background-color: #ece7e7;
-  }
-
-  ion-auto-complete {
-    width: 80vw;
-    //    text-align:center;
-    //    align-content: center;
-    margin-left: 30px;
-  }
-
-  .main-view {
-    // background: transparent;
-    background-image: url("../assets/icon/back.png");
-  }
-  .overlay {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    opacity: 0.5;
-    background-color: #333;
-  }
-  .modal_content {
-    position: absolute;
-    top: calc(50% - (50% / 2));
-    left: 0;
-    right: 0;
-    width: 100%;
-    height: 50%;
-    padding: 10px;
-    z-index: 100;
-    margin: 0 auto;
-    padding: 10px;
-    color: #333;
-    background: #e8e8e8;
-    background: -moz-linear-gradient(top, #fff 0%, #e8e8e8 100%);
-    background: -webkit-linear-gradient(top, #fff 0%, #e8e8e8 100%);
-    background: linear-gradient(to bottom, #fff 0%, #e8e8e8 100%);
-    border-radius: 5px;
-    box-shadow: 0 2px 3px rgba(51, 51, 51, 0.35);
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    overflow: hidden;
+    background-color: #ffffff73 !important;
   }
 }

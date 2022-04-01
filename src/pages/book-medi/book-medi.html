@@ -11,7 +11,7 @@
 </ion-header>
 
 <ion-content overflow-scroll="true" class="background">
-  <p><b style="color: black;">Medication Request </b></p>
+  <p><b style="color: black">Medication Request </b></p>
 
   <form [formGroup]="appointForm">
     <br />
@@ -20,20 +20,20 @@
         <ion-label floating text-wrap>Who is the medication for?*</ion-label>
 
         <ion-select
-          formControlName="requester_cat"
-          name="requester_cat"
-          [class.invalid]="!appointForm.controls.requester_cat.valid && (appointForm.controls.requester_cat.dirty || submitAttempt)"
+          formControlName="request_cat_id"
+          name="request_cat_id"
+          [class.invalid]="!appointForm.controls.request_cat_id.valid && (appointForm.controls.request_cat_id.dirty || submitAttempt)"
         >
           <ion-option
-            formControlName="requester_cat"
-            name="requester_cat"
+            formControlName="request_cat_id"
+            name="request_cat_id"
             value="S"
             ngDefaultControl
             >Self</ion-option
           >
           <ion-option
-            formControlName="requester_cat"
-            name="requester_cat"
+            formControlName="request_cat_id"
+            name="request_cat_id"
             value="T"
             ngDefaultControl
             >Beneficiary</ion-option
@@ -42,7 +42,7 @@
       </ion-item>
 
       <ion-item
-        *ngIf="appointForm.controls.requester_cat.value =='T' "
+        *ngIf="appointForm.controls.request_cat_id.value =='T' "
         no-lines
       >
         <ion-label floating>Enter Beneficiary Name*</ion-label>
@@ -54,7 +54,7 @@
       </ion-item>
 
       <ion-item
-        *ngIf="appointForm.controls.requester_cat.value =='T' "
+        *ngIf="appointForm.controls.request_cat_id.value =='T' "
         no-lines
       >
         <ion-label floating>Enter Beneficiary's Age</ion-label>
@@ -67,7 +67,7 @@
       </ion-item>
 
       <ion-item
-        *ngIf="appointForm.controls.requester_cat.value =='T' "
+        *ngIf="appointForm.controls.request_cat_id.value =='T' "
         no-lines
       >
         <ion-label floating>Enter Beneficiary Phone Number</ion-label>
@@ -82,20 +82,20 @@
       <ion-item>
         <ion-label floating> Request Urgency</ion-label>
         <ion-select
-          formControlName="req_urgency"
-          name="req_urgency"
-          [class.invalid]="!appointForm.controls.requester_cat.valid && (appointForm.controls.requester_cat.dirty || submitAttempt)"
+          formControlName="request_urgency_id"
+          name="request_urgency_id"
+          [class.invalid]="!appointForm.controls.request_cat_id.valid && (appointForm.controls.request_cat_id.dirty || submitAttempt)"
         >
           <ion-option
-            formControlName="req_urgency"
-            name="req_urgency"
+            formControlName="request_urgency_id"
+            name="request_urgency_id"
             value="S"
             ngDefaultControl
             >Standard</ion-option
           >
           <ion-option
-            formControlName="req_urgency"
-            name="req_urgency"
+            formControlName="request_urgency_id"
+            name="request_urgency_id"
             value="E"
             ngDefaultControl
             >Express</ion-option
@@ -106,13 +106,11 @@
       <ion-item [hidden]="!value">
         <ion-label floating> Appointment type</ion-label>
         <ion-select
-          formControlName="appointment_type_id"
-          name="appointment_type_id"
-          [class.invalid]="!appointForm.controls.appointment_type_id.valid && (appointForm.controls.appointment_type_id.dirty || submitAttempt)"
+          formControlName="apt_type_id"
+          name="apt_type_id"
+          [class.invalid]="!appointForm.controls.apt_type_id.valid && (appointForm.controls.apt_type_id.dirty || submitAttempt)"
         >
-          <ion-option name="appointment_type_id" value="MD" selected
-            >MD</ion-option
-          >
+          <ion-option name="apt_type_id" value="MD" selected>MD</ion-option>
         </ion-select>
       </ion-item>
 
@@ -122,7 +120,7 @@
           item-content
           [(ngModel)]="port"
           itemValueField="id"
-          itemTextField="drug_name"
+          itemTextField="name"
           [items]="check"
           [isMultiple]="true"
           [canClear]="true"
@@ -137,14 +135,14 @@
               *ngFor="let port of check"
               text-wrap
             >
-              {{port.drug_name}}- GHC{{port.price}}
+              {{port.name}}- GHC{{port.price}}
             </div>
           </ng-template>
         </ionic-selectable>
       </ion-item>
 
-      <p class="center"><b style="color: #789527;"> OR </b></p>
-      <p class="center" [hidden]="lastImage !== null" style="color: black;">
+      <p class="center"><b style="color: #789527"> OR </b></p>
+      <p class="center" [hidden]="lastImage !== null" style="color: black">
         Please upload your medication!
       </p>
       <ion-buttons>
@@ -173,7 +171,7 @@
         style="width: 50%;"
         [hidden]="lastImage === null"
       /> -->
-      <img [src]="pathForImage(lastImage)" style="width: 50%;" />
+      <img [src]="pathForImage(lastImage)" style="width: 50%" />
 
       <br />
 
@@ -196,49 +194,46 @@
         >
         <ion-textarea
           lineHeight="22"
-          formControlName="prev_medical_history"
-          name="prev_medical_history"
-          [class.invalid]="!appointForm.controls.prev_medical_history.valid && (appointForm.controls.prev_medical_history.dirty || submitAttempt)"
+          formControlName="prev_history"
+          name="prev_history"
+          [class.invalid]="!appointForm.controls.prev_history.valid && (appointForm.controls.prev_history.dirty || submitAttempt)"
         ></ion-textarea>
-        <ion-label> </ion-label>
       </ion-item>
 
       <ion-item>
         <ion-label floating text-wrap
           >Which day do you want it delivered?</ion-label
         >
-        <ion-input
+        <!-- <ion-input
           formControlName="proposed_date"
           name="proposed_date"
           [class.invalid]="!appointForm.controls.proposed_date.valid && (appointForm.controls.proposed_date.dirty || submitAttempt)"
-        ></ion-input>
+        ></ion-input> -->
         <ion-datetime
           displayFormat="MMM DD YYYY "
           [min]="minSelectabledate"
           [max]="maxSelectabledate"
           formControlName="proposed_date"
         ></ion-datetime>
-        <ion-label> </ion-label>
       </ion-item>
 
       <ion-item>
         <ion-label floating text-wrap
           >Which time do you want it delivered?</ion-label
         >
-        <ion-input
+        <!-- <ion-input
           formControlName="proposed_time"
           name="proposed_time"
           [class.invalid]="!appointForm.controls.proposed_time.valid && (appointForm.controls.proposed_time.dirty || submitAttempt)"
-        ></ion-input>
+        ></ion-input> -->
         <ion-datetime
           displayFormat="h:mm A"
           pickerFormat="h mm A"
           formControlName="proposed_time"
         ></ion-datetime>
-        <ion-label> </ion-label>
       </ion-item>
 
-      <p class="pad" style="text-align: center;">
+      <p class="pad" style="text-align: center">
         <button
           ion-button
           color="green1"

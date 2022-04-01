@@ -10,6 +10,7 @@ import { DataProvider } from "../../providers/data/data";
 import { MenuPage } from "../menu/menu";
 import { DoctorHomePage } from "../doctorhome/doctorhome";
 import { SubscriptionSummaryPage } from "../subscription-summary/subscription-summary";
+import { Storage } from "@ionic/storage";
 
 @Component({
   selector: "page-subscription-history-details",
@@ -43,6 +44,7 @@ export class SubscriptionHistoryDetailsPage {
   user_phone;
   messageList;
   api_code;
+  token;
 
   constructor(
     public alertCtrl: AlertController,
@@ -51,7 +53,8 @@ export class SubscriptionHistoryDetailsPage {
     public menuCtrl: MenuController,
     public navCtrl: NavController,
     public navParams: NavParams,
-    public toastCtrl: ToastController
+    public toastCtrl: ToastController,
+    public storage: Storage
   ) {
     this.sub_items = this.navParams.get("sub_items");
     this.from_login = this.navParams.get("value");
@@ -59,6 +62,10 @@ export class SubscriptionHistoryDetailsPage {
     console.log("from_login " + this.from_login);
     console.log("STRINGIFY from_login " + JSON.stringify(this.from_login));
     console.log("USER TYPE []" + this.from_login[0].user_type);
+    this.storage.get("token").then((token) => {
+      this.token = token;
+      console.log("TOKEN IN MENu " + this.token);
+    });
 
     this.user_id = this.from_login[0].id;
     this.user_first_name = this.from_login[0].other_names;
@@ -181,7 +188,7 @@ export class SubscriptionHistoryDetailsPage {
 
             loader.present();
 
-            this.data.book_subscription(this.params).then(
+            this.data.book_subscription(this.params, this.token).then(
               (result) => {
                 console.log("THIS IS THE RESULT" + result);
                 var jsonBody = result["_body"];
@@ -234,7 +241,7 @@ export class SubscriptionHistoryDetailsPage {
     confirm.present();
   }
 
-    home() {
+  home() {
     this.navCtrl.setRoot(MenuPage);
   }
   // home() {

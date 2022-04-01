@@ -1,35 +1,48 @@
 import { Injectable } from "@angular/core";
-import { Http } from "@angular/http";
+import { Http, Headers } from "@angular/http";
+import { Storage } from "@ionic/storage";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/timeout";
+import { HttpClient, HttpInterceptor, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs/Rx";
+import { tokenReference } from "@angular/compiler";
 
 @Injectable()
 export class DataProvider {
+  // export class DataProvider implements HttpInterceptor {
   // data1: any;
+  bearer_token: any;
 
-  constructor(public http: Http) {
+  constructor(public http: HttpClient, public storage: Storage) {
     console.log("Hello DATAProvider Provider");
+
+    this.storage.get("token").then((token) => {
+      this.bearer_token = token;
+      console.log("TOKEN IN DATA PROVIDER CONSTRUCT " + this.bearer_token);
+    });
   }
+
+  // intercept (request)
 
   timeout_value = 20000;
 
-  main_url = "https://api.ghingerhealth.com";
+  main_url = "https://rest-v2.devdexsoftware.com/v2";
 
-  try_login_url = this.main_url + "/prepare_login";
-  update_profile_url = this.main_url + "/update_user_profile";
+  try_login_url = this.main_url + "/auth/login";
+  update_profile_url = this.main_url + "/accounts/update";
   payment_history_url = this.main_url + "/payment_history";
-  subscription_history_url = this.main_url + "/subscription_history";
+  subscription_history_url = this.main_url + "/client_subscriptions";
   subscription_history_for_doc_url =
     this.main_url + "/subscription_history_for_doc";
 
   make_remarks_url = this.main_url + "/make_remarks";
 
-  new_gen_appoint_url = "";
+  new_gen_appoint_url =
+    this.main_url + "/appointments/doctor_specialist_appointments";
 
-  hosp_url = this.main_url + "/hospital";
-  signup_url = this.main_url + "/sign_up";
-  update_regis_url = this.main_url + "/update_registration";
+  hosp_url = this.main_url + "/service_providers/suburb_providers";
+  signup_url = this.main_url + "/accounts/signup";
+  update_regis_url = this.main_url + "/professional_infos";
   login_url = this.main_url + "/login";
   retrieve_url = this.main_url + "/retrieve_regis";
   retrieve_edit_url = this.main_url + "/retrieve_edit";
@@ -37,9 +50,10 @@ export class DataProvider {
   retrieve_alt_url = this.main_url + "/retrieve_alt";
   retrieve_pers_url = this.main_url + "/retrieve_doc";
   retrieve_doc_url = this.main_url + "/retrieve_doc2";
-  appoint_url = this.main_url + "/make_appointment";
+  appoint_url = this.main_url + "/pre_appointments";
+  specialist_appoint_url = this.main_url + "/pre_appointments";
   doc_appoint_url = this.main_url + "/doc_request";
-  phone_consult_url = this.main_url + "/phone_consult";
+  phone_consult_url = this.main_url + "/pre_appointments";
   prescription_url = this.main_url + "/prescription";
   retrieve_phone_cons_url = this.main_url + "/doctor_patient";
   retrieve_video_cons_url = this.main_url + "/doctor_patient2";
@@ -47,47 +61,44 @@ export class DataProvider {
   retrieve_accepts_url = this.main_url + "/doctor_patient4";
   retrieve_pds_patient_url = this.main_url + "/find_patient_details_pds";
   prescription_list_url = this.main_url + "/prescription_list";
-  l_appoint_url = this.main_url + "/lab_appointment";
+  l_appoint_url = this.main_url + "/pre_appointments";
   send_feedback_url = this.main_url + "/give_feedback";
   specialty_masters_url = this.main_url + "/specialty_masters";
   professional_groups_url = this.main_url + "/professional_groups";
   get_professional_info_url = this.main_url + "/verify_professional_info";
 
-  medication_url = this.main_url + "/medication";
-  medication_history_url = this.main_url + "/medication_appointment_history";
-  medication_detail_url =
-    this.main_url + "/medication_appointment_history_details";
+  medication_url = this.main_url + "/pre_appointments";
 
-  getMedicationPreConfirmed_url =
-    this.main_url + "/medication_confirmed_appt_details";
+  medication_history_url = this.main_url + "/pre_appointments";
+  specialist_history_url = this.main_url + "/pre_appointments";
+  medication_detail_url = this.main_url + "/pre_appointments";
 
-  getLabPreConfirmed_url = this.main_url + "/lab_confirmed_appt_details";
+  getMedicationPreConfirmed_url = this.main_url + "/pre_appointments";
 
-  getMedicalPreConfirmed_url =
-    this.main_url + "/medical_confirmed_appt_details";
+  getSpecialistPreConfirmed_url = this.main_url + "/pre_appointments";
 
-  video_consult_history_url =
-    this.main_url + "/video_consult_appointment_history";
-  video_consult_details_url =
-    this.main_url + "/video_consult_appointment_detail";
-  lab_appointment_history_url = this.main_url + "/lab_appointment_history";
+  getLabPreConfirmed_url = this.main_url + "/pre_appointments";
+
+  getMedicalPreConfirmed_url = this.main_url + "/pre_appointments";
+
+  video_consult_history_url = this.main_url + "/pre_appointments";
+  video_consult_details_url = this.main_url + "/pre_appointments";
+  lab_appointment_history_url = this.main_url + "/pre_appointments";
   lab_appointment_detail_url = this.main_url + "/lab_appointment_detail";
 
-  home_care_appointment_url = this.main_url + "/homecare";
-  home_care_appointment_history_url =
-    this.main_url + "/homecare_appointment_history";
-  home_care_appointment_detail_url =
-    this.main_url + "/homecare_appointment_detail";
+  home_care_appointment_url = this.main_url + "/pre_appointments";
+  home_care_appointment_history_url = this.main_url + "/pre_appointments";
+  home_care_appointment_detail_url = this.main_url + "/pre_appointments";
 
   appoint_history_url = this.main_url + "/appointment_history";
 
-  med_appoint_history_url = this.main_url + "/medical_appointment_history";
+  med_appoint_history_url = this.main_url + "/pre_appointments";
   med_appoint_detail_url = this.main_url + "/medical_appointment_detail";
 
   personal_doc_appoint_history_url =
     this.main_url + "/personal_doc_appointment_history";
   lab_service_url = this.main_url + "/lab_services";
-  drug_service_url = this.main_url + "/drugs_services";
+  drug_service_url = this.main_url + "/drugs";
   investigation_url = this.main_url + "/order_investigation";
   retrieve_investigation_url = this.main_url + "/retrieve_order_investigation";
 
@@ -109,7 +120,7 @@ export class DataProvider {
   get_personaldoctorconfirmedearnings_url =
     this.main_url + "/get_confirmed_appointments_by_doctor";
   get_general_appointments_medication_url =
-    this.main_url + "/get_general_appointments_medication";
+    this.main_url + "/appointments/doctor_video_appointments";
   get_general_appointments_videoconsult_url =
     this.main_url + "/get_general_appointments_videoconsult";
   get_general_appointments_homecare_url =
@@ -164,15 +175,17 @@ export class DataProvider {
 
   check_patient_pds_status_url = this.main_url + "/check_patient_pds_status";
 
+  get_specialists_url = this.main_url + "/specialist_masters";
+
   get_countries_url = this.main_url + "/get_countries";
 
   get_regions_by_country_url = this.main_url + "/get_regions_by_country";
 
   // get_cities_by_region_url = this.main_url + "/get_cities_by_region";
-  get_cities_by_region_url = this.main_url + "/get_all_cities";
+  get_cities_by_region_url = this.main_url + "/cities";
   get_all_suburbs_url = this.main_url + "/get_all_suburbs";
 
-  get_suburbs_by_city_url = this.main_url + "/get_suburbs_by_city";
+  get_suburbs_by_city_url = this.main_url + "/suburbs/city_suburbs";
 
   reset_password_get_phonenumber_url =
     this.main_url + "/reset_password_get_phonenumber";
@@ -203,18 +216,36 @@ export class DataProvider {
 
   retrieve_service_prices_url = this.main_url + "/retrieve_service_prices";
 
-  book_subscription_url = this.main_url + "/book_subscription";
+  book_subscription_url = this.main_url + "/client_subscriptions";
   retrieve_subscription_id_url = this.main_url + "/retrieve_subscription_id";
   subscription_history_details_url =
     this.main_url + "/subscription_history_details";
 
+  get_med_records_url = this.main_url + "/doctor_notes";
+
   data1: any = [];
 
+  // let headers = new Headers();
+  //   headers.append('Content-Type', 'application/x-www-form-urlencoded');
+  //   headers.append('Accept', 'application/json');
+  //   headers.append('Authorization', 'Bearer ' + token);
+
+  //   let options = new RequestOptions({ headers: headers });
+
   //SUBSCRIPTION APIS
-  book_subscription(data) {
+  book_subscription(data, token) {
+    console.log("BEARER TOKEN IN PROVIDER " + token);
+
     return new Promise((resolve, reject) => {
+      const httpOptions = {
+        headers: new HttpHeaders({
+          Accept: "application/json",
+          Authorization: "Bearer " + token,
+        }),
+      };
+
       this.http
-        .post(this.book_subscription_url, JSON.stringify(data))
+        .post(this.book_subscription_url, data, httpOptions)
         .timeout(this.timeout_value)
         .subscribe(
           (res) => {
@@ -227,10 +258,17 @@ export class DataProvider {
     });
   }
 
-  subscription_history(data) {
+  subscription_history() {
     return new Promise((resolve, reject) => {
+      const httpOptions = {
+        headers: new HttpHeaders({
+          Accept: "application/json",
+          Authorization: "Bearer " + this.bearer_token,
+        }),
+      };
       this.http
-        .post(this.subscription_history_url, JSON.stringify(data))
+        .get(`${this.subscription_history_url}`, httpOptions)
+        .timeout(this.timeout_value)
         .subscribe(
           (res) => {
             resolve(res);
@@ -303,19 +341,8 @@ export class DataProvider {
   try_login(data) {
     return new Promise((resolve, reject) => {
       this.http
-        .post(this.try_login_url, JSON.stringify(data))
-        // .timeout(this.timeout_value)
+        .post(this.try_login_url, data)
         .timeoutWith(5000, Observable.throw(new Error("Error message")))
-
-        //   .catch(err => {
-
-        //     if (err.name !== "TimeoutError") {
-        //        return Observable.throw("Timeout has occurred");
-        //     }
-
-        //     return Observable.throw(err);
-
-        //  })
         .subscribe(
           (res) => {
             resolve(res);
@@ -327,10 +354,18 @@ export class DataProvider {
     });
   }
 
-  update_profile(data) {
+  update_profile(data, token) {
+    console.log("UPDATE DATA::", data);
+    console.log("UPDATE DATA::", JSON.stringify(data));
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Accept: "application/json",
+        Authorization: "Bearer " + token,
+      }),
+    };
     return new Promise((resolve, reject) => {
       this.http
-        .post(this.update_profile_url, JSON.stringify(data))
+        .patch(this.update_profile_url, JSON.stringify(data), httpOptions)
         .timeout(this.timeout_value)
         .subscribe(
           (res) => {
@@ -360,9 +395,17 @@ export class DataProvider {
   }
 
   hospitals(data) {
+    console.log("data from hospitals " + JSON.stringify(data));
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Accept: "application/json",
+        Authorization: "Bearer " + this.bearer_token,
+      }),
+    };
     return new Promise((resolve, reject) => {
       this.http
-        .post(this.hosp_url, JSON.stringify(data))
+        // .post(this.hosp_url, JSON.stringify(data))
+        .get(`${this.hosp_url}/` + data, httpOptions)
         .timeout(this.timeout_value)
         .subscribe(
           (res) => {
@@ -376,25 +419,38 @@ export class DataProvider {
   }
 
   registration(data) {
+    console.log("DATA FROM FORM " + JSON.stringify(data));
+    console.log("TIMEOUT VALUE" + this.timeout_value);
+
     return new Promise((resolve, reject) => {
       this.http
-        .post(this.signup_url, JSON.stringify(data))
+        .post(this.signup_url, data)
         .timeout(this.timeout_value)
         .subscribe(
           (res) => {
             resolve(res);
+            console.log("RESPONSE HERE IS " + resolve(res));
           },
           (err) => {
             reject(err);
+            console.log("ERRO RESPONSE HERE IS " + reject(err));
           }
         );
     });
   }
 
-  update_registration(data) {
+  update_registration(data, token) {
+    console.log("BEARER TOKEN IN PROVIDER " + token);
+
     return new Promise((resolve, reject) => {
+      const httpOptions = {
+        headers: new HttpHeaders({
+          Accept: "application/json",
+          Authorization: "Bearer " + token,
+        }),
+      };
       this.http
-        .post(this.update_regis_url, JSON.stringify(data))
+        .post(this.update_regis_url, data, httpOptions)
         .timeout(this.timeout_value)
         .subscribe(
           (res) => {
@@ -519,10 +575,40 @@ export class DataProvider {
     });
   }
 
-  appointment(data) {
+  appointment(data, token) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Accept: "application/json",
+        Authorization: "Bearer " + token,
+      }),
+    };
+
     return new Promise((resolve, reject) => {
       this.http
-        .post(this.appoint_url, JSON.stringify(data))
+        .post(this.appoint_url, data, httpOptions)
+        .timeout(this.timeout_value)
+        .subscribe(
+          (res) => {
+            resolve(res);
+          },
+          (err) => {
+            reject(err);
+          }
+        );
+    });
+  }
+
+  specialist_appointment(data, token) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Accept: "application/json",
+        Authorization: "Bearer " + token,
+      }),
+    };
+
+    return new Promise((resolve, reject) => {
+      this.http
+        .post(this.specialist_appoint_url, data, httpOptions)
         .timeout(this.timeout_value)
         .subscribe(
           (res) => {
@@ -551,17 +637,25 @@ export class DataProvider {
     });
   }
 
-  phone_consult(data) {
+  phone_consult(data, token) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Accept: "application/json",
+        Authorization: "Bearer " + token,
+      }),
+    };
     return new Promise((resolve, reject) => {
       this.http
-        .post(this.phone_consult_url, JSON.stringify(data))
+        .post(this.phone_consult_url, data, httpOptions)
         .timeout(this.timeout_value)
         .subscribe(
           (res) => {
             resolve(res);
+            console.log("RESOLVE DATA SERVICE--", res);
           },
           (err) => {
             reject(err);
+            console.log("ERROR DATA SERVICE--", err);
           }
         );
     });
@@ -599,10 +693,17 @@ export class DataProvider {
     });
   }
 
-  l_appointment(data) {
+  l_appointment(data, token) {
     return new Promise((resolve, reject) => {
+      const httpOptions = {
+        headers: new HttpHeaders({
+          Accept: "application/json",
+          Authorization: "Bearer " + token,
+        }),
+      };
       this.http
-        .post(this.l_appoint_url, JSON.stringify(data))
+        .post(this.l_appoint_url, data, httpOptions)
+
         .timeout(this.timeout_value)
         .subscribe(
           (res) => {
@@ -631,10 +732,16 @@ export class DataProvider {
     });
   }
 
-  medication(data) {
+  medication(data, token) {
     return new Promise((resolve, reject) => {
+      const httpOptions = {
+        headers: new HttpHeaders({
+          Accept: "application/json",
+          Authorization: "Bearer " + token,
+        }),
+      };
       this.http
-        .post(this.medication_url, JSON.stringify(data))
+        .post(this.medication_url, data, httpOptions)
         .timeout(this.timeout_value)
         .subscribe(
           (res) => {
@@ -647,13 +754,16 @@ export class DataProvider {
     });
   }
 
-  homecare_appointment(data) {
-    console.log(
-      "homecare appointment data in data.ts line 250 = " + JSON.stringify(data)
-    );
+  homecare_appointment(data, token) {
     return new Promise((resolve, reject) => {
+      const httpOptions = {
+        headers: new HttpHeaders({
+          Accept: "application/json",
+          Authorization: "Bearer " + token,
+        }),
+      };
       this.http
-        .post(this.home_care_appointment_url, JSON.stringify(data))
+        .post(this.home_care_appointment_url, data, httpOptions)
         .timeout(this.timeout_value)
         .subscribe(
           (res) => {
@@ -730,19 +840,46 @@ export class DataProvider {
     });
   }
 
-  med_appointment_history(data) {
+  // med_appointment_history(data) {
+  //   return new Promise((resolve, reject) => {
+  //     this.http
+  //       .post(this.med_appoint_history_url, JSON.stringify(data))
+  //       .timeout(this.timeout_value)
+
+  //       .subscribe(
+  //         (res) => {
+  //           resolve(res);
+  //         },
+  //         (err) => {
+  //           reject(err);
+  //         }
+  //       );
+  //   });
+  // }
+
+  med_appointment_history(token) {
+    console.log("BEARER TOKEN IN PROVIDER " + token);
+
     return new Promise((resolve, reject) => {
+      const httpOptions = {
+        headers: new HttpHeaders({
+          Accept: "application/json",
+          Authorization: "Bearer " + token,
+        }),
+      };
+
       this.http
-        .post(this.med_appoint_history_url, JSON.stringify(data))
+        .get(`${this.med_appoint_history_url}`, httpOptions)
         .timeout(this.timeout_value)
-        // .timeoutWith(5, Observable.throw(new Error("Error message")))
-        // .timeoutWith(5,Observable.throw(reject("Timeout occured")))
         .subscribe(
           (res) => {
             resolve(res);
+
+            console.log("RESPONSE JSON " + JSON.stringify(res));
           },
           (err) => {
             reject(err);
+            console.log("RESPONSE ERROR " + JSON.stringify(err));
           }
         );
     });
@@ -763,10 +900,40 @@ export class DataProvider {
         );
     });
   }
-  getMedicationHistory(data) {
+  getMedicationHistory(token) {
+    console.log("BEARER TOKEN IN PROVIDER " + token);
+
     return new Promise((resolve, reject) => {
+      const httpOptions = {
+        headers: new HttpHeaders({
+          Accept: "application/json",
+          Authorization: "Bearer " + token,
+        }),
+      };
       this.http
-        .post(this.medication_history_url, JSON.stringify(data))
+        .get(`${this.medication_history_url}`, httpOptions)
+        .timeout(this.timeout_value)
+        .subscribe(
+          (res) => {
+            resolve(res);
+          },
+          (err) => {
+            reject(err);
+          }
+        );
+    });
+  }
+
+  getSpecialistHistory(token) {
+    return new Promise((resolve, reject) => {
+      const httpOptions = {
+        headers: new HttpHeaders({
+          Accept: "application/json",
+          Authorization: "Bearer " + token,
+        }),
+      };
+      this.http
+        .get(`${this.specialist_history_url}`, httpOptions)
         .timeout(this.timeout_value)
         .subscribe(
           (res) => {
@@ -795,11 +962,16 @@ export class DataProvider {
     });
   }
 
-  getMedicationPreConfirmed(data) {
-    // console.log("stringify(data) =" + JSON.stringify(data));
+  getMedicationPreConfirmed(data, token) {
     return new Promise((resolve, reject) => {
+      const httpOptions = {
+        headers: new HttpHeaders({
+          Accept: "application/json",
+          Authorization: "Bearer " + token,
+        }),
+      };
       this.http
-        .post(this.getMedicationPreConfirmed_url, JSON.stringify(data))
+        .get(`${this.getMedicationPreConfirmed_url}/` + data, httpOptions)
         .timeout(this.timeout_value)
         .subscribe(
           (res) => {
@@ -812,11 +984,40 @@ export class DataProvider {
     });
   }
 
-  getLabPreConfirmed(data) {
+  getSpecialistPreConfirmed(data) {
+    return new Promise((resolve, reject) => {
+      const httpOptions = {
+        headers: new HttpHeaders({
+          Accept: "application/json",
+          Authorization: "Bearer " + this.bearer_token,
+        }),
+      };
+      this.http
+        .get(`${this.getSpecialistPreConfirmed_url}/` + data, httpOptions)
+        .timeout(this.timeout_value)
+        .subscribe(
+          (res) => {
+            resolve(res);
+          },
+          (err) => {
+            reject(err);
+          }
+        );
+    });
+  }
+
+  getLabPreConfirmed(data, token) {
     // console.log("stringify(data) =" + JSON.stringify(data));
     return new Promise((resolve, reject) => {
+      const httpOptions = {
+        headers: new HttpHeaders({
+          Accept: "application/json",
+          Authorization: "Bearer " + token,
+        }),
+      };
       this.http
-        .post(this.getLabPreConfirmed_url, JSON.stringify(data))
+
+        .get(`${this.getLabPreConfirmed_url}/` + data, httpOptions)
         .timeout(this.timeout_value)
         .subscribe(
           (res) => {
@@ -830,10 +1031,16 @@ export class DataProvider {
   }
 
   getMedicalPreConfirmed(data) {
-    // console.log("stringify(data) =" + JSON.stringify(data));
     return new Promise((resolve, reject) => {
+      const httpOptions = {
+        headers: new HttpHeaders({
+          Accept: "application/json",
+          Authorization: "Bearer " + this.bearer_token,
+        }),
+      };
       this.http
-        .post(this.getMedicalPreConfirmed_url, JSON.stringify(data))
+
+        .get(`${this.getMedicalPreConfirmed_url}/` + data, httpOptions)
         .timeout(this.timeout_value)
         .subscribe(
           (res) => {
@@ -846,10 +1053,17 @@ export class DataProvider {
     });
   }
 
-  getVideoConsultHistory(data) {
+  getVideoConsultHistory(token) {
     return new Promise((resolve, reject) => {
+      const httpOptions = {
+        headers: new HttpHeaders({
+          Accept: "application/json",
+          Authorization: "Bearer " + token,
+        }),
+      };
+
       this.http
-        .post(this.video_consult_history_url, JSON.stringify(data))
+        .get(`${this.video_consult_history_url}`, httpOptions)
         .timeout(this.timeout_value)
         .subscribe(
           (res) => {
@@ -864,8 +1078,14 @@ export class DataProvider {
 
   getVideoConsultDetails(data) {
     return new Promise((resolve, reject) => {
+      const httpOptions = {
+        headers: new HttpHeaders({
+          Accept: "application/json",
+          Authorization: "Bearer " + this.bearer_token,
+        }),
+      };
       this.http
-        .post(this.video_consult_details_url, JSON.stringify(data))
+        .get(`${this.video_consult_details_url}/` + data, httpOptions)
         .timeout(this.timeout_value)
         .subscribe(
           (res) => {
@@ -878,10 +1098,17 @@ export class DataProvider {
     });
   }
 
-  getLabAppointmentHistory(data) {
+  getLabAppointmentHistory(token) {
+    console.log("BEARER TOKEN IN PROVIDER " + token);
     return new Promise((resolve, reject) => {
+      const httpOptions = {
+        headers: new HttpHeaders({
+          Accept: "application/json",
+          Authorization: "Bearer " + token,
+        }),
+      };
       this.http
-        .post(this.lab_appointment_history_url, JSON.stringify(data))
+        .get(`${this.lab_appointment_history_url}`, httpOptions)
         .timeout(this.timeout_value)
         .subscribe(
           (res) => {
@@ -910,10 +1137,17 @@ export class DataProvider {
     });
   }
 
-  getHomeCareAppointmentHistory(data) {
+  getHomeCareAppointmentHistory(token) {
     return new Promise((resolve, reject) => {
+      const httpOptions = {
+        headers: new HttpHeaders({
+          Accept: "application/json",
+          Authorization: "Bearer " + token,
+        }),
+      };
+
       this.http
-        .post(this.home_care_appointment_history_url, JSON.stringify(data))
+        .get(`${this.home_care_appointment_history_url}`, httpOptions)
         .timeout(this.timeout_value)
         .subscribe(
           (res) => {
@@ -928,8 +1162,16 @@ export class DataProvider {
 
   getHomeCareAppointmentDetails(data) {
     return new Promise((resolve, reject) => {
+      const httpOptions = {
+        headers: new HttpHeaders({
+          Accept: "application/json",
+          Authorization: "Bearer " + this.bearer_token,
+        }),
+      };
+
       this.http
-        .post(this.home_care_appointment_detail_url, JSON.stringify(data))
+
+        .get(`${this.home_care_appointment_detail_url}/` + data, httpOptions)
         .timeout(this.timeout_value)
         .subscribe(
           (res) => {
@@ -1092,10 +1334,16 @@ export class DataProvider {
     });
   }
 
-  get_lab_services() {
+  get_lab_services(token) {
     return new Promise((resolve, reject) => {
+      const httpOptions = {
+        headers: new HttpHeaders({
+          Accept: "application/json",
+          Authorization: "Bearer " + token,
+        }),
+      };
       this.http
-        .get(this.lab_service_url)
+        .get(this.lab_service_url, httpOptions)
         .timeout(this.timeout_value)
         .subscribe(
           (res) => {
@@ -1108,10 +1356,17 @@ export class DataProvider {
     });
   }
 
-  get_drug_services() {
+  get_drug_services(token) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Accept: "application/json",
+        Authorization: "Bearer " + token,
+      }),
+    };
+
     return new Promise((resolve, reject) => {
       this.http
-        .get(this.drug_service_url)
+        .get(this.drug_service_url, httpOptions)
         .timeout(this.timeout_value)
         .subscribe(
           (res) => {
@@ -1191,10 +1446,30 @@ export class DataProvider {
     });
   }
 
-  get_cities_by_region() {
+  get_cities_by_region(token) {
+    console.log("BEARER TOKEN IN PROVIDER " + token);
+
     return new Promise((resolve, reject) => {
+      const httpOptions = {
+        headers: new HttpHeaders({
+          Accept: "application/json",
+          Authorization: "Bearer " + token,
+        }),
+      };
+
+      // let headers = new HttpHeaders();
+      // headers.append("Content-Type", "application/json");
+      // var bearer = headers.append(
+      //   "Authorization",
+      //   "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhOGI5ZjhkYi1kNjllLTQ3OTctYmYwNy1jN2E1YTAxNzhkMTMiLCJzY3AiOiJ2Ml9hY2NvdW50IiwiYXVkIjpudWxsLCJpYXQiOjE2MjM5NjMwMzUsImV4cCI6MTYyNDEzNTgzNSwianRpIjoiNjdlYmU0NTUtMTJjNi00ODRjLTk4YTQtZjJlNDQ2NWUwNWNmIn0.PQjo0pjF25ZQxaXrli2L5CQfbsABUBD8T_plAOK2MSY"
+      // );
+
+      // console.log(headers);
+      // console.log(this.bearer_token);
+      // console.log(bearer);
+
       this.http
-        .get(this.get_cities_by_region_url)
+        .get(this.get_cities_by_region_url, httpOptions)
         .timeout(this.timeout_value)
         .subscribe(
           (res) => {
@@ -1207,10 +1482,44 @@ export class DataProvider {
     });
   }
 
-  get_suburbs_by_city(data) {
+  // GET ALL SPECIALISTS
+  get_all_specialists(token) {
+    console.log("BEARER TOKEN IN PROVIDER " + token);
+
     return new Promise((resolve, reject) => {
+      const httpOptions = {
+        headers: new HttpHeaders({
+          Accept: "application/json",
+          Authorization: "Bearer " + token,
+        }),
+      };
+
       this.http
-        .get(`${this.get_suburbs_by_city_url}?city_id=${JSON.stringify(data)}`)
+        .get(this.get_specialists_url, httpOptions)
+        .timeout(this.timeout_value)
+        .subscribe(
+          (res) => {
+            resolve(res);
+          },
+          (err) => {
+            reject(err);
+          }
+        );
+    });
+  }
+  //END ALL SPECIALISTS
+
+  get_suburbs_by_city(data, token) {
+    console.log("BEARER TOKEN IN PROVIDER " + token);
+    return new Promise((resolve, reject) => {
+      const httpOptions = {
+        headers: new HttpHeaders({
+          Accept: "application/json",
+          Authorization: "Bearer " + token,
+        }),
+      };
+      this.http
+        .get(`${this.get_suburbs_by_city_url}/` + data, httpOptions)
         .timeout(this.timeout_value)
         .subscribe(
           (res) => {
@@ -1376,43 +1685,20 @@ export class DataProvider {
     });
   }
 
-  get_new_general_appointments(data, my_person_type) {
+  get_new_general_appointments(token) {
     return new Promise((resolve, reject) => {
-      console.log(`my_person_type = ${my_person_type}`);
-      // if (my_person_type) {
-      //   switch (my_person_type) {
-      //     case "D":
-      //       this.new_gen_appoint_url = `${this.get_new_general_appointments_url}?doc_id=${JSON.stringify(data)}&person_type=${my_person_type}`
-      //       break;
-      //     case "N":
-      //     this.new_gen_appoint_url = `${this.get_new_general_appointments_url}?doc_id=${JSON.stringify(data)}&person_type=${my_person_type}`
-      //       break;
-      //     default:
-      //     this.new_gen_appoint_url = `${this.get_new_general_appointments_url}?doc_id=${JSON.stringify(data)}&person_type=D`
-      //     break;
-      //   }
-      // }
-      this.new_gen_appoint_url = `${
-        this.get_new_general_appointments_url
-      }?doc_id=${JSON.stringify(data)}&person_type=${JSON.stringify(
-        my_person_type
-      )}`;
+      const httpOptions = {
+        headers: new HttpHeaders({
+          Accept: "application/json",
+          Authorization: "Bearer " + token,
+        }),
+      };
 
-      console.log(
-        "data.ts get_patients_referred line 621 JSON.stringify(data)" +
-          JSON.stringify(data) +
-          " AND this.new_gen_appoint_url = " +
-          this.new_gen_appoint_url
-      );
-      // return this.http.get(`${baseURL}/getusertunzas/${param.userId}`, {
       this.http
-        .get(this.new_gen_appoint_url)
+        .get(this.new_gen_appoint_url, httpOptions)
         .timeout(this.timeout_value)
         .subscribe(
           (res) => {
-            console.log(
-              "get_new_general_appointments_url res = " + JSON.stringify(res)
-            );
             resolve(res);
           },
           (err) => {
@@ -1435,7 +1721,6 @@ export class DataProvider {
         .timeout(this.timeout_value)
         .subscribe(
           (res) => {
-            // console.log("get_new_general_appointments_count res = " + JSON.stringify(res));
             resolve(res);
           },
           (err) => {
@@ -1528,26 +1813,43 @@ export class DataProvider {
     });
   }
 
-  get_general_appointments_medication(data) {
+  get_general_appointments_medication(token) {
     return new Promise((resolve, reject) => {
-      console.log(
-        "data.ts get_general_appointments_medication_url line 621 JSON.stringify(data)" +
-          JSON.stringify(data)
-      );
-      // return this.http.get(`${baseURL}/getusertunzas/${param.userId}`, {
+      const httpOptions = {
+        headers: new HttpHeaders({
+          Accept: "application/json",
+          Authorization: "Bearer " + token,
+        }),
+      };
       this.http
-        .get(
-          `${
-            this.get_general_appointments_medication_url
-          }?doc_id=${JSON.stringify(data)}`
-        )
+        .get(this.get_general_appointments_medication_url, httpOptions)
+
         .timeout(this.timeout_value)
         .subscribe(
           (res) => {
-            console.log(
-              "get_general_appointments_medication_url res = " +
-                JSON.stringify(res)
-            );
+            resolve(res);
+          },
+          (err) => {
+            reject(err);
+          }
+        );
+    });
+  }
+
+  getMedRecords(token) {
+    return new Promise((resolve, reject) => {
+      const httpOptions = {
+        headers: new HttpHeaders({
+          Accept: "application/json",
+          Authorization: "Bearer " + token,
+        }),
+      };
+      this.http
+        .get(this.get_med_records_url, httpOptions)
+
+        .timeout(this.timeout_value)
+        .subscribe(
+          (res) => {
             resolve(res);
           },
           (err) => {

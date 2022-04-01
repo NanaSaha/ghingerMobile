@@ -1,14 +1,4 @@
-<!-- <div id="custom-overlay" [style.display]="splash ? 'flex': 'none'">
-    <div class="flb">
-      <div class="Aligner-item Aligner-item--top"></div>
-      <img src="assets/img/splash_logo.png">
-     
-
-    
-      <div class="Aligner-item Aligner-item--bottom"></div>
-    </div>
-  </div> -->
-
+<!-- 
 <ion-content class="background">
   <img src="assets/icon/new_ghinger_logo.png" class="logo_position" />
 
@@ -37,4 +27,57 @@
       </b>
     </p>
   </div>
+</ion-content> -->
+
+<ion-content class="background">
+  <img src="/assets/imgs/logo.png" class="logo_position" />
+  <img src="/assets/imgs/t1.png" class="slide-image" />
+  <!-- <ion-slides autoplay="1000">
+    
+    <ion-slide>
+      <img src="/assets/imgs/t2.png" class="slide-image" />
+    </ion-slide>
+    <ion-slide>
+      <img src="/assets/imgs/t1.png" class="slide-image" />
+    </ion-slide>
+  </ion-slides> -->
+
+  <div id="slidetext">
+    <h2 class="slide-title">Your Mobile Healthcare</h2>
+    <p style="text-align: center">
+      Do you want your elderly being cared for ? Do you want a home care
+      service? Have a video consultations with Doctors? Click on the button
+      below to use Ghinger.
+    </p>
+  </div>
+
+  <ion-row>
+    <ion-col col-6>
+      <ion-buttons>
+        <button
+          ion-button
+          color="dark"
+          icon-end
+          (tap)="login()"
+          class="button button-dark customBtn"
+        >
+          Login <ion-icon name="arrow-forward"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-col>
+
+    <ion-col col-6>
+      <ion-buttons>
+        <button
+          ion-button
+          color="secondary"
+          icon-end
+          (tap)="signup()"
+          class="button button-dark customBtn"
+        >
+          Sign Up<ion-icon name="infinite"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-col>
+  </ion-row>
 </ion-content>

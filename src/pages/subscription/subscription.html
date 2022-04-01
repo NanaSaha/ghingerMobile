@@ -43,16 +43,17 @@
               <p>per Monthly visit or per Quarterly Visit</p></ion-item
             >
           </ion-col>
-
-          <!-- <ion-col col-6>
-            <ion-item class="totallbl" text-wrap>
-              GHC 350 - GHC 500
-              <p>per Quarterly Visit</p></ion-item
-            >
-          </ion-col> -->
         </ion-row>
 
-        <div *ngIf="sub_user_id !=''">
+        <button
+          ion-button
+          color="secondary"
+          outline
+          (tap)="goto_subscription('d99b8ddd-80ab-4ec6-93df-3447bce2b1f4')"
+        >
+          Subscribe
+        </button>
+        <!-- <div *ngIf="sub_user_id !=''">
           <button
             ion-button
             color="primary"
@@ -69,9 +70,9 @@
           >
             New Subscription
           </button>
-        </div>
+        </div> -->
 
-        <div *ngIf="sub_user_id ==''">
+        <!-- <div *ngIf="sub_user_id ==''">
           <button
             ion-button
             color="secondary"
@@ -80,7 +81,7 @@
           >
             Subscribe
           </button>
-        </div>
+        </div> -->
       </ion-card-content>
     </ion-card>
 
@@ -130,7 +131,7 @@
           ion-button
           color="secondary"
           outline
-          (tap)="goto_subscription('ElderlyCoupleVisitOneAddress')"
+          (tap)="goto_subscription('433a2dbc-3ce6-4d75-b5a1-a789e9bb95de')"
         >
           Subscribe
         </button>
@@ -169,20 +170,13 @@
               <p>per Monthly visit</p></ion-item
             >
           </ion-col>
-
-          <!-- <ion-col col-6>
-            <ion-item class="totallbl" text-wrap>
-              GHC 670
-              <p>per Quarterly Visit</p></ion-item
-            >
-          </ion-col> -->
         </ion-row>
 
         <button
           ion-button
           color="secondary"
           outline
-          (tap)="goto_subscription('ElderlyCoupleVisitDiffAddress')"
+          (tap)="goto_subscription('7a376237-ec25-416b-a838-185c9bf0d3d5')"
         >
           Subscribe
         </button>
@@ -236,7 +230,7 @@
           ion-button
           color="secondary"
           outline
-          (tap)="goto_subscription('ChronicSingle')"
+          (tap)="goto_subscription('a508f6f4-92b5-41a5-94a4-6d8f31fd574e')"
         >
           Subscribe
         </button>
@@ -287,7 +281,7 @@
           ion-button
           color="secondary"
           outline
-          (tap)="goto_subscription('ChronicCouple')"
+          (tap)="goto_subscription('79720c3e-c69f-4cee-a89e-de674090042c')"
         >
           Subscribe
         </button>
@@ -335,7 +329,7 @@
           ion-button
           color="secondary"
           outline
-          (tap)="goto_subscription('ScreenAdult')"
+          (tap)="goto_subscription('3bdb32c2-46f0-4cda-96f9-14893021a34b')"
         >
           Subscribe
         </button>
@@ -380,7 +374,7 @@
           ion-button
           color="secondary"
           outline
-          (tap)="goto_subscription('ScreenAdultCouple')"
+          (tap)="goto_subscription('562ba444-dcfa-4d8f-848e-e19524cdb1b0')"
         >
           Subscribe
         </button>

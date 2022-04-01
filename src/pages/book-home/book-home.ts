@@ -59,6 +59,7 @@ export class BookHomePage {
   maxSelectabledate: any;
   date: any;
   amount: any;
+  token;
 
   constructor(
     private camera: Camera,
@@ -80,63 +81,52 @@ export class BookHomePage {
     this.appointmentType = this.navParams.get("appointmentType");
     // console
     this.appointForm = this._form.group({
-      requester_cat: ["", Validators.compose([Validators.required])],
+      request_cat_id: ["", Validators.compose([Validators.required])],
       beneficiary_name: [
         "",
         ExtraValidators.conditional(
-          (group) => group.controls.requester_cat.value == "T",
+          (group) => group.controls.request_cat_id.value == "T",
           Validators.compose([Validators.required])
         ),
       ],
       beneficiary_phone_number: [
         "",
         ExtraValidators.conditional(
-          (group) => group.controls.requester_cat.value == "T",
+          (group) => group.controls.request_cat_id.value == "T",
           Validators.compose([Validators.maxLength(10)])
         ),
       ],
       beneficiary_age: [
         "",
         ExtraValidators.conditional(
-          (group) => group.controls.requester_cat.value == "T",
+          (group) => group.controls.request_cat_id.value == "T",
           Validators.compose([Validators.required])
         ),
       ],
 
-      req_urgency: ["", Validators.compose([Validators.required])],
+      request_urgency_id: ["", Validators.compose([Validators.required])],
       proposed_date: ["", Validators.compose([Validators.required])],
       proposed_time: ["", Validators.compose([Validators.required])],
-      appointment_type_id: [this.appointmentType],
-      complaint_desc: ["", Validators.compose([Validators.required])],
-      prev_medical_history: ["", Validators.compose([Validators.required])],
+      apt_type_id: ["HC"],
+      complaint: ["", Validators.compose([Validators.required])],
+      prev_history: ["", Validators.compose([Validators.required])],
       allergies: [""],
-      medication: ["", Validators.compose([Validators.required])],
+      current_medications: ["", Validators.compose([Validators.required])],
     });
-
-    this.from_login2 = this.navParams.get("pers_value");
-    this.from_login3 = this.navParams.get("doc_value");
 
     this.from_hosp = this.navParams.get("value");
     this.from_login = this.navParams.get("another");
     this.sub_id = this.navParams.get("sub_id");
+    this.token = this.navParams.get("token");
 
-    console.log("THIS IS THE SUB ID IN HOME BOOK" + this.sub_id);
+    console.log("THIS IS THE SUB ID IN MED BOOK" + this.sub_id);
 
-    this.body = this.from_login; // this.body = Array.of(this.from_login)
+    var results_body = JSON.parse(this.from_login);
+    var user_id = results_body["data"]["user_infos"][0].user_id;
 
-    this.jsonBody = this.body; // this.jsonBody = JSON.parse(this.body);
-    this.requester_id = this.jsonBody[0].id;
-
-    console.log("THIS IS THE requester_id ID is " + this.requester_id);
-
-    this.raw = this.from_hosp; // this.raw = JSON.stringify(this.from_hosp);
-    this.body = this.from_login; // this.body = Array.of(this.from_login)
-
-    this.jsonBody = this.body; // this.jsonBody = JSON.parse(this.body);
-
-    console.log("Raw values from Hospital " + this.raw);
-    console.log("from lab search " + this.from_hosp);
-    console.log("from LOgin" + this.from_login);
+    this.body = this.from_login;
+    this.jsonBody = this.body;
+    this.requester_id = user_id;
 
     this.date = new Date();
     this.minSelectabledate = this.formatDate(this.date);
@@ -174,120 +164,64 @@ export class BookHomePage {
 
     console.log("THIS IS THE Appoint raw values VALUES" + this.appointmentVal);
     console.log("THIS IS THE Appoint VALUES " + this.jsonBody);
-    console.log("THIS IS THE LOCATION" + this.from_hosp);
-    console.log("THIS IS THE REQUESTER ID" + this.requester_id);
     console.log("THIS IS THE PROPOSED TIME" + this.jsonBody.proposed_time);
 
-    this.params3 = {
-      appt_id: this.jsonBody.appointment_type_id,
-      req_urgency: this.jsonBody.req_urgency,
+    //NEW PARAMS -- TO SATISFY API
+    this.params = {
+      proposed_date: this.jsonBody.proposed_date,
+      proposed_time: this.jsonBody.proposed_time,
+      apt_type_id: this.jsonBody.apt_type_id,
+      request_cat_id: this.jsonBody.request_cat_id,
+      request_urgency_id: this.jsonBody.request_urgency_id,
+      complaint: this.jsonBody.complaint,
+      allergies: this.jsonBody.allergies,
+      prev_history: this.jsonBody.prev_history,
+      bene_name: this.jsonBody.beneficiary_name,
+      bene_age: this.jsonBody.beneficiary_age,
+      bene_contact: this.jsonBody.beneficiary_phone_number,
+      current_medications: this.jsonBody.current_medications,
+      suburb_id: this.sub_id,
     };
 
-    console.log("PARAMS FOR SERVICE FEE " + this.params3);
+    console.log("PARAMS FOR APPOINTMENT " + JSON.stringify(this.params));
 
-    this.data.retrive_service_price(this.params3).then((result) => {
-      console.log("THIS IS THE SERVICE PRICES" + result);
-      var jsonBody = result["_body"];
-      console.log(jsonBody);
-
-      jsonBody = JSON.parse(jsonBody);
-
-      this.amount = jsonBody[0].DoctorEarnings;
-
-      console.log("AMOUNT FOR PHONE CONSULT" + this.amount);
-
-      this.params = {
-        suburb_id: this.sub_id,
-        requester_id: this.requester_id,
-        requester_cat: this.jsonBody.requester_cat,
-        beneficiary_name: this.jsonBody.beneficiary_name,
-        beneficiary_age: this.jsonBody.beneficiary_age,
-        beneficiary_phone_number: this.jsonBody.beneficiary_phone_number,
-        req_urgency: this.jsonBody.req_urgency,
-        appointment_type_id: this.jsonBody.appointment_type_id,
-        proposed_date:
-          this.jsonBody.proposed_date + " " + this.jsonBody.proposed_time,
-        complaint_desc: this.jsonBody.complaint_desc,
-        prev_medical_history: this.jsonBody.prev_medical_history,
-        allergies: this.jsonBody.allergies,
-        medication: this.jsonBody.medication,
-        appt_amnt: this.amount,
-      };
-
-      console.log("PARAMS FOR APPOINTMENT " + JSON.stringify(this.params));
-
-      let loader = this.loadingCtrl.create({
-        content: "Please wait ...",
-      });
-
-      loader.present();
-
-      this.data.homecare_appointment(this.params).then(
-        (result) => {
-          console.log("Book Loan - THIS IS THE RESULT" + result);
-          var jsonBody = result["_body"];
-          console.log(jsonBody);
-
-          jsonBody = JSON.parse(jsonBody);
-          console.log(jsonBody);
-
-          var desc = jsonBody["resp_desc"];
-          var code = jsonBody["resp_code"];
-
-          console.log("Book Loan - desc = " + desc);
-          console.log("Book Loan - code = " + code);
-
-          this.messageList = desc;
-          this.api_code = code;
-
-          loader.dismiss();
-
-          if (this.api_code == "000") {
-            let alert = this.alertCtrl.create({
-              title: "",
-              subTitle:
-                "Your Home Care appointment was made successfully. You would be contacted shortly. Thank you!",
-              buttons: ["OK"],
-            });
-            alert.present();
-          }
-
-          if (this.api_code != "000") {
-            let alert = this.alertCtrl.create({
-              title: "",
-              subTitle: this.messageList,
-              buttons: ["OK"],
-            });
-            alert.present();
-          }
-
-          if (this.appointmentType == "HC") {
-            this.navCtrl.setRoot(MenuPage, {
-              value: this.from_login,
-              doc_value: this.from_login3,
-              pers_value: this.from_login2,
-            });
-          } else if (this.appointmentType == "PDHC") {
-            this.navCtrl.setRoot(MenuPage, {
-              value: this.from_login,
-              doc_value: this.from_login3,
-              pers_value: this.from_login2,
-            });
-          }
-        },
-        (err) => {
-          loader.dismiss();
-          this.toastCtrl
-            .create({
-              message: "Could not process this request successfully.",
-              duration: 5000,
-            })
-            .present();
-
-          console.log(err);
-        }
-      );
+    let loader = this.loadingCtrl.create({
+      content: "Please wait ...",
     });
+
+    loader.present();
+
+    this.data.homecare_appointment(this.params, this.token).then(
+      (result) => {
+        console.log("THIS IS THE RESULT" + result);
+
+        loader.dismiss();
+
+        this.navCtrl.setRoot(MenuPage, {
+          value: this.from_login,
+        });
+
+        let alert = this.alertCtrl.create({
+          title: "GHinger Healthcare",
+          subTitle:
+            "Home Care Appointment has been booked successfully. The Ghinger team will call you shortly",
+          buttons: ["OK"],
+        });
+
+        alert.present();
+      },
+      (err) => {
+        loader.dismiss();
+        this.toastCtrl
+          .create({
+            message: "Could not process this request successfully.",
+            duration: 5000,
+          })
+          .present();
+
+        console.log(err);
+      }
+    );
   }
 
   formatDate(date) {

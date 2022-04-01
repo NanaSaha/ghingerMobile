@@ -1,14 +1,20 @@
-<ion-header >
-  <ion-navbar style="text-align: center;">
+<ion-header>
+  <ion-navbar style="text-align: center">
     <!-- <ion-title>New Appointments</ion-title> -->
   </ion-navbar>
 </ion-header>
-  
+
 <ion-tabs>
   <!-- <ion-tab [root]="tab1Root" tabTitle="Home" tabIcon="home"></ion-tab> -->
-  <ion-tab *ngIf="my_person_type == 'D'" [root]="tab3Root"  tabTitle="Personal Doctor Service Appointments" tabIcon="contacts" [tabBadge]="doc_new_pds_appoint_counter > 0 ? doc_new_pds_appoint_counter : 0" tabBadgeStyle="danger1"></ion-tab>
+  <!-- <ion-tab
+    [root]="tab3Root"
+    tabTitle="Specialist Appointments"
+    tabIcon="contacts"
+  ></ion-tab> -->
 
-  <ion-tab *ngIf="my_person_type == 'D' || my_person_type == 'N'" [root]="tab2Root"  tabTitle="General Appointments" tabIcon="information-circle" [tabBadge]="doc_new_gen_appoint_counter > 0 ? doc_new_gen_appoint_counter : 0" tabBadgeStyle="danger1"></ion-tab>
- 
-
+  <ion-tab
+    [root]="tab1Root"
+    tabTitle="Specialist Appointments"
+    tabIcon="contacts"
+  ></ion-tab>
 </ion-tabs>

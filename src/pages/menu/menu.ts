@@ -5,6 +5,7 @@ import {
   NavParams,
   App,
   Events,
+  Slides,
 } from "ionic-angular";
 import { CompleteTestService } from "../../providers/complete-test-service/complete-test-service";
 import { MedAppointPage } from "../med-appoint/med-appoint";
@@ -41,7 +42,11 @@ import { FeedbackPage } from "../feedback/feedback";
 import { SubscriptionPage } from "../subscription/subscription";
 import { SubscriptionForeignPage } from "../subscription-foreign/subscription-foreign";
 import { CovidPage } from "../covid/covid";
+import { SpecialistPage } from "../specialist/specialist";
+import { MorePage } from "../more/more";
 
+import { MedicalrecordPage } from "../medicalrecord/medicalrecord";
+import { InsuranceformPage } from "../insuranceform/insuranceform";
 
 const NOT_PERMITTED =
   "Please your account has not been verified. Kindly be patient. An agent would speak to you soon to get your account active!";
@@ -129,8 +134,23 @@ export class MenuPage {
   user_details: any;
   from_login_orig;
   first_three_numbers;
+  CurrentHrs;
+  greetings;
+  token;
+
+  // @ViewChild(‘mySlider’)
+  slides: Slides;
+
+  catSlideOpts = {
+    // freeMode: true,
+    slidesPerView: 1.25,
+    // slidesOffsetBefore: 11,
+    spaceBetween: 10,
+    centeredSlides: true,
+  };
 
   constructor(
+    // public slides: Slides,
     public event: Events,
     public app: App,
     public menuCtrl: MenuController,
@@ -144,155 +164,114 @@ export class MenuPage {
     public storage: Storage,
     private screenOrientation: ScreenOrientation
   ) {
+    this.user_greetings();
+
     this.menuCtrl.enable(true);
-    // this.from_login = this.navParams.get("value");
-    // this.event.publish("user_details", this.from_login);
+
+    this.storage.get("token").then((token) => {
+      this.token = token;
+      console.log("TOKEN IN MENu " + this.token);
+    });
 
     this.storage.get("value").then((value) => {
       this.from_login = value;
+      console.log("FROM LOGIN VALYE " + JSON.stringify(this.from_login));
       this.event.publish("user_details", this.from_login);
-      //this.user_details = this.navParams.get("user_details")
-      //console.log("FROM LOGIN from_login_orig " + this.from_login_orig);
-      console.log("FROM LOGIN from_login " + this.from_login);
-      let user_mobile_number = this.from_login[0].mobile_number
+
+      var results_body = JSON.parse(this.from_login);
+
+      let user_mobile_number = results_body["data"]["user_infos"][0].phone;
+      var role = results_body["data"]["role"]["id"];
+      var user_id = results_body["data"]["user_infos"][0].user_id;
+      this.surname = results_body["data"]["user_infos"][0].surname;
+      this.other_names = results_body["data"]["user_infos"][0].first_name;
+      this.email = results_body["data"]["email"];
+
+      console.log("results_body " + JSON.stringify(results_body));
+      console.log("user_mobile_number " + JSON.stringify(user_mobile_number));
+
       this.first_three_numbers = user_mobile_number.substring(0, 3);
-      console.log("MOBILE NUMBER IS " + user_mobile_number)
-      console.log("first_three_numbersIS " +  this.first_three_numbers)
-      
+      console.log("MOBILE NUMBER IS " + user_mobile_number);
+      console.log("first_three_numbersIS " + this.first_three_numbers);
 
+      this.jsonBody = this.from_login;
 
-      console.log(
-        "USer Event DETAILS " +
-          this.event.publish("user_details", this.from_login)
-      );
+      if (results_body) {
+        console.log("EMAIL  " + this.email);
 
-      console.log(
-        "LOGIN DETAILS IN MENU PAGE CONSTRUCTOR IS " +
-          JSON.stringify(this.from_login)
-      );
+        if (user_id) {
+          this.requester_id = user_id;
+          this.storage.set("requester_id", this.requester_id);
+          console.log("requester ID = " + this.requester_id);
 
-      this.body2 = this.from_login;
-      this.retrieve2 = this.body2;
-      console.log("PADMORE, LETS SEE THE  BODY " + this.body2);
-      console.log("PADMORE, LETS SEE THE DATA RETRIEVED " + this.retrieve2);
-      this.jsonBody2 = this.retrieve2;
-      this.person_type2 = this.jsonBody2[0].user_type;
-      this.doctor_id3 = this.jsonBody2[0].id;
-
-      console.log(
-        "PADMORE, THIS JSON BODY IN MENU PAGE CONSTRUCTOR IS" + this.jsonBody2
-      );
-      console.log(
-        "PADMORE, LETS SEE person_type2 RETRIEVED " + this.person_type2
-      );
-      console.log("PADMORE, LETS SEE doctor_id3 RETRIEVED " + this.doctor_id3);
-
-      this.body3 = this.from_login; // this.body3 = JSON.parse(this.from_login);
-      this.retrieve3 = this.body3; // this.retrieve3 = JSON.stringify(this.body3);
-      this.body3 = this.retrieve3; // this.body3 = Array.of(this.retrieve3);
-
-      console.log("THIS.BODY IN MENU PAGE CONSTRUCTOR IS" + this.body3);
-
-      this.jsonBody3 = this.body3; // this.jsonBody3 = JSON.parse(this.body3);
-
-      if (this.from_login) {
-        console.log(
-          "LOGIN DETAILS IN DOC PAGE CONSTRUCTOR IS" + this.from_login
-        );
-        // this.body = Array.of(this.from_login)
-        this.jsonBody = this.from_login; // this.jsonBody = JSON.parse(this.body);
-
-        if (this.jsonBody) {
-          if (this.jsonBody[0]) {
-            this.email = this.jsonBody[0].email;
-
-            if (this.jsonBody[0].id) {
-              this.requester_id = this.jsonBody[0].id;
-              this.storage.set("requester_id", this.requester_id);
-              console.log("requester ID = " + this.requester_id);
-
-              this.getappointments_counts(this.requester_id);
-            }
-
-            console.log(
-              "PATIENT's Home page this.jsonBody[0].id (doctor_id) = " +
-                this.jsonBody[0].id
-            );
-
-            if (this.jsonBody[0].surname) {
-              this.surname = this.jsonBody[0].surname;
-            }
-            if (this.jsonBody[0].other_names) {
-              this.other_names = this.jsonBody[0].other_names;
-            }
-
-            if (this.surname && this.other_names) {
-              this.storage.set(
-                "patient_name",
-                this.surname + " " + this.other_names
-              );
-            }
-          }
+          //  this.getappointments_counts(this.requester_id);
+        }
+        if (this.surname && this.other_names) {
+          this.storage.set(
+            "patient_name",
+            this.surname + " " + this.other_names
+          );
         }
       }
     });
 
-    this.storage.get("doc_value").then((doc_value) => {
-      this.from_login_doc = doc_value;
+    // this.storage.get("doc_value").then((doc_value) => {
+    //   this.from_login_doc = doc_value;
 
-      console.log(
-        "LOGIN DETAILS from LOGIN DOC IN MENU PAGE FOR CONSTRUCTOR IS" +
-          this.from_login_doc
-      );
-    });
-    this.storage.get("pers_value").then((pers_value) => {
-      this.from_login_pers = pers_value;
+    //   console.log(
+    //     "LOGIN DETAILS from LOGIN DOC IN MENU PAGE FOR CONSTRUCTOR IS" +
+    //       this.from_login_doc
+    //   );
+    // });
 
-      console.log(
-        "LOGIN PERS VALUE IN MENU PAGE CONSTRUCTOR IS" + this.from_login_pers
-      );
-      console.log("this.from_login_pers = " + this.from_login_pers);
-      this.body4 = this.from_login_pers; // this.body4 = JSON.parse(this.from_login_pers);
-      this.retrieve4 = this.body4; // this.retrieve4 = JSON.stringify(this.body4);
-      console.log("Padmore,Menu.ts line 153");
-      // this.body4 = Array.of(this.retrieve4)
-      this.jsonBody4 = this.retrieve4; // this.jsonBody4 = JSON.parse(this.body4);
-      console.log("Padmore,Menu.ts line 156");
-      this.doc_id = this.jsonBody4[0].doctor_id;
-      this.doc_id2 = this.jsonBody4[0].id;
-      console.log("Padmore,Menu.ts line 159");
-      this.person_type_id = this.jsonBody4[0].person_type_id;
-      // this.check = this.jsonBody[0]
-      console.log(
-        "Padmore,Menu.ts line 162 - person_type_id = " + this.person_type_id
-      );
+    // this.storage.get("pers_value").then((pers_value) => {
+    //   this.from_login_pers = pers_value;
 
-      console.log("VALUE of DOCTOR ID IN Menu  IS " + this.doc_id);
-      console.log(
-        "VALUE of DOCTOR ID FROM DOC MODULE IN Menu  IS " + this.doc_id2
-      );
-      console.log(
-        "VALUE of PERSON TYPE VALUE IN Menu  IS " + this.person_type_id
-      );
-    });
+    //   console.log(
+    //     "LOGIN PERS VALUE IN MENU PAGE CONSTRUCTOR IS" + this.from_login_pers
+    //   );
+    //   console.log("this.from_login_pers = " + this.from_login_pers);
+    //   this.body4 = this.from_login_pers;
+    //   this.retrieve4 = this.body4;
+    //   console.log("Padmore,Menu.ts line 153");
 
-    console.log(
-      "-------------------------------BEGIN TEST-----------------------------------------------"
-    );
-    this.myparams = {
-      requester_id: this.requester_id,
-    };
+    //   this.jsonBody4 = this.retrieve4;
+    //   console.log("Padmore,Menu.ts line 156");
+    //   this.doc_id = this.jsonBody4[0].doctor_id;
+    //   this.doc_id2 = this.jsonBody4[0].id;
+    //   console.log("Padmore,Menu.ts line 159");
+    //   this.person_type_id = this.jsonBody4[0].person_type_id;
 
-    this.newparams = JSON.stringify(this.myparams);
-    console.log("line 185 - menu = newparams " + this.newparams);
+    //   console.log(
+    //     "Padmore,Menu.ts line 162 - person_type_id = " + this.person_type_id
+    //   );
 
-    console.log(
-      "-------------------------------END TEST-----------------------------------------------"
-    );
+    //   console.log("VALUE of DOCTOR ID IN Menu  IS " + this.doc_id);
+    //   console.log(
+    //     "VALUE of DOCTOR ID FROM DOC MODULE IN Menu  IS " + this.doc_id2
+    //   );
+    //   console.log(
+    //     "VALUE of PERSON TYPE VALUE IN Menu  IS " + this.person_type_id
+    //   );
+    // });
 
-    console.log("VALUE from Login " + this.from_login);
-    console.log("VALUE from login-doc " + this.from_login_doc);
-    console.log("VALUE from login-person " + this.from_login_pers);
+    // console.log(
+    //   "-------------------------------BEGIN TEST-----------------------------------------------"
+    // );
+    // this.myparams = {
+    //   requester_id: this.requester_id,
+    // };
+
+    // this.newparams = JSON.stringify(this.myparams);
+    // console.log("line 185 - menu = newparams " + this.newparams);
+
+    // console.log(
+    //   "-------------------------------END TEST-----------------------------------------------"
+    // );
+
+    // console.log("VALUE from Login " + this.from_login);
+    // console.log("VALUE from login-doc " + this.from_login_doc);
+    // console.log("VALUE from login-person " + this.from_login_pers);
   }
 
   openMenu() {
@@ -308,7 +287,8 @@ export class MenuPage {
   }
 
   ionViewDidLoad() {
-    this.menuCtrl.enable(true);
+    // this.menuCtrl.enable(true);
+    this.user_greetings();
   }
 
   ionViewDidEnter() {
@@ -318,23 +298,23 @@ export class MenuPage {
   ionViewWillEnter() {
     this.menuCtrl.enable(true);
 
-    // this.events.subscribe('doc_new_appoint_counter:refreshpage', () => {
+    // if (this.requester_id) {
+    //   this.getappointments_counts(this.requester_id);
+    // } else {
+    //   this.storage.get("requester_id").then((requester_id) => {
+    //     if (requester_id) {
+    //       this.requester_id = requester_id;
+    //       console.log(
+    //         " Docgeneralappointmentlists page requester_id = " + requester_id
+    //       );
+    //       this.getappointments_counts(this.requester_id);
+    //     }
+    //   });
+    // }
+  }
 
-    if (this.requester_id) {
-      this.getappointments_counts(this.requester_id);
-    } else {
-      this.storage.get("requester_id").then((requester_id) => {
-        if (requester_id) {
-          this.requester_id = requester_id;
-          console.log(
-            " Docgeneralappointmentlists page requester_id = " + requester_id
-          );
-          this.getappointments_counts(this.requester_id);
-        }
-      });
-    }
-
-    // });
+  specialists() {
+    this.navCtrl.push(SpecialistPage, { token: this.token });
   }
 
   appointment_statistics() {
@@ -349,6 +329,7 @@ export class MenuPage {
       value: this.from_login,
       doc_value: this.from_login_doc,
       pers_value: this.from_login_pers,
+      token: this.token,
     });
   }
 
@@ -363,71 +344,105 @@ export class MenuPage {
     } else {
       this.navCtrl.push(Search2Page, {
         value: this.from_login,
-        doc_value: this.from_login_doc,
-        pers_value: this.from_login_pers,
+        token: this.token,
       });
     }
   }
 
-  subscription(sub_type) {
-    console.log("sub_type TYPE" + sub_type);
-    console.log("this.first_three_numbers " + this.first_three_numbers)
-
-    if (this.first_three_numbers == '233' || this.first_three_numbers == '020' || this.first_three_numbers == '050' || this.first_three_numbers == '027' || this.first_three_numbers == '026' || this.first_three_numbers == '056' || this.first_three_numbers == '057' || this.first_three_numbers == '024' || this.first_three_numbers == '054' || this.first_three_numbers == '055') {
-      
-
-        this.navCtrl.push(SubscriptionPage, {
-      value: this.from_login,
-      doc_value: this.from_login_doc,
-      pers_value: this.from_login_pers,
-      sub_type: sub_type,
-    });
-         
-      } 
-      
- 
-    else {
-      
-      console.log("A FOREIGN NUMBER")
-      
-         this.navCtrl.push(SubscriptionForeignPage, {
-      value: this.from_login,
-      doc_value: this.from_login_doc,
-      pers_value: this.from_login_pers,
-      sub_type: sub_type,
-    });
-        
-          }
-
-  
+  more() {
+    this.navCtrl.push(MorePage);
   }
 
+  user_greetings() {
+    this.CurrentHrs = new Date().getHours();
+    console.log("HOURS " + this.CurrentHrs);
+
+    if (this.CurrentHrs >= 1 && this.CurrentHrs <= 12) {
+      this.greetings = "Good Morning";
+      console.log(this.greetings);
+    } else if (this.CurrentHrs >= 12 && this.CurrentHrs <= 16) {
+      this.greetings = "Good Afternoon";
+      console.log(this.greetings);
+    } else if (this.CurrentHrs >= 16 && this.CurrentHrs <= 21) {
+      this.greetings = "Good Evening";
+      console.log(this.greetings);
+    } else if (this.CurrentHrs >= 21 && this.CurrentHrs <= 24) {
+      this.greetings = "Good Night";
+      console.log(this.greetings);
+    }
+  }
+
+  subscription(sub_type) {
+    //this.slides.autoplayDisableOnInteraction = false;
+
+    console.log("sub_type TYPE" + sub_type);
+    console.log("this.first_three_numbers " + this.first_three_numbers);
+
+    if (
+      this.first_three_numbers == "233" ||
+      this.first_three_numbers == "020" ||
+      this.first_three_numbers == "050" ||
+      this.first_three_numbers == "027" ||
+      this.first_three_numbers == "026" ||
+      this.first_three_numbers == "056" ||
+      this.first_three_numbers == "057" ||
+      this.first_three_numbers == "024" ||
+      this.first_three_numbers == "054" ||
+      this.first_three_numbers == "055" ||
+      this.first_three_numbers == "023"
+    ) {
+      this.navCtrl.push(SubscriptionPage, {
+        value: this.from_login,
+        sub_type: sub_type,
+        token: this.token,
+      });
+    } else {
+      console.log("A FOREIGN NUMBER");
+
+      this.navCtrl.push(SubscriptionPage, {
+        value: this.from_login,
+        sub_type: sub_type,
+        token: this.token,
+      });
+      // this.navCtrl.push(SubscriptionForeignPage, {
+      //   value: this.from_login,
+      //   sub_type: sub_type,
+      //   token: this.token,
+      // });
+    }
+  }
 
   covid() {
-
-        this.navCtrl.push(CovidPage, {
+    this.navCtrl.push(CovidPage, {
       value: this.from_login,
-      doc_value: this.from_login_doc,
-      pers_value: this.from_login_pers,
+      token: this.token,
     });
-    
   }
 
   medication() {
+    console.log("TOKEN IS :: ", this.token);
     this.medication_appointment_count = 0;
     this.navCtrl.push(MedicationhistoryPage, {
       value: this.from_login,
-      doc_value: this.from_login_doc,
-      pers_value: this.from_login_pers,
+      token: this.token,
     });
   }
 
   lab_history() {
+    console.log("TOKEN IS :: ", this.token);
     this.navCtrl.push(Labhistory1Page, {
       value: this.from_login,
-      doc_value: this.from_login_doc,
-      pers_value: this.from_login_pers,
+      token: this.token,
     });
+  }
+
+  not_ready() {
+    let alert = this.alertCtrl.create({
+      title: "GHINGER HEALTHCARE",
+      subTitle: "This feature coming soon. Kindly check our other services",
+      buttons: ["OK"],
+    });
+    alert.present();
   }
 
   doc_history() {
@@ -496,6 +511,7 @@ export class MenuPage {
               pers_value: this.from_login_pers,
               doc_value: this.from_login_doc,
               requester_id: this.requester_id,
+              token: this.token,
             });
           } else if (this.jsonBody.resp_code == "000") {
             //doctor's records found. proceed to personal doctor welcome page.
@@ -508,6 +524,7 @@ export class MenuPage {
                 doc_value: this.jsonBody.doc_records,
                 pers_value: this.from_login_pers,
                 requester_id: this.requester_id,
+                token: this.token,
               });
             }
           }
@@ -552,9 +569,8 @@ export class MenuPage {
   video(appointmentType) {
     this.navCtrl.push(VideoconsulthistoryPage, {
       value: this.from_login,
-      doc_value: this.from_login_doc,
-      pers_value: this.from_login_pers,
       appointmentType: appointmentType,
+      token: this.token,
     });
   }
 
@@ -564,6 +580,7 @@ export class MenuPage {
       doc_value: this.from_login_doc,
       pers_value: this.from_login_pers,
       appointmentType: appointmentType,
+      token: this.token,
     });
   }
 
@@ -572,6 +589,47 @@ export class MenuPage {
       value: this.from_login,
       pers_value: this.from_login_pers,
       doc_value: this.from_login_doc,
+      token: this.token,
+    });
+  }
+
+  medicalRecord() {
+    const prompt = this.alertCtrl.create({
+      title: "Access Medical Record",
+      message: "Enter your password to have access to your medical records",
+      inputs: [
+        {
+          name: "Password",
+          placeholder: "Password",
+          type: "password",
+        },
+      ],
+      buttons: [
+        {
+          text: "Cancel",
+          handler: (data) => {
+            console.log("Cancel clicked");
+          },
+        },
+        {
+          text: "Submit",
+          handler: (data) => {
+            console.log("Saved clicked");
+            this.navCtrl.push(MedicalrecordPage);
+          },
+        },
+      ],
+    });
+    prompt.present();
+  }
+
+  insurance() {
+    // this.slides.autoplayDisableOnInteraction = false;
+    this.navCtrl.push(InsuranceformPage, {
+      value: this.from_login,
+      doc_value: this.from_login_doc,
+      pers_value: this.from_login_pers,
+      token: this.token,
     });
   }
 

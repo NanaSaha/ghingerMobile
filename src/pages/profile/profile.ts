@@ -23,6 +23,12 @@ export class ProfilePage {
   reg_id: any;
   user_type: any;
   from_login: any = [];
+  first_name;
+  surname;
+  phone;
+
+  profile_details;
+  token;
 
   constructor(
     public storage: Storage,
@@ -32,50 +38,31 @@ export class ProfilePage {
     public navCtrl: NavController,
     public navParams: NavParams
   ) {
-    let type = this.navParams.get("type");
-    console.log("type" + type);
+    this.storage.get("value").then((value) => {
+      this.profile_details = value;
+      var profile_to_json = JSON.stringify(this.profile_details);
 
-    if (type == "edit") {
-      this.user_details = this.navParams.get("user_details");
-      console.log("USer DETAILS " + JSON.stringify(this.user_details));
-      this.user_type = this.user_details[0].user_type;
-    } else {
-      this.storage.get("value").then((value) => {
-        this.user_details = value;
-        console.log("this.user_details " + JSON.stringify(this.user_details));
-        this.user_type = this.user_details[0].user_type;
-      });
-    }
+      this.user_details = JSON.parse(JSON.parse(profile_to_json));
+      var results_body = JSON.parse(this.profile_details);
 
-    // this.user_details = this.navParams.get("user_details")
-    // this.email = this.user_details[0].email
-    // this.reg_id = this.user_details[0].reg_id
-    // this.user_type = this.user_details[0].user_type
-    // console.log("USer DETAILS " + JSON.stringify(this.user_details))
-    // console.log("email " + JSON.stringify(this.email))
-    // console.log("ID " + JSON.stringify(this.reg_id))
-    // console.log("ID " + this.reg_id)
+      console.log("PRFILE RAW VALUE " + this.profile_details);
+      console.log("PROFILE STRINGIFY " + profile_to_json);
+      console.log("PROFILE STRINGIFY PARSED " + this.user_details);
+      console.log("PROFILE STRINGIFY PARSED VAR " + results_body);
 
-    // let loader = this.loadingCtrl.create({
-    //   content: "Refreshing..."
-    // });
-    // loader.present();
+      this.phone = results_body["data"]["user_infos"][0].phone;
+      this.user_type = results_body["data"]["role"]["id"];
+      this.surname = results_body["data"]["user_infos"][0].surname;
+      this.first_name = results_body["data"]["user_infos"][0].first_name;
+      this.email = results_body["data"]["email"];
 
-    // this.params = {
+      console.log("PROFILE user_type " + this.user_type);
+    });
 
-    //   "reg_id": this.reg_id,
-
-    // }
-
-    // this.data.retrieve_edit(this.params).then((result) => {
-
-    //   console.log(result);
-    //   var jsonBody = result["_body"];
-    //   console.log(jsonBody);
-    //   this.user_details = JSON.parse(jsonBody)
-    //   loader.dismiss();
-
-    // });
+    this.storage.get("token").then((token) => {
+      this.token = token;
+      console.log("TOKEN IN MENu " + this.token);
+    });
   }
 
   openMenu() {
@@ -90,8 +77,11 @@ export class ProfilePage {
     this.menuCtrl.open();
   }
 
-  edit(item) {
-    this.navCtrl.push(ProfileEditPage, { user_details: this.user_details });
+  edit() {
+    this.navCtrl.push(ProfileEditPage, {
+      user_details: this.profile_details,
+      token: this.token,
+    });
   }
 
   home() {

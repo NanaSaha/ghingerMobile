@@ -16,13 +16,6 @@ import { LabdetailsPage } from "../labdetails/labdetails";
 import { BilldetailsPage } from "../billdetails/billdetails";
 import { Storage } from "@ionic/storage";
 
-/**
- * Generated class for the Labhistory1Page page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @Component({
   selector: "page-labhistory1",
   templateUrl: "labhistory1.html",
@@ -48,7 +41,7 @@ export class Labhistory1Page {
   sub_id: any;
   string: any;
 
-  requester_id1: any;
+  requester_id: any;
   from_login_doc: any = [];
   from_login_pers: any = [];
   body1: any;
@@ -57,6 +50,7 @@ export class Labhistory1Page {
 
   body2: any;
   jsonBod2: any;
+  resp_code;
 
   // person_type3: any;
 
@@ -65,6 +59,9 @@ export class Labhistory1Page {
   // items: any = [];
   labappointmentdetails = { id: "" };
   rowid: any;
+  no_appointments;
+  token;
+  history_list: any = [];
 
   constructor(
     // private keyboard: Keyboard,
@@ -76,29 +73,31 @@ export class Labhistory1Page {
     public alertCtrl: AlertController,
     public modalCtrl: ModalController,
     public viewCtrl: ViewController,
-    public storage: Storage
+    public storage: Storage,
+    public toastCtrl: ToastController
   ) {
-    console.log("We are in Lab Appointments History page");
     this.from_login = this.navParams.get("value");
+    this.token = this.navParams.get("token");
+    console.log("VALUE from Login " + this.from_login);
 
-    this.from_login2 = this.navParams.get("pers_value");
-    this.from_login3 = this.navParams.get("doc_value");
-    // console.log('VALUE IN TABS CONSTRUCTOR IS' + this.from_login);
+    var results_body = JSON.parse(this.from_login);
+    var user_id = results_body["data"]["user_infos"][0].user_id;
 
-    this.body = this.from_login; //this.body = Array.of(this.from_login);
+    this.body = this.from_login;
 
-    this.jsonBody = this.body; // this.jsonBody = JSON.parse(this.body);
+    this.jsonBody = this.body;
 
-    this.requester_id1 = this.jsonBody[0].id;
+    this.requester_id = user_id;
     this.check = this.jsonBody[0];
 
-    console.log("VALUE IN Lab history IS" + this.from_login);
+    console.log("VALUE IN medication history IS" + this.from_login);
     console.log(
-      "VALUE of requester IN Lab appointment history  IS " + this.requester_id1
+      "VALUE of requester IN medication appointment history  IS " +
+        this.requester_id
     );
 
     this.params = {
-      requester_id: this.requester_id1,
+      requester_id: this.requester_id,
     };
 
     this.newparams = JSON.stringify(this.params);
@@ -136,8 +135,7 @@ export class Labhistory1Page {
             setTimeout(() => {
               this.navCtrl.push(LabSearchPage, {
                 value: this.from_login,
-                doc_value: this.from_login3,
-                pers_value: this.from_login2,
+                token: this.token,
               });
             }, 1000);
 
@@ -167,21 +165,40 @@ export class Labhistory1Page {
     loading.present();
 
     setTimeout(() => {
-      this.jsonBody = JSON.parse(this.newparams);
+      this.data.getLabAppointmentHistory(this.token).then(
+        (result) => {
+          console.log("THIS IS THE RESULT" + result);
+          console.log("THIS IS THE ONLY DATARESULT" + result["data"]);
+          this.person_details = result["data"];
+          console.log("THIS IS person_details" + this.person_details);
 
-      this.data.getLabAppointmentHistory(this.jsonBody).then((result) => {
-        // this.contacts = result;
-        console.log(result);
+          let new_list = [];
 
-        var jsonBody = result["_body"];
-        jsonBody = JSON.parse(jsonBody);
-        this.person_details = jsonBody;
-        // loading.dismiss();
+          for (let x in this.person_details) {
+            if (
+              this.person_details[x]["appointment_type"].id == "LA" &&
+              this.person_details[x]["apt_type_id"] == "LA"
+            ) {
+              new_list.push({
+                title: this.person_details[x]["appointment_type"].title,
+                price: this.person_details[x]["appointment_type"].price,
+                date: this.person_details[x].created_at,
+                status: this.person_details[x].confirm_status,
+                complaint: this.person_details[x].complaint,
+                id: this.person_details[x].id,
+              });
+            }
+          }
+          this.history_list = new_list;
+          loading.dismiss();
+        },
+        (err) => {
+          loading.dismiss();
+          this.no_appointments = "no";
 
-        console.log("Jsson body " + jsonBody);
-        console.log("LAB " + JSON.stringify(jsonBody));
-      });
-      loading.dismiss();
+          this.showtoast("No Appointments");
+        }
+      );
     }, 1);
   }
 
@@ -190,9 +207,8 @@ export class Labhistory1Page {
 
     this.navCtrl.push(LabdetailsPage, {
       value: this.from_login,
-      doc_value: this.from_login3,
-      pers_value: this.from_login2,
       lab_appoint_history: lab_appoint_history,
+      token: this.token,
     });
     // rowid: rowid
   }
@@ -209,5 +225,14 @@ export class Labhistory1Page {
       doc_value: this.from_login_doc,
       pers_value: this.from_login_pers,
     });
+  }
+
+  showtoast(message) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      duration: 3000,
+      position: "bottom",
+    });
+    toast.present();
   }
 }

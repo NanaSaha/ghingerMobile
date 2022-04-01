@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title style="text-align: center;">{{appointmentType1}}</ion-title>
+    <ion-title style="text-align: center">Phone/Video Appointment</ion-title>
     <ion-buttons end>
       <button ion-button icon-only (tap)="closeModal()">
         <ion-icon name="close"></ion-icon>
@@ -10,30 +10,54 @@
 </ion-header>
 
 <ion-content overflow-scroll="true" class="background">
-  <p style="text-align: center;">
-    <b style="color: black;">Book an Appointment </b>
+  <p style="text-align: center">
+    <b style="color: black">Book an Video / Phone Appointment </b>
   </p>
 
   <form [formGroup]="videoappointForm">
     <ion-list>
       <ion-item>
-        <ion-label floating text-wrap>Who is the appointment for?</ion-label>
+        <ion-label floating text-wrap>Video or Phone Call?</ion-label>
 
         <ion-select
-          formControlName="requester_cat"
-          name="requester_cat"
+          formControlName="delivery_format"
+          name="delivery_format"
           required
         >
           <ion-option
-            formControlName="requester_cat"
-            name="requester_cat"
+            formControlName="delivery_format"
+            name="delivery_format"
+            value="Video"
+            ngDefaultControl
+            >Video</ion-option
+          >
+          <ion-option
+            formControlName="delivery_format"
+            name="delivery_format"
+            value="Phone"
+            ngDefaultControl
+            >Phone</ion-option
+          >
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label floating text-wrap>Who is this appointment for?</ion-label>
+
+        <ion-select
+          formControlName="request_cat_id"
+          name="request_cat_id"
+          required
+        >
+          <ion-option
+            formControlName="request_cat_id"
+            name="request_cat_id"
             value="S"
             ngDefaultControl
             >Self</ion-option
           >
           <ion-option
-            formControlName="requester_cat"
-            name="requester_cat"
+            formControlName="request_cat_id"
+            name="request_cat_id"
             value="T"
             ngDefaultControl
             >Beneficiary</ion-option
@@ -42,7 +66,7 @@
       </ion-item>
 
       <ion-item
-        *ngIf="videoappointForm.controls?.requester_cat.value =='T' "
+        *ngIf="videoappointForm.controls?.request_cat_id.value =='T' "
         no-lines
       >
         <ion-label floating>Enter Beneficiary Name*</ion-label>
@@ -54,7 +78,7 @@
       </ion-item>
 
       <ion-item
-        *ngIf="videoappointForm.controls.requester_cat.value =='T' "
+        *ngIf="videoappointForm.controls.request_cat_id.value =='T' "
         no-lines
       >
         <ion-label floating>Enter Beneficiary's Age</ion-label>
@@ -67,7 +91,7 @@
       </ion-item>
 
       <ion-item
-        *ngIf="videoappointForm.controls.requester_cat.value =='T' "
+        *ngIf="videoappointForm.controls.request_cat_id.value =='T' "
         no-lines
       >
         <ion-label floating>Enter Beneficiary Phone Number</ion-label>
@@ -82,20 +106,20 @@
       <ion-item>
         <ion-label floating text-wrap> Request Urgency</ion-label>
         <ion-select
-          formControlName="req_urgency"
-          name="req_urgency"
-          [class.invalid]="!videoappointForm.controls?.requester_cat.valid && (videoappointForm.controls?.requester_cat.dirty || submitAttempt)"
+          formControlName="request_urgency_id"
+          name="request_urgency_id"
+          [class.invalid]="!videoappointForm.controls?.request_urgency_id.valid && (videoappointForm.controls?.request_urgency_id.dirty || submitAttempt)"
         >
           <ion-option
-            formControlName="req_urgency"
-            name="req_urgency"
+            formControlName="request_urgency_id"
+            name="request_urgency_id"
             value="S"
             ngDefaultControl
             >Standard</ion-option
           >
           <ion-option
-            formControlName="req_urgency"
-            name="req_urgency"
+            formControlName="request_urgency_id"
+            name="request_urgency_id"
             value="E"
             ngDefaultControl
             >Express</ion-option
@@ -106,13 +130,11 @@
       <ion-item [hidden]="!value">
         <ion-label> Appointment type</ion-label>
         <ion-select
-          formControlName="appointment_type_id"
-          name="appointment_type_id"
-          [class.invalid]="!videoappointForm.controls?.appointment_type_id.valid && (videoappointForm.controls?.appointment_type_id.dirty || submitAttempt)"
+          formControlName="apt_type_id"
+          name="apt_type_id"
+          [class.invalid]="!videoappointForm.controls?.apt_type_id.valid && (videoappointForm.controls?.apt_type_id.dirty || submitAttempt)"
         >
-          <ion-option name="appointment_type_id" value="MA" selected
-            >MA</ion-option
-          >
+          <ion-option name="apt_type_id" value="VC" selected>VC</ion-option>
         </ion-select>
       </ion-item>
 
@@ -122,24 +144,22 @@
         >
         <ion-textarea
           lineHeight="22"
-          formControlName="complaint_desc"
-          name="complaint_desc"
-          [class.invalid]="!videoappointForm.controls?.complaint_desc.valid && (videoappointForm.controls?.complaint_desc.dirty || submitAttempt)"
+          formControlName="complaint"
+          name="complaint"
+          [class.invalid]="!videoappointForm.controls?.complaint.valid && (videoappointForm.controls?.complaint.dirty || submitAttempt)"
         ></ion-textarea>
-        <ion-label> </ion-label>
       </ion-item>
 
       <ion-item>
-        <ion-label floating
+        <ion-label floating text-wrap
           >Please provide your previous medical problem...</ion-label
         >
         <ion-textarea
           lineHeight="22"
-          formControlName="prev_medical_history"
-          name="prev_medical_history"
-          [class.invalid]="!videoappointForm.controls?.prev_medical_history.valid && (videoappointForm.controls?.prev_medical_history.dirty || submitAttempt)"
+          formControlName="prev_history"
+          name="prev_history"
+          [class.invalid]="!videoappointForm.controls?.prev_history.valid && (videoappointForm.controls?.prev_history.dirty || submitAttempt)"
         ></ion-textarea>
-        <ion-label> </ion-label>
       </ion-item>
 
       <ion-item>
@@ -150,7 +170,6 @@
           name="allergies"
           [class.invalid]="!videoappointForm.controls?.allergies.valid && (videoappointForm.controls?.allergies.dirty || submitAttempt)"
         ></ion-textarea>
-        <ion-label> </ion-label>
       </ion-item>
 
       <ion-item>
@@ -159,23 +178,22 @@
         >
         <ion-textarea
           lineHeight="22"
-          formControlName="medication"
-          name="medication"
-          [class.invalid]="!videoappointForm.controls?.medication.valid && (videoappointForm.controls?.medication.dirty || submitAttempt)"
+          formControlName="current_medications"
+          name="current_medications"
+          [class.invalid]="!videoappointForm.controls?.current_medications.valid && (videoappointForm.controls?.current_medications.dirty || submitAttempt)"
         ></ion-textarea>
-        <ion-label> </ion-label>
       </ion-item>
 
       <ion-item>
         <ion-label floating text-wrap
           >Which day do you want the appointment?</ion-label
         >
-        <ion-input
+        <!-- <ion-input
           lineHeight="22"
           formControlName="proposed_date"
           name="proposed_date"
           [class.invalid]="!videoappointForm.controls?.proposed_date.valid && (videoappointForm.controls?.proposed_date.dirty || submitAttempt)"
-        ></ion-input>
+        ></ion-input> -->
         <ion-datetime
           class="datetimeColor"
           displayFormat="MMM DD YYYY "
@@ -183,28 +201,94 @@
           [max]="maxSelectabledate"
           formControlName="proposed_date"
         ></ion-datetime>
-        <ion-label> </ion-label>
       </ion-item>
 
       <ion-item>
         <ion-label floating text-wrap
           >Which time do you want the appointment?</ion-label
         >
-        <ion-input
+        <!-- <ion-input
           lineHeight="22"
           formControlName="proposed_time"
           name="proposed_time"
           [class.invalid]="!videoappointForm.controls?.proposed_time.valid && (videoappointForm.controls?.proposed_time.dirty || submitAttempt)"
-        ></ion-input>
+        ></ion-input> -->
         <ion-datetime
           displayFormat="h:mm A"
           pickerFormat="h mm A"
           formControlName="proposed_time"
         ></ion-datetime>
-        <ion-label> </ion-label>
       </ion-item>
 
-      <p class="pad" style="text-align: center;">
+      <!-- INSURANCE PAYMENTS -->
+      <!-- <ion-item>
+        <ion-label floating text-wrap>Payment Mode</ion-label>
+
+        <ion-select
+          formControlName="request_cat_id"
+          name="request_cat_id"
+          required
+        >
+          <ion-option
+            formControlName="request_cat_id"
+            name="request_cat_id"
+            value="I"
+            ngDefaultControl
+            >Premier Insurance</ion-option
+          >
+          <ion-option
+            formControlName="request_cat_id"
+            name="request_cat_id"
+            value="C"
+            ngDefaultControl
+            >Cash</ion-option
+          >
+        </ion-select>
+      </ion-item>
+
+      <ion-item *ngIf="videoappointForm.controls?.request_cat_id.value =='I' ">
+        <ion-label floating text-wrap>Enter Insurance Number*</ion-label>
+        <ion-input
+          formControlName="beneficiary_name"
+          name="beneficiary_name"
+          [class.invalid]="!videoappointForm.controls?.beneficiary_name.valid && (videoappointForm.controls?.beneficiary_name.dirty || submitAttempt)"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item *ngIf="videoappointForm.controls.request_cat_id.value =='I' ">
+        <p
+          class="center"
+          [hidden]="lastImage !== null"
+          style="color: black"
+          text-wrap
+        >
+          Upload Passport Picture of yourself or Voters ID
+        </p>
+        <ion-buttons>
+          <button
+            ion-button
+            icon-left
+            color="green1"
+            (click)="presentActionSheet()"
+          >
+            <ion-icon name="camera"></ion-icon>Select Image
+          </button>
+
+          <button
+            ion-button
+            icon-left
+            (click)="cancelImage()"
+            [disabled]="lastImage === null"
+          >
+            <ion-icon name="backspace"></ion-icon>Cancel
+          </button>
+        </ion-buttons>
+        <br />
+
+        <img [src]="pathForImage(lastImage)" style="width: 50%" />
+      </ion-item> -->
+
+      <p class="pad" style="text-align: center">
         <button
           ion-button
           color="green1"

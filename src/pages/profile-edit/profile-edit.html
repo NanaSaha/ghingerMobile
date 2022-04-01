@@ -30,10 +30,10 @@
       <ion-input
         type="text"
         placeholder="other names"
-        formControlName="other_names"
-        name="other_names"
-        [(ngModel)]="profile.other_names"
-        [class.invalid]="!updateProfile.controls.other_names.valid && (updateProfile.controls.surname.dirty || submitAttempt)"
+        formControlName="first_name"
+        name="first_name"
+        [(ngModel)]="profile.first_name"
+        [class.invalid]="!updateProfile.controls.first_name.valid && (updateProfile.controls.surname.dirty || submitAttempt)"
       ></ion-input>
     </ion-item>
 

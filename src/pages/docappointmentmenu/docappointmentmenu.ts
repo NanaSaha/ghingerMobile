@@ -113,6 +113,7 @@ export class DocappointmentMenuPage {
   total_doc_pds_appointment_count: any;
 
   overall_total_count_all_appointment: any;
+  token;
 
   constructor(
     public app: App,
@@ -127,155 +128,15 @@ export class DocappointmentMenuPage {
     public storage: Storage,
     public events: Events
   ) {
-    this.menuCtrl.enable(true);
-    // this.from_login = this.navParams.get('value')
-    this.from_login_doc = this.navParams.get("doc_value");
-    this.from_login_pers = this.navParams.get("pers_value");
     this.from_login = this.navParams.get("from_login");
+    this.token = this.navParams.get("token");
 
-    this.storage.get("person_type").then((person_type) => {
-      this.my_person_type = person_type;
+    // this.storage.get("token").then((token) => {
+    //   this.token = token;
+    //   console.log("TOKEN IN MENu " + this.token);
+    // });
 
-      console.log("---------------------------------------------------------");
-
-      if (this.my_person_type) {
-        console.log(
-          "Person Type VALUE IN DOC PAGE CONSTRUCTOR IS" + this.my_person_type
-        );
-      }
-    });
-
-    if (this.from_login) {
-      console.log(
-        "LOGIN DETAILS IN MENU PAGE CONSTRUCTOR IS" + this.from_login
-      );
-      console.log(
-        "LOGIN DETAILS IN MENU PAGE CONSTRUCTOR IS" +
-          JSON.stringify(this.from_login)
-      );
-
-      this.body2 = this.from_login;
-
-      this.retrieve2 = this.body2;
-
-      console.log("PADMORE, LETS SEE THE  BODY " + this.body2);
-      console.log(
-        "PADMORE, LETS SEE THE DATA RETRIEVED " + JSON.stringify(this.retrieve2)
-      );
-
-      if (this.retrieve2) {
-        this.body2 = this.retrieve2;
-        this.jsonBody2 = this.body2;
-        console.log(JSON.stringify(this.jsonBody2));
-        this.person_type2 = this.jsonBody2[0].user_type;
-        this.doctor_id3 = this.jsonBody2[0].id;
-
-        if (this.doctor_id3) {
-          this.storage.set("doctor_id", this.doctor_id3);
-        }
-
-        console.log(
-          "PADMORE, THIS JSON BODY IN MENU PAGE CONSTRUCTOR IS" + this.jsonBody2
-        );
-        console.log(
-          "PADMORE, LETS SEE person_type2 RETRIEVED " + this.person_type2
-        );
-        console.log(
-          "PADMORE, LETS SEE doctor_id3 RETRIEVED " + this.doctor_id3
-        );
-      }
-
-      this.body3 = this.from_login;
-      this.retrieve3 = this.body3;
-
-      console.log("THIS.BODY IN MENU PAGE CONSTRUCTOR IS" + this.body3);
-      this.jsonBody3 = this.body3;
-      this.requester_id = this.jsonBody3[0].id;
-      this.email = this.jsonBody3[0].email;
-
-      if (this.email) {
-        console.log("email HERE IS " + this.email);
-      }
-
-      if (this.requester_id) {
-        console.log("VALUE of requester IN Menu  IS " + this.requester_id);
-        this.myparams = {
-          requester_id: this.requester_id,
-        };
-
-        this.newparams = JSON.stringify(this.myparams);
-        console.log("line 185 - menu = newparams " + this.newparams);
-        // this.appointment_statistics();
-      }
-    }
-
-    if (this.from_login_doc) {
-      console.log(
-        "LOGIN DETAILS from LOGIN DOC IN MENU PAGE FOR CONSTRUCTOR IS" +
-          this.from_login_doc
-      );
-    }
-
-    if (this.from_login_pers) {
-      console.log(
-        "LOGIN PERS VALUE IN MENU PAGE CONSTRUCTOR IS" + this.from_login_pers
-      );
-      console.log("Padmore,Menu.ts line 149");
-      //another badge
-      console.log("this.from_login_pers = " + this.from_login_pers);
-      // this.body4 = JSON.parse(this.from_login_pers);
-      this.body4 = this.from_login_pers;
-      // this.retrieve4 = JSON.stringify(this.body4);
-      this.retrieve4 = this.body4;
-      console.log("Padmore,Menu.ts line 153");
-      // this.body4 = Array.of(this.retrieve4);
-      // this.jsonBody4 = JSON.parse(this.body4);
-      this.jsonBody4 = this.body4;
-      console.log("Padmore,Menu.ts line 156");
-      this.doc_id = this.jsonBody4[0].doctor_id;
-      this.doc_id2 = this.jsonBody4[0].id;
-      console.log("Padmore,Menu.ts line 159");
-      this.person_type_id = this.jsonBody4[0].person_type_id;
-      // this.check = this.jsonBody[0]
-      if (this.person_type_id) {
-        console.log(
-          "Padmore,Menu.ts line 162 - person_type_id = " + this.person_type_id
-        );
-        console.log(
-          "VALUE of PERSON TYPE VALUE IN Menu  IS " + this.person_type_id
-        );
-      }
-
-      if (this.doc_id) {
-        console.log("VALUE of DOCTOR ID IN Menu  IS " + this.doc_id);
-      }
-
-      if (this.doc_id2) {
-        console.log(
-          "VALUE of DOCTOR ID FROM DOC MODULE IN Menu  IS " + this.doc_id2
-        );
-      }
-    }
-
-    console.log(
-      "-------------------------------BEGIN TEST-----------------------------------------------"
-    );
-    if (this.navParams.get) {
-      console.log("PADMORE, Nav params values = " + this.navParams.get);
-    }
-
-    console.log(
-      "-------------------------------END TEST-----------------------------------------------"
-    );
-
-    if (this.doctor_id3) {
-      this.getnewappointments(this.doctor_id3);
-    } else {
-      this.storage.get("doctor_id").then((doctor_id) => {
-        this.doctor_id = doctor_id;
-        this.getnewappointments(this.doctor_id);
-      });
-    }
+    console.log("TOKEN IN MENu " + this.token);
   }
 
   openMenu() {
@@ -305,163 +166,157 @@ export class DocappointmentMenuPage {
   ionViewWillEnter() {
     this.menuCtrl.enable(true);
 
-    this.events.subscribe("doc_total_new_appoint_counter:refreshpage", () => {
-      if (this.doctor_id) {
-        this.getnewappointments(this.doctor_id);
-      } else {
-        this.storage.get("doctor_id").then((doctor_id) => {
-          this.doctor_id = doctor_id;
-          console.log(
-            " Docgeneralappointmentlists page doctor_id = " + doctor_id
-          );
+    // this.events.subscribe("doc_total_new_appoint_counter:refreshpage", () => {
+    //   if (this.doctor_id) {
+    //     this.getnewappointments(this.doctor_id);
+    //   } else {
+    //     this.storage.get("doctor_id").then((doctor_id) => {
+    //       this.doctor_id = doctor_id;
+    //       console.log(
+    //         " Docgeneralappointmentlists page doctor_id = " + doctor_id
+    //       );
 
-          this.getnewappointments(this.doctor_id);
-        });
-      }
-    });
+    //       this.getnewappointments(this.doctor_id);
+    //     });
+    //   }
+    // });
   }
 
-  original_getnewappointments(data) {
-    if (data) {
-      let loading = this.loadingCtrl.create({
-        content: "Please wait...",
-      });
+  // original_getnewappointments(data) {
+  //   if (data) {
+  //     let loading = this.loadingCtrl.create({
+  //       content: "Please wait...",
+  //     });
 
-      loading.present();
+  //     loading.present();
 
-      setTimeout(() => {
-        this.data
-          .get_new_general_appointments_count(data, this.my_person_type)
-          .then(
-            (result) => {
-              console.log(result);
-              var jsonBody = result["_body"];
+  //     setTimeout(() => {
+  //       this.data
+  //         .get_new_general_appointments_count(data, this.my_person_type)
+  //         .then(
+  //           (result) => {
+  //             console.log(result);
+  //             var jsonBody = result["_body"];
 
-              if (jsonBody) {
-                jsonBody = JSON.parse(jsonBody);
+  //             if (jsonBody) {
+  //               jsonBody = JSON.parse(jsonBody);
 
-                if (jsonBody["total_count"]) {
-                  if (jsonBody["total_count"][0].counter) {
-                    this.doc_new_total_count_appoint_counter =
-                      jsonBody["total_count"][0].counter;
-                  }
-                }
+  //               if (jsonBody["total_count"]) {
+  //                 if (jsonBody["total_count"][0].counter) {
+  //                   this.doc_new_total_count_appoint_counter =
+  //                     jsonBody["total_count"][0].counter;
+  //                 }
+  //               }
 
-                if (jsonBody["total_doc_gen_appointment_count"]) {
-                  if (jsonBody["total_doc_gen_appointment_count"][0].counter) {
-                    this.doc_general_total_count_appoint_counter =
-                      jsonBody["total_doc_gen_appointment_count"][0].counter;
-                  }
-                }
+  //               if (jsonBody["total_doc_gen_appointment_count"]) {
+  //                 if (jsonBody["total_doc_gen_appointment_count"][0].counter) {
+  //                   this.doc_general_total_count_appoint_counter =
+  //                     jsonBody["total_doc_gen_appointment_count"][0].counter;
+  //                 }
+  //               }
 
-                if (jsonBody["total_doc_pds_appointment_count"]) {
-                  if (jsonBody["total_doc_pds_appointment_count"][0].counter) {
-                    this.total_doc_pds_appointment_count =
-                      jsonBody["total_doc_pds_appointment_count"][0].counter;
-                  }
-                }
+  //               if (jsonBody["total_doc_pds_appointment_count"]) {
+  //                 if (jsonBody["total_doc_pds_appointment_count"][0].counter) {
+  //                   this.total_doc_pds_appointment_count =
+  //                     jsonBody["total_doc_pds_appointment_count"][0].counter;
+  //                 }
+  //               }
 
-                // console.log("get_new_general_appointments_count = "+JSON.stringify(jsonBody));
+  //               // console.log("get_new_general_appointments_count = "+JSON.stringify(jsonBody));
 
-                // if(jsonBody["all_appointments_overall_total"]){
-                //   console.log("all_appointments_overall_total = "+jsonBody["all_appointments_overall_total"])
-                // }
+  //               // if(jsonBody["all_appointments_overall_total"]){
+  //               //   console.log("all_appointments_overall_total = "+jsonBody["all_appointments_overall_total"])
+  //               // }
 
-                console.log(
-                  JSON.stringify(this.doc_new_total_count_appoint_counter)
-                );
-                // this.storage.set("doc_new_total_count_appoint_counter", JSON.stringify(this.doc_new_gen_appoint_counter));
-              }
+  //               console.log(
+  //                 JSON.stringify(this.doc_new_total_count_appoint_counter)
+  //               );
 
-              loading.dismiss();
+  //             }
 
-              console.log("Jsson body " + jsonBody);
-            },
-            (err) => {
-              loading.dismiss();
-              console.log("error = " + JSON.stringify(err));
-            }
-          );
-        loading.dismiss();
-      }, 1);
-    }
-  }
+  //             loading.dismiss();
 
-  getnewappointments(data) {
-    this.storage.get("person_type").then((person_type) => {
-      this.my_person_type = person_type;
+  //             console.log("Jsson body " + jsonBody);
+  //           },
+  //           (err) => {
+  //             loading.dismiss();
+  //             console.log("error = " + JSON.stringify(err));
+  //           }
+  //         );
+  //       loading.dismiss();
+  //     }, 1);
+  //   }
+  // }
 
-      console.log("---------------------------------------------------------");
+  // getnewappointments(data) {
+  //   this.storage.get("person_type").then((person_type) => {
+  //     this.my_person_type = person_type;
 
-      if (this.my_person_type) {
-        console.log(
-          "Person Type VALUE IN DOC PAGE CONSTRUCTOR IS" + this.my_person_type
-        );
+  //     console.log("---------------------------------------------------------");
 
-        if (data) {
-          setTimeout(() => {
-            this.data
-              .get_new_general_appointments_count(data, this.my_person_type)
-              .then(
-                (result) => {
-                  console.log(result);
-                  var jsonBody = result["_body"];
+  //     if (this.my_person_type) {
+  //       console.log(
+  //         "Person Type VALUE IN DOC PAGE CONSTRUCTOR IS" + this.my_person_type
+  //       );
 
-                  if (jsonBody) {
-                    jsonBody = JSON.parse(jsonBody);
+  //       if (data) {
+  //         setTimeout(() => {
+  //           this.data
+  //             .get_new_general_appointments_count(data, this.my_person_type)
+  //             .then(
+  //               (result) => {
+  //                 console.log(result);
+  //                 var jsonBody = result["_body"];
 
-                    if (jsonBody["total_count"]) {
-                      if (jsonBody["total_count"][0].counter) {
-                        this.doc_new_total_count_appoint_counter =
-                          jsonBody["total_count"][0].counter;
-                      }
-                    }
+  //                 if (jsonBody) {
+  //                   jsonBody = JSON.parse(jsonBody);
 
-                    if (jsonBody["total_doc_gen_appointment_count"]) {
-                      if (
-                        jsonBody["total_doc_gen_appointment_count"][0].counter
-                      ) {
-                        this.doc_general_total_count_appoint_counter =
-                          jsonBody[
-                            "total_doc_gen_appointment_count"
-                          ][0].counter;
-                      }
-                    }
+  //                   if (jsonBody["total_count"]) {
+  //                     if (jsonBody["total_count"][0].counter) {
+  //                       this.doc_new_total_count_appoint_counter =
+  //                         jsonBody["total_count"][0].counter;
+  //                     }
+  //                   }
 
-                    if (jsonBody["total_doc_pds_appointment_count"]) {
-                      if (
-                        jsonBody["total_doc_pds_appointment_count"][0].counter
-                      ) {
-                        this.total_doc_pds_appointment_count =
-                          jsonBody[
-                            "total_doc_pds_appointment_count"
-                          ][0].counter;
-                      }
-                    }
+  //                   if (jsonBody["total_doc_gen_appointment_count"]) {
+  //                     if (
+  //                       jsonBody["total_doc_gen_appointment_count"][0].counter
+  //                     ) {
+  //                       this.doc_general_total_count_appoint_counter =
+  //                         jsonBody[
+  //                           "total_doc_gen_appointment_count"
+  //                         ][0].counter;
+  //                     }
+  //                   }
 
-                    // console.log("get_new_general_appointments_count = "+JSON.stringify(jsonBody));
+  //                   if (jsonBody["total_doc_pds_appointment_count"]) {
+  //                     if (
+  //                       jsonBody["total_doc_pds_appointment_count"][0].counter
+  //                     ) {
+  //                       this.total_doc_pds_appointment_count =
+  //                         jsonBody[
+  //                           "total_doc_pds_appointment_count"
+  //                         ][0].counter;
+  //                     }
+  //                   }
 
-                    // if(jsonBody["all_appointments_overall_total"]){
-                    //   console.log("all_appointments_overall_total = "+jsonBody["all_appointments_overall_total"])
-                    // }
+  //                   console.log(
+  //                     JSON.stringify(this.doc_new_total_count_appoint_counter)
+  //                   );
 
-                    console.log(
-                      JSON.stringify(this.doc_new_total_count_appoint_counter)
-                    );
-                    // this.storage.set("doc_new_total_count_appoint_counter", JSON.stringify(this.doc_new_gen_appoint_counter));
-                  }
+  //                 }
 
-                  console.log("Jsson body " + jsonBody);
-                },
-                (err) => {
-                  console.log("error = " + JSON.stringify(err));
-                }
-              );
-          }, 1);
-        }
-      }
-    });
-  }
+  //                 console.log("Jsson body " + jsonBody);
+  //               },
+  //               (err) => {
+  //                 console.log("error = " + JSON.stringify(err));
+  //               }
+  //             );
+  //         }, 1);
+  //       }
+  //     }
+  //   });
+  // }
 
   appointment_statistics() {
     console.log("newparams = " + this.newparams);
@@ -474,14 +329,14 @@ export class DocappointmentMenuPage {
   new_appointments() {
     this.navCtrl.push(doctornewappointmentTabsPage, {
       from_login: this.from_login,
-      my_person_type: this.my_person_type,
+      token: this.token,
     });
   }
 
   gen_appointments() {
     this.navCtrl.push(DoctorgeneralappointmentsTabsPage, {
       from_login: this.from_login,
-      my_person_type: this.my_person_type,
+      token: this.token,
     });
   }
 

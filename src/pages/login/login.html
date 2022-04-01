@@ -1,5 +1,21 @@
 <ion-content class="background">
-  <img src="assets/icon/new_ghinger_logo.png" class="logo_position" />
+  <!-- <img src="/assets/imgs/logo.png" class="logo_position" /> -->
+  <img src="/assets/imgs/logo.png" class="logo_position" />
+
+  <div id="background-wrap">
+    <div class="bubble x1"></div>
+    <div class="bubble x2"></div>
+    <div class="bubble x3"></div>
+    <div class="bubble x4"></div>
+    <!-- <div class="bubble x5"></div>
+    <div class="bubble x6"></div>
+    <div class="bubble x7"></div>
+    <div class="bubble x8"></div>
+    <div class="bubble x9"></div>
+    <div class="bubble x10"></div> -->
+  </div>
+
+  <h4 id="textLogin">Login</h4>
 
   <form [formGroup]="loginForm" class="padd">
     <ion-item no-lines>
@@ -15,7 +31,7 @@
     <p
       *ngIf="!loginForm.controls.email.valid  && (loginForm.controls.email.dirty || submitAttempt)"
     >
-      <b style="color: white">Please enter a valid email</b>
+      <b style="color: rgb(255, 5, 5)">Please enter a valid email</b>
     </p>
     <br />
 
@@ -61,95 +77,38 @@
       </button>
     </ion-item>
 
-    <!-- <ion-item *ngIf="!showpassword">
-      <ion-label position="floating" color="primary">Password Show</ion-label>
-      <button
-        ion-button
-        clear
-        color="dark"
-        item-right
-        (tap)="togglePasswordText()"
-      >
-        <ion-icon name="eye-off"> </ion-icon>
-      </button>
-      <ion-input
-        type="text"
-        formControlName="password"
-        class="form-controll"
-        required
-      ></ion-input>
-    </ion-item> -->
-    <!-- <ion-item *ngIf="!showpassword">
-      <ion-label position="floating" color="primary">Password Not</ion-label>
-
-      <button
-        ion-button
-        clear
-        color="dark"
-        item-right
-        (tap)="togglePasswordText()"
-      >
-        <ion-icon name="eye"> </ion-icon>
-      </button>
-      <ion-input
-        type="password"
-        formControlName="password"
-        class="form-controll"
-        required
-      ></ion-input>
-    </ion-item> -->
-
-    <ion-row>
-      <ion-col col-2> </ion-col>
-      <br />
-
-      <ion-col col-10 class="pad-right-align">
-        <ion-item no-lines>
-          <ion-checkbox
-            formControlName="rememberme"
-            [(ngModel)]="rememberme"
-            checked="false"
-            (ionChange)="check_rememberme()"
-            color="secondary"
-          ></ion-checkbox>
-          <ion-label style="color: white">Remember Me</ion-label>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-
     <p class="pad">
-      <button ion-button round color="primary" (tap)="login()">Login</button>
-
-      <!-- <button ion-button clear color="dark" (tap)="togglePasswordText()">
-        <ion-icon name="eye-off"> </ion-icon>
-      </button> -->
-      <!-- <button
-        ion-button
-        clear
-        color="primary"
-        type="button"
-        item-right
-        (click)="togglePasswordText"
-      >
-        <ion-icon name="eye-off"> </ion-icon>
-      </button> -->
+      <ion-buttons>
+        <button
+          ion-button
+          color="dark"
+          icon-end
+          (tap)="login()"
+          class="button button-dark customBtn"
+        >
+          Login <ion-icon name="arrow-forward"></ion-icon>
+        </button>
+      </ion-buttons>
+      <!-- <button ion-button round color="primary" (tap)="login()">Login</button> -->
     </p>
     <br />
 
     <br />
     <p class="pad">
-      <b style="color: white">
-        <a tappable (tap)="reset()" style="color: white">Forgot Password?</a>
+      <b style="color: rgb(0, 0, 0)">
+        <a tappable (tap)="reset()" style="color: rgb(0, 0, 0)"
+          >Forgot Password?</a
+        >
       </b>
     </p>
 
     <br />
 
     <p class="pad">
-      <b style="color: white">
+      <b style="color: rgb(0, 0, 0)">
         <p style="color: blawhiteck">
           Don't have an account ?
-          <a tappable (tap)="signup()" style="color: white">Sign Up </a>
+          <a tappable (tap)="signup()" style="color: #c31a1a">Sign Up </a>
         </p>
       </b>
     </p>
@@ -162,7 +121,7 @@
       <p>
         Having an issues? Contact us on
 
-        <span style="color: #c1c31a">0202611222 </span>
+        <span style="color: #c31a1a">0202611222 </span>
       </p>
     </b>
   </p>

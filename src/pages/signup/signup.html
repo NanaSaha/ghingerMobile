@@ -1,262 +1,343 @@
 <ion-content class="background">
-  <img src="assets/icon/new_ghinger_logo.png" class="logo_position" />
+  <img src="/assets/imgs/logo.png" class="logo_position" />
+  <h4 id="textLogin">Signup</h4>
 
+  <div class="container">
+    <ul class="progressbar">
+      <li [class.active]="step == 1">User Details</li>
+
+      <li [class.active]="step == 2">Other Info</li>
+      <li [class.active]="step == 3">Complete</li>
+    </ul>
+  </div>
   <form [formGroup]="signupForm" class="padd">
-    <ion-item>
-      <ion-label floating>Surname</ion-label>
-      <ion-input
-        type="text"
-        formControlName="surname"
-        name="surname"
-        [class.invalid]="!signupForm.controls.surname.valid && (signupForm.controls.surname.dirty || submitAttempt)"
-      ></ion-input>
-    </ion-item>
-    <p
-      *ngIf="!signupForm.controls.surname.valid  && (signupForm.controls.surname.dirty || submitAttempt)"
-    >
-      <b style="color: white">Please enter Surname.</b>
-    </p>
-    <br />
-
-    <ion-item>
-      <ion-label floating>First Name</ion-label>
-      <ion-input
-        type="text"
-        formControlName="other_names"
-        name="other_names"
-        [class.invalid]="!signupForm.controls.other_names.valid && (signupForm.controls.other_names.dirty || submitAttempt)"
-      ></ion-input>
-    </ion-item>
-    <p
-      *ngIf="!signupForm.controls.other_names.valid  && (signupForm.controls.other_names.dirty || submitAttempt)"
-    >
-      <b style="color: white">Please enter First Name.</b>
-    </p>
-    <br />
-
-    <ion-item>
-      <ion-label floating>Mobile Number/Whatsapp</ion-label>
-      <ion-input
-        type="number"
-        formControlName="mobile_number"
-        name="mobile_number"
-        [class.invalid]="!signupForm.controls.mobile_number.valid && (signupForm.controls.mobile_number.dirty || submitAttempt)"
-      ></ion-input>
-    </ion-item>
-    <p
-      *ngIf="!signupForm.controls.mobile_number.valid  && (signupForm.controls.mobile_number.dirty || submitAttempt)"
-    >
-      <b style="color: white">Please enter a valid mobile number</b>
-    </p>
-
-    <br />
-
-    <ion-item>
-      <ion-label floating>Email</ion-label>
-      <ion-input
-        type="email"
-        formControlName="email"
-        name="email"
-        [class.invalid]="!signupForm.controls.email.valid && (signupForm.controls.email.dirty || submitAttempt)"
-      ></ion-input>
-    </ion-item>
-    <p
-      *ngIf="!signupForm.controls.email.valid  && (signupForm.controls.email.dirty || submitAttempt)"
-    >
-      <b style="color: white">Please enter a valid email</b>
-    </p>
-    <br />
-
-    <ion-item>
-      <ion-label floating>I am a ..</ion-label>
-      <ion-select
-        formControlName="user_type"
-        name="user_type"
-        [class.invalid]="!signupForm.controls.user_type.valid && (signupForm.controls.user_type.dirty || submitAttempt)"
+    <div *ngIf="step == 1">
+      <ion-item>
+        <ion-label floating style="color: red !important">Surname</ion-label>
+        <ion-input
+          type="text"
+          formControlName="surname"
+          name="surname"
+          [class.invalid]="!signupForm.controls.surname.valid && (signupForm.controls.surname.dirty || submitAttempt)"
+        ></ion-input>
+      </ion-item>
+      <p
+        *ngIf="!signupForm.controls.surname.valid  && (signupForm.controls.surname.dirty || submitAttempt)"
       >
-        <ion-option
-          formControlName="user_type"
+        <b style="color: rgb(255, 0, 0)">Please enter Surname.</b>
+      </p>
+      <br />
+
+      <ion-item>
+        <ion-label floating style="color: red !important">First Name</ion-label>
+        <ion-input
+          type="text"
+          formControlName="first_name"
+          name="first_name"
+          [class.invalid]="!signupForm.controls.first_name.valid && (signupForm.controls.first_name.dirty || submitAttempt)"
+        ></ion-input>
+      </ion-item>
+      <p
+        *ngIf="!signupForm.controls.first_name.valid  && (signupForm.controls.first_name.dirty || submitAttempt)"
+      >
+        <b style="color: rgb(255, 0, 0)">Please enter First Name.</b>
+      </p>
+      <br />
+
+      <ion-item>
+        <ion-label floating style="color: red !important"
+          >Mobile Number/Whatsapp</ion-label
+        >
+        <ion-input
+          type="number"
+          formControlName="phone"
+          name="phone"
+          [class.invalid]="!signupForm.controls.phone.valid && (signupForm.controls.phone.dirty || submitAttempt)"
+        ></ion-input>
+      </ion-item>
+      <p
+        *ngIf="!signupForm.controls.phone.valid  && (signupForm.controls.phone.dirty || submitAttempt)"
+      >
+        <b style="color: rgb(255, 0, 0)">Please enter a valid mobile number</b>
+      </p>
+
+      <br />
+
+      <ion-item>
+        <ion-label floating style="color: red !important">Email</ion-label>
+        <ion-input
+          type="email"
+          formControlName="email"
+          name="email"
+          [class.invalid]="!signupForm.controls.email.valid && (signupForm.controls.email.dirty || submitAttempt)"
+        ></ion-input>
+      </ion-item>
+      <p
+        *ngIf="!signupForm.controls.email.valid  && (signupForm.controls.email.dirty || submitAttempt)"
+      >
+        <b style="color: rgb(255, 0, 0)">Please enter a valid email</b>
+      </p>
+      <br />
+    </div>
+
+    <div *ngIf="step == 2">
+      <ion-item>
+        <ion-label floating style="color: red !important">I am a ..</ion-label>
+        <ion-select
+          formControlName="role_id"
+          name="role_id"
+          [class.invalid]="!signupForm.controls.role_id.valid && (signupForm.controls.role_id.dirty || submitAttempt)"
+        >
+          <ion-option
+            formControlName="role_id"
+            name="role_id"
+            value="C"
+            ngDefaultControl
+            >Patient</ion-option
+          >
+          <ion-option
+            formControlName="role_id"
+            name="role_id"
+            value="D"
+            ngDefaultControl
+            >Doctor</ion-option
+          >
+          <ion-option
+            formControlName="role_id"
+            name="role_id"
+            value="N"
+            ngDefaultControl
+            >Nurse</ion-option
+          >
+        </ion-select>
+      </ion-item>
+      <p
+        *ngIf="!signupForm.controls.role_id.valid  && (signupForm.controls.role_id.dirty || submitAttempt)"
+      >
+        <b style="color: rgb(255, 0, 0)">Please choose a user type </b>
+      </p>
+
+      <!-- <ion-item *ngIf="signupForm.value.user_type == 'D'">
+        <ion-label floating>Subscribe to Personal Doctor Service?</ion-label>
+        <ion-select
+          formControlName="pds"
           name="user_type"
-          value="C"
-          ngDefaultControl
-          >Patient</ion-option
+          [class.invalid]="!signupForm.controls.pds.valid && (signupForm.controls.pds.dirty || submitAttempt)"
         >
-        <ion-option
-          formControlName="user_type"
-          name="user_type"
-          value="D"
-          ngDefaultControl
-          >Doctor</ion-option
+          <ion-option
+            formControlName="pds"
+            name="pds"
+            value="t"
+            ngDefaultControl
+            >Yes</ion-option
+          >
+          <ion-option
+            formControlName="pds"
+            name="pds"
+            value="f"
+            ngDefaultControl
+            >No</ion-option
+          >
+        </ion-select>
+      </ion-item> -->
+      <br />
+      <ion-item>
+        <br />
+        <ion-label floating style="color: red !important"
+          >Referal Code (Optional)</ion-label
         >
-        <ion-option
-          formControlName="user_type"
-          name="user_type"
-          value="N"
-          ngDefaultControl
-          >Nurse</ion-option
+        <ion-input
+          type="text"
+          formControlName="referal_code"
+          name="referal_code"
+          [class.invalid]="!signupForm.controls.referal_code.valid && (signupForm.controls.referal_code.dirty || submitAttempt)"
+        ></ion-input>
+      </ion-item>
+      <br />
+
+      <ion-item>
+        <br />
+        <ion-label floating style="color: red !important"
+          >How did you know about us? (Optional)</ion-label
         >
-      </ion-select>
-    </ion-item>
-    <p
-      *ngIf="!signupForm.controls.user_type.valid  && (signupForm.controls.user_type.dirty || submitAttempt)"
-    >
-      <b style="color: white">Please choose a user type </b>
-    </p>
+        <ion-input
+          type="text"
+          formControlName="referal_code"
+          name="referal_code"
+          [class.invalid]="!signupForm.controls.referal_code.valid && (signupForm.controls.referal_code.dirty || submitAttempt)"
+        ></ion-input>
+      </ion-item>
+      <br />
+    </div>
 
-    <!-- <ion-item *ngIf="signupForm.value.user_type == 'C'">
-      <ion-label> Select Country</ion-label>
+    <div *ngIf="step == 3">
+      <ion-item *ngIf="showpassword">
+        <br />
+        <ion-label floating style="color: red !important">Password</ion-label>
+        <ion-input
+          type="text"
+          formControlName="password"
+          name="password"
+          [class.invalid]="!signupForm.controls.password.valid && (signupForm.controls.password.dirty || submitAttempt)"
+        ></ion-input>
+        <button
+          ion-button
+          clear
+          color="dark"
+          item-right
+          (tap)="togglePasswordText()"
+          id="stle2"
+        >
+          <ion-icon name="eye-off" id="iconeye"> </ion-icon>
+        </button>
+      </ion-item>
 
-      <ion-select  formControlName="country_id" name="country_id" [class.invalid]="!signupForm.controls.country_id.valid && (signupForm.controls.country_id.dirty || submitAttempt)" [(ngModel)]="country_id" (ionChange)="get_region(country_id);">
-        <ion-option *ngFor="let data of countries" [value]="data.id" >{{data.country_name}}</ion-option>
-      </ion-select>
-    </ion-item>  
-
-    <ion-item *ngIf="signupForm.value.country_id">
-      <ion-label>Select Region/State</ion-label>
-      
-      <ion-select  formControlName="region_id" name="region_id" [class.invalid]="!signupForm.controls.region_id.valid && (signupForm.controls.region_id.dirty || submitAttempt)" [(ngModel)]="region_id" (ionChange)="get_cities(region_id);">
-        <ion-option *ngFor="let data of regions" [value]="data.id" >{{data.region_state_name}}</ion-option>
-      </ion-select>
-    </ion-item>  
-
-    <ion-item *ngIf="signupForm.value.region_id">
-      <ion-label>Select City</ion-label>
-
-      <ion-select  formControlName="city_id" name="city_id" [class.invalid]="!signupForm.controls.city_id.valid && (signupForm.controls.city_id.dirty || submitAttempt)" [(ngModel)]="city_id" (ionChange)="get_suburbs(city_id);">
-        <ion-option *ngFor="let data of cities" [value]="data.id" >{{data.city_town_name}}</ion-option>
-      </ion-select>
-    </ion-item>  
-
-    <ion-item *ngIf="signupForm.value.city_id">
-      <ion-label> Select Suburb</ion-label>
-      <ion-select  formControlName="suburb_id" name="suburb_id" [class.invalid]="!signupForm.controls.suburb_id.valid && (signupForm.controls.suburb_id.dirty || submitAttempt)">
-        <ion-option *ngFor="let data of suburbs" [value]="data.id" >{{data.suburb_name}}</ion-option>
-      </ion-select>
-    </ion-item>   -->
-
-    <ion-item *ngIf="signupForm.value.user_type == 'D'">
-      <ion-label floating>Subscribe to Personal Doctor Service?</ion-label>
-      <ion-select
-        formControlName="pds"
-        name="user_type"
-        [class.invalid]="!signupForm.controls.pds.valid && (signupForm.controls.pds.dirty || submitAttempt)"
+      <ion-item *ngIf="!showpassword">
+        <br />
+        <ion-label floating style="color: red !important"
+          >Create New Password</ion-label
+        >
+        <ion-input
+          type="password"
+          formControlName="password"
+          name="password"
+          [class.invalid]="!signupForm.controls.password.valid && (signupForm.controls.password.dirty || submitAttempt)"
+        ></ion-input>
+        <button
+          ion-button
+          clear
+          color="dark"
+          item-right
+          (tap)="togglePasswordText()"
+          id="stle2"
+        >
+          <ion-icon name="eye"> </ion-icon>
+        </button>
+      </ion-item>
+      <p
+        *ngIf="!signupForm.controls.password.valid  && (signupForm.controls.password.dirty || submitAttempt)"
       >
-        <ion-option formControlName="pds" name="pds" value="t" ngDefaultControl
-          >Yes</ion-option
+        <b style="color: rgb(255, 0, 0)"
+          >Please create a password before you proceed
+        </b>
+      </p>
+      <br />
+
+      <!-- CONFIRM PASSWORD -->
+
+      <ion-item *ngIf="showpassword">
+        <ion-label floating style="color: red !important"
+          >Confirm Password</ion-label
         >
-        <ion-option formControlName="pds" name="pds" value="f" ngDefaultControl
-          >No</ion-option
+        <ion-input
+          type="text"
+          formControlName="confirmPassword"
+          name="password"
+          [class.invalid]="!signupForm.controls.confirmPassword.errors?.MatchPassword"
+        ></ion-input>
+        <button
+          ion-button
+          clear
+          color="dark"
+          item-right
+          (tap)="togglePasswordText()"
+          id="stle2"
         >
-      </ion-select>
-    </ion-item>
-    <br />
+          <ion-icon name="eye-off" id="iconeye"> </ion-icon>
+        </button>
+      </ion-item>
 
-    <ion-item>
+      <ion-item *ngIf="!showpassword">
+        <ion-label floating style="color: red !important"
+          >Confirm Password</ion-label
+        >
+        <ion-input
+          type="password"
+          formControlName="confirmPassword"
+          name="password"
+          [class.invalid]="!signupForm.controls.confirmPassword.errors?.MatchPassword"
+        ></ion-input>
+        <button
+          ion-button
+          clear
+          color="dark"
+          item-right
+          (tap)="togglePasswordText()"
+          id="stle2"
+        >
+          <ion-icon name="eye"> </ion-icon>
+        </button>
+      </ion-item>
+      <p *ngIf="signupForm.controls.confirmPassword.errors?.MatchPassword">
+        <b style="color: rgb(255, 0, 0)">*Passwords must match </b>
+      </p>
       <br />
-      <ion-label floating>Referal Code (Optional)</ion-label>
-      <ion-input
-        type="text"
-        formControlName="referal_code"
-        name="referal_code"
-        [class.invalid]="!signupForm.controls.referal_code.valid && (signupForm.controls.referal_code.dirty || submitAttempt)"
-      ></ion-input>
-    </ion-item>
-    <br />
-
-    <ion-item>
-      <br />
-      <ion-label floating>How did you know about us? (Optional)</ion-label>
-      <ion-input
-        type="text"
-        formControlName="referal_code"
-        name="referal_code"
-        [class.invalid]="!signupForm.controls.referal_code.valid && (signupForm.controls.referal_code.dirty || submitAttempt)"
-      ></ion-input>
-    </ion-item>
-    <br />
-
-    <ion-item *ngIf="showpassword">
-      <br />
-      <ion-label floating>Password</ion-label>
-      <ion-input
-        type="text"
-        formControlName="password"
-        name="password"
-        [class.invalid]="!signupForm.controls.password.valid && (signupForm.controls.password.dirty || submitAttempt)"
-      ></ion-input>
-      <button
-        ion-button
-        clear
-        color="dark"
-        item-right
-        (tap)="togglePasswordText()"
-        id="stle2"
-      >
-        <ion-icon name="eye-off" id="iconeye"> </ion-icon>
-      </button>
-    </ion-item>
-
-    <ion-item *ngIf="!showpassword">
-      <br />
-      <ion-label floating>Password</ion-label>
-      <ion-input
-        type="password"
-        formControlName="password"
-        name="password"
-        [class.invalid]="!signupForm.controls.password.valid && (signupForm.controls.password.dirty || submitAttempt)"
-      ></ion-input>
-      <button
-        ion-button
-        clear
-        color="dark"
-        item-right
-        (tap)="togglePasswordText()"
-        id="stle2"
-      >
-        <ion-icon name="eye"> </ion-icon>
-      </button>
-    </ion-item>
-    <p
-      *ngIf="!signupForm.controls.password.valid  && (signupForm.controls.password.dirty || submitAttempt)"
-    >
-      <b style="color: white">Please create a password before you proceed </b>
-    </p>
-    <br />
-
-    <!-- <ion-item>
-         <ion-input type="password" placeholder="Confirm Password" formControlName="confirmPassword" name="confirmPassword" [class.invalid]="!signupForm.controls.password.valid && (signupForm.controls.password.dirty || submitAttempt)"></ion-input>
-
-    </ion-item>  <br>
-    <div class="alert alert-danger" [class.invalid]="!signupForm.controls.confirmPassword.errors?.MatchPassword">*Passwords must match</div> -->
+    </div>
 
     <p class="pad">
-      <button
-        ion-button
-        color="primary"
-        [disabled]="!this.signupForm.valid"
-        (tap)="signup()"
-      >
-        SIGN UP
-      </button>
+      <ion-row>
+        <ion-col col-6 *ngIf="step != 1">
+          <ion-buttons>
+            <button
+              ion-button
+              color="dark"
+              icon-end
+              (tap)="prev()"
+              class="button button-dark customBtn"
+            >
+              Previous <ion-icon name="arrow-back"></ion-icon>
+            </button>
+          </ion-buttons>
+        </ion-col>
+
+        <ion-col col-6 *ngIf="step != 3">
+          <ion-buttons>
+            <button
+              ion-button
+              color="dark"
+              icon-end
+              (tap)="submit()"
+              class="button button-dark customBtn"
+            >
+              Next <ion-icon name="arrow-forward"></ion-icon>
+            </button>
+          </ion-buttons>
+        </ion-col>
+
+        <ion-col col-6 *ngIf="step == 3">
+          <ion-buttons>
+            <button
+              ion-button
+              color="dark"
+              icon-end
+              [disabled]="!this.signupForm.valid"
+              (tap)="signup()"
+              class="button button-dark customBtn"
+            >
+              Complete <ion-icon name="checkmark-circle"></ion-icon>
+            </button>
+          </ion-buttons>
+        </ion-col>
+      </ion-row>
 
       <br />
       <br />
     </p>
 
     <p>
-      <b style="color: white">
-        <p style="color: white">
+      <b style="color: rgb(0, 0, 0)">
+        <p style="color: rgb(0, 0, 0)">
           Already have an account ?
-          <a tappable (tap)="signin()" style="color: #c1c31a">Sign In</a>
+          <a tappable (tap)="signin()" style="color: #ff0000">Sign In</a>
         </p>
       </b>
     </p>
 
     <p>
-      <b style="color: white">
-        <p style="color: white">
+      <b style="color: rgb(0, 0, 0)">
+        <p style="color: rgb(0, 0, 0)">
           By clicking the button to signup, you're agreeing to our
-          <a tappable (tap)="toc()" style="color: #c1c31a">terms of service</a>
+          <a tappable (tap)="toc()" style="color: #ff0000">terms of service</a>
         </p>
       </b>
     </p>

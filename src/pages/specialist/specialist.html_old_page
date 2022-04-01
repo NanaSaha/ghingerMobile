@@ -1,0 +1,452 @@
+<ion-header>
+  <ion-navbar>
+    <ion-row>
+      <ion-col col-12>
+        <ion-searchbar
+          placeholder="Try 'Gynaeclogists' or 'Dentist' "
+          (ionInput)="getItems($event)"
+        ></ion-searchbar>
+        <!-- <div class="logo">
+          <img src="assets/imgs/reev.png" />
+        </div> -->
+      </ion-col>
+
+      <!-- <ion-col col-2>
+        <div class="logo_icon">
+          <img src="assets/imgs/search.svg" />
+        </div>
+      </ion-col> -->
+    </ion-row>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="background">
+  <div class="back_body">
+    <div id="content">
+      <div class="gsYlqHuubB3bKiaXdybMG" style="top: 0">
+        <div class="_3vHydKFEGz4zvVBBrGUiio">
+          <div>
+            <div class="_23pgZCdAxmaAdiofy8ZEdu _3NHEitRCLFV_aV5FS2ttyK">
+              <div class="rTC5JFwxEEFySWGhYljS">
+                <!--FEATURED ID== 1 -->
+                <div class="_3L36rZQ3IAsgRZIYeT1dbQ _31DstS8SKRXReKMgFwwSm0">
+                  <div class="jrVzMjyCIqxWd3hcEGDuB">
+                    <a target="_self" text="Featured">
+                      <h1 class="_2ivOd4Y1K0C1cEIZrK9_FN">
+                        Featured Specialists
+                      </h1>
+                    </a>
+                    <div class="S7VLjj-szxqXjf5Ap4Tjs">
+                      <a target="_self" text="Featured"> </a>
+                    </div>
+                  </div>
+
+                  <div class="_3hOTS59vmvKeM_M4MmE19Q _3zKcaWhZ7Y3rSb7vNnKseg">
+                    <div
+                      class="_28IKAv03L8tzFtoPu8x2rT _2PZDk-AzrpGB2xvn4-tKhn"
+                    >
+                      <div class="_2t1yMKo-qhINm7tWYfcGGg">
+                        <div class="_3yEJGdKwGboMQH4nTumQvk">
+                          <div>
+                            <a target="_blank" (click)="details()">
+                              <div class="_1lesImzbM1n7vM34r-I6Fz">
+                                <div class="_23q9pGXd0r6H_hVobAqktx"></div>
+                                <img
+                                  class="_1LFprSjZw0gn6LQn4Gl-Nb _2cDIghBZTqp8rBDnylDMR0 fcxskIpxyAJZ7IB0x0_Dy"
+                                  alt="Talent"
+                                  src="https://res.cloudinary.com/sahanana/image/upload/v1616670379/Black_Male_Doctor_Portrait_732x549-thumbnail_owjc14.jpg"
+                                /><span class="_3mtcb48FcTN_lCYFUo8sv_"></span
+                                ><span class="_1Vx1MsN7oW62rZaRzXTdpo"></span>
+                              </div>
+                            </a>
+                          </div>
+                          <div class="XPdBo9MAZefkKbmAjpa86">
+                            <h4 class="_3z47DGIMGOtJrGd4zWYwcE">
+                              <a
+                                target="_blank"
+                                class="_3z47DGIMGOtJrGd4zWYwcE"
+                                (click)="details()"
+                                >Dr. John Doe</a
+                              >
+                            </h4>
+
+                            <div>
+                              <a
+                                target="_blank"
+                                class="_1J8AbI-6QDiBEQKqrMFUb0"
+                                title="Actor - Comedian"
+                                (click)="details()"
+                                >Oncologist</a
+                              >
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="_28IKAv03L8tzFtoPu8x2rT _2PZDk-AzrpGB2xvn4-tKhn"
+                    >
+                      <div class="_2t1yMKo-qhINm7tWYfcGGg">
+                        <div class="_3yEJGdKwGboMQH4nTumQvk">
+                          <div>
+                            <a target="_blank" (click)="details()">
+                              <div class="_1lesImzbM1n7vM34r-I6Fz">
+                                <div class="_23q9pGXd0r6H_hVobAqktx"></div>
+                                <img
+                                  class="_1LFprSjZw0gn6LQn4Gl-Nb _2cDIghBZTqp8rBDnylDMR0 fcxskIpxyAJZ7IB0x0_Dy"
+                                  alt="Talent"
+                                  src="https://res.cloudinary.com/sahanana/image/upload/v1616670300/d1_mqsf0y.jpg"
+                                /><span class="_3mtcb48FcTN_lCYFUo8sv_"></span
+                                ><span class="_1Vx1MsN7oW62rZaRzXTdpo"></span>
+                              </div>
+                            </a>
+                          </div>
+                          <div class="XPdBo9MAZefkKbmAjpa86">
+                            <h4 class="_3z47DGIMGOtJrGd4zWYwcE">
+                              <a
+                                target="_blank"
+                                class="_3z47DGIMGOtJrGd4zWYwcE"
+                                (click)="details()"
+                                >Dr. Peter Doe</a
+                              >
+                            </h4>
+
+                            <div>
+                              <a
+                                target="_blank"
+                                class="_1J8AbI-6QDiBEQKqrMFUb0"
+                                title="Actor - Comedian"
+                                (click)="details()"
+                                >Dentist</a
+                              >
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="_28IKAv03L8tzFtoPu8x2rT _2PZDk-AzrpGB2xvn4-tKhn"
+                    >
+                      <div class="_2t1yMKo-qhINm7tWYfcGGg">
+                        <div class="_3yEJGdKwGboMQH4nTumQvk">
+                          <div>
+                            <a target="_blank" (click)="details()">
+                              <div class="_1lesImzbM1n7vM34r-I6Fz">
+                                <div class="_23q9pGXd0r6H_hVobAqktx"></div>
+                                <img
+                                  class="_1LFprSjZw0gn6LQn4Gl-Nb _2cDIghBZTqp8rBDnylDMR0 fcxskIpxyAJZ7IB0x0_Dy"
+                                  alt="Talent"
+                                  src="https://res.cloudinary.com/sahanana/image/upload/v1616670300/d2_bbbnez.jpg"
+                                /><span class="_3mtcb48FcTN_lCYFUo8sv_"></span
+                                ><span class="_1Vx1MsN7oW62rZaRzXTdpo"></span>
+                              </div>
+                            </a>
+                          </div>
+                          <div class="XPdBo9MAZefkKbmAjpa86">
+                            <h4 class="_3z47DGIMGOtJrGd4zWYwcE">
+                              <a
+                                class="_3z47DGIMGOtJrGd4zWYwcE"
+                                (click)="details()"
+                                >Dr Anne Doe</a
+                              >
+                            </h4>
+
+                            <div>
+                              <a
+                                class="_1J8AbI-6QDiBEQKqrMFUb0"
+                                title="Actor - Comedian"
+                                (click)="details()"
+                                >Dietician</a
+                              >
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--MUSICIANS  ID=3-->
+                <div class="_3L36rZQ3IAsgRZIYeT1dbQ _31DstS8SKRXReKMgFwwSm0">
+                  <div class="jrVzMjyCIqxWd3hcEGDuB">
+                    <a target="_self" text="Featured">
+                      <h1 class="_2ivOd4Y1K0C1cEIZrK9_FN">Dentists</h1>
+                    </a>
+                    <div class="S7VLjj-szxqXjf5Ap4Tjs">
+                      <a target="_self" text="Featured"> </a>
+                    </div>
+                  </div>
+
+                  <div class="_3hOTS59vmvKeM_M4MmE19Q _3zKcaWhZ7Y3rSb7vNnKseg">
+                    <div
+                      class="_28IKAv03L8tzFtoPu8x2rT _2PZDk-AzrpGB2xvn4-tKhn"
+                    >
+                      <div class="_2t1yMKo-qhINm7tWYfcGGg">
+                        <div class="_3yEJGdKwGboMQH4nTumQvk">
+                          <div>
+                            <a target="_blank" (click)="details()">
+                              <div class="_1lesImzbM1n7vM34r-I6Fz">
+                                <div class="_23q9pGXd0r6H_hVobAqktx"></div>
+                                <img
+                                  class="_1LFprSjZw0gn6LQn4Gl-Nb _2cDIghBZTqp8rBDnylDMR0 fcxskIpxyAJZ7IB0x0_Dy"
+                                  alt="Talent"
+                                  src="https://res.cloudinary.com/sahanana/image/upload/v1616670379/Black_Male_Doctor_Portrait_732x549-thumbnail_owjc14.jpg"
+                                /><span class="_3mtcb48FcTN_lCYFUo8sv_"></span
+                                ><span class="_1Vx1MsN7oW62rZaRzXTdpo"></span>
+                              </div>
+                            </a>
+                          </div>
+                          <div class="XPdBo9MAZefkKbmAjpa86">
+                            <h4 class="_3z47DGIMGOtJrGd4zWYwcE">
+                              <a
+                                target="_blank"
+                                class="_3z47DGIMGOtJrGd4zWYwcE"
+                                (click)="details()"
+                                >Dr. John Doe</a
+                              >
+                            </h4>
+
+                            <div>
+                              <a
+                                target="_blank"
+                                class="_1J8AbI-6QDiBEQKqrMFUb0"
+                                title="Actor - Comedian"
+                                (click)="details()"
+                                >Oncologist</a
+                              >
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="_28IKAv03L8tzFtoPu8x2rT _2PZDk-AzrpGB2xvn4-tKhn"
+                    >
+                      <div class="_2t1yMKo-qhINm7tWYfcGGg">
+                        <div class="_3yEJGdKwGboMQH4nTumQvk">
+                          <div>
+                            <a target="_blank" (click)="details()">
+                              <div class="_1lesImzbM1n7vM34r-I6Fz">
+                                <div class="_23q9pGXd0r6H_hVobAqktx"></div>
+                                <img
+                                  class="_1LFprSjZw0gn6LQn4Gl-Nb _2cDIghBZTqp8rBDnylDMR0 fcxskIpxyAJZ7IB0x0_Dy"
+                                  alt="Talent"
+                                  src="https://res.cloudinary.com/sahanana/image/upload/v1616670300/d1_mqsf0y.jpg"
+                                /><span class="_3mtcb48FcTN_lCYFUo8sv_"></span
+                                ><span class="_1Vx1MsN7oW62rZaRzXTdpo"></span>
+                              </div>
+                            </a>
+                          </div>
+                          <div class="XPdBo9MAZefkKbmAjpa86">
+                            <h4 class="_3z47DGIMGOtJrGd4zWYwcE">
+                              <a
+                                target="_blank"
+                                class="_3z47DGIMGOtJrGd4zWYwcE"
+                                (click)="details()"
+                                >Dr. Peter Doe</a
+                              >
+                            </h4>
+
+                            <div>
+                              <a
+                                target="_blank"
+                                class="_1J8AbI-6QDiBEQKqrMFUb0"
+                                title="Actor - Comedian"
+                                (click)="details()"
+                                >Dentist</a
+                              >
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="_28IKAv03L8tzFtoPu8x2rT _2PZDk-AzrpGB2xvn4-tKhn"
+                    >
+                      <div class="_2t1yMKo-qhINm7tWYfcGGg">
+                        <div class="_3yEJGdKwGboMQH4nTumQvk">
+                          <div>
+                            <a target="_blank" (click)="details()">
+                              <div class="_1lesImzbM1n7vM34r-I6Fz">
+                                <div class="_23q9pGXd0r6H_hVobAqktx"></div>
+                                <img
+                                  class="_1LFprSjZw0gn6LQn4Gl-Nb _2cDIghBZTqp8rBDnylDMR0 fcxskIpxyAJZ7IB0x0_Dy"
+                                  alt="Talent"
+                                  src="https://res.cloudinary.com/sahanana/image/upload/v1616670300/d2_bbbnez.jpg"
+                                /><span class="_3mtcb48FcTN_lCYFUo8sv_"></span
+                                ><span class="_1Vx1MsN7oW62rZaRzXTdpo"></span>
+                              </div>
+                            </a>
+                          </div>
+                          <div class="XPdBo9MAZefkKbmAjpa86">
+                            <h4 class="_3z47DGIMGOtJrGd4zWYwcE">
+                              <a
+                                class="_3z47DGIMGOtJrGd4zWYwcE"
+                                (click)="details()"
+                                >Dr Anne Doe</a
+                              >
+                            </h4>
+
+                            <div>
+                              <a
+                                class="_1J8AbI-6QDiBEQKqrMFUb0"
+                                title="Actor - Comedian"
+                                (click)="details()"
+                                >Dietician</a
+                              >
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- END -->
+
+                <!--MUSICIANS  ID=3-->
+                <div class="_3L36rZQ3IAsgRZIYeT1dbQ _31DstS8SKRXReKMgFwwSm0">
+                  <div class="jrVzMjyCIqxWd3hcEGDuB">
+                    <a target="_self" text="Featured">
+                      <h1 class="_2ivOd4Y1K0C1cEIZrK9_FN">Dietician</h1>
+                    </a>
+                    <div class="S7VLjj-szxqXjf5Ap4Tjs">
+                      <a target="_self" text="Featured"> </a>
+                    </div>
+                  </div>
+
+                  <div class="_3hOTS59vmvKeM_M4MmE19Q _3zKcaWhZ7Y3rSb7vNnKseg">
+                    <div
+                      class="_28IKAv03L8tzFtoPu8x2rT _2PZDk-AzrpGB2xvn4-tKhn"
+                    >
+                      <div class="_2t1yMKo-qhINm7tWYfcGGg">
+                        <div class="_3yEJGdKwGboMQH4nTumQvk">
+                          <div>
+                            <a target="_blank" (click)="details()">
+                              <div class="_1lesImzbM1n7vM34r-I6Fz">
+                                <div class="_23q9pGXd0r6H_hVobAqktx"></div>
+                                <img
+                                  class="_1LFprSjZw0gn6LQn4Gl-Nb _2cDIghBZTqp8rBDnylDMR0 fcxskIpxyAJZ7IB0x0_Dy"
+                                  alt="Talent"
+                                  src="https://res.cloudinary.com/sahanana/image/upload/v1616670379/Black_Male_Doctor_Portrait_732x549-thumbnail_owjc14.jpg"
+                                />
+                                
+                                <span class="_3mtcb48FcTN_lCYFUo8sv_"></span
+                                ><span class="_1Vx1MsN7oW62rZaRzXTdpo"></span>
+                              </div>
+                            </a>
+                          </div>
+                          <div class="XPdBo9MAZefkKbmAjpa86">
+                            <h4 class="_3z47DGIMGOtJrGd4zWYwcE">
+                              <a
+                                target="_blank"
+                                class="_3z47DGIMGOtJrGd4zWYwcE"
+                                (click)="details()"
+                                >Dr. John Doe</a
+                              >
+                            </h4>
+
+                            <div>
+                              <a
+                                target="_blank"
+                                class="_1J8AbI-6QDiBEQKqrMFUb0"
+                                title="Actor - Comedian"
+                                (click)="details()"
+                                >Oncologist</a
+                              >
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="_28IKAv03L8tzFtoPu8x2rT _2PZDk-AzrpGB2xvn4-tKhn"
+                    >
+                      <div class="_2t1yMKo-qhINm7tWYfcGGg">
+                        <div class="_3yEJGdKwGboMQH4nTumQvk">
+                          <div>
+                            <a target="_blank" (click)="details()">
+                              <div class="_1lesImzbM1n7vM34r-I6Fz">
+                                <div class="_23q9pGXd0r6H_hVobAqktx"></div>
+                                <img
+                                  class="_1LFprSjZw0gn6LQn4Gl-Nb _2cDIghBZTqp8rBDnylDMR0 fcxskIpxyAJZ7IB0x0_Dy"
+                                  alt="Talent"
+                                  src="https://res.cloudinary.com/sahanana/image/upload/v1616670300/d1_mqsf0y.jpg"
+                                /><span class="_3mtcb48FcTN_lCYFUo8sv_"></span
+                                ><span class="_1Vx1MsN7oW62rZaRzXTdpo"></span>
+                              </div>
+                            </a>
+                          </div>
+                          <div class="XPdBo9MAZefkKbmAjpa86">
+                            <h4 class="_3z47DGIMGOtJrGd4zWYwcE">
+                              <a
+                                target="_blank"
+                                class="_3z47DGIMGOtJrGd4zWYwcE"
+                                (click)="details()"
+                                >Dr. Peter Doe</a
+                              >
+                            </h4>
+
+                            <div>
+                              <a
+                                target="_blank"
+                                class="_1J8AbI-6QDiBEQKqrMFUb0"
+                                title="Actor - Comedian"
+                                (click)="details()"
+                                >Dentist</a
+                              >
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="_28IKAv03L8tzFtoPu8x2rT _2PZDk-AzrpGB2xvn4-tKhn"
+                    >
+                      <div class="_2t1yMKo-qhINm7tWYfcGGg">
+                        <div class="_3yEJGdKwGboMQH4nTumQvk">
+                          <div>
+                            <a target="_blank" (click)="details()">
+                              <div class="_1lesImzbM1n7vM34r-I6Fz">
+                                <div class="_23q9pGXd0r6H_hVobAqktx"></div>
+                                <img
+                                  class="_1LFprSjZw0gn6LQn4Gl-Nb _2cDIghBZTqp8rBDnylDMR0 fcxskIpxyAJZ7IB0x0_Dy"
+                                  alt="Talent"
+                                  src="https://res.cloudinary.com/sahanana/image/upload/v1616670300/d2_bbbnez.jpg"
+                                /><span class="_3mtcb48FcTN_lCYFUo8sv_"></span
+                                ><span class="_1Vx1MsN7oW62rZaRzXTdpo"></span>
+                              </div>
+                            </a>
+                          </div>
+                          <div class="XPdBo9MAZefkKbmAjpa86">
+                            <h4 class="_3z47DGIMGOtJrGd4zWYwcE">
+                              <a
+                                class="_3z47DGIMGOtJrGd4zWYwcE"
+                                (click)="details()"
+                                >Dr Anne Doe</a
+                              >
+                            </h4>
+
+                            <div>
+                              <a
+                                class="_1J8AbI-6QDiBEQKqrMFUb0"
+                                title="Actor - Comedian"
+                                (click)="details()"
+                                >Dietician</a
+                              >
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- END -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

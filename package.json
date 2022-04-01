@@ -1,6 +1,6 @@
 {
   "name": "devdex-ghinger",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "author": "Devdex Software Ltd",
   "homepage": "https://devdexsoftware.com",
   "private": true,
@@ -36,7 +36,6 @@
     "@ionic-native/ionic-webview": "^5.28.0",
     "@ionic-native/market": "^4.12.0",
     "@ionic-native/network": "^4.9.0",
-    "@ionic-native/onesignal": "^4.20.0",
     "@ionic-native/screen-orientation": "^4.18.0",
     "@ionic-native/splash-screen": "^4.7.0",
     "@ionic-native/status-bar": "4.7.0",
@@ -45,8 +44,8 @@
     "@ngx-translate/core": "8.0.0",
     "@ngx-translate/http-loader": "^2.0.0",
     "angular4-paystack": "^2.4.0",
-    "cordova-android": "7.0.0",
-    "cordova-android-support-gradle-release": "^1.4.7",
+    "cordova-android": "^8.1.0",
+    "cordova-android-support-gradle-release": "^3.0.1",
     "cordova-ios": "^5.1.1",
     "cordova-plugin-android-permissions": "^1.0.0",
     "cordova-plugin-app-version": "^0.1.9",
@@ -76,14 +75,13 @@
     "ionicons": "3.0.0",
     "moment": "^2.22.2",
     "node-sass": "^4.14.1",
-    "onesignal-cordova-plugin": "^2.11.0",
     "pdfmake": "^0.1.37",
     "rxjs": "5.5.11",
     "sw-toolbox": "3.6.0",
     "zone.js": "0.8.26"
   },
   "devDependencies": {
-    "@ionic/app-scripts": "3.2.2",
+    "@ionic/app-scripts": "^3.2.3",
     "@ionic/lab": "3.1.7",
     "typescript": "2.6.2"
   },
@@ -100,9 +98,6 @@
       "cordova-plugin-app-version": {},
       "cordova-plugin-file-opener2": {},
       "cordova-plugin-email-composer": {},
-      "cordova-android-support-gradle-release": {
-        "ANDROID_SUPPORT_VERSION": "27.+"
-      },
       "cordova-plugin-market": {},
       "cordova-plugin-android-permissions": {},
       "cordova-plugin-camera": {},
@@ -111,13 +106,12 @@
       "cordova-plugin-inappbrowser": {},
       "cordova-plugin-statusbar": {},
       "cordova-plugin-splashscreen": {},
-      "onesignal-cordova-plugin": {},
       "cordova-plugin-file-transfer": {},
       "cordova-plugin-ionic-webview": {}
     },
     "platforms": [
-      "android",
-      "ios"
+      "ios",
+      "android"
     ]
   },
   "config": {

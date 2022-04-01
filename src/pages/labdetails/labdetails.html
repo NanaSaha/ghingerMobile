@@ -8,13 +8,52 @@
     </ion-buttons>
   </ion-navbar>
 </ion-header>
+
 <ion-content padding>
-  <!--<h2>Add User</h2>-->
+  <ion-item text-wrap class="text-left">
+    <ion-label col-5><b>Complaints</b></ion-label>
+    <ion-label col-7
+      >{{currentvidappointmentdetaildata.complaint | removehtmltags}}</ion-label
+    >
+  </ion-item>
+  <ion-item text-wrap class="text-left">
+    <ion-label col-5><b>Previous medical history </b></ion-label>
+    <ion-label col-7
+      >{{currentvidappointmentdetaildata.prevmedicalhistory |
+      removehtmltags}}</ion-label
+    >
+  </ion-item>
+  <ion-item text-wrap class="text-left">
+    <ion-label col-5><b>Allergies </b></ion-label>
+    <ion-label col-7
+      >{{currentvidappointmentdetaildata.allergies | removehtmltags}}</ion-label
+    >
+  </ion-item>
+  <ion-item text-wrap class="text-left">
+    <ion-label col-6><b>Proposed Date and Time</b></ion-label>
+    <ion-label col-7
+      >{{currentvidappointmentdetaildata.proposeddateandtime | date: 'yyyy-MM-dd
+      h:mm a' }}</ion-label
+    >
+  </ion-item>
+
+  <ion-item text-wrap class="text-left">
+    <ion-label col-6><b>Confirm Status</b></ion-label>
+    <ion-label col-7
+      >{{currentvidappointmentdetaildata.confirmstatus}}</ion-label
+    >
+  </ion-item>
+
+  <ion-item text-wrap class="text-left">
+    <ion-label col-6><b>Payment Status</b></ion-label>
+    <ion-label col-7>Not Paid</ion-label>
+  </ion-item>
+</ion-content>
+
+<!-- <ion-content padding>
+
   <form>
-    <!-- <ion-item text-wrap class="text-left">
-      <ion-label col-5><b>Location</b></ion-label>
-      <ion-label col-7>{{currentmedappointmentdetaildata.location}}</ion-label>
-    </ion-item> -->
+
     <ion-item text-wrap class="text-left">
       <ion-label col-5><b>Request Category : </b></ion-label>
       <ion-label col-7
@@ -112,12 +151,7 @@
       >
     </ion-item>
 
-    <!-- <ion-item text-wrap class="text-left">
-      <ion-label col-5><b>Confirm Status : </b></ion-label>
-      <ion-label col-7
-        >{{currentlabappointmentdetaildata.confirmstatus}}</ion-label
-      >
-    </ion-item> -->
+
     <br />
 
     <ion-list>
@@ -173,6 +207,6 @@
         View Lab Test Image
       </button>
     </div>
-    <!-- <button ion-button round color="green1" type="submit"  style="text-align: center;">View Lab Test Image</button> -->
+ 
   </form>
-</ion-content>
+</ion-content> -->

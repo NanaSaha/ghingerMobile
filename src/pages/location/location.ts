@@ -54,6 +54,7 @@ export class LocationPage {
   cities: any;
   suburbs: any;
   surb;
+  token;
 
   constructor(
     public toastCtrl: ToastController,
@@ -72,6 +73,10 @@ export class LocationPage {
     this.from_login = this.navParams.get("value");
     this.from_login2 = this.navParams.get("pers_value");
     this.from_login3 = this.navParams.get("doc_value");
+    this.storage.get("token").then((token) => {
+      this.token = token;
+      console.log("TOKEN IN MENu " + this.token);
+    });
     console.log("LOGIN DETAILS IN MENU PAGE CONSTRUCTOR IS" + this.from_login);
     console.log(
       "LOGIN DETAILS from LOGIN DOC IN MENU PAGE FOR CONSTRUCTOR IS" +
@@ -92,7 +97,7 @@ export class LocationPage {
       console.log(" requester_id requester_id = " + requester_id);
     });
 
-    this.data.get_cities_by_region().then(
+    this.data.get_cities_by_region(this.token).then(
       (result) => {
         console.log(result);
         var jsonBody = result["_body"];
@@ -250,7 +255,7 @@ export class LocationPage {
       console.log("city_id = " + JSON.stringify(city_id.id));
 
       setTimeout(() => {
-        this.data.get_suburbs_by_city(city_id.id).then(
+        this.data.get_suburbs_by_city(city_id.id, this.token).then(
           (result) => {
             console.log(result);
             var jsonBody = result["_body"];
